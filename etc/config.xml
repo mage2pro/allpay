@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+<config
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='urn:magento:module:Magento_Store:etc/config.xsd'
+>
+    <default>
+		<df_payment>
+			<all_pay>
+				<description>{store.name}</description>
+				<testHashIV>v77hoKGq4kWxNNIS</testHashIV>
+				<!--
+					2016-06-29
+					Note that we encrypt the live keys, but do not encrypt the test keys.
+				-->
+				<testHashKey>5294y06JbISpM5x9</testHashKey>
+				<testMerchantID>2000132</testMerchantID>
+				<title>歐付寶 allPay</title>
+				<title_backend>歐付寶 allPay</title_backend>
+			</all_pay>
+		</df_payment>
+        <payment>
+            <dfe_all_pay>
+				<model>Dfe\AllPay\Method</model>
+            </dfe_all_pay>
+        </payment>
+    </default>
+</config>

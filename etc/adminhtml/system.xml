@@ -1,0 +1,304 @@
+<?xml version='1.0'?>
+<config
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='urn:magento:module:Df_Config:etc/system_file.xsd'
+>
+    <system>
+        <section id='df_payment'>
+            <!--
+                2015-09-25
+                1-я и 2-я цифры sortOrder соответствуют порядковому номеру первой буквы модуля
+                в английском алфавите: https://en.wikipedia.org/wiki/English_alphabet
+				3-я и 4-я цифры sortOrder соответствуют порядковому номеру второй буквы модуля
+                в английском алфавите.
+            -->
+			<!--
+			 	2016-04-12
+			 	Нельзя использовать значение «checkout.com»,
+			 	(хотя среда разработки (валидатор XSD) об этом почему-то не предупреждает):
+			 	Element 'group', attribute 'id': [facet 'pattern']
+			 	The value 'checkout.com' is not accepted by the pattern '[a-zA-Z0-9_]{1,}'.
+			-->
+            <group
+                id='all_pay'
+                translate='label'
+                type='text'
+                sortOrder='112'
+                showInDefault='1'
+                showInWebsite='1'
+                showInStore='1'
+            >
+                <label>歐付寶 allPay</label>
+                <field
+                    id='enable'
+                    translate='label'
+                    type='Df\Framework\Data\Form\Element\Checkbox'
+                    sortOrder='1'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+                >
+                    <label>Enable?</label>
+					<backend_model>Df\Config\Backend\Checkbox</backend_model>
+                    <comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/allpay'>歐付寶 allPay</a>» payment extension?]]></comment>
+                </field>
+				<field
+					id='title'
+					translate='label'
+					type='text'
+					sortOrder='2'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Title</label>
+					<comment><![CDATA[It is shown on the checkout screen.]]></comment>
+					<depends><field id='enable'>1</field></depends>
+				</field>
+				<field
+					id='test'
+					translate='label'
+					type='Df\Framework\Data\Form\Element\Checkbox'
+					sortOrder='3'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Test Mode?</label>
+					<backend_model>Df\Config\Backend\Checkbox</backend_model>
+					<comment><![CDATA[<a href='https://mage2.pro/t/1817'>test card numbers'>test card numbers</a>]]></comment>
+					<depends><field id='enable'>1</field></depends>
+				</field>
+				<field
+					id='testMerchantID'
+					translate='label'
+					sortOrder='4'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Test Merchant ID (商店代號)</label>
+					<comment><![CDATA[<a href='https://mage2.pro/t/1822' target='_blank'>Where to find it?</a>]]></comment>
+					<validate>required-entry validate-digits</validate>
+					<depends>
+						<field id='enable'>1</field>
+						<field id='test'>1</field>
+					</depends>
+				</field>
+				<field
+					id='testHashKey'
+					translate='label'
+					sortOrder='5'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Test ALL IN ONE 介接 HashKey</label>
+					<comment><![CDATA[<a href='https://mage2.pro/t/1823' target='_blank'>Where to find it?</a>]]></comment>
+					<validate>required-entry</validate>
+					<depends>
+						<field id='enable'>1</field>
+						<field id='test'>1</field>
+					</depends>
+				</field>
+				<field
+					id='testHashIV'
+					translate='label'
+					sortOrder='6'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Test ALL IN ONE 介接 HashIV</label>
+					<comment><![CDATA[<a href='https://mage2.pro/t/1824' target='_blank'>Where to find it?</a>]]></comment>
+					<validate>required-entry</validate>
+					<depends>
+						<field id='enable'>1</field>
+						<field id='test'>1</field>
+					</depends>
+				</field>
+				<field
+					id='liveMerchantID'
+					translate='label'
+					sortOrder='7'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Live Merchant ID (商店代號)</label>
+					<comment><![CDATA[<a href='https://mage2.pro/t/1822' target='_blank'>Where to find it?</a>]]></comment>
+					<validate>required-entry validate-digits</validate>
+					<depends>
+						<field id='enable'>1</field>
+						<field id='test'>0</field>
+					</depends>
+				</field>
+				<field
+					id='liveHashKey'
+					translate='label'
+					type='obscure'
+					sortOrder='8'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Live ALL IN ONE 介接 HashKey</label>
+					<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+					<comment><![CDATA[<a href='https://mage2.pro/t/1823' target='_blank'>Where to find it?</a>]]></comment>
+					<validate>required-entry</validate>
+					<depends>
+						<field id='enable'>1</field>
+						<field id='test'>0</field>
+					</depends>
+				</field>
+				<field
+					id='liveHashIV'
+					translate='label'
+					type='obscure'
+					sortOrder='9'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Live ALL IN ONE 介接 HashIV</label>
+					<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+					<comment><![CDATA[<a href='https://mage2.pro/t/1824' target='_blank'>Where to find it?</a>]]></comment>
+					<validate>required-entry</validate>
+					<depends>
+						<field id='enable'>1</field>
+						<field id='test'>0</field>
+					</depends>
+				</field>
+				<field
+					id='livePlatformID'
+					translate='label'
+					sortOrder='10'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Live Platform ID</label>
+					<comment><![CDATA[Specify it only if it is provided by allPay.]]></comment>
+					<validate></validate>
+					<depends>
+						<field id='enable'>1</field>
+						<field id='test'>0</field>
+					</depends>
+				</field>
+				<field
+					id='description'
+					translate='label'
+					type='textarea'
+					sortOrder='11'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Description</label>
+					<comment><![CDATA[It will be displayed to the customer on the 歐付寶 allPay payment page.
+<br/>You can use the following variables in the template: <table class='df-note df-definition'><tbody>
+		<tr>
+			<td>{customer.name}</td>
+			<td>Customer name</td>
+		</tr>
+		<tr>
+			<td>{order.id}</td>
+			<td>Order increment ID</td>
+		</tr>
+		<tr>
+			<td>{order.items}</td>
+			<td>Order items</td>
+		</tr>
+		<tr>
+			<td>{store.domain}</td>
+			<td>Store domain name</td>
+		</tr>
+		<tr>
+			<td>{store.name}</td>
+			<td>Store name</td>
+		</tr>
+		<tr>
+			<td>{store.url}</td>
+			<td>Store URL</td>
+		</tr>
+		<tr>
+			<td>{a date expression}</td>
+			<td>The current date.
+			<br/>Use any expression supported by <a href="http://php.net/manual/en/function.date.php#refsect1-function.date-parameters">PHP <code>date()</code></a> function.
+			<br/>Examples:
+            <br/>{y-m} => <i>16-01</i>
+			<br/>{Y-m} => <i>2016-01</i>
+		  	<br/>{Y-M} => <i>2016-Jan</i>
+			</td>
+		</tr>
+</tbody></table>]]></comment>
+					<depends><field id='enable'>1</field></depends>
+				</field>
+				<field
+					id='min_order_total'
+					translate='label'
+					type='text'
+					sortOrder='12'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Minimum Order Total</label>
+					<comment><![CDATA[]]></comment>
+					<validate>validate-number validate-greater-than-zero</validate>
+					<depends><field id='enable'>1</field></depends>
+				</field>
+				<field
+					id='max_order_total'
+					translate='label'
+					type='text'
+					sortOrder='13'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Maximum Order Total</label>
+					<comment><![CDATA[]]></comment>
+					<validate>validate-number validate-greater-than-zero</validate>
+					<depends><field id='enable'>1</field></depends>
+				</field>
+				<field
+					id='country_restriction'
+					translate='label'
+					type='select'
+					sortOrder='14'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Country Restriction</label>
+					<source_model>Df\Config\Source\NoWhiteBlack</source_model>
+					<depends><field id='enable'>1</field></depends>
+				</field>
+				<field
+					id='countries'
+					translate='label'
+					type='Df\Framework\Data\Form\Element\Multiselect'
+					sortOrder='15'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Countries</label>
+					<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+					<can_be_empty>1</can_be_empty>
+					<depends>
+						<field id='enable'>1</field>
+						<!--
+						 	2016-03-08
+						 	«The negative syntax for the backend config field <depends> condition»
+                            https://mage2.pro/t/329
+						-->
+						<field id='country_restriction' negative='1'>0</field>
+					</depends>
+					<comment><![CDATA[Customers from which countries can (or can not) use the method?]]></comment>
+				</field>
+            </group>
+        </section>
+    </system>
+</config>
