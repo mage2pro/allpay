@@ -32,14 +32,22 @@
                 <field
                     id='enable'
                     translate='label'
-                    type='Df\Framework\Data\Form\Element\Checkbox'
+                    type='Df\Framework\Form\Element\Enable'
                     sortOrder='1'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
                 >
                     <label>Enable?</label>
-					<backend_model>Df\Config\Backend\Checkbox</backend_model>
+					<backend_model>Df\Framework\Form\Element\Enable\Backend</backend_model>
+					<!--
+2016-06-30
+Можно, конечно, передавать этот класс в качестве параметра класса backend_model или type
+(используя технологию virtualType), однако у предков как backend_model, так и type
+слишком много параметров в конструкторе, и пересылка их предку может сделать систему чересчур хрупкой:
+ведь в будущих версиях Magento перечень параметров предка может измениться.
+					-->
+					<dfEnabler>Dfe\AllPay\Enabler</dfEnabler>
                     <comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/allpay'>歐付寶 allPay</a>» payment extension?]]></comment>
                 </field>
 				<field
@@ -58,7 +66,7 @@
 				<field
 					id='test'
 					translate='label'
-					type='Df\Framework\Data\Form\Element\Checkbox'
+					type='Df\Framework\Form\Element\Checkbox'
 					sortOrder='3'
 					showInDefault='1'
 					showInWebsite='1'
@@ -79,7 +87,7 @@
 				>
 					<label>Test Merchant ID (商店代號)</label>
 					<comment><![CDATA[<a href='https://mage2.pro/t/1822' target='_blank'>Where to find it?</a>]]></comment>
-					<validate>required-entry validate-digits</validate>
+					<validate>required-entry validate-digits validate-length maximum-length-10</validate>
 					<depends>
 						<field id='enable'>1</field>
 						<field id='test'>1</field>
@@ -127,7 +135,7 @@
 				>
 					<label>Live Merchant ID (商店代號)</label>
 					<comment><![CDATA[<a href='https://mage2.pro/t/1822' target='_blank'>Where to find it?</a>]]></comment>
-					<validate>required-entry validate-digits</validate>
+					<validate>required-entry validate-digits validate-length maximum-length-10</validate>
 					<depends>
 						<field id='enable'>1</field>
 						<field id='test'>0</field>
@@ -196,6 +204,7 @@
 				>
 					<label>Description</label>
 					<comment><![CDATA[It will be displayed to the customer on the 歐付寶 allPay payment page.
+<br/>Up to 200 characters.
 <br/>You can use the following variables in the template: <table class='df-note df-definition'><tbody>
 		<tr>
 			<td>{customer.name}</td>
@@ -232,6 +241,7 @@
 			</td>
 		</tr>
 </tbody></table>]]></comment>
+					<validate>required-entry validate-length maximum-length-200</validate>
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
@@ -278,7 +288,7 @@
 				<field
 					id='countries'
 					translate='label'
-					type='Df\Framework\Data\Form\Element\Multiselect'
+					type='Df\Framework\Form\Element\Multiselect'
 					sortOrder='15'
 					showInDefault='1'
 					showInWebsite='1'
