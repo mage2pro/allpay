@@ -6,7 +6,10 @@
     <default>
 		<df_payment>
 			<all_pay>
+				<countries>TW</countries>
+				<country_restriction>whitelist</country_restriction>
 				<description>{store.name}</description>
+				<descriptionOnKiosk>{store.name}</descriptionOnKiosk>
 				<testHashIV>v77hoKGq4kWxNNIS</testHashIV>
 				<!--
 					2016-06-29

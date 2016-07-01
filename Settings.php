@@ -11,6 +11,14 @@ class Settings extends \Df\Core\Settings {
 	public function description($s = null) {return $this->v(__FUNCTION__, $s);}
 
 	/**
+	 * 2016-07-01
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Description on a kiosk's screen»
+	 * @param null|string|int|S $s [optional]
+	 * @return string
+	 */
+	public function descriptionOnKiosk($s = null) {return $this->v(__FUNCTION__, $s);}
+
+	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Enable?»
 	 * @param null|string|int|S $s [optional]
