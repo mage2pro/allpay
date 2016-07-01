@@ -69,6 +69,14 @@ class Settings extends \Df\Core\Settings {
 	public function test($s = null) {return $this->b(__FUNCTION__, $s);}
 
 	/**
+	 * 2016-07-01
+	 * @override
+	 * @used-by \Df\Core\Settings::v()
+	 * @return string
+	 */
+	protected function prefix() {return 'df_payment/all_pay/';}
+
+	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Live ALL IN ONE 介接 HashIV»
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
