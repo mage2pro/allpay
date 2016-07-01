@@ -15,4 +15,9 @@
 			<argument name='iso3' xsi:type='string'>TWD</argument>
 		</arguments>
 	</virtualType>
+	<virtualType name='Dfe\AllPay\Ext' type='Df\Config\Ext'>
+		<arguments>
+			<argument name='name' xsi:type='string'>mage2pro/allpay</argument>
+		</arguments>
+	</virtualType>
 </config>

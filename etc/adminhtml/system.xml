@@ -29,6 +29,8 @@
                 showInStore='1'
             >
                 <label>歐付寶 allPay</label>
+				<dfExtension>Dfe\AllPay\Ext</dfExtension>
+				<frontend_model>Df\Config\Block\System\Config\Form\Fieldset\Ext</frontend_model>
                 <field
                     id='enable'
                     translate='label'
@@ -74,7 +76,7 @@
 				>
 					<label>Test Mode?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
-					<comment><![CDATA[<a href='https://mage2.pro/t/1817'>test card numbers'>test card numbers</a>]]></comment>
+					<comment><![CDATA[<a href='https://mage2.pro/t/1817'>test card numbers</a>]]></comment>
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
