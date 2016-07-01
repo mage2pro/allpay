@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\AllPay;
+use Df\Payment\PlaceOrder;
 use Dfe\AllPay\Settings as S;
 use Exception as E;
 use Magento\Framework\DataObject;
@@ -45,7 +46,25 @@ class Method extends \Df\Payment\Method {
 	 * @used-by \Magento\Sales\Model\Order\Payment::place()
 	 * https://github.com/magento/magento2/blob/ffea3cd/app/code/Magento/Sales/Model/Order/Payment.php#L334-L355
 	 */
-	public function getConfigPaymentAction() {return null;}
+	public function getConfigPaymentAction() {
+		/**
+		 * 2016-07-01
+		 * К сожалению, если передавать в качестве результата ассоциативный массив,
+		 * то его ключи почему-то теряются.
+		 * Поэтому запаковываем масств в JSON.
+		 */
+		$this->iiaSet(PlaceOrder::RESPONSE, df_json_encode([
+			'a' => 3
+			,'b' => 5
+		]));
+		/**
+		 * 2016-05-06
+		 * Письмо-оповещение о заказе здесь ещё не должно отправляться.
+		 * «How is a confirmation email sent on an order placement?» https://mage2.pro/t/1542
+		 */
+		$this->o()->setCanSendNewEmailFlag(false);
+		return null;
+	}
 
 	/**
 	 * 2016-06-29

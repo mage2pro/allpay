@@ -5,7 +5,9 @@ define ([
 	, 'Df_Checkout/js/data'
 	, 'mage/translate'
 	, 'underscore'
-], function(Component, $, df, dfCheckout, $t, _) {
+	, 'Df_Checkout/js/action/place-order'
+	, 'Magento_Checkout/js/model/payment/additional-validators'
+], function(Component, $, df, dfCheckout, $t, _, placeOrderAction, additionalValidators) {
 	'use strict';
 	return Component.extend({
 		defaults: {
@@ -39,6 +41,17 @@ define ([
 		},
 		/**
 		 * 2016-07-01
+		 * Перекрыли родительский метод,
+		 * чтобы подставить свой placeOrderAction вместо родительского.
+		 * @override
+		 * https://github.com/magento/magento2/blob/981d1f/app/code/Magento/Checkout/view/frontend/web/js/view/payment/default.js#L161-L165
+		 * @return {jQuery.Deferred}
+		*/
+		getPlaceOrderDeferredObject: function() {
+			return $.when(placeOrderAction(this.getData(), this.messageContainer, 'dfe-allpay'));
+		},
+		/**
+		 * 2016-07-01
 		 * @return {String}
 		*/
 		getTitle: function() {
@@ -52,9 +65,30 @@ define ([
 		isTest: function() {return this.config('isTest');},
 		/**
 		 * 2016-07-01
-		 */
-		afterPlaceOrder: function() {
-			debugger;
+		 * @override
+		 * https://github.com/magento/magento2/blob/981d1f/app/code/Magento/Checkout/view/frontend/web/js/view/payment/default.js#L127-L159
+		 * @return {Boolean}
+		*/
+		placeOrder: function(data, event) {
+			var self = this;
+			if (event) {
+				event.preventDefault();
+			}
+			/** @type {Boolean} */
+			var result = this.validate() || additionalValidators.validate();
+			if (result) {
+				this.isPlaceOrderActionAllowed(false);
+				this.getPlaceOrderDeferredObject()
+					.fail(function() {self.isPlaceOrderActionAllowed(true);})
+					.done(
+						function(data) {
+							self.afterPlaceOrder();
+							debugger;
+						}
+					)
+				;
+			}
+			return result;
 		}
 	});
 });
