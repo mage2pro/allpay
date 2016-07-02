@@ -3,6 +3,15 @@ namespace Dfe\AllPay;
 use Magento\Framework\App\ScopeInterface as S;
 class Settings extends \Df\Core\Settings {
 	/**
+	 * 2016-03-09
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Default Payment Method»
+	 * @see \Dfe\AllPay\Source\PaymentType::map()
+	 * @param null|string|int|S $s [optional]
+	 * @return string
+	 */
+	public function defaultPaymentMethod($s = null) {return $this->v(__FUNCTION__, $s);}
+
+	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Description»
 	 * @param null|string|int|S $s [optional]

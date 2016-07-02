@@ -238,10 +238,26 @@
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
+					id='defaultPaymentMethod'
+					translate='label'
+					type='select'
+					sortOrder='13'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Default Payment Method</label>
+					<source_model>Dfe\AllPay\Source\PaymentType</source_model>
+					<comment><![CDATA[This method will be preselected on the 歐付寶 allPay page, but a customer can switch to another method.]]></comment>
+					<depends>
+						<field id='enable'>1</field>
+					</depends>
+				</field>
+				<field
 					id='min_order_total'
 					translate='label'
 					type='text'
-					sortOrder='13'
+					sortOrder='14'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -255,7 +271,7 @@
 					id='max_order_total'
 					translate='label'
 					type='text'
-					sortOrder='14'
+					sortOrder='15'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -269,7 +285,7 @@
 					id='country_restriction'
 					translate='label'
 					type='select'
-					sortOrder='15'
+					sortOrder='16'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -282,7 +298,7 @@
 					id='countries'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
-					sortOrder='16'
+					sortOrder='17'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'

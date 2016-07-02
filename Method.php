@@ -47,6 +47,8 @@ class Method extends \Df\Payment\Method {
 	 * https://github.com/magento/magento2/blob/ffea3cd/app/code/Magento/Sales/Model/Order/Payment.php#L334-L355
 	 */
 	public function getConfigPaymentAction() {
+		/** @var Settings $s */
+		$s = S::s();
 		/**
 		 * 2016-07-01
 		 * К сожалению, если передавать в качестве результата ассоциативный массив,
@@ -54,8 +56,103 @@ class Method extends \Df\Payment\Method {
 		 * Поэтому запаковываем масств в JSON.
 		 */
 		$this->iiaSet(PlaceOrder::RESPONSE, df_json_encode([
-			'a' => 3
-			,'b' => 5
+			// 2016-07-02
+			// «Merchant Identification number (provided by allPay)».
+			// Must be filled.
+			'MerchantID' => $s->merchantID()
+			// 2016-07-02
+			// «Merchant trade number».
+			// «Merchant trade number could not be repeated.
+			// It is composed with upper and lower cases of English letter and numbers.»
+			// Must be filled.
+			,'MerchantTradeNo' => $this->o()->getIncrementId()
+			// 2016-07-02
+			// «Merchant trade date».
+			// «Formatted as yyyy/MM/dd HH:mm:ss».
+			// Example: 2012/03/21 15:40:18
+			// Must be filled.
+			,'MerchantTradeDate' => ''
+			// 2016-07-02
+			// «Payment type».
+			// «Please use aio as its value».
+			// Must be filled.
+			,'PaymentType' => 'aio'
+			// 2016-07-02
+			// «Trade amount».
+			// «Money».
+			// Must be filled.
+			,'TotalAmount' => ''
+			// 2016-07-02
+			// «Trade description».
+			// «M».
+			// Must be filled.
+			,'TradeDesc' => ''
+			// 2016-07-02
+			// «Item Name».
+			// «If there are more than one item name
+			// and would like to show cash flow selection page line by line,
+			// separate the item name with symbol #.».
+			// Must be filled.
+			,'ItemName' => ''
+			// 2016-07-02
+			// «Return URL for payment complete notification».
+			// «When a customer made a payment,
+			// payment result would be sent by server back end and return to this URL.».
+			// Must be filled.
+			,'ReturnURL' => ''
+			// 2016-07-02
+			// «Select default payment type».
+			// «allPAy would provide follow payment types, please send it when generating an order:
+			// 		Credit: Credit Card.
+			// 		WebATM: webATM.
+			// 		ATM: physical ATM machine.
+			// 		CVS: CVS code.
+			// 		BARCODE: BARCODE.
+			// 		Tenpay: Tenpay.
+			// 		TopUpUsed: consume with account balance.
+			// 		ALL: no selected payment type.
+			// allPay would show the page to select payment type.
+			// Must be filled.
+			,'ChoosePayment' => $s->defaultPaymentMethod()
+			// 2016-07-02
+			// «M».
+			,'STUB' => ''
+			// 2016-07-02
+			// «M».
+			// «M».
+			,'STUB' => ''
+			// 2016-07-02
+			// «M».
+			// «M».
+			,'STUB' => ''
+			// 2016-07-02
+			// «M».
+			// «M».
+			,'STUB' => ''
+			// 2016-07-02
+			// «M».
+			// «M».
+			,'STUB' => ''
+			// 2016-07-02
+			// «M».
+			// «M».
+			,'STUB' => ''
+			// 2016-07-02
+			// «M».
+			// «M».
+			,'STUB' => ''
+			// 2016-07-02
+			// «M».
+			// «M».
+			,'STUB' => ''
+			// 2016-07-02
+			// «M».
+			// «M».
+			,'STUB' => ''
+			// 2016-07-02
+			// «M».
+			// «M».
+			,'STUB' => ''
 		]));
 		/**
 		 * 2016-05-06

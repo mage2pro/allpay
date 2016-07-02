@@ -8,6 +8,7 @@
 			<all_pay>
 				<countries>TW</countries>
 				<country_restriction>whitelist</country_restriction>
+				<defaultPaymentMethod>ALL</defaultPaymentMethod>
 				<description>{store.name}</description>
 				<descriptionOnKiosk>{store.name}</descriptionOnKiosk>
 				<testHashIV>v77hoKGq4kWxNNIS</testHashIV>
