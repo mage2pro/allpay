@@ -58,16 +58,19 @@ class Method extends \Df\Payment\Method {
 		$this->iiaSet(PlaceOrder::RESPONSE, df_json_encode([
 			// 2016-07-02
 			// «Merchant Identification number (provided by allPay)».
+			// Varchar(10)
 			// Must be filled.
 			'MerchantID' => $s->merchantID()
 			// 2016-07-02
 			// «Merchant trade number».
+			// Varchar(20)
 			// «Merchant trade number could not be repeated.
 			// It is composed with upper and lower cases of English letter and numbers.»
 			// Must be filled.
 			,'MerchantTradeNo' => $this->o()->getIncrementId()
 			// 2016-07-02
 			// «Merchant trade date».
+			// Varchar(20)
 			// «Formatted as yyyy/MM/dd HH:mm:ss».
 			// Example: 2012/03/21 15:40:18
 			// Must be filled.
@@ -115,24 +118,57 @@ class Method extends \Df\Payment\Method {
 			// Must be filled.
 			,'ChoosePayment' => $s->defaultPaymentMethod()
 			// 2016-07-02
-			// «M».
-			,'STUB' => ''
+			// «Verification Code».
+			// Must be filled.
+			,'CheckMacValue' => ''
 			// 2016-07-02
-			// «M».
-			// «M».
-			,'STUB' => ''
+			// «URL for returning pages from Client to merchant».
+			// «allPay would show payment complete page.
+			// That page would include “back to merchant” button.
+			// When a member clicks this button, it would redirect webpage to URL it set up.
+			// If this parameter is not set up,
+			// allPay payment complete page would not show “back to merchant” button.
+			// When redirect webpage, it would simply return the page
+			// instead of redirecting payment result to this URL.».
+			//
+			// [allPay] What is the difference
+			// between the «OrderResultURL» and «ClientBackURL» parameters? https://mage2.pro/t/1836/2
+			//
+			// «ClientBackURL has value and OrderResultURL is empty:
+			// The browser will go to AllPay's complete(result) page after payment is complete.
+			// There will be a "back to merchant" link on the page.
+			// If clicked, the link will go to ClientBackURL you specified.
+			//
+			// OrderResultURL has value:
+			// The browser will go to OrderResultURL instead after payment is complete.
+			// So, I guess you should use the parameter
+			// to go back magento's order complete page from AllPay.»
+			// Could be empty.
+			,'ClientBackURL' => ''
 			// 2016-07-02
-			// «M».
-			// «M».
-			,'STUB' => ''
+			// «Item URL».
+			// [allPay] What is the «ItemURL» payment parameter for? https://mage2.pro/t/1819/2
+			// «You can put product URLs in the parameter.
+			// In case of multiple URLs, you can use + to concatenate them.
+			// "www.allpay.com.tw+www.yahoo.com.tw" <- An example that provided by AllPay
+			// BTW, please note the max length is 200.».
+			//
+			// https://mage2.pro/t/1819/3
+			// «After further confirmation with AllPay,
+			// so far the parameter is not really used in any scenario.».
+			// Could be empty.
+			,'ItemURL' => ''
 			// 2016-07-02
-			// «M».
-			// «M».
-			,'STUB' => ''
+			// «Remark».
+			// «Leave it as blank for now.».
+			// Could be empty.
+			,'Remark' => ''
 			// 2016-07-02
+			// «Select the default setup for sub payment».
+			// Varchar(20)
 			// «M».
-			// «M».
-			,'STUB' => ''
+			// Could be empty.
+			,'ChooseSubPayment' => ''
 			// 2016-07-02
 			// «M».
 			// «M».
