@@ -65,7 +65,7 @@ class Charge extends \Df\Payment\Charge {
 		// «Trade description».
 		// Varchar(200)
 		// Must be filled.
-		,'TradeDesc' => ''
+		,'TradeDesc' => $this->text(S::s()->description())
 		// 2016-07-02
 		// «Item Name».
 		// Varchar(200)
@@ -73,13 +73,21 @@ class Charge extends \Df\Payment\Charge {
 		// and would like to show cash flow selection page line by line,
 		// separate the item name with symbol #.».
 		// Must be filled.
-		,'ItemName' => ''
-		// 2016-07-02
-		// «Return URL for payment complete notification».
-		// Varchar(200)
-		// «When a customer made a payment,
-		// payment result would be sent by server back end and return to this URL.».
-		// Must be filled.
+		,'ItemName' => df_order_items($this->o(), '#')
+		/**
+		 * 2016-07-02
+		 * «Return URL for payment complete notification».
+		 * Varchar(200)
+		 * «When a customer made a payment,
+		 * payment result would be sent by server back end and return to this URL.».
+		 * Must be filled.
+		 *
+		 * Параметр описан в документации на трэш-английском,
+		 * но из программного кода модуля для Magento 1.x я понял,
+		 * что по этому адресу платёжная система оповещает интернет-магазин о платеже.
+		 * В документации этим опомещениям посвящён раздел
+		 * «7. Payment Result Notification» на странице 32.
+		 */
 		,'ReturnURL' => ''
 		// 2016-07-02
 		// «Select default payment type».
