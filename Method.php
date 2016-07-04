@@ -47,8 +47,6 @@ class Method extends \Df\Payment\Method {
 	 * https://github.com/magento/magento2/blob/ffea3cd/app/code/Magento/Sales/Model/Order/Payment.php#L334-L355
 	 */
 	public function getConfigPaymentAction() {
-		/** @var Settings $s */
-		$s = S::s();
 		/**
 		 * 2016-07-01
 		 * К сожалению, если передавать в качестве результата ассоциативный массив,
