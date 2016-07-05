@@ -3,6 +3,7 @@ namespace Dfe\AllPay;
 use Dfe\AllPay\Settings as S;
 use Magento\Payment\Model\Info as I;
 use Magento\Payment\Model\InfoInterface as II;
+use Magento\Sales\Model\Order\Item as OI;
 use Magento\Sales\Model\Order\Payment as OP;
 // 2016-07-04
 class Charge extends \Df\Payment\Charge {
@@ -129,20 +130,22 @@ class Charge extends \Df\Payment\Charge {
 		// to go back magento's order complete page from AllPay.»
 		// Could be empty.
 		,'ClientBackURL' => df_url_checkout_success()
-		// 2016-07-02
-		// «Item URL».
-		// Varchar(200)
-		// [allPay] What is the «ItemURL» payment parameter for? https://mage2.pro/t/1819/2
-		// «You can put product URLs in the parameter.
-		// In case of multiple URLs, you can use + to concatenate them.
-		// "www.allpay.com.tw+www.yahoo.com.tw" <- An example that provided by AllPay
-		// BTW, please note the max length is 200.».
-		//
-		// https://mage2.pro/t/1819/3
-		// «After further confirmation with AllPay,
-		// so far the parameter is not really used in any scenario.».
-		// Could be empty.
-		,'ItemURL' => ''
+		/**
+		 * 2016-07-02
+		 * «Item URL».
+		 * Varchar(200)
+		 * [allPay] What is the «ItemURL» payment parameter for? https://mage2.pro/t/1819/2
+		 * «You can put product URLs in the parameter.
+		 * In case of multiple URLs, you can use + to concatenate them.
+		 * "www.allpay.com.tw+www.yahoo.com.tw" <- An example that provided by AllPay
+		 * BTW, please note the max length is 200.».
+		 *
+		 * https://mage2.pro/t/1819/3
+		 * «After further confirmation with AllPay,
+		 * so far the parameter is not really used in any scenario.».
+		 * Could be empty.
+		 */
+		,'ItemURL' => $this->productUrls()
 		// 2016-07-02
 		// «Remark».
 		// Varchar(100)
@@ -272,6 +275,28 @@ class Charge extends \Df\Payment\Charge {
 		// Could be empty.
 		,'ClientRedirectURL' => ''
 	];}return $this->{__METHOD__};}
+
+	/**
+	 * 2016-07-05
+	 * «Item URL».
+	 * Varchar(200)
+	 * [allPay] What is the «ItemURL» payment parameter for? https://mage2.pro/t/1819/2
+	 * «You can put product URLs in the parameter.
+	 * In case of multiple URLs, you can use + to concatenate them.
+	 * "www.allpay.com.tw+www.yahoo.com.tw" <- An example that provided by AllPay
+	 * BTW, please note the max length is 200.».
+	 *
+	 * https://mage2.pro/t/1819/3
+	 * «After further confirmation with AllPay,
+	 * so far the parameter is not really used in any scenario.».
+	 * Could be empty.
+	 * @return string
+	 */
+	private function productUrls() {
+		return df_cc_clean('+', df_map(function(OI $item) {
+			return $item->getChildrenItems() ? null : $item->getProduct()->getProductUrl();
+		}, $this->o()->getItems()));
+	}
 
 	/**
 	 * 2016-07-04
