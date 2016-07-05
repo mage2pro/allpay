@@ -1,13 +1,14 @@
 define ([
-	'Magento_Checkout/js/view/payment/default'
-	,'jquery'
+	'jquery'
 	, 'df'
-	, 'Df_Checkout/js/data'
-	, 'mage/translate'
-	, 'underscore'
 	, 'Df_Checkout/js/action/place-order'
+	, 'Df_Checkout/js/data'
+	, 'Df_Core/js/redirectWithPost'
 	, 'Magento_Checkout/js/model/payment/additional-validators'
-], function(Component, $, df, dfCheckout, $t, _, placeOrderAction, additionalValidators) {
+ 	, 'Magento_Checkout/js/view/payment/default'
+], function(
+	$, df, placeOrderAction, dfCheckout, redirectWithPost, additionalValidators, Component
+) {
 	'use strict';
 	return Component.extend({
 		defaults: {
@@ -70,7 +71,7 @@ define ([
 		 * @return {Boolean}
 		*/
 		placeOrder: function(data, event) {
-			var self = this;
+			var _this = this;
 			if (event) {
 				event.preventDefault();
 			}
@@ -79,16 +80,23 @@ define ([
 			if (result) {
 				this.isPlaceOrderActionAllowed(false);
 				this.getPlaceOrderDeferredObject()
-					.fail(function() {self.isPlaceOrderActionAllowed(true);})
-					.done(
-						function(data) {
-							self.afterPlaceOrder();
-							debugger;
-						}
-					)
+					.fail(function() {_this.isPlaceOrderActionAllowed(true);})
+					.done(function(data) {
+					  	_this.afterPlaceOrder();
+					  	redirectWithPost(_this.redirectUrl(), $.parseJSON(data));
+					})
 				;
 			}
 			return result;
+		}
+		/**
+		 * 2016-07-05
+		 * @return {String}
+		 */
+		,redirectUrl: function() {
+			/** @type {String} */
+			var suffix = this.isTest ? '-stage' : '';
+			return 'https://payment' + suffix + '.allpay.com.tw/Cashier/AioCheckOut/V2'
 		}
 	});
 });

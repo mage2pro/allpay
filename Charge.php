@@ -23,7 +23,7 @@ class Charge extends \Df\Payment\Charge {
 	 * 2016-07-04
 	 * @return array(mixed => mixed)
 	 */
-	private function _requestI() {xdebug_break(); if (!isset($this->{__METHOD__})) {$this->{__METHOD__} = [
+	private function _requestI() {if (!isset($this->{__METHOD__})) {$this->{__METHOD__} = [
 		// 2016-07-02
 		// «Merchant Identification number (provided by allPay)».
 		// Varchar(10)
@@ -35,7 +35,30 @@ class Charge extends \Df\Payment\Charge {
 		// «Merchant trade number could not be repeated.
 		// It is composed with upper and lower cases of English letter and numbers.»
 		// Must be filled.
-		,'MerchantTradeNo' => $this->o()->getIncrementId()
+		/**
+		 * 2016-07-02
+		 * «Merchant trade number».
+		 * Varchar(20)
+		 * «Merchant trade number could not be repeated.
+		 * It is composed with upper and lower cases of English letter and numbers.»
+		 * Must be filled.
+		 *
+		 * 2016-07-05
+		 * Значение может содержать только цифры и латинские буквы.
+		 * Все другие символы недопустимы.
+		 * В принципе, стандартные номера заказов удовлетворяют этим условиям,
+		 * но вот нестандартные, вида ORD-2016/07-00274
+		 * (которые делает наш модуль Sales Documents Numberation) — не удовлетворяют.
+		 * Поэтому надо перекодировать проблемные символы.
+		 *
+		 * Второй мыслью было использовать df_encryptor()->encrypt($this->o()->getIncrementId())
+		 * Однако хэш md5 имеет длину 32 символа: http://stackoverflow.com/questions/6317276
+		 * А хэш sha256 — 64 символа: http://stackoverflow.com/questions/3064133
+		 * allPay же ограничивает длину идентификатора 20 символами.
+		 *
+		 * Поэтому используем иное решение: нестандартный идентификатор транзакции.
+		 */
+		,'MerchantTradeNo' => $this->payment()->setTransactionId(df_uid(10))->getTransactionId()
 		/**
 		 * 2016-07-02
 		 * «Merchant trade date».
@@ -61,7 +84,16 @@ class Charge extends \Df\Payment\Charge {
 		// «Trade amount».
 		// «Money».
 		// Must be filled.
-		,'TotalAmount' => df_currency_convert($this->amount(), null, 'TWD')
+		/**
+		 * 2016-07-02
+		 * «Trade amount».
+		 * «Money».
+		 * Must be filled.
+		 *
+		 * 2016-07-05
+		 * Значение должно быть целым.
+		 */
+		,'TotalAmount' => round(df_currency_convert($this->amount(), null, 'TWD'))
 		// 2016-07-02
 		// «Trade description».
 		// Varchar(200)
@@ -155,7 +187,12 @@ class Charge extends \Df\Payment\Charge {
 		// 2016-07-02
 		// «Select the default setup for sub payment».
 		// Varchar(20)
-		// «M».
+		// «If this is set up correctly, users are unable to see cash flow selection page.
+		// He could select payment type directly,
+		// but “Credit” and “TopUpUsed” would not include this function.
+		// For example: if set WebATM on ChoosePayment and set TAISHIN on ChooseSubPayment,
+		// then this trade would be made through Tai Shin Bank webATM.
+		// Please refer to Table of Payment Type.».
 		// Could be empty.
 		,'ChooseSubPayment' => ''
 		// 2016-07-04
@@ -176,7 +213,7 @@ class Charge extends \Df\Payment\Charge {
 		//
 		// [allPay] What is the difference
 		// between the «OrderResultURL» and «ClientBackURL» parameters? https://mage2.pro/t/1836/2
-		,'OrderResultURL' => ''
+		,'OrderResultURL' => df_url_checkout_success()
 		// 2016-07-04
 		// «If there is a need for an extra payment information».
 		// Varchar(1)
@@ -197,7 +234,7 @@ class Charge extends \Df\Payment\Charge {
 		//
 		// [allPay] What are the possible values for the «DeviceSource» parameter?
 		//  https://mage2.pro/t/1825
-		,'DeviceSource' => 'P'
+		,'DeviceSource' => ''
 		// 2016-07-04
 		// «Ignore payment type».
 		// Varchar(100)
@@ -254,25 +291,42 @@ class Charge extends \Df\Payment\Charge {
 		// Defaulted as 3 days if this is left as blank.».
 		// Could be empty.
 		,'ExpireDate' => 3
-		// 2016-07-04
-		// «Payment related information returned by Server end».
-		// Varchar(200)
-		// «allPay would return the payment related information webpage
-		// as a Server end to merchant after an order is generated (not after a payment is made).
-		// It includes not only bank code, virtual account, and expiration date (yyyy/MM/dd).
-		// It would also show related payment information on allPay.».
-		// Could be empty.
+		/**
+		 * 2016-07-04
+		 * «Payment related information returned by Server end».
+		 * Varchar(200)
+		 * «allPay would return the payment related information webpage
+		 * as a Server end to merchant after an order is generated (not after a payment is made).
+		 * It includes not only bank code, virtual account, and expiration date (yyyy/MM/dd).
+		 * It would also show related payment information on allPay.».
+		 *
+		 * [allPay] What is the difference between the «PaymentInfoURL» and «ReturnURL» notifications?
+		 * https://mage2.pro/t/1848
+		 *
+		 * В другом месте документации (страница 2) написано:
+		 * «add PaymentInfoURL which Server end would return payment information
+		 * when its method is ATM, CVS, or BARCODE.»
+		 *
+		 * Could be empty.
+		 */
 		,'PaymentInfoURL' => ''
-		// 2016-07-04
-		// «Payment related information returned by Client end».
-		// Varchar(200)
-		// «allPay would return the payment related information webpage
-		// as a Client end to merchant after an order is generated (not after a payment is made).
-		// It would include the bank code, virtual account, and expiration date (yyyy/MM/dd).
-		// If this value is left as empty, it would show the order generated page in allPay webpage.
-		// If would like to show this page in your site, please set up the URL.
-		// If this parameter is set up, ClientBackURL parameter would be disable.».
-		// Could be empty.
+		/**
+		 * 2016-07-04
+		 * «Payment related information returned by Client end».
+		 * Varchar(200)
+		 * «allPay would return the payment related information webpage
+		 * as a Client end to merchant after an order is generated (not after a payment is made).
+		 * It would include the bank code, virtual account, and expiration date (yyyy/MM/dd).
+		 * If this value is left as empty, it would show the order generated page in allPay webpage.
+		 * If would like to show this page in your site, please set up the URL.
+		 * If this parameter is set up, ClientBackURL parameter would be disable.».
+		 *
+		 * В другом месте документации (страница 2) написано:
+		 * «Add ClientRedirectURL which Client end will return payment information
+		 * then redirect to its URL under ATM, CVS, or BARCODE payment type.»
+		 *
+		 * Could be empty.
+		 */
 		,'ClientRedirectURL' => ''
 	];}return $this->{__METHOD__};}
 
@@ -314,7 +368,7 @@ class Charge extends \Df\Payment\Charge {
 		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L78
 		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L25-L28
 		 */
-		$params = uksort($params, function($a, $b) {return strcasecmp($a, $b);});
+		uksort($params, function($a, $b) {return strcasecmp($a, $b);});
 		/**
 		 * 2016-07-04
 		 * Step 2
@@ -327,7 +381,7 @@ class Charge extends \Df\Payment\Charge {
 		 * «...connect all with &»
 		 * Намеренно не используем @see http_build_query(),
 		 * потому что она может перекодировать свои аргументы
-		 * (в частности, следующие символы внутри них: пробелы, амперсанд, згнак равенства).
+		 * (в частности, следующие символы внутри них: пробелы, амперсанд, знак равенства).
 		 * Вместо этого используем официальный алгоритм:
 		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L15-L18
 		 */
@@ -345,6 +399,10 @@ class Charge extends \Df\Payment\Charge {
 		 * Официальный пример использует именно @uses strtolower, а не @see mb_strtolower()
 		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L20-L20
 		 * Уточнил, не ошибка ли это: https://mage2.pro/t/1839
+		 *
+		 * 2016-07-05
+		 * Оказалось, что не ошибка, потому что после применения @uses urlencode()
+		 * результаты работы @uses strtolower и @see mb_strtolower() должны быть одинаковыми.
 		 */
 		$result = strtolower(urlencode($result));
 		$result = $this->signatureReplace($result);
