@@ -88,7 +88,7 @@ class Charge extends \Df\Payment\Charge {
 		 * В документации этим опомещениям посвящён раздел
 		 * «7. Payment Result Notification» на странице 32.
 		 */
-		,'ReturnURL' => ''
+		,'ReturnURL' => df_url('dfe-allpay/confirm')
 		// 2016-07-02
 		// «Select default payment type».
 		// Varchar(20)
@@ -128,7 +128,7 @@ class Charge extends \Df\Payment\Charge {
 		// So, I guess you should use the parameter
 		// to go back magento's order complete page from AllPay.»
 		// Could be empty.
-		,'ClientBackURL' => ''
+		,'ClientBackURL' => df_url_checkout_success()
 		// 2016-07-02
 		// «Item URL».
 		// Varchar(200)
