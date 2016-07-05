@@ -180,22 +180,6 @@
 					</depends>
 				</field>
 				<field
-					id='livePlatformID'
-					translate='label'
-					sortOrder='10'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
-				>
-					<label>Live Platform ID</label>
-					<comment><![CDATA[Specify it only if it is provided by allPay.]]></comment>
-					<validate></validate>
-					<depends>
-						<field id='enable'>1</field>
-						<field id='test'>0</field>
-					</depends>
-				</field>
-				<field
 					id='description'
 					translate='label'
 					type='textarea'
@@ -238,26 +222,42 @@
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
-					id='defaultPaymentMethod'
+					id='methodsLimit'
 					translate='label'
-					type='select'
+					type='Df\Framework\Form\Element\Checkbox'
 					sortOrder='13'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
 				>
-					<label>Default Payment Method</label>
+					<label>Limit Payment Methods Availability?</label>
+					<backend_model>Df\Config\Backend\Checkbox</backend_model>
+					<comment><![CDATA[If checked, only the specified methods will be available to the customers.]]></comment>
+					<depends><field id='enable'>1</field></depends>
+				</field>
+				<field
+					id='methodsAllowed'
+					translate='label'
+					type='Df\Framework\Form\Element\Multiselect'
+					sortOrder='14'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Allowed Payment Methods</label>
 					<source_model>Dfe\AllPay\Source\PaymentType</source_model>
-					<comment><![CDATA[This method will be preselected on the 歐付寶 allPay page, but a customer can switch to another method.]]></comment>
+					<comment><![CDATA[Please specify the allowed payment methods.]]></comment>
+					<validate>required-entry</validate>
 					<depends>
 						<field id='enable'>1</field>
+						<field id='methodsLimit'>1</field>
 					</depends>
 				</field>
 				<field
 					id='min_order_total'
 					translate='label'
 					type='text'
-					sortOrder='14'
+					sortOrder='15'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -271,7 +271,7 @@
 					id='max_order_total'
 					translate='label'
 					type='text'
-					sortOrder='15'
+					sortOrder='16'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -285,7 +285,7 @@
 					id='country_restriction'
 					translate='label'
 					type='select'
-					sortOrder='16'
+					sortOrder='17'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -298,7 +298,7 @@
 					id='countries'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
-					sortOrder='17'
+					sortOrder='18'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'

@@ -63,11 +63,20 @@ class Settings extends \Df\Core\Settings {
 	}
 
 	/**
-	 * 2016-06-29
+	 * 2016-07-05
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Allowed Payment Methods»
 	 * @param null|string|int|S $s [optional]
-	 * @return string|null
+	 * @return string[]
 	 */
-	public function platformID($s = null) {return $this->test($s) ? null : $this->livePlatformID($s);}
+	public function methodsAllowed($s = null) {return $this->csv(__FUNCTION__, $s);}
+
+	/**
+	 * 2016-07-05
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Limit Payment Methods Availability?»
+	 * @param null|string|int|S $s [optional]
+	 * @return bool
+	 */
+	public function methodsLimit($s = null) {return $this->b(__FUNCTION__, $s);}
 
 	/**
 	 * 2016-06-29
@@ -110,14 +119,6 @@ class Settings extends \Df\Core\Settings {
 	 * @return string
 	 */
 	private function liveMerchantID($s = null) {return $this->v(__FUNCTION__, $s);}
-
-	/**
-	 * 2016-06-29
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Live Platform ID»
-	 * @param null|string|int|S $s [optional]
-	 * @return string
-	 */
-	private function livePlatformID($s = null) {return $this->v(__FUNCTION__, $s);}
 
 	/**
 	 * 2016-06-29

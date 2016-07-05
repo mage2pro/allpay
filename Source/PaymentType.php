@@ -12,8 +12,7 @@ class PaymentType extends \Df\Config\SourceT {
 	 */
 	protected function map() {
 		return [
-			'ALL' => 'No'
-			,'Credit' => 'Bank Card'
+			'Credit' => 'Bank Card'
 			// 2016-07-02
 			// Я так понял, что это чисто тайваньская штука:
 			// пользователь вставляет картридер в свой (!) компьютер,
@@ -37,4 +36,7 @@ class PaymentType extends \Df\Config\SourceT {
 			,'TopUpUsed' => '歐付寶 allPay account'
 		];
 	}
+
+	/** @return self */
+	public static function s() {static $r; return $r ? $r : $r = df_o(__CLASS__);}
 }

@@ -1,6 +1,7 @@
 <?php
 namespace Dfe\AllPay;
 use Dfe\AllPay\Settings as S;
+use Dfe\AllPay\Source\PaymentType;
 use Magento\Payment\Model\Info as I;
 use Magento\Payment\Model\InfoInterface as II;
 use Magento\Sales\Model\Order\Item as OI;
@@ -122,21 +123,39 @@ class Charge extends \Df\Payment\Charge {
 		 * «7. Payment Result Notification» на странице 32.
 		 */
 		,'ReturnURL' => df_url('dfe-allpay/confirm')
-		// 2016-07-02
-		// «Select default payment type».
-		// Varchar(20)
-		// «allPAy would provide follow payment types, please send it when generating an order:
-		// 		Credit: Credit Card.
-		// 		WebATM: webATM.
-		// 		ATM: physical ATM machine.
-		// 		CVS: CVS code.
-		// 		BARCODE: BARCODE.
-		// 		Tenpay: Tenpay.
-		// 		TopUpUsed: consume with account balance.
-		// 		ALL: no selected payment type.
-		// allPay would show the page to select payment type.
-		// Must be filled.
-		,'ChoosePayment' => S::s()->defaultPaymentMethod()
+		/**
+		 * 2016-07-02
+		 * «Select default payment type».
+		 * Varchar(20)
+		 * «allPay would provide follow payment types, please send it when generating an order:
+		 * 		Credit: Credit Card.
+		 * 		WebATM: webATM.
+		 * 		ATM: physical ATM machine.
+		 * 		CVS: CVS code.
+		 * 		BARCODE: BARCODE.
+		 * 		Tenpay: Tenpay.
+		 * 		TopUpUsed: consume with account balance.
+		 * 		ALL: no selected payment type.
+		 * allPay would show the page to select payment type.
+		 * Must be filled.
+		 *
+		 * 2016-07-05
+		 * Если указать отличное от «ALL» значение этого параметра,
+		 * то у покупателя не будет возможность выбрать другой способ оплаты.
+		 * Мы позволяем администратору ограничить множество доступных покупателю способов оплаты,
+		 * но нам удобнее реализовать это ограничение через параметр «IgnorePayment» (смотрите ниже),
+		 * а для параметра «ChoosePayment» поэтому указываем значение «ALL».
+		 *
+		 * 2016-07-05
+		 * Как оказалось, «IgnorePayment» работает с косяками:
+		 * [allPay] Unable to disable the «TopUpUsed» method
+		 * and an undocumented «Overseas» method with the «IgnorePayment» parameter.
+		 * https://mage2.pro/t/1852
+		 *
+		 * Поэтому, если администратор магазина выбрал только один способ оплаты,
+		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
+		 */
+		,'ChoosePayment' => $this->pChoosePayment()
 		// 2016-07-02
 		// «URL for returning pages from Client to merchant».
 		// Varchar(200)
@@ -235,14 +254,25 @@ class Charge extends \Df\Payment\Charge {
 		// [allPay] What are the possible values for the «DeviceSource» parameter?
 		//  https://mage2.pro/t/1825
 		,'DeviceSource' => ''
-		// 2016-07-04
-		// «Ignore payment type».
-		// Varchar(100)
-		// «When using ALL as ChoosePayment, user could select not to show his payment type.
-		// If there are more than one payment type, separate them by symbol #.».
-		// An example: ATM#WebATM
-		// Could be empty.
-		,'IgnorePayment' => ''
+		/**
+		 * 2016-07-04
+		 * «Ignore payment type».
+		 * Varchar(100)
+		 * «When using ALL as ChoosePayment, user could select not to show his payment type.
+		 * If there are more than one payment type, separate them by symbol #.».
+		 * An example: ATM#WebATM
+		 * Could be empty.
+		 *
+		 * 2016-07-05
+		 * Как оказалось, «IgnorePayment» работает с косяками:
+		 * [allPay] Unable to disable the «TopUpUsed» method
+		 * and an undocumented «Overseas» method with the «IgnorePayment» parameter.
+		 * https://mage2.pro/t/1852
+		 *
+		 * Поэтому, если администратор магазина выбрал только один способ оплаты,
+		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
+		 */
+		,'IgnorePayment' => $this->pIgnorePayment()
 		// 2016-07-04
 		// «Merchant platform identification number(provided by allPay)».
 		// Varchar(10)
@@ -329,6 +359,59 @@ class Charge extends \Df\Payment\Charge {
 		 */
 		,'ClientRedirectURL' => ''
 	];}return $this->{__METHOD__};}
+
+	/**
+	 * 2016-07-05
+	 * @return bool
+	 */
+	private function isSingleMethodChosen() {
+		if (!isset($this->{__METHOD__})) {
+			$this->{__METHOD__} = 1 === count(S::s()->methodsAllowed());
+		}
+		return $this->{__METHOD__};
+	}
+
+	/**
+	 * 2016-07-05
+	 * Если указать отличное от «ALL» значение этого параметра,
+	 * то у покупателя не будет возможность выбрать другой способ оплаты.
+	 * Мы позволяем администратору ограничить множество доступных покупателю способов оплаты,
+	 * но нам удобнее реализовать это ограничение через параметр «IgnorePayment» (смотрите ниже),
+	 * а для параметра «ChoosePayment» поэтому указываем значение «ALL».
+	 *
+	 * 2016-07-05
+	 * Как оказалось, «IgnorePayment» работает с косяками:
+	 * [allPay] Unable to disable the «TopUpUsed» method
+	 * and an undocumented «Overseas» method with the «IgnorePayment» parameter.
+	 * https://mage2.pro/t/1852
+	 *
+	 * Поэтому, если администратор магазина выбрал только один способ оплаты,
+	 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
+	 * @return string
+	 */
+	private function pChoosePayment() {
+		return !S::s()->methodsLimit() || !$this->isSingleMethodChosen()
+			? 'ALL' : df_first(S::s()->methodsAllowed())
+		;
+	}
+
+	/**
+	 * 2016-07-05
+	 * Как оказалось, «IgnorePayment» работает с косяками:
+	 * [allPay] Unable to disable the «TopUpUsed» method
+	 * and an undocumented «Overseas» method with the «IgnorePayment» parameter.
+	 * https://mage2.pro/t/1852
+	 *
+	 * Поэтому, если администратор магазина выбрал только один способ оплаты,
+	 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
+	 * @return string
+	 */
+	private function pIgnorePayment() {
+		return implode('#',
+			!S::s()->methodsLimit() || $this->isSingleMethodChosen()
+				? [] : array_diff(PaymentType::s()->keys(), S::s()->methodsAllowed()
+		));
+	}
 
 	/**
 	 * 2016-07-05

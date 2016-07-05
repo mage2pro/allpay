@@ -82,6 +82,7 @@ define ([
 				this.getPlaceOrderDeferredObject()
 					.fail(function() {_this.isPlaceOrderActionAllowed(true);})
 					.done(function(data) {
+						 debugger;
 					  	_this.afterPlaceOrder();
 					  	redirectWithPost(_this.redirectUrl(), $.parseJSON(data));
 					})
