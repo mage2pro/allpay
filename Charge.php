@@ -155,7 +155,7 @@ class Charge extends \Df\Payment\Charge {
 		 * Поэтому, если администратор магазина выбрал только один способ оплаты,
 		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 		 */
-		,'ChoosePayment' => $this->pChoosePayment()
+		,'ChoosePayment' => $this->pChoosePayment() // 'ALL'
 		// 2016-07-02
 		// «URL for returning pages from Client to merchant».
 		// Varchar(200)
@@ -272,7 +272,7 @@ class Charge extends \Df\Payment\Charge {
 		 * Поэтому, если администратор магазина выбрал только один способ оплаты,
 		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 		 */
-		,'IgnorePayment' => $this->pIgnorePayment()
+		,'IgnorePayment' => $this->pIgnorePayment() //'WebATM#ATM#CVS#BARCODE#Tenpay#TopUpUsed#Alipay
 		// 2016-07-04
 		// «Merchant platform identification number(provided by allPay)».
 		// Varchar(10)
