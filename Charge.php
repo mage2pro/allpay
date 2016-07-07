@@ -121,6 +121,15 @@ class Charge extends \Df\Payment\Charge {
 		 * что по этому адресу платёжная система оповещает интернет-магазин о платеже.
 		 * В документации этим опомещениям посвящён раздел
 		 * «7. Payment Result Notification» на странице 32.
+		 *
+		 * 2016-05-06
+		 * Обратите внимание, что сненарии онлайновой и оффлайновой оплаты различаются.
+		 * В сценарии оффлайновой оплаты (ATM, CVS, BARCODE)
+		 * платёжная система непосредственно в процессе оформления заказа
+		 * оповещает интернет-магазин не по адресу «ReturnURL»,
+		 * а по адресу «PaymentInfoURL» (шаг 13 на странице 8 докумениации),
+		 * а оповещение по адресу «ReturnURL» приходит лишь на шаге 21,
+		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
 		,'ReturnURL' => df_url('dfe-allpay/confirm')
 		/**
@@ -156,31 +165,42 @@ class Charge extends \Df\Payment\Charge {
 		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 		 */
 		,'ChoosePayment' => $this->pChoosePayment() // 'ALL'
-		// 2016-07-02
-		// «URL for returning pages from Client to merchant».
-		// Varchar(200)
-		// «allPay would show payment complete page.
-		// That page would include “back to merchant” button.
-		// When a member clicks this button, it would redirect webpage to URL it set up.
-		// If this parameter is not set up,
-		// allPay payment complete page would not show “back to merchant” button.
-		// When redirect webpage, it would simply return the page
-		// instead of redirecting payment result to this URL.».
-		//
-		// [allPay] What is the difference
-		// between the «OrderResultURL» and «ClientBackURL» parameters? https://mage2.pro/t/1836/2
-		//
-		// «ClientBackURL has value and OrderResultURL is empty:
-		// The browser will go to AllPay's complete(result) page after payment is complete.
-		// There will be a "back to merchant" link on the page.
-		// If clicked, the link will go to ClientBackURL you specified.
-		//
-		// OrderResultURL has value:
-		// The browser will go to OrderResultURL instead after payment is complete.
-		// So, I guess you should use the parameter
-		// to go back magento's order complete page from AllPay.»
-		// Could be empty.
-		,'ClientBackURL' => df_url_checkout_success()
+		/**
+		 * 2016-07-02
+		 * «URL for returning pages from Client to merchant».
+		 * Varchar(200)
+		 * «allPay would show payment complete page.
+		 * That page would include “back to merchant” button.
+		 * When a member clicks this button, it would redirect webpage to URL it set up.
+		 * If this parameter is not set up,
+		 * allPay payment complete page would not show “back to merchant” button.
+		 * When redirect webpage, it would simply return the page
+		 * instead of redirecting payment result to this URL.».
+		 *
+		 * Could be empty.
+		 *
+		 * [allPay] What is the difference
+		 * between the «OrderResultURL» and «ClientBackURL» parameters? https://mage2.pro/t/1836/2
+		 *
+		 * «ClientBackURL has value and OrderResultURL is empty:
+		 * The browser will go to AllPay's complete(result) page after payment is complete.
+		 * There will be a "back to merchant" link on the page.
+		 * If clicked, the link will go to ClientBackURL you specified.
+		 *
+		 * OrderResultURL has value:
+		 * The browser will go to OrderResultURL instead after payment is complete.
+		 * So, I guess you should use the parameter
+		 * to go back magento's order complete page from AllPay.»
+		 *
+		 * 2016-07-06
+		 * На страницах 6-7 документации сказано:
+		 * «If merchant does not setup an OrderResultURL,
+		 * the order result page will be shown in allPay after it sends order information to allPay.
+		 * If merchant setups a ClientBackURL, after it sends order information to allPay,
+		 * a “back to partner” button would be shown and generated
+		 * by allPay Cash Flow System in order result page.
+		 */
+		,'ClientBackURL' => ''//df_url_checkout_success()
 		/**
 		 * 2016-07-02
 		 * «Item URL».
@@ -214,24 +234,42 @@ class Charge extends \Df\Payment\Charge {
 		// Please refer to Table of Payment Type.».
 		// Could be empty.
 		,'ChooseSubPayment' => ''
-		// 2016-07-04
-		// «Payment result URL returned by Client end».
-		// Varchar(200)
-		// «After a payment is made,
-		// and then allPay would redirectly webpage again to this
-		// URL with payment result parameter.
-		// If this parameter is left as blank, it would show payment complete on allPay webpage.
-		// If one would show payment complete webpage on his own site,
-		// set up the URL in this parameter.
-		// (Some of the webATM banks would stay at their own webpages
-		// after a trade is made successfully.
-		// It would not redirect webpages to allPay;
-		// thus, allPay would not redirect webpages to the URL this parameter set up.)
-		// If this parameter is set up, ClientBackURL parameter would be disable.».
-		// Could be empty.
-		//
-		// [allPay] What is the difference
-		// between the «OrderResultURL» and «ClientBackURL» parameters? https://mage2.pro/t/1836/2
+		/**
+		 * 2016-07-04
+		 * «Payment result URL returned by Client end».
+		 * Varchar(200)
+		 * «After a payment is made, and then allPay would redirectly webpage again
+		 * to this URL with payment result parameter.
+		 * If this parameter is left as blank, it would show payment complete on allPay webpage.
+		 * If one would show payment complete webpage on his own site,
+		 * set up the URL in this parameter.
+		 * (Some of the webATM banks would stay at their own webpages
+		 * after a trade is made successfully.
+		 * It would not redirect webpages to allPay;
+		 * thus, allPay would not redirect webpages to the URL this parameter set up.)
+		 * If this parameter is set up, ClientBackURL parameter would be disable.».
+		 * Could be empty.
+		 *
+		 * [allPay] What is the difference
+		 * between the «OrderResultURL» and «ClientBackURL» parameters? https://mage2.pro/t/1836/2
+		 *
+		 * 2016-07-06
+		 * «OrderResultURL» используется только в сценариях онлайновой оплаты
+		 * (онлайновыми являются все, кроме ATM, CVS, BARCODE).
+		 * Шаг «OrderResultURL» показан под номером 15 на странице 7 документации.
+		 * Если покупатель выбрал оффлайновый способ оплаты (ATM, CVS, BARCODE),
+		 * то платёжная система возвращает покупателя в интернет-магазин
+		 * не по адресу «OrderResultURL», а по адресу «ClientRedirectURL»
+		 * (шаг 15 на странице 8 документации).
+		 *
+		 * 2016-07-06
+		 * На страницах 6-7 документации сказано:
+		 * «If merchant does not setup an OrderResultURL,
+		 * the order result page will be shown in allPay after it sends order information to allPay.
+		 * If merchant setups a ClientBackURL, after it sends order information to allPay,
+		 * a “back to partner” button would be shown and generated
+		 * by allPay Cash Flow System in order result page.
+		 */
 		,'OrderResultURL' => df_url_checkout_success()
 		// 2016-07-04
 		// «If there is a need for an extra payment information».
@@ -330,6 +368,9 @@ class Charge extends \Df\Payment\Charge {
 		 * It includes not only bank code, virtual account, and expiration date (yyyy/MM/dd).
 		 * It would also show related payment information on allPay.».
 		 *
+		 * Could be empty.
+		 *
+		 * 2016-07-05
 		 * [allPay] What is the difference between the «PaymentInfoURL» and «ReturnURL» notifications?
 		 * https://mage2.pro/t/1848
 		 *
@@ -337,9 +378,17 @@ class Charge extends \Df\Payment\Charge {
 		 * «add PaymentInfoURL which Server end would return payment information
 		 * when its method is ATM, CVS, or BARCODE.»
 		 *
-		 * Could be empty.
+		 * 2016-07-06
+		 * В общем, я понял разницу.
+		 * «PaymentInfoURL» используется только в сценариях оффлайновой оплаты: ATM, CVS, BARCODE.
+		 * Шаг «PaymentInfoURL» показан под номером 13 на странице 8 документации.
+		 * Если покупатель выбрал оффлайновый способ оплаты (ATM, CVS, BARCODE),
+		 * то платёжная система оповещает об этом интернет-магазин не по адресу «ReturnURL»,
+		 * а по адресу «PaymentInfoURL» (шаг 13),
+		 * а оповещение по адресу «ReturnURL» приходит лишь на шаге 21,
+		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
-		,'PaymentInfoURL' => ''
+		,'PaymentInfoURL' => df_url('dfe-allpay/confirm')
 		/**
 		 * 2016-07-04
 		 * «Payment related information returned by Client end».
@@ -356,8 +405,15 @@ class Charge extends \Df\Payment\Charge {
 		 * then redirect to its URL under ATM, CVS, or BARCODE payment type.»
 		 *
 		 * Could be empty.
+		 *
+		 * 2016-07-06
+		 * «ClientRedirectURL» используется только в сценариях оффлайновой оплаты: ATM, CVS, BARCODE.
+		 * Шаг «ClientRedirectURL» показан под номером 15 на странице 8 документации.
+		 * Если покупатель выбрал оффлайновый способ оплаты (ATM, CVS, BARCODE),
+		 * то платёжная система возвращает покупателя в интернет-магазин
+		 * не по адресу «OrderResultURL», а по адресу «ClientRedirectURL» (шаг 15).
 		 */
-		,'ClientRedirectURL' => ''
+		,'ClientRedirectURL' => df_url_checkout_success()
 	];}return $this->{__METHOD__};}
 
 	/**

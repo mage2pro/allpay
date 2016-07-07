@@ -11,6 +11,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 	public function execute() {
 		/** @var Text $result */
 		try {
+			$this->log($_REQUEST);
 			$result = Text::i('1|OK');
 		}
 		catch (\Exception $e) {
@@ -18,6 +19,13 @@ class Index extends \Magento\Framework\App\Action\Action {
 		}
 		return $result;
 	}
+
+	/**
+	 * 2016-07-06
+	 * @param mixed $message
+	 * @return void
+	 */
+	private function log($message) {if (!df_is_it_my_local_pc()) {df_log($message);}}
 }
 
 
