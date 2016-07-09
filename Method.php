@@ -7,6 +7,7 @@ use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException as LE;
 use Magento\Payment\Model\Info as I;
 use Magento\Payment\Model\InfoInterface as II;
+use Magento\Sales\Api\Data\TransactionInterface;
 use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
 use Magento\Sales\Model\Order\Creditmemo;
@@ -47,19 +48,27 @@ class Method extends \Df\Payment\Method {
 	 * https://github.com/magento/magento2/blob/ffea3cd/app/code/Magento/Sales/Model/Order/Payment.php#L334-L355
 	 */
 	public function getConfigPaymentAction() {
+		/** @var array(string => mixed) $request */
+		$request = Charge::request($this->ii());
 		/**
 		 * 2016-07-01
 		 * К сожалению, если передавать в качестве результата ассоциативный массив,
 		 * то его ключи почему-то теряются.
-		 * Поэтому запаковываем масств в JSON.
+		 * Поэтому запаковываем массив в JSON.
 		 */
-		$this->iiaSet(PlaceOrder::RESPONSE, df_json_encode(Charge::request($this->ii())));
+		$this->iiaSet(PlaceOrder::RESPONSE, df_json_encode($request));
 		/**
 		 * 2016-05-06
 		 * Письмо-оповещение о заказе здесь ещё не должно отправляться.
 		 * «How is a confirmation email sent on an order placement?» https://mage2.pro/t/1542
 		 */
 		$this->o()->setCanSendNewEmailFlag(false);
+		/**
+		 * 2016-07-10
+		 * Сохраняем информацию о транзакции.
+		 */
+		$this->iiaSetTR($request);
+		$this->ii()->addTransaction(TransactionInterface::TYPE_PAYMENT);
 		return null;
 	}
 
