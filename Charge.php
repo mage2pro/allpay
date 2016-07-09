@@ -73,8 +73,14 @@ class Charge extends \Df\Payment\Charge {
 		 * поэтому конструируем дату самостоятельно.
 		 * Сделал идентично официальному примеру:
 		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L66
+		 *
+		 * 2016-07-09
+		 * Looks like we need to use the Taiwanese time zone,
+		 * because the time format does not contain a time zone information,
+		 * and allPay uses the Taiwanese time zone in the payment response.
+		 * http://php.net/manual/en/function.timezone-offset-get.php#73995
 		 */
-		,'MerchantTradeDate' => date('Y/m/d H:i:s')
+		,'MerchantTradeDate' => df_now('Y/m/d H:i:s', 'Asia/Taipei')
 		// 2016-07-02
 		// «Payment type».
 		// Varchar(20)
