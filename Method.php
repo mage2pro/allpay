@@ -48,15 +48,23 @@ class Method extends \Df\Payment\Method {
 	 * https://github.com/magento/magento2/blob/ffea3cd/app/code/Magento/Sales/Model/Order/Payment.php#L334-L355
 	 */
 	public function getConfigPaymentAction() {
-		/** @var array(string => mixed) $request */
-		$request = Charge::request($this->ii());
+		/** @var array(string => mixed) $params */
+		$params = Charge::request($this->ii());
+		/** @var string $uri */
+		$uri =
+			'https://payment'
+			. (S::s()->test() ? '-stage' : '')
+			. '.allpay.com.tw/Cashier/AioCheckOut/V2'
+		;
 		/**
 		 * 2016-07-01
 		 * К сожалению, если передавать в качестве результата ассоциативный массив,
 		 * то его ключи почему-то теряются.
 		 * Поэтому запаковываем массив в JSON.
 		 */
-		$this->iiaSet(PlaceOrder::RESPONSE, df_json_encode($request));
+		$this->iiaSet(PlaceOrder::REQUEST, df_json_encode([
+			PlaceOrder::REQUEST_PARAMS => $params, PlaceOrder::REQUEST_URI => $uri
+		]));
 		/**
 		 * 2016-05-06
 		 * Письмо-оповещение о заказе здесь ещё не должно отправляться.
@@ -67,8 +75,7 @@ class Method extends \Df\Payment\Method {
 		 * 2016-07-10
 		 * Сохраняем информацию о транзакции.
 		 */
-		$this->iiaSetTR($request);
-		$this->ii()->addTransaction(TransactionInterface::TYPE_PAYMENT);
+		$this->saveRequest($params['MerchantTradeNo'], $uri, $params);
 		return null;
 	}
 

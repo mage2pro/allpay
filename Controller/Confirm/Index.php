@@ -1,6 +1,7 @@
 <?php
 namespace Dfe\AllPay\Controller\Confirm;
 use Df\Framework\Controller\Result\Text;
+use Dfe\AllPay\Response as R;
 class Index extends \Magento\Framework\App\Action\Action {
 	/**
 	 * 2016-07-04
@@ -12,10 +13,14 @@ class Index extends \Magento\Framework\App\Action\Action {
 		/** @var Text $result */
 		try {
 			$this->log($_REQUEST);
+			$this->r()->validate();
 			$result = Text::i('1|OK');
+			df_log('OK');
 		}
 		catch (\Exception $e) {
 			$result = Text::i('0|' . df_le($e)->getMessage());
+			df_log('FAILURE');
+			df_log($e);
 		}
 		return $result;
 	}
@@ -29,11 +34,22 @@ class Index extends \Magento\Framework\App\Action\Action {
 
 	/**
 	 * 2016-07-09
+	 * @return R
+	 */
+	private function r() {
+		if (!isset($this->{__METHOD__})) {
+			$this->{__METHOD__} = R::i($this->request());
+		}
+		return $this->{__METHOD__};
+	}
+
+	/**
+	 * 2016-07-09
 	 * The response is documented in the Chapter 7 «Payment Result Notification»
 	 * on the pages 32-35 of the allPay documentation.
 	 * @return array(string => string|int)
 	 */
-	private function requestTest() {return [
+	private function request() {return !df_is_it_my_local_pc() ? $_REQUEST : [
 		/**
 		 * 2016-07-09
 		 * «Verification code»

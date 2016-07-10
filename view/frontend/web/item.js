@@ -81,23 +81,18 @@ define ([
 				this.isPlaceOrderActionAllowed(false);
 				this.getPlaceOrderDeferredObject()
 					.fail(function() {_this.isPlaceOrderActionAllowed(true);})
-					.done(function(data) {
+					.done(function(json) {
 						 debugger;
 					  	_this.afterPlaceOrder();
-					  	redirectWithPost(_this.redirectUrl(), $.parseJSON(data));
+					 	/** @type {Object} */
+						var data = $.parseJSON(json);
+						// 2016-07-10
+						// @see \Dfe\AllPay\Method::getConfigPaymentAction()
+					  	redirectWithPost(data.uri, data.params);
 					})
 				;
 			}
 			return result;
-		}
-		/**
-		 * 2016-07-05
-		 * @return {String}
-		 */
-		,redirectUrl: function() {
-			/** @type {String} */
-			var suffix = this.isTest ? '-stage' : '';
-			return 'https://payment' + suffix + '.allpay.com.tw/Cashier/AioCheckOut/V2'
 		}
 	});
 });
