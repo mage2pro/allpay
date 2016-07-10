@@ -58,7 +58,7 @@ class Signer extends \Df\Payment\R\Signer {
 		 */
 		$result = strtolower(urlencode($result));
 		$result = $this->signatureReplace($result);
-		return md5($result);
+		return strtoupper(md5($result));
 	}
 
 	/**
