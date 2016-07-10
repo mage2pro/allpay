@@ -7,6 +7,14 @@ namespace Dfe\AllPay;
  */
 class Response extends \Df\Payment\R\Response {
 	/**
+	 * 2016-07-10
+	 * @see \Df\Payment\R\Response::externalIdKey()
+	 * @used-by \Df\Payment\R\Response::externalId()
+	 * @return string
+	 */
+	protected function externalIdKey() {return 'TradeNo';}
+
+	/**
 	 * 2016-07-09
 	 * @override
 	 * @see \Df\Payment\R\Response::isSuccessful()
@@ -38,17 +46,6 @@ class Response extends \Df\Payment\R\Response {
 	 * a trade number with upper and lower cases of English letters and numbers.»
 	 */
 	protected function requestIdKey() {return 'MerchantTradeNo';}
-
-	/**
-	 * 2016-07-10
-	 * @override
-	 * @see \Df\Payment\R\Response::signature()
-	 * @used-by \Df\Payment\R\Response::validate()
-	 * @return string
-	 */
-	protected function signature() {
-		return '';
-	}
 
 	/**
 	 * 2016-07-10

@@ -1,7 +1,14 @@
 <?php
 namespace Dfe\AllPay\Controller\Confirm;
-use Df\Framework\Controller\Result\Text;
+use Dfe\AllPay\Method;
 use Dfe\AllPay\Response as R;
+use Df\Framework\Controller\Result\Text;
+use Df\Sales\Model\Order as DfOrder;
+use Df\Sales\Model\Order\Payment as DfPayment;
+use Magento\Payment\Model\Method\AbstractMethod as M;
+use Magento\Sales\Api\Data\OrderPaymentInterface as IOP;
+use Magento\Sales\Model\Order;
+use Magento\Sales\Model\Order\Payment as OP;
 class Index extends \Magento\Framework\App\Action\Action {
 	/**
 	 * 2016-07-04
@@ -11,13 +18,34 @@ class Index extends \Magento\Framework\App\Action\Action {
 	 */
 	public function execute() {
 		/** @var Text $result */
+		/** @var Order|DfOrder $order */
+		$order = null;
 		try {
 			$this->log($_REQUEST);
 			$this->r()->validate();
+			$order = $this->r()->order();
+			/** @var IOP|OP $payment */
+			$payment = $this->r()->payment();
+			/** @var Method $method */
+			$method = $payment->getMethodInstance();
+			$method->setStore($order->getStoreId());
+			DfPayment::processActionS($payment, M::ACTION_AUTHORIZE_CAPTURE, $order);
+			DfPayment::updateOrderS(
+				$payment
+				, $order
+				, Order::STATE_PROCESSING
+				, $order->getConfig()->getStateDefaultStatus(Order::STATE_PROCESSING)
+				, $isCustomerNotified = true
+			);
+			$order->save();
 			$result = Text::i('1|OK');
 			df_log('OK');
 		}
 		catch (\Exception $e) {
+			if ($order) {
+				$order->cancel();
+				$order->save();
+			}
 			$result = Text::i('0|' . df_le($e)->getMessage());
 			df_log('FAILURE');
 			df_log($e);
