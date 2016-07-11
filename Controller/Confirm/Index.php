@@ -85,7 +85,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 		 * «Merchants need to identify itself through verifying CheckMacValue.
 		 * Please refer to Verification Code Mechanism in appendix.»
 		 */
-		'CheckMacValue' => 'C5BD7738CCD3DBAB3E0786E1B684DF23'
+		'CheckMacValue' => '219B8DE333411BC56985E22AF9666CB2'
 		/**
 		 * 2016-07-09
 		 * «Merchant Identification number (provided by allPay)»
@@ -99,19 +99,19 @@ class Index extends \Magento\Framework\App\Action\Action {
 		 * «When order is generated, it would send allPay coorperator
 		 * a trade number with upper and lower cases of English letters and numbers.»
 		 */
-		,'MerchantTradeNo' => '9764195038'
+		,'MerchantTradeNo' => '8276965766'
 		/**
 		 * 2016-07-09
 		 * This parameter is undocumented.
 		 */
-		,'PayAmt' => 3802
+		,'PayAmt' => 5410
 		/**
 		 * 2016-07-09
 		 * «Payment date»
 		 * Varchar(20)
 		 * «Formated as yyyy/MM/dd HH:mm:ss»
 		 */
-		,'PaymentDate' => '2016/07/09 20:31:40'
+		,'PaymentDate' => '2016/07/11 07:30:34'
 		/**
 		 * 2016-07-09
 		 * «Payment type selected by member»
@@ -124,7 +124,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 		 * «Access fee»
 		 * Money
 		 */
-		,'PaymentTypeChargeFee' => 38
+		,'PaymentTypeChargeFee' => 54
 		/**
 		 * 2016-07-09
 		 * This parameter is undocumented.
@@ -165,21 +165,21 @@ class Index extends \Magento\Framework\App\Action\Action {
 		 * this trade amount would be returned to seller with InstallmentAmount
 		 * when this order is generated.»
 		 */
-		,'TradeAmt' => 3802
+		,'TradeAmt' => 5410
 		/**
 		 * 2016-07-09
 		 * «Date of order generated»
 		 * Varchar(20)
 		 * «Formated as yyyy/MM/dd HH:mm:ss»
 		 */
-		,'TradeDate' => '2016/07/09 20:30:50'
+		,'TradeDate' => '2016/07/11 07:30:04'
 		/**
 		 * 2016-07-09
 		 * «allPay trade number»
 		 * Varchar(20)
 		 * «Please keep the connection between allPay trade number and MerchantTradeNo.»
 		 */
-		,'TradeNo' => '1607092030504442'
+		,'TradeNo' => '1607110730046559'
 	];}
 }
 

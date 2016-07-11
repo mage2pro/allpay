@@ -11,6 +11,8 @@ class Signer extends \Df\Payment\R\Signer {
 	public function sign() {
 		/** @var array(string => mixed) $params */
 		$params = $this->getData();
+		// 2016-07-11
+		unset($params['CheckMacValue']);
 		/**
 		 * 2016-07-04
 		 * Step 1
