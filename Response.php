@@ -1,11 +1,55 @@
 <?php
 namespace Dfe\AllPay;
+use Df\Framework\Controller\Result\Text;
+use Df\Sales\Model\Order as DfOrder;
+use Magento\Sales\Model\Order;
+use Magento\Sales\Model\Order\Payment as OP;
 /**
  * 2016-07-09
  * The response is documented in the Chapter 7 «Payment Result Notification»
  * on the pages 32-35 of the allPay documentation.
  */
-class Response extends \Df\Payment\R\Response {
+abstract class Response extends \Df\Payment\R\Response {
+	/**
+	 * 2016-07-12
+	 * @return void
+	 */
+	abstract protected function handleInternal();
+
+	/**
+	 * 2016-07-04
+	 * @override
+	 * @see \Magento\Framework\App\Action\Action::execute()
+	 * @return Text
+	 */
+	public function handle() {
+		/** @var Text $result */
+		try {
+			$this->log($_REQUEST);
+			$this->validate();
+			$this->handleInternal();
+			$result = Text::i('1|OK');
+			df_log('OK');
+		}
+		catch (\Exception $e) {
+			if ($this->_order) {
+				$this->_order->cancel();
+				$this->_order->save();
+			}
+			$result = Text::i('0|' . df_le($e)->getMessage());
+			df_log('FAILURE');
+			df_log($e);
+		}
+		return $result;
+	}
+
+	/**
+	 * 2016-07-12
+	 * @used-by \Dfe\AllPay\Response::isSuccessful()
+	 * @return int
+	 */
+	abstract protected function expectedRtnCode();
+
 	/**
 	 * 2016-07-10
 	 * @see \Df\Payment\R\Response::externalIdKey()
@@ -20,9 +64,8 @@ class Response extends \Df\Payment\R\Response {
 	 * @see \Df\Payment\R\Response::isSuccessful()
 	 * @used-by \Df\Payment\R\Response::validate()
 	 * @return bool
-	 * «Value 1 means a payment is paid successfully. The other means failure.»
 	 */
-	protected function isSuccessful() {return 1 === intval($this['RtnCode']);}
+	protected function isSuccessful() {return $this->expectedRtnCode() === intval($this['RtnCode']);}
 
 	/**
 	 * 2016-07-09
@@ -55,6 +98,13 @@ class Response extends \Df\Payment\R\Response {
 	 * @return string
 	 */
 	protected function signatureKey() {return 'CheckMacValue';}
+
+	/**
+	 * 2016-07-06
+	 * @param mixed $message
+	 * @return void
+	 */
+	private function log($message) {if (!df_is_it_my_local_pc()) {df_log($message);}}
 }
 
 

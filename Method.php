@@ -30,7 +30,7 @@ class Method extends \Df\Payment\Method {
 	 * @throws E|LE
 	 */
 	public function capture(II $payment, $amount) {
-		$this->applyCustomTransactionId($payment);
+		df_payment_apply_custom_transaction_id($payment);
 		return $this;
 	}
 
