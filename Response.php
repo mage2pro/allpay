@@ -27,7 +27,9 @@ abstract class Response extends \Df\Payment\R\Response {
 		try {
 			$this->log($_REQUEST);
 			$this->validate();
+			$this->addTransaction();
 			$this->handleInternal();
+			$this->order()->save();
 			$result = Text::i('1|OK');
 			df_log('OK');
 		}

@@ -28,7 +28,6 @@ class BankCard extends \Dfe\AllPay\Response {
 			, $this->order()->getConfig()->getStateDefaultStatus(Order::STATE_PROCESSING)
 			, $isCustomerNotified = true
 		);
-		$this->order()->save();
 	}
 
 	/**

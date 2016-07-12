@@ -1,7 +1,5 @@
 <?php
 namespace Dfe\AllPay\Response;
-use Df\Sales\Model\Order\Payment as DfPayment;
-use Magento\Sales\Api\Data\TransactionInterface;
 use Magento\Sales\Model\Order;
 class ATM extends \Dfe\AllPay\Response {
 	/**
@@ -11,17 +9,7 @@ class ATM extends \Dfe\AllPay\Response {
 	 * @used-by \Dfe\AllPay\Response::handle()
 	 * @return void
 	 */
-	public function handleInternal() {
-		df_payment_apply_custom_transaction_id($this->payment());
-		df_payment_set_transaction_info($this->payment(), $this->getData());
-		/**
-		 * 2016-07-10
-		 * @uses TransactionInterface::TYPE_PAYMENT — это единственный транзакции
-		 * без специального назначения, и поэтому мы можем безопасно его использовать.
-		 */
-		$this->payment()->addTransaction(TransactionInterface::TYPE_PAYMENT);
-		$this->order()->save();
-	}
+	public function handleInternal() {}
 
 	/**
 	 * 2016-07-12
