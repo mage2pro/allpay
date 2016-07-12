@@ -1,7 +1,8 @@
 <?php
 namespace Dfe\AllPay;
 use Magento\Framework\App\ScopeInterface as S;
-class Settings extends \Df\Core\Settings {
+/** @method static Settings s() */
+class Settings extends \Df\Payment\Settings {
 	/**
 	 * 2016-03-09
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Default Payment Method»
@@ -26,14 +27,6 @@ class Settings extends \Df\Core\Settings {
 	 * @return string
 	 */
 	public function descriptionOnKiosk($s = null) {return $this->v(__FUNCTION__, $s);}
-
-	/**
-	 * 2016-06-29
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Enable?»
-	 * @param null|string|int|S $s [optional]
-	 * @return bool
-	 */
-	public function enable($s = null) {return $this->b(__FUNCTION__, $s);}
 
 	/**
 	 * 2016-06-29
@@ -77,14 +70,6 @@ class Settings extends \Df\Core\Settings {
 	 * @return bool
 	 */
 	public function methodsLimit($s = null) {return $this->b(__FUNCTION__, $s);}
-
-	/**
-	 * 2016-06-29
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Test Mode?»
-	 * @param null|string|int|S $s [optional]
-	 * @return bool
-	 */
-	public function test($s = null) {return $this->b(__FUNCTION__, $s);}
 
 	/**
 	 * 2016-07-01
@@ -145,9 +130,6 @@ class Settings extends \Df\Core\Settings {
 	 * @return string
 	 */
 	private function testMerchantID($s = null) {return $this->v(__FUNCTION__, $s);}
-
-	/** @return self */
-	public static function s() {static $r; return $r ? $r : $r = df_o(__CLASS__);}
 }
 
 

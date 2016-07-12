@@ -102,6 +102,20 @@ abstract class Response extends \Df\Payment\R\Response {
 	protected function signatureKey() {return 'CheckMacValue';}
 
 	/**
+	 * 2016-07-12
+	 * The response is documented in the Chapter 7 «Payment Result Notification»
+	 * on the pages 32-35 of the allPay documentation.
+	 * @override
+	 * @see \Df\Payment\R\Response::testData()
+	 * @return array(string => string)
+	 */
+	protected function testData() {
+		/** @var string $type */
+		$type = df_class_last(get_class($this));
+		return df_json_decode(file_get_contents(BP . "/_my/test/allPay/{$type}.json"));
+	}
+
+	/**
 	 * 2016-07-06
 	 * @param mixed $message
 	 * @return void

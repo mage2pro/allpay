@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\AllPay\Source;
+/** @method static PaymentType s() */
 class PaymentType extends \Df\Config\SourceT {
 	/**
 	 * 2016-03-09
@@ -36,7 +37,4 @@ class PaymentType extends \Df\Config\SourceT {
 			,'TopUpUsed' => '歐付寶 allPay account'
 		];
 	}
-
-	/** @return self */
-	public static function s() {static $r; return $r ? $r : $r = df_o(__CLASS__);}
 }
