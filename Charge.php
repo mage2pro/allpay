@@ -137,7 +137,7 @@ class Charge extends \Df\Payment\Charge {
 		 * а оповещение по адресу «ReturnURL» приходит лишь на шаге 21,
 		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
-		,'ReturnURL' => df_url('dfe-allpay/confirm')
+		,'ReturnURL' => df_url_callback('dfe-allpay/confirm')
 		/**
 		 * 2016-07-02
 		 * «Select default payment type».
@@ -394,7 +394,7 @@ class Charge extends \Df\Payment\Charge {
 		 * а оповещение по адресу «ReturnURL» приходит лишь на шаге 21,
 		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
-		,'PaymentInfoURL' => df_url('dfe-allpay/confirm')
+		,'PaymentInfoURL' => df_url_callback('dfe-allpay/confirm')
 		/**
 		 * 2016-07-04
 		 * «Payment related information returned by Client end».

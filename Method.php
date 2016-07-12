@@ -83,14 +83,6 @@ class Method extends \Df\Payment\Method {
 	/**
 	 * 2016-06-29
 	 * @override
-	 * @see \Df\Payment\Method::getInfoBlockType()
-	 * @return string
-	 */
-	public function getInfoBlockType() {return \Magento\Payment\Block\Info\Cc::class;}
-
-	/**
-	 * 2016-06-29
-	 * @override
 	 * @see \Df\Payment\Method::setStore()
 	 * @param int $storeId
 	 * @return void
