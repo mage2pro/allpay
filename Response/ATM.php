@@ -20,13 +20,6 @@ class ATM extends \Dfe\AllPay\Response {
 		 * без специального назначения, и поэтому мы можем безопасно его использовать.
 		 */
 		$this->payment()->addTransaction(TransactionInterface::TYPE_PAYMENT);
-		DfPayment::updateOrderS(
-			$this->payment()
-			, $this->order()
-			, Order::STATE_PENDING_PAYMENT
-			, $this->order()->getConfig()->getStateDefaultStatus(Order::STATE_PENDING_PAYMENT)
-			, $isCustomerNotified = true
-		);
 		$this->order()->save();
 	}
 
