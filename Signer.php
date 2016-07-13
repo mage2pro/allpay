@@ -21,8 +21,14 @@ class Signer extends \Df\Payment\R\Signer {
 		 * sort them by the second letter and so on).»
 		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L78
 		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L25-L28
+		 *
+		 * 2016-07-13
+		 * Раньше тут стояло:
+		 * uksort($params, function($a, $b) {return strcasecmp($a, $b);});
+		 * Сегодня заметил, что модуль для Magento 1.x использует более короткую,
+		 * идентичную по результату реализацию.
 		 */
-		uksort($params, function($a, $b) {return strcasecmp($a, $b);});
+		ksort($params);
 		/**
 		 * 2016-07-04
 		 * Step 2
