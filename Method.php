@@ -62,10 +62,11 @@ class Method extends \Df\Payment\Method {
 		 * К сожалению, если передавать в качестве результата ассоциативный массив,
 		 * то его ключи почему-то теряются.
 		 * Поэтому запаковываем массив в JSON.
+		 *
+		 * 2016-07-13
+		 * @used-by https://code.dmitry-fedyuk.com/m2e/allpay/blob/0.8.4/view/frontend/web/item.js#L91
 		 */
-		$this->iiaSet(PlaceOrder::REQUEST, df_json_encode([
-			PlaceOrder::REQUEST_PARAMS => $params, PlaceOrder::REQUEST_URI => $uri
-		]));
+		$this->iiaSet(PlaceOrder::DATA, df_json_encode(['params' => $params, 'uri' => $uri]));
 		/**
 		 * 2016-05-06
 		 * Письмо-оповещение о заказе здесь ещё не должно отправляться.
