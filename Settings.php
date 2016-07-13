@@ -7,69 +7,57 @@ class Settings extends \Df\Payment\Settings {
 	 * 2016-03-09
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Default Payment Method»
 	 * @see \Dfe\AllPay\Source\PaymentType::map()
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	public function defaultPaymentMethod($s = null) {return $this->v(__FUNCTION__, $s);}
+	public function defaultPaymentMethod() {return $this->v(__FUNCTION__);}
 
 	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Description»
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	public function description($s = null) {return $this->v(__FUNCTION__, $s);}
+	public function description() {return $this->v(__FUNCTION__);}
 
 	/**
 	 * 2016-07-01
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Description on a kiosk's screen»
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	public function descriptionOnKiosk($s = null) {return $this->v(__FUNCTION__, $s);}
+	public function descriptionOnKiosk() {return $this->v(__FUNCTION__);}
 
 	/**
 	 * 2016-06-29
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	public function hashIV($s = null) {
-		return $this->test($s) ? $this->testHashIV($s) : $this->liveHashIV($s);
-	}
+	public function hashIV() {return $this->test() ? $this->testHashIV() : $this->liveHashIV();}
 
 	/**
 	 * 2016-06-29
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	public function hashKey($s = null) {
-		return $this->test($s) ? $this->testHashKey($s) : $this->liveHashKey($s);
-	}
+	public function hashKey() {return $this->test() ? $this->testHashKey() : $this->liveHashKey();}
 
 	/**
 	 * 2016-06-29
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	public function merchantID($s = null) {
-		return $this->test($s) ? $this->testMerchantID($s) : $this->liveMerchantID($s);
+	public function merchantID() {
+		return $this->test() ? $this->testMerchantID() : $this->liveMerchantID();
 	}
 
 	/**
 	 * 2016-07-05
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Allowed Payment Methods»
-	 * @param null|string|int|S $s [optional]
 	 * @return string[]
 	 */
-	public function methodsAllowed($s = null) {return $this->csv(__FUNCTION__, $s);}
+	public function methodsAllowed() {return $this->csv(__FUNCTION__);}
 
 	/**
 	 * 2016-07-05
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Limit Payment Methods Availability?»
-	 * @param null|string|int|S $s [optional]
 	 * @return bool
 	 */
-	public function methodsLimit($s = null) {return $this->b(__FUNCTION__, $s);}
+	public function methodsLimit() {return $this->b(__FUNCTION__);}
 
 	/**
 	 * 2016-07-01
@@ -83,53 +71,47 @@ class Settings extends \Df\Payment\Settings {
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Live ALL IN ONE 介接 HashIV»
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	private function liveHashIV($s = null) {return $this->p(__FUNCTION__, $s);}
+	private function liveHashIV() {return $this->p(__FUNCTION__);}
 
 	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Live ALL IN ONE 介接 HashKey»
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	private function liveHashKey($s = null) {return $this->p(__FUNCTION__, $s);}
+	private function liveHashKey() {return $this->p(__FUNCTION__);}
 
 	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Live Merchant ID (商店代號)»
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	private function liveMerchantID($s = null) {return $this->v(__FUNCTION__, $s);}
+	private function liveMerchantID() {return $this->v(__FUNCTION__);}
 
 	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Test ALL IN ONE 介接 HashIV»
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	private function testHashIV($s = null) {return $this->v(__FUNCTION__, $s);}
+	private function testHashIV() {return $this->v(__FUNCTION__);}
 
 	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Test ALL IN ONE 介接 HashKey»
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	private function testHashKey($s = null) {return $this->v(__FUNCTION__, $s);}
+	private function testHashKey() {return $this->v(__FUNCTION__);}
 
 	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Test Merchant ID (商店代號)»
-	 * @param null|string|int|S $s [optional]
 	 * @return string
 	 */
-	private function testMerchantID($s = null) {return $this->v(__FUNCTION__, $s);}
+	private function testMerchantID() {return $this->v(__FUNCTION__);}
 }
 
 
