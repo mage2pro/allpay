@@ -82,18 +82,6 @@ class Method extends \Df\Payment\Method {
 
 	/**
 	 * 2016-06-29
-	 * @override
-	 * @see \Df\Payment\Method::setStore()
-	 * @param int $storeId
-	 * @return void
-	 */
-	public function setStore($storeId) {
-		parent::setStore($storeId);
-		S::s()->setScope($storeId);
-	}
-
-	/**
-	 * 2016-06-29
 	 * @used-by Dfe/AllPay/etc/frontend/di.xml
 	 * @used-by \Dfe\AllPay\ConfigProvider::getConfig()
 	 */
