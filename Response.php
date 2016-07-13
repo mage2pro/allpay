@@ -2,6 +2,8 @@
 namespace Dfe\AllPay;
 use Df\Framework\Controller\Result\Text;
 use Df\Sales\Model\Order as DfOrder;
+use Dfe\AllPay\Response\ATM;
+use Dfe\AllPay\Response\BankCard;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Payment as OP;
 /**
@@ -121,6 +123,24 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * @return void
 	 */
 	private function log($message) {if (!df_is_it_my_local_pc()) {df_log($message);}}
+
+	/**
+	 * 2016-07-13
+	 * @override
+	 * @see \Df\Payment\R\Response::i()
+	 * @param array(string => mixed)|true $params
+	 * @return self
+	 */
+	public static function i($params) {
+		return self::ic(
+			true === $params
+				? BankCard::class
+				: dfa(['ATM' => ATM::class, 'Credit' => BankCard::class],
+					df_first(explode('_', dfa($params, 'PaymentType')))
+				)
+			, $params
+		);
+	}
 }
 
 
