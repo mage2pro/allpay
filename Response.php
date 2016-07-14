@@ -30,16 +30,33 @@ abstract class Response extends \Df\Payment\R\Response {
 			$this->log($_REQUEST);
 			$this->validate();
 			$this->addTransaction();
-			$this->handleInternal();
+			/**
+			 * 2016-07-14
+			 * Если покупатель не смог или не захотел оплатить заказ,
+			 * то мы заказ отменяем, а затем, когда платёжная система возврат покупателя в магазин,
+			 * то мы проверим, не отменён ли последний заказ,
+			 * и если он отменён — то восстановим корзину покупателя.
+			 */
+			$this->isSuccessful() ? $this->handleInternal() : $this->order()->cancel();
 			$this->order()->save();
 			$result = Text::i('1|OK');
 			df_log('OK');
 		}
 		catch (\Exception $e) {
-			if ($this->_order) {
-				$this->_order->cancel();
-				$this->_order->save();
-			}
+			/**
+			 * 2016-07-15
+			 * Раньше тут стояло
+					if ($this->_order) {
+						$this->_order->cancel();
+						$this->_order->save();
+					}
+			 * На самом деле, исключительная ситуация свидетельствует о сбое в программе,
+			 * либо о некорректном запросе якобы от платёжного сервера (хакерской попытке, например),
+			 * поэтому отменять заказ тут неразумно.
+			 * В случае сбоя платёжная система будет присылать
+			 * повторные оповещения — вот пусть и присылает,
+			 * авось мы к тому времени уже починим программу, если поломка была на нашей строне
+			 */
 			$result = Text::i('0|' . df_le($e)->getMessage());
 			df_log('FAILURE');
 			df_log($e);
@@ -55,21 +72,27 @@ abstract class Response extends \Df\Payment\R\Response {
 	abstract protected function expectedRtnCode();
 
 	/**
+	 * 2016-07-09
+	 * 2016-07-14
+	 * Раньше метод isSuccessful() вызывался из метода @see \Df\Payment\R\Response::validate().
+	 * Отныне же @see \Df\Payment\R\Response::validate() проверяет,
+	 * корректно ли сообщение от платёжной системы.
+	 * Даже если оплата завершилась отказом покупателя, но оповещение об этом корректно,
+	 * то @see \Df\Payment\R\Response::validate() вернёт true.
+	 * isSuccessful() же проверяет, прошла ли оплата успешно.
+	 * @override
+	 * @see \Df\Payment\R\Response::isSuccessful()
+	 * @return bool
+	 */
+	public function isSuccessful() {return $this->expectedRtnCode() === intval($this['RtnCode']);}
+
+	/**
 	 * 2016-07-10
 	 * @see \Df\Payment\R\Response::externalIdKey()
 	 * @used-by \Df\Payment\R\Response::externalId()
 	 * @return string
 	 */
 	protected function externalIdKey() {return 'TradeNo';}
-
-	/**
-	 * 2016-07-09
-	 * @override
-	 * @see \Df\Payment\R\Response::isSuccessful()
-	 * @used-by \Df\Payment\R\Response::validate()
-	 * @return bool
-	 */
-	protected function isSuccessful() {return $this->expectedRtnCode() === intval($this['RtnCode']);}
 
 	/**
 	 * 2016-07-09
@@ -109,11 +132,12 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * on the pages 32-35 of the allPay documentation.
 	 * @override
 	 * @see \Df\Payment\R\Response::testData()
+	 * @param bool $isSuccess
 	 * @return array(string => string)
 	 */
-	protected function testData() {
+	protected function testData($isSuccess) {
 		/** @var string $type */
-		$type = df_class_last(get_class($this));
+		$type = df_cc_clean('-', df_class_last(get_class($this)), $isSuccess ? '' : 'failure');
 		return df_json_decode(file_get_contents(BP . "/_my/test/allPay/{$type}.json"));
 	}
 
@@ -128,12 +152,12 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * 2016-07-13
 	 * @override
 	 * @see \Df\Payment\R\Response::i()
-	 * @param array(string => mixed)|true $params
+	 * @param array(string => mixed)|bool $params
 	 * @return self
 	 */
 	public static function i($params) {
 		return self::ic(
-			true === $params
+			!is_array($params)
 				? BankCard::class
 				: dfa(['ATM' => ATM::class, 'Credit' => BankCard::class],
 					df_first(explode('_', dfa($params, 'PaymentType')))

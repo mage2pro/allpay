@@ -12,7 +12,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 	 * @see \Magento\Framework\App\Action\Action::execute()
 	 * @return Text
 	 */
-	public function execute() {return R::i(df_is_it_my_local_pc() ? true : $_REQUEST)->handle();}
+	public function execute() {return R::i(df_is_it_my_local_pc() ? false : $_REQUEST)->handle();}
 }
 
 

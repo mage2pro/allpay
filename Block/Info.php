@@ -58,7 +58,7 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 			$result = null;
 			/** @var T[] $valid */
 			$valid = array_filter($this->transC(), function(T $t) {
-				return Response::i(df_trans_raw_details($t))->validate(false);
+				return Response::i(df_trans_raw_details($t))->validAndSuccessful();
 			});
 			/** @var int $count */
 			$count = count($valid);

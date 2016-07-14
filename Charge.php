@@ -275,8 +275,21 @@ class Charge extends \Df\Payment\Charge {
 		 * If merchant setups a ClientBackURL, after it sends order information to allPay,
 		 * a “back to partner” button would be shown and generated
 		 * by allPay Cash Flow System in order result page.
+		 *
+		 * 2016-07-14
+		 * Раньше здесь стояло df_url_checkout_success(),
+		 * что показывало покупателю страницу об успешности заказа
+		 * даже если покупатель не смог или не захотел оплачивать заказ.
+		 *
+		 * Теперь же, покупатель не смог или не захотел оплатить заказ,
+		 * то при соответствующем («ReturnURL») оповещении платёжной системы
+		 * мы заказ отменяем, а затем, когда платёжная система возврат покупателя в магазин,
+		 * то мы проверим, не отменён ли последний заказ,
+		 * и если он отменён — то восстановим корзину покупателя.
+		 *
+		 * @see \Dfe\AllPay\Controller\CustomerReturn\Index
 		 */
-		,'OrderResultURL' => df_url_checkout_success()
+		,'OrderResultURL' => df_url_frontend('dfe-allpay/customerReturn')
 		// 2016-07-04
 		// «If there is a need for an extra payment information».
 		// Varchar(1)
