@@ -32,7 +32,7 @@ class Index extends \Magento\Framework\App\Action\Action {
 			 */
 			/** @var T $t */
 			$t = df_trans_by_payment_last($order->getPayment());
-			df_checkout_error(df_trans_raw_details($t, 'RtnMsg'));
+			df_payment_error(df_trans_raw_details($t, 'RtnMsg'));
 		}
 		return $result;
 	}
