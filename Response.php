@@ -97,16 +97,6 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-07-09
 	 * @override
-	 * @see \Df\Payment\R\Response::messageKey()
-	 * @used-by \Df\Payment\R\Response::message()
-	 * @return string
-	 * «Trade message»
-	 */
-	protected function messageKey() {return 'RtnMsg';}
-
-	/**
-	 * 2016-07-09
-	 * @override
 	 * @see \Df\Payment\R\Response::requestIdKey()
 	 * @used-by \Df\Payment\R\Response::requestId()
 	 * @return string

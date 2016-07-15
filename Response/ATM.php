@@ -27,9 +27,10 @@ class ATM extends \Dfe\AllPay\Response {
 	 * on the pages 32-35 of the allPay documentation.
 	 * @override
 	 * @see \Df\Payment\R\Response::testData()
+	 * @param bool $isSuccess
 	 * @return array(string => string)
 	 */
-	protected function testData() {return [
+	protected function testData($isSuccess) {return [
 		/**
 		 * 2016-07-12
 		 * «Bank code»

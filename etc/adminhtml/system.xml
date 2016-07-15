@@ -222,10 +222,36 @@
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
+					id='messageFailure'
+					translate='label'
+					type='Df\Framework\Form\Element\Textarea'
+					dfRows='4'
+					sortOrder='13'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Failure Message Template</label>
+					<comment><![CDATA[The failure message will be displayed to the customer on the checkout screen after the customer returns from the allPay payment page to the store after an unsuccessful payment attempt.
+<br/>You can use HTML tags and the following vairables in the template: <table class='df-note'><tbody>
+		<tr>
+			<td>{originalMessage}</td>
+			<td>A message from the allPay (a value of the «RtnMsg» response parameter)</td>
+		</tr>
+</tbody></table>
+]]></comment>
+<!--
+	2016-07-01
+	Не используем здесь validate-length, потому что описание допускает параметры,
+	и реальная длина описания нам не известна вплоть до момента вычисления значения этих параметров.
+-->
+					<depends><field id='enable'>1</field></depends>
+				</field>
+				<field
 					id='methodsLimit'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
-					sortOrder='13'
+					sortOrder='14'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -239,7 +265,7 @@
 					id='methodsAllowed'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
-					sortOrder='14'
+					sortOrder='15'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -257,7 +283,7 @@
 					id='min_order_total'
 					translate='label'
 					type='text'
-					sortOrder='15'
+					sortOrder='16'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -271,7 +297,7 @@
 					id='max_order_total'
 					translate='label'
 					type='text'
-					sortOrder='16'
+					sortOrder='17'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -285,7 +311,7 @@
 					id='country_restriction'
 					translate='label'
 					type='select'
-					sortOrder='17'
+					sortOrder='18'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -298,7 +324,7 @@
 					id='countries'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
-					sortOrder='18'
+					sortOrder='19'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
