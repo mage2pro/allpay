@@ -231,20 +231,15 @@
 					showInWebsite='1'
 					showInStore='1'
 				>
-					<label>Failure Message Template</label>
-					<comment><![CDATA[The failure message will be displayed to the customer on the checkout screen after the customer returns from the allPay payment page to the store after an unsuccessful payment attempt.
+					<label>Failure Message</label>
+					<comment><![CDATA[The failure message will be displayed to the customer on the checkout screen when the customer returns from the allPay payment page to the store after an unsuccessful payment attempt.
 <br/>You can use HTML tags and the following vairables in the template: <table class='df-note'><tbody>
 		<tr>
 			<td>{originalMessage}</td>
-			<td>A message from the allPay (a value of the «RtnMsg» response parameter)</td>
+			<td>A message from the allPay<br/>(a value of the «<code>RtnMsg</code>» response parameter)</td>
 		</tr>
 </tbody></table>
 ]]></comment>
-<!--
-	2016-07-01
-	Не используем здесь validate-length, потому что описание допускает параметры,
-	и реальная длина описания нам не известна вплоть до момента вычисления значения этих параметров.
--->
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field

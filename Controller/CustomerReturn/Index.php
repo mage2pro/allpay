@@ -1,6 +1,7 @@
 <?php
 namespace Dfe\AllPay\Controller\CustomerReturn;
 use Dfe\AllPay\Response as R;
+use Dfe\AllPay\Settings as S;
 use Df\Sales\Model\Order as DfOrder;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Sales\Model\Order;
@@ -28,9 +29,10 @@ class Index extends \Magento\Framework\App\Action\Action {
 			// 2016-07-14
 			// Show an explanation message to the customer
 			// when it returns to the store after an unsuccessful payment attempt.
-			df_payment_error(df_trans_raw_details(
-				df_trans_by_payment_last($order->getPayment()), 'RtnMsg'
-			));
+			df_checkout_error(strtr(S::s()->messageFailure(), [
+				'{originalMessage}' =>
+					df_trans_raw_details(df_trans_by_payment_last($order->getPayment()), 'RtnMsg')
+			]));
 		}
 		return $result;
 	}

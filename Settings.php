@@ -1,6 +1,5 @@
 <?php
 namespace Dfe\AllPay;
-use Magento\Framework\App\ScopeInterface as S;
 /** @method static Settings s() */
 class Settings extends \Df\Payment\Settings {
 	/**
@@ -44,6 +43,13 @@ class Settings extends \Df\Payment\Settings {
 	public function merchantID() {
 		return $this->test() ? $this->testMerchantID() : $this->liveMerchantID();
 	}
+
+	/**
+	 * 2016-07-15
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Failure Message»
+	 * @return string
+	 */
+	public function messageFailure() {return $this->v(__FUNCTION__);}
 
 	/**
 	 * 2016-07-05
