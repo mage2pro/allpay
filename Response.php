@@ -2,9 +2,12 @@
 namespace Dfe\AllPay;
 use Df\Framework\Controller\Result\Text;
 use Df\Sales\Model\Order as DfOrder;
+use Df\Sales\Model\Order\Payment as DfPayment;
 use Dfe\AllPay\Response\ATM;
 use Dfe\AllPay\Response\BankCard;
+use Magento\Sales\Api\Data\OrderPaymentInterface as IOP;
 use Magento\Sales\Model\Order;
+use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Order\Payment as OP;
 /**
  * 2016-07-09
@@ -39,6 +42,22 @@ abstract class Response extends \Df\Payment\R\Response {
 			 */
 			$this->isSuccessful() ? $this->handleInternal() : $this->order()->cancel();
 			$this->order()->save();
+			/**
+			 * 2016-07-15
+			 * Send email confirmation to the customer.
+			 * https://code.dmitry-fedyuk.com/m2e/allpay/issues/6
+			 * It is implemented by analogy with https://github.com/magento/magento2/blob/2.1.0/app/code/Magento/Paypal/Model/Ipn.php#L312-L321
+			 */
+			/** @var IOP|OP|DfPayment|null $payment */
+			$payment = $this->order()->getPayment();
+			if ($payment && $payment->getCreatedInvoice()) {
+				/**
+				 * 2016-07-15
+				 * What is the difference between InvoiceSender and OrderSender?
+				 * https://mage2.pro/t/1872
+				 */
+				df_order_send_email($this->order());
+			}
 			$result = Text::i('1|OK');
 			df_log('OK');
 		}
