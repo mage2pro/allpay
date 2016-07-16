@@ -50,7 +50,7 @@
 ведь в будущих версиях Magento перечень параметров предка может измениться.
 					-->
 					<dfEnabler>Dfe\AllPay\Enabler</dfEnabler>
-                    <comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/allpay'>歐付寶 allPay</a>» payment extension?]]></comment>
+                    <comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/allpay' target='_blank'>歐付寶 allPay</a>» payment extension?]]></comment>
                 </field>
 				<field
 					id='title'
@@ -76,7 +76,7 @@
 				>
 					<label>Test Mode?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
-					<comment><![CDATA[<a href='https://mage2.pro/t/1817'>test card numbers</a>]]></comment>
+					<comment><![CDATA[<a href='https://mage2.pro/t/1817' target='_blank'>test card numbers</a>]]></comment>
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
