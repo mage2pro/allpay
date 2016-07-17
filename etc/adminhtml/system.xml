@@ -233,10 +233,10 @@
 				>
 					<label>Failure Message</label>
 					<comment><![CDATA[The failure message will be displayed to the customer on the checkout screen when the customer returns from the allPay payment page to the store after an unsuccessful payment attempt.
-<br/>You can use HTML tags and the following vairables in the template: <table class='df-note'><tbody>
+<br/>You can use HTML tags and the following variables in the template: <table class='df-note'><tbody>
 		<tr>
 			<td>{originalMessage}</td>
-			<td>A message from the allPay<br/>(a value of the «<code>RtnMsg</code>» response parameter)</td>
+			<td>A message from allPay<br/>(a value of the «<code>RtnMsg</code>» response parameter)</td>
 		</tr>
 </tbody></table>
 ]]></comment>

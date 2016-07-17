@@ -29,8 +29,8 @@ class Index extends \Magento\Framework\App\Action\Action {
 			// 2016-07-14
 			// Show an explanation message to the customer
 			// when it returns to the store after an unsuccessful payment attempt.
-			df_checkout_error(strtr(S::s()->messageFailure(), [
-				'{originalMessage}' =>
+			df_checkout_error(df_var(S::s()->messageFailure(), [
+				'originalMessage' =>
 					df_trans_raw_details(df_trans_by_payment_last($order->getPayment()), 'RtnMsg')
 			]));
 		}
