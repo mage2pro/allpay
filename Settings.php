@@ -66,6 +66,13 @@ class Settings extends \Df\Payment\Settings {
 	public function methodsLimit() {return $this->b(__FUNCTION__);}
 
 	/**
+	 * 2016-03-15
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Payment Identification Type»
+	 * @return string
+	 */
+	public function paymentIdentificationType() {return $this->v(__FUNCTION__);}
+
+	/**
 	 * 2016-07-01
 	 * @override
 	 * @used-by \Df\Core\Settings::v()

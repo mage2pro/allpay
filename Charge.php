@@ -1,6 +1,7 @@
 <?php
 namespace Dfe\AllPay;
 use Dfe\AllPay\Settings as S;
+use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
 use Dfe\AllPay\Source\PaymentType;
 use Magento\Payment\Model\Info as I;
 use Magento\Payment\Model\InfoInterface as II;
@@ -58,8 +59,19 @@ class Charge extends \Df\Payment\Charge {
 		 * allPay же ограничивает длину идентификатора 20 символами.
 		 *
 		 * Поэтому используем иное решение: нестандартный идентификатор транзакции.
+		 *
+		 * 2016-07-17
+		 * Клиент просит, чтобы в качестве идентификатора платежа
+		 * всё-таки использовался номер заказа:
+		 * https://code.dmitry-fedyuk.com/m2e/allpay/issues/7
+		 * В принципе, это разумно: ведь нестандартные номера заказов
+		 * (которые, например, делает наш модуль Sales Documents Numberation)
+		 * будут использовать лишь немногие клиенты,
+		 * большинство же будет использовать стандартные номера заказов,
+		 * поэтому разумно предоставить этому большинству возможность
+		 * использовать в качестве идентификатора платежа номер заказа.
 		 */
-		,'MerchantTradeNo' => df_uid(10)
+		,'MerchantTradeNo' => Identification::id($this->o())
 		/**
 		 * 2016-07-02
 		 * «Merchant trade date».

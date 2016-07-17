@@ -3,9 +3,6 @@ namespace Dfe\AllPay\Source;
 /** @method static PaymentType s() */
 class PaymentType extends \Df\Config\SourceT {
 	/**
-	 * 2016-03-09
-	 * https://stripe.com/docs/testing#cards
-	 * https://mage2.pro/t/900
 	 * @override
 	 * @see \Df\Config\Source::map()
 	 * @used-by \Df\Config\Source::toOptionArray()
