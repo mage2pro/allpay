@@ -26,11 +26,240 @@ class Charge extends \Df\Payment\Charge {
 	 * @return array(mixed => mixed)
 	 */
 	private function _requestI() {if (!isset($this->{__METHOD__})) {$this->{__METHOD__} = [
+		/**
+		 * 2016-07-02
+		 * «Select default payment type».
+		 * Varchar(20)
+		 * «allPay would provide follow payment types, please send it when generating an order:
+		 * 		Credit: Credit Card.
+		 * 		WebATM: webATM.
+		 * 		ATM: physical ATM machine.
+		 * 		CVS: CVS code.
+		 * 		BARCODE: BARCODE.
+		 * 		Tenpay: Tenpay.
+		 * 		TopUpUsed: consume with account balance.
+		 * 		ALL: no selected payment type.
+		 * allPay would show the page to select payment type.
+		 * Must be filled.
+		 *
+		 * 2016-07-05
+		 * Если указать отличное от «ALL» значение этого параметра,
+		 * то у покупателя не будет возможность выбрать другой способ оплаты.
+		 * Мы позволяем администратору ограничить множество доступных покупателю способов оплаты,
+		 * но нам удобнее реализовать это ограничение через параметр «IgnorePayment» (смотрите ниже),
+		 * а для параметра «ChoosePayment» поэтому указываем значение «ALL».
+		 *
+		 * 2016-07-05
+		 * Как оказалось, «IgnorePayment» работает с косяками:
+		 * [allPay] Unable to disable the «TopUpUsed» method
+		 * and an undocumented «Overseas» method with the «IgnorePayment» parameter.
+		 * https://mage2.pro/t/1852
+		 *
+		 * Поэтому, если администратор магазина выбрал только один способ оплаты,
+		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
+		 */
+		'ChoosePayment' => $this->pChoosePayment()
+		// 2016-07-02
+		// «Select the default setup for sub payment».
+		// Varchar(20)
+		// «If this is set up correctly, users are unable to see cash flow selection page.
+		// He could select payment type directly,
+		// but “Credit” and “TopUpUsed” would not include this function.
+		// For example: if set WebATM on ChoosePayment and set TAISHIN on ChooseSubPayment,
+		// then this trade would be made through Tai Shin Bank webATM.
+		// Please refer to Table of Payment Type.».
+		// Could be empty.
+		,'ChooseSubPayment' => ''
+		/**
+		 * 2016-07-02
+		 * «URL for returning pages from Client to merchant».
+		 * Varchar(200)
+		 * «allPay would show payment complete page.
+		 * That page would include “back to merchant” button.
+		 * When a member clicks this button, it would redirect webpage to URL it set up.
+		 * If this parameter is not set up,
+		 * allPay payment complete page would not show “back to merchant” button.
+		 * When redirect webpage, it would simply return the page
+		 * instead of redirecting payment result to this URL.».
+		 *
+		 * Could be empty.
+		 *
+		 * [allPay] What is the difference
+		 * between the «OrderResultURL» and «ClientBackURL» parameters? https://mage2.pro/t/1836/2
+		 *
+		 * «ClientBackURL has value and OrderResultURL is empty:
+		 * The browser will go to AllPay's complete(result) page after payment is complete.
+		 * There will be a "back to merchant" link on the page.
+		 * If clicked, the link will go to ClientBackURL you specified.
+		 *
+		 * OrderResultURL has value:
+		 * The browser will go to OrderResultURL instead after payment is complete.
+		 * So, I guess you should use the parameter
+		 * to go back magento's order complete page from AllPay.»
+		 *
+		 * 2016-07-06
+		 * На страницах 6-7 документации сказано:
+		 * «If merchant does not setup an OrderResultURL,
+		 * the order result page will be shown in allPay after it sends order information to allPay.
+		 * If merchant setups a ClientBackURL, after it sends order information to allPay,
+		 * a “back to partner” button would be shown and generated
+		 * by allPay Cash Flow System in order result page.
+		 *
+		 * 2016-07-18
+		 * Для оффлайновых способов оплаты
+		 * решил пока использовать «ClientBackURL», а не «ClientRedirectURL»,
+		 * потому что при «ClientBackURL» allPay отображает покупателю
+		 * подробную инструкцию по оплате.
+		 */
+		,'ClientBackURL' => df_url_frontend('dfe-allpay/customerReturn')
+		/**
+		 * 2016-07-04
+		 * «Payment related information returned by Client end».
+		 * Varchar(200)
+		 * «allPay would return the payment related information webpage
+		 * as a Client end to merchant after an order is generated (not after a payment is made).
+		 * It would include the bank code, virtual account, and expiration date (yyyy/MM/dd).
+		 * If this value is left as empty, it would show the order generated page in allPay webpage.
+		 * If would like to show this page in your site, please set up the URL.
+		 * If this parameter is set up, ClientBackURL parameter would be disable.».
+		 *
+		 * В другом месте документации (страница 2) написано:
+		 * «Add ClientRedirectURL which Client end will return payment information
+		 * then redirect to its URL under ATM, CVS, or BARCODE payment type.»
+		 *
+		 * Could be empty.
+		 *
+		 * 2016-07-06
+		 * «ClientRedirectURL» используется только в сценариях оффлайновой оплаты: ATM, CVS, BARCODE.
+		 * Шаг «ClientRedirectURL» показан под номером 15 на странице 8 документации.
+		 * Если покупатель выбрал оффлайновый способ оплаты (ATM, CVS, BARCODE),
+		 * то платёжная система возвращает покупателя в интернет-магазин
+		 * не по адресу «OrderResultURL», а по адресу «ClientRedirectURL» (шаг 15).
+		 *
+		 * 2016-07-18
+		 * Для оффлайновых способов оплаты
+		 * решил пока использовать «ClientBackURL», а не «ClientRedirectURL»,
+		 * потому что при «ClientBackURL» allPay отображает покупателю
+		 * подробную инструкцию по оплате.
+		 */
+		,'ClientRedirectURL' => ''
+		// 2016-07-04
+		// «Device Source».
+		// Varchar(10)
+		// «This parameter would set different layout of payment type selection webpage
+		// according to the value it takes.».
+		// Could be empty.
+		//
+		// [allPay] What are the possible values for the «DeviceSource» parameter?
+		//  https://mage2.pro/t/1825
+		,'DeviceSource' => ''
+		// 2016-07-04
+		// «CheckMacValue encryption type».
+		// Int
+		// 		0:	MD5 (default setting)
+		//		1:	SHA256
+		// Could be empty.
+		,'EncryptType' => 0
+		// 2016-07-04
+		// «Effective payment period».
+		// Int
+		// «At most 60 days; at least 1 day.
+		// Defaulted as 3 days if this is left as blank.».
+		// Could be empty.
+		,'ExpireDate' => 3
+		// 2016-07-04
+		// «Whether or not to hold the allocation».
+		// Int
+		// «Whether or not to hold the allocation.
+		// If no, take 0 (default value) as its value.
+		// If yes, take 1 as its value.
+		// Meaning of values listed below:
+		// 		0:	allPay according to the contract has allocated the payment to merchant
+		// 			after buyer made his payment (this is set as default value).
+		// 		1:	after buyer made his payment
+		// 			it needs to call “Merchant Allocation/Refund Request” API
+		// 			so that allPay could make the payment to merchant.
+		// 			If merchant does not request for allocation,
+		// 			this order would be kept in allPay until merchant apply for its allocation.
+		// This is not suitable for paying by “Credit Card” and “Tenpay.”».
+		// Could be empty.
+		,'HoldTradeAMT' => 0
+		/**
+		 * 2016-07-04
+		 * «Ignore payment type».
+		 * Varchar(100)
+		 * «When using ALL as ChoosePayment, user could select not to show his payment type.
+		 * If there are more than one payment type, separate them by symbol #.».
+		 * An example: ATM#WebATM
+		 * Could be empty.
+		 *
+		 * 2016-07-05
+		 * Как оказалось, «IgnorePayment» работает с косяками:
+		 * [allPay] Unable to disable the «TopUpUsed» method
+		 * and an undocumented «Overseas» method with the «IgnorePayment» parameter.
+		 * https://mage2.pro/t/1852
+		 *
+		 * Поэтому, если администратор магазина выбрал только один способ оплаты,
+		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
+		 */
+		,'IgnorePayment' => $this->pIgnorePayment()
+		// 2016-07-04
+		// «Electronic invoice remark».
+		// Varchar(1)
+		// «This parameter would help generating an invoice after payment is made.
+		// If would like to generated an invoice, set Y as its value.».
+		// Could be empty.
+		,'InvoiceMark' => ''
+		// 2016-07-02
+		// «Item Name».
+		// Varchar(200)
+		// «If there are more than one item name
+		// and would like to show cash flow selection page line by line,
+		// separate the item name with symbol #.».
+		// Must be filled.
+		,'ItemName' => df_order_items($this->o(), '#')
+		/**
+		 * 2016-07-02
+		 * «Item URL».
+		 * Varchar(200)
+		 * [allPay] What is the «ItemURL» payment parameter for? https://mage2.pro/t/1819/2
+		 * «You can put product URLs in the parameter.
+		 * In case of multiple URLs, you can use + to concatenate them.
+		 * "www.allpay.com.tw+www.yahoo.com.tw" <- An example that provided by AllPay
+		 * BTW, please note the max length is 200.».
+		 *
+		 * https://mage2.pro/t/1819/3
+		 * «After further confirmation with AllPay,
+		 * so far the parameter is not really used in any scenario.».
+		 * Could be empty.
+		 */
+		,'ItemURL' => $this->productUrls()
 		// 2016-07-02
 		// «Merchant Identification number (provided by allPay)».
 		// Varchar(10)
 		// Must be filled.
-		'MerchantID' => S::s()->merchantID()
+		,'MerchantID' => S::s()->merchantID()
+		/**
+		 * 2016-07-02
+		 * «Merchant trade date».
+		 * Varchar(20)
+		 * «Formatted as yyyy/MM/dd HH:mm:ss».
+		 * Example: 2012/03/21 15:40:18
+		 * Must be filled.
+		 *
+		 * 2016-07-04
+		 * В данный момент дата отсутствует как у заказа, так и у платежа,
+		 * поэтому конструируем дату самостоятельно.
+		 * Сделал идентично официальному примеру:
+		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L66
+		 *
+		 * 2016-07-09
+		 * Looks like we need to use the Taiwanese time zone,
+		 * because the time format does not contain a time zone information,
+		 * and allPay uses the Taiwanese time zone in the payment response.
+		 * http://php.net/manual/en/function.timezone-offset-get.php#73995
+		 */
+		,'MerchantTradeDate' => df_now('Y/m/d H:i:s', 'Asia/Taipei')
 		// 2016-07-02
 		// «Merchant trade number».
 		// Varchar(20)
@@ -72,186 +301,17 @@ class Charge extends \Df\Payment\Charge {
 		 * использовать в качестве идентификатора платежа номер заказа.
 		 */
 		,'MerchantTradeNo' => Identification::id($this->o())
-		/**
-		 * 2016-07-02
-		 * «Merchant trade date».
-		 * Varchar(20)
-		 * «Formatted as yyyy/MM/dd HH:mm:ss».
-		 * Example: 2012/03/21 15:40:18
-		 * Must be filled.
-		 *
-		 * 2016-07-04
-		 * В данный момент дата отсутствует как у заказа, так и у платежа,
-		 * поэтому конструируем дату самостоятельно.
-		 * Сделал идентично официальному примеру:
-		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L66
-		 *
-		 * 2016-07-09
-		 * Looks like we need to use the Taiwanese time zone,
-		 * because the time format does not contain a time zone information,
-		 * and allPay uses the Taiwanese time zone in the payment response.
-		 * http://php.net/manual/en/function.timezone-offset-get.php#73995
-		 */
-		,'MerchantTradeDate' => df_now('Y/m/d H:i:s', 'Asia/Taipei')
-		// 2016-07-02
-		// «Payment type».
-		// Varchar(20)
-		// «Please use aio as its value».
-		// Must be filled.
-		,'PaymentType' => 'aio'
-		// 2016-07-02
-		// «Trade amount».
-		// «Money».
-		// Must be filled.
-		/**
-		 * 2016-07-02
-		 * «Trade amount».
-		 * «Money».
-		 * Must be filled.
-		 *
-		 * 2016-07-05
-		 * Значение должно быть целым.
-		 */
-		,'TotalAmount' => round(df_currency_convert($this->amount(), null, 'TWD'))
-		// 2016-07-02
-		// «Trade description».
-		// Varchar(200)
-		// Must be filled.
-		,'TradeDesc' => $this->text(S::s()->description())
-		// 2016-07-02
-		// «Item Name».
-		// Varchar(200)
-		// «If there are more than one item name
-		// and would like to show cash flow selection page line by line,
-		// separate the item name with symbol #.».
-		// Must be filled.
-		,'ItemName' => df_order_items($this->o(), '#')
-		/**
-		 * 2016-07-02
-		 * «Return URL for payment complete notification».
-		 * Varchar(200)
-		 * «When a customer made a payment,
-		 * payment result would be sent by server back end and return to this URL.».
-		 * Must be filled.
-		 *
-		 * Параметр описан в документации на трэш-английском,
-		 * но из программного кода модуля для Magento 1.x я понял,
-		 * что по этому адресу платёжная система оповещает интернет-магазин о платеже.
-		 * В документации этим опомещениям посвящён раздел
-		 * «7. Payment Result Notification» на странице 32.
-		 *
-		 * 2016-05-06
-		 * Обратите внимание, что сненарии онлайновой и оффлайновой оплаты различаются.
-		 * В сценарии оффлайновой оплаты (ATM, CVS, BARCODE)
-		 * платёжная система непосредственно в процессе оформления заказа
-		 * оповещает интернет-магазин не по адресу «ReturnURL»,
-		 * а по адресу «PaymentInfoURL» (шаг 13 на странице 8 докумениации),
-		 * а оповещение по адресу «ReturnURL» приходит лишь на шаге 21,
-		 * когда покупатель уже оплатил заказ оффлайновым способом.
-		 */
-		,'ReturnURL' => df_url_callback('dfe-allpay/confirm')
-		/**
-		 * 2016-07-02
-		 * «Select default payment type».
-		 * Varchar(20)
-		 * «allPay would provide follow payment types, please send it when generating an order:
-		 * 		Credit: Credit Card.
-		 * 		WebATM: webATM.
-		 * 		ATM: physical ATM machine.
-		 * 		CVS: CVS code.
-		 * 		BARCODE: BARCODE.
-		 * 		Tenpay: Tenpay.
-		 * 		TopUpUsed: consume with account balance.
-		 * 		ALL: no selected payment type.
-		 * allPay would show the page to select payment type.
-		 * Must be filled.
-		 *
-		 * 2016-07-05
-		 * Если указать отличное от «ALL» значение этого параметра,
-		 * то у покупателя не будет возможность выбрать другой способ оплаты.
-		 * Мы позволяем администратору ограничить множество доступных покупателю способов оплаты,
-		 * но нам удобнее реализовать это ограничение через параметр «IgnorePayment» (смотрите ниже),
-		 * а для параметра «ChoosePayment» поэтому указываем значение «ALL».
-		 *
-		 * 2016-07-05
-		 * Как оказалось, «IgnorePayment» работает с косяками:
-		 * [allPay] Unable to disable the «TopUpUsed» method
-		 * and an undocumented «Overseas» method with the «IgnorePayment» parameter.
-		 * https://mage2.pro/t/1852
-		 *
-		 * Поэтому, если администратор магазина выбрал только один способ оплаты,
-		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
-		 */
-		,'ChoosePayment' => $this->pChoosePayment() // 'ALL'
-		/**
-		 * 2016-07-02
-		 * «URL for returning pages from Client to merchant».
-		 * Varchar(200)
-		 * «allPay would show payment complete page.
-		 * That page would include “back to merchant” button.
-		 * When a member clicks this button, it would redirect webpage to URL it set up.
-		 * If this parameter is not set up,
-		 * allPay payment complete page would not show “back to merchant” button.
-		 * When redirect webpage, it would simply return the page
-		 * instead of redirecting payment result to this URL.».
-		 *
-		 * Could be empty.
-		 *
-		 * [allPay] What is the difference
-		 * between the «OrderResultURL» and «ClientBackURL» parameters? https://mage2.pro/t/1836/2
-		 *
-		 * «ClientBackURL has value and OrderResultURL is empty:
-		 * The browser will go to AllPay's complete(result) page after payment is complete.
-		 * There will be a "back to merchant" link on the page.
-		 * If clicked, the link will go to ClientBackURL you specified.
-		 *
-		 * OrderResultURL has value:
-		 * The browser will go to OrderResultURL instead after payment is complete.
-		 * So, I guess you should use the parameter
-		 * to go back magento's order complete page from AllPay.»
-		 *
-		 * 2016-07-06
-		 * На страницах 6-7 документации сказано:
-		 * «If merchant does not setup an OrderResultURL,
-		 * the order result page will be shown in allPay after it sends order information to allPay.
-		 * If merchant setups a ClientBackURL, after it sends order information to allPay,
-		 * a “back to partner” button would be shown and generated
-		 * by allPay Cash Flow System in order result page.
-		 */
-		,'ClientBackURL' => ''//df_url_checkout_success()
-		/**
-		 * 2016-07-02
-		 * «Item URL».
-		 * Varchar(200)
-		 * [allPay] What is the «ItemURL» payment parameter for? https://mage2.pro/t/1819/2
-		 * «You can put product URLs in the parameter.
-		 * In case of multiple URLs, you can use + to concatenate them.
-		 * "www.allpay.com.tw+www.yahoo.com.tw" <- An example that provided by AllPay
-		 * BTW, please note the max length is 200.».
-		 *
-		 * https://mage2.pro/t/1819/3
-		 * «After further confirmation with AllPay,
-		 * so far the parameter is not really used in any scenario.».
-		 * Could be empty.
-		 */
-		,'ItemURL' => $this->productUrls()
-		// 2016-07-02
-		// «Remark».
-		// Varchar(100)
-		// «Leave it as blank for now.».
+		// 2016-07-04
+		// «If there is a need for an extra payment information».
+		// Varchar(1)
+		// «Set up payment complete notification,
+		// return information of order query,
+		// and decide if there is a for an extra payment information
+		// (for return information, please refer to Additional Return Parameter).
+		// Default as N, not reply extra information.
+		// When the parameter is Y, then reply with extra information.».
 		// Could be empty.
-		,'Remark' => ''
-		// 2016-07-02
-		// «Select the default setup for sub payment».
-		// Varchar(20)
-		// «If this is set up correctly, users are unable to see cash flow selection page.
-		// He could select payment type directly,
-		// but “Credit” and “TopUpUsed” would not include this function.
-		// For example: if set WebATM on ChoosePayment and set TAISHIN on ChooseSubPayment,
-		// then this trade would be made through Tai Shin Bank webATM.
-		// Please refer to Table of Payment Type.».
-		// Could be empty.
-		,'ChooseSubPayment' => ''
+		,'NeedExtraPaidInfo' => 'N'
 		/**
 		 * 2016-07-04
 		 * «Payment result URL returned by Client end».
@@ -302,94 +362,6 @@ class Charge extends \Df\Payment\Charge {
 		 * @see \Dfe\AllPay\Controller\CustomerReturn\Index
 		 */
 		,'OrderResultURL' => df_url_frontend('dfe-allpay/customerReturn')
-		// 2016-07-04
-		// «If there is a need for an extra payment information».
-		// Varchar(1)
-		// «Set up payment complete notification,
-		// return information of order query,
-		// and decide if there is a for an extra payment information
-		// (for return information, please refer to Additional Return Parameter).
-		// Default as N, not reply extra information.
-		// When the parameter is Y, then reply with extra information.».
-		// Could be empty.
-		,'NeedExtraPaidInfo' => 'N'
-		// 2016-07-04
-		// «Device Source».
-		// Varchar(10)
-		// «This parameter would set different layout of payment type selection webpage
-		// according to the value it takes.».
-		// Could be empty.
-		//
-		// [allPay] What are the possible values for the «DeviceSource» parameter?
-		//  https://mage2.pro/t/1825
-		,'DeviceSource' => ''
-		/**
-		 * 2016-07-04
-		 * «Ignore payment type».
-		 * Varchar(100)
-		 * «When using ALL as ChoosePayment, user could select not to show his payment type.
-		 * If there are more than one payment type, separate them by symbol #.».
-		 * An example: ATM#WebATM
-		 * Could be empty.
-		 *
-		 * 2016-07-05
-		 * Как оказалось, «IgnorePayment» работает с косяками:
-		 * [allPay] Unable to disable the «TopUpUsed» method
-		 * and an undocumented «Overseas» method with the «IgnorePayment» parameter.
-		 * https://mage2.pro/t/1852
-		 *
-		 * Поэтому, если администратор магазина выбрал только один способ оплаты,
-		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
-		 */
-		,'IgnorePayment' => $this->pIgnorePayment() //'WebATM#ATM#CVS#BARCODE#Tenpay#TopUpUsed#Alipay
-		// 2016-07-04
-		// «Merchant platform identification number(provided by allPay)».
-		// Varchar(10)
-		// «This parameter is for project based merchants.
-		// The others should leave this as blank.
-		// If it is working with a project based merchant,
-		// use the MerchantID which seller has appointed with.
-		// If there are values in both AllPayID and AccountID, PlatformID could not be left as blank.».
-		// Could be empty.
-		,'PlatformID' => ''
-		// 2016-07-04
-		// «Electronic invoice remark».
-		// Varchar(1)
-		// «This parameter would help generating an invoice after payment is made.
-		// If would like to generated an invoice, set Y as its value.».
-		// Could be empty.
-		,'InvoiceMark' => ''
-		// 2016-07-04
-		// «Whether or not to hold the allocation».
-		// Int
-		// «Whether or not to hold the allocation.
-		// If no, take 0 (default value) as its value.
-		// If yes, take 1 as its value.
-		// Meaning of values listed below:
-		// 		0:	allPay according to the contract has allocated the payment to merchant
-		// 			after buyer made his payment (this is set as default value).
-		// 		1:	after buyer made his payment
-		// 			it needs to call “Merchant Allocation/Refund Request” API
-		// 			so that allPay could make the payment to merchant.
-		// 			If merchant does not request for allocation,
-		// 			this order would be kept in allPay until merchant apply for its allocation.
-		// This is not suitable for paying by “Credit Card” and “Tenpay.”».
-		// Could be empty.
-		,'HoldTradeAMT' => 0
-		// 2016-07-04
-		// «CheckMacValue encryption type».
-		// Int
-		// 		0:	MD5 (default setting)
-		//		1:	SHA256
-		// Could be empty.
-		,'EncryptType' => 0
-		// 2016-07-04
-		// «Effective payment period».
-		// Int
-		// «At most 60 days; at least 1 day.
-		// Defaulted as 3 days if this is left as blank.».
-		// Could be empty.
-		,'ExpireDate' => 3
 		/**
 		 * 2016-07-04
 		 * «Payment related information returned by Server end».
@@ -420,31 +392,71 @@ class Charge extends \Df\Payment\Charge {
 		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
 		,'PaymentInfoURL' => df_url_callback('dfe-allpay/confirm')
+		// 2016-07-02
+		// «Payment type».
+		// Varchar(20)
+		// «Please use aio as its value».
+		// Must be filled.
+		,'PaymentType' => 'aio'
+		// 2016-07-04
+		// «Merchant platform identification number(provided by allPay)».
+		// Varchar(10)
+		// «This parameter is for project based merchants.
+		// The others should leave this as blank.
+		// If it is working with a project based merchant,
+		// use the MerchantID which seller has appointed with.
+		// If there are values in both AllPayID and AccountID, PlatformID could not be left as blank.».
+		// Could be empty.
+		,'PlatformID' => ''
+		// 2016-07-02
+		// «Remark».
+		// Varchar(100)
+		// «Leave it as blank for now.».
+		// Could be empty.
+		,'Remark' => ''
 		/**
-		 * 2016-07-04
-		 * «Payment related information returned by Client end».
+		 * 2016-07-02
+		 * «Return URL for payment complete notification».
 		 * Varchar(200)
-		 * «allPay would return the payment related information webpage
-		 * as a Client end to merchant after an order is generated (not after a payment is made).
-		 * It would include the bank code, virtual account, and expiration date (yyyy/MM/dd).
-		 * If this value is left as empty, it would show the order generated page in allPay webpage.
-		 * If would like to show this page in your site, please set up the URL.
-		 * If this parameter is set up, ClientBackURL parameter would be disable.».
+		 * «When a customer made a payment,
+		 * payment result would be sent by server back end and return to this URL.».
+		 * Must be filled.
 		 *
-		 * В другом месте документации (страница 2) написано:
-		 * «Add ClientRedirectURL which Client end will return payment information
-		 * then redirect to its URL under ATM, CVS, or BARCODE payment type.»
+		 * Параметр описан в документации на трэш-английском,
+		 * но из программного кода модуля для Magento 1.x я понял,
+		 * что по этому адресу платёжная система оповещает интернет-магазин о платеже.
+		 * В документации этим опомещениям посвящён раздел
+		 * «7. Payment Result Notification» на странице 32.
 		 *
-		 * Could be empty.
-		 *
-		 * 2016-07-06
-		 * «ClientRedirectURL» используется только в сценариях оффлайновой оплаты: ATM, CVS, BARCODE.
-		 * Шаг «ClientRedirectURL» показан под номером 15 на странице 8 документации.
-		 * Если покупатель выбрал оффлайновый способ оплаты (ATM, CVS, BARCODE),
-		 * то платёжная система возвращает покупателя в интернет-магазин
-		 * не по адресу «OrderResultURL», а по адресу «ClientRedirectURL» (шаг 15).
+		 * 2016-05-06
+		 * Обратите внимание, что сненарии онлайновой и оффлайновой оплаты различаются.
+		 * В сценарии оффлайновой оплаты (ATM, CVS, BARCODE)
+		 * платёжная система непосредственно в процессе оформления заказа
+		 * оповещает интернет-магазин не по адресу «ReturnURL»,
+		 * а по адресу «PaymentInfoURL» (шаг 13 на странице 8 докумениации),
+		 * а оповещение по адресу «ReturnURL» приходит лишь на шаге 21,
+		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
-		,'ClientRedirectURL' => df_url_checkout_success()
+		,'ReturnURL' => df_url_callback('dfe-allpay/confirm')
+		// 2016-07-02
+		// «Trade amount».
+		// «Money».
+		// Must be filled.
+		/**
+		 * 2016-07-02
+		 * «Trade amount».
+		 * «Money».
+		 * Must be filled.
+		 *
+		 * 2016-07-05
+		 * Значение должно быть целым.
+		 */
+		,'TotalAmount' => round(df_currency_convert($this->amount(), null, 'TWD'))
+		// 2016-07-02
+		// «Trade description».
+		// Varchar(200)
+		// Must be filled.
+		,'TradeDesc' => $this->text(S::s()->description())
 	];}return $this->{__METHOD__};}
 
 	/**

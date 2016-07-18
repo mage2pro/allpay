@@ -2,10 +2,9 @@
 namespace Dfe\AllPay;
 use Df\Framework\Controller\Result\Text;
 use Df\Sales\Model\Order as DfOrder;
-use Df\Sales\Model\Order\Payment as DfPayment;
 use Dfe\AllPay\Response\ATM;
 use Dfe\AllPay\Response\BankCard;
-use Magento\Sales\Api\Data\OrderPaymentInterface as IOP;
+use Magento\Framework\Phrase;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Order\Payment as OP;
@@ -48,16 +47,20 @@ abstract class Response extends \Df\Payment\R\Response {
 			 * https://code.dmitry-fedyuk.com/m2e/allpay/issues/6
 			 * It is implemented by analogy with https://github.com/magento/magento2/blob/2.1.0/app/code/Magento/Paypal/Model/Ipn.php#L312-L321
 			 */
-			/** @var IOP|OP|DfPayment|null $payment */
-			$payment = $this->order()->getPayment();
-			if ($payment && $payment->getCreatedInvoice()) {
-				/**
-				 * 2016-07-15
-				 * What is the difference between InvoiceSender and OrderSender?
-				 * https://mage2.pro/t/1872
-				 */
-				df_order_send_email($this->order());
-			}
+			/**
+			 * 2016-07-15
+			 * What is the difference between InvoiceSender and OrderSender?
+			 * https://mage2.pro/t/1872
+			 */
+			/**
+			 * 2016-07-18
+			 * Раньше тут был код:
+					$payment = $this->order()->getPayment();
+					if ($payment && $payment->getCreatedInvoice()) {
+						df_order_send_email($this->order());
+					}
+			 */
+			df_order_send_email($this->order());
 			$result = Text::i('1|OK');
 			df_log('OK');
 		}
@@ -104,6 +107,19 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * @return bool
 	 */
 	public function isSuccessful() {return $this->expectedRtnCode() === intval($this['RtnCode']);}
+
+	/**
+	 * 2016-07-18
+	 * @return string
+	 */
+	public function paymentTypeTitle() {
+		if (!isset($this->{__METHOD__})) {
+			$this->{__METHOD__} = df_cc_clean(' ', array_map(function($rawValue, array $dic) {
+				return __(dfa($dic, $rawValue, $rawValue));
+			}, $this->paymentTypeA(), [self::paymentTypeDicF(), self::paymentTypeDicL()]));
+		}
+		return $this->{__METHOD__};
+	}
 
 	/**
 	 * 2016-07-10
@@ -158,6 +174,20 @@ abstract class Response extends \Df\Payment\R\Response {
 	private function log($message) {if (!df_is_it_my_local_pc()) {df_log($message);}}
 
 	/**
+	 * 2016-07-18
+	 * @return string[]
+	 */
+	private function paymentTypeA() {
+		if (!isset($this->{__METHOD__})) {
+			/** @var string[] $result */
+			$result = explode('_', $this['PaymentType']);
+			$result[1] = dfa($result, 1);
+			$this->{__METHOD__} = array_slice($result, 0, 2);
+		}
+		return $this->{__METHOD__};
+	}
+
+	/**
 	 * 2016-07-13
 	 * @override
 	 * @see \Df\Payment\R\Response::i()
@@ -167,13 +197,38 @@ abstract class Response extends \Df\Payment\R\Response {
 	public static function i($params) {
 		return self::ic(
 			!is_array($params)
-				? BankCard::class
+				? ATM::class
 				: dfa(['ATM' => ATM::class, 'Credit' => BankCard::class],
 					df_first(explode('_', dfa($params, 'PaymentType')))
 				)
 			, $params
 		);
 	}
+
+	/**
+	 * 2016-07-18
+	 * @return array(string => string)
+	 */
+	private static function paymentTypeDicF() {return ['Credit' => 'Bank Card'];}
+
+	/**
+	 * 2016-07-18
+	 * @return array(string => string)
+	 */
+	private static function paymentTypeDicL() {return [
+		'BOT' => 'Bank of Taiwan'
+		,'CATHAY' => 'Cathy United Bank'
+		,'CHB' => 'CHANG HWA BANK'
+		,'CHINATRUST' => 'China Trust Bank'
+		,'ESUN' => 'E.Sun Bank'
+		,'FIRST' => 'First Bank'
+		,'FUBON' => 'Taipei Fubon Bank'
+		,'HUANAN' => 'Hua Nan Bank'
+		,'LAND' => 'Land Bank'
+		,'Tachong' => 'TC Bank'
+		,'TAISHIN' => 'Tai Shin Bank'
+		,'Sinopac' => 'Bank Sinopac'
+	];}
 }
 
 
