@@ -1,0 +1,46 @@
+{
+	"ATM": {
+		"BOT": "Bank of Taiwan"
+		,"CATHAY": "Cathy United Bank"
+		,"CHB": "CHANG HWA BANK"
+		,"CHINATRUST": "China Trust Bank"
+		,"ESUN": "E.Sun Bank"
+		,"FIRST": "First Bank"
+		,"FUBON": "Taipei Fubon Bank"
+		,"HUANAN": "Hua Nan Bank"
+		,"LAND": "Land Bank"
+		,"Sinopac": "Bank Sinopac"
+		,"Tachong": "TC Bank"
+		,"TAISHIN": "Tai Shin Bank"
+	},
+	"BARCODE": {
+		"BARCODE": "BARCODE payment"
+	},
+	"Credit": {
+		"CreditCard": "Bank Card"
+	},
+	"CVS": {
+		"CVS": "Convenient store code payment"
+		,"FAMILY": "Family Mart code payment"
+		,"HILIFE": "Hilife code payment"
+		,"IBON": "7-11 ibon code payment"
+		,"OK": "OK Mart code payment"
+	},
+	"TopUpUsed": {
+		"AllPay": "Top up/Balance payment with Allpay"
+	},
+	"WebATM": {
+		"BOT": "Bank of Taiwan",
+		"CATHAY": "Cathy United Bank",
+		"CHINATRUST": "China Trust Bank",
+		"ESUN": "E.Sun Bank",
+		"FIRST": "First Bank",
+		"FUBON": "Taipei Fubon Bank",
+		"HUANAN": "Hua Nan Bank",
+		"LAND": "Land Bank",
+		"MEGA": "Mega Bank",
+		"TAISHIN": "Tai Shin Bank",
+		"YUANTA": "Yuan Ta Bank"
+	}
+}
+

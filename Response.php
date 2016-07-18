@@ -114,9 +114,30 @@ abstract class Response extends \Df\Payment\R\Response {
 	 */
 	public function paymentTypeTitle() {
 		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = df_cc_clean(' ', array_map(function($rawValue, array $dic) {
-				return __(dfa($dic, $rawValue, $rawValue));
-			}, $this->paymentTypeA(), [self::paymentTypeDicF(), self::paymentTypeDicL()]));
+			/** @var string $result */
+			$result = $this['PaymentType'];
+			df_assert_string_not_empty($result);
+			/** @var string[] $a */
+			$a = explode('_', $result);
+			/** @var int $c */
+			$c = count($a);
+			if (1 < $c) {
+				/** @var string $f */
+				$f = $a[0];
+				/** @var string $l */
+				$l = $a[1];
+				/** @var string|null */
+				$resultD = dfa_deep($this->moduleJson('titles'), [$f, $l]);
+				if ($resultD) {
+					$resultD = __($resultD);
+					$result =
+						in_array($f, ['ATM', 'WebATM'])
+						? implode(' ', [__($f), $resultD])
+						: $resultD
+					;
+				}
+			}
+			$this->{__METHOD__} = $result;
 		}
 		return $this->{__METHOD__};
 	}
@@ -174,20 +195,6 @@ abstract class Response extends \Df\Payment\R\Response {
 	private function log($message) {if (!df_is_it_my_local_pc()) {df_log($message);}}
 
 	/**
-	 * 2016-07-18
-	 * @return string[]
-	 */
-	private function paymentTypeA() {
-		if (!isset($this->{__METHOD__})) {
-			/** @var string[] $result */
-			$result = explode('_', $this['PaymentType']);
-			$result[1] = dfa($result, 1);
-			$this->{__METHOD__} = array_slice($result, 0, 2);
-		}
-		return $this->{__METHOD__};
-	}
-
-	/**
 	 * 2016-07-13
 	 * @override
 	 * @see \Df\Payment\R\Response::i()
@@ -204,32 +211,6 @@ abstract class Response extends \Df\Payment\R\Response {
 			, $params
 		);
 	}
-
-	/**
-	 * 2016-07-18
-	 * @return array(string => string)
-	 */
-	private static function paymentTypeDicF() {return ['Credit' => 'Bank Card'];}
-
-	/**
-	 * 2016-07-18
-	 * @return array(string => string)
-	 */
-	private static function paymentTypeDicL() {return [
-		'BOT' => 'Bank of Taiwan'
-		,'CATHAY' => 'Cathy United Bank'
-		,'CHB' => 'CHANG HWA BANK'
-		,'CHINATRUST' => 'China Trust Bank'
-		,'CreditCard' => ''
-		,'ESUN' => 'E.Sun Bank'
-		,'FIRST' => 'First Bank'
-		,'FUBON' => 'Taipei Fubon Bank'
-		,'HUANAN' => 'Hua Nan Bank'
-		,'LAND' => 'Land Bank'
-		,'Tachong' => 'TC Bank'
-		,'TAISHIN' => 'Tai Shin Bank'
-		,'Sinopac' => 'Bank Sinopac'
-	];}
 }
 
 
