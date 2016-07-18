@@ -5,7 +5,7 @@ define ([
 	, 'Df_Checkout/js/data'
 	, 'Df_Core/js/redirectWithPost'
 	, 'Magento_Checkout/js/model/payment/additional-validators'
- 	, 'Magento_Checkout/js/view/payment/default'
+ 	, 'Df_Payment/js/view/payment/default'
 ], function(
 	$, df, placeOrderAction, dfCheckout, redirectWithPost, additionalValidators, Component
 ) {
