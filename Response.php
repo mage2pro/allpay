@@ -220,6 +220,7 @@ abstract class Response extends \Df\Payment\R\Response {
 		,'CATHAY' => 'Cathy United Bank'
 		,'CHB' => 'CHANG HWA BANK'
 		,'CHINATRUST' => 'China Trust Bank'
+		,'CreditCard' => ''
 		,'ESUN' => 'E.Sun Bank'
 		,'FIRST' => 'First Bank'
 		,'FUBON' => 'Taipei Fubon Bank'
