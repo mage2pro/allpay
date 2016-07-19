@@ -3,6 +3,17 @@ namespace Dfe\AllPay\Response;
 use Magento\Sales\Model\Order;
 class ATM extends \Dfe\AllPay\Response {
 	/**
+	 * 2016-07-19
+	 * @override
+	 * @see \Dfe\AllPay\Response::getInformationForBlock()
+	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @return array(strig => string)
+	 */
+	public function getInformationForBlock() {
+		return ['Account Number' => $this['vAccount']];
+	}
+
+	/**
 	 * 2016-07-12
 	 * @override
 	 * @see \Dfe\AllPay\Response::handleInternal()

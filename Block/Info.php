@@ -10,17 +10,6 @@ use Magento\Sales\Model\Order\Payment\Transaction as T;
 class Info extends \Df\Payment\Block\ConfigurableInfo {
 	/**
 	 * 2016-07-13
-	 * @override
-	 * @see \Magento\Framework\View\Element\Template::getTemplate()
-	 * @see \Magento\Payment\Block\Info::$_template
-	 * @return string
-	 */
-	public function getTemplate() {
-		return 'frontend' === $this->getArea() ? 'Dfe_AllPay::info.phtml' : parent::getTemplate();
-	}
-
-	/**
-	 * 2016-07-13
 	 * @return string
 	 */
 	public function paymentType() {
@@ -46,7 +35,12 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 		/** @var DataObject $result */
 		$result = parent::_prepareSpecificInformation($transport);
 		$result->addData(['Payment Type' => $this->paymentType()]);
-		$this->markTestMode($result);
+		if ($this->responseF()) {
+			$result->addData($this->responseF()->getInformationForBlock());
+		}
+		if ($this->isTest()) {
+			$result->setData('Mode', __($this->testModeLabel()));
+		}
 		return $result;
 	}
 }

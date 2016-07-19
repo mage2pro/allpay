@@ -94,6 +94,13 @@ abstract class Response extends \Df\Payment\R\Response {
 	abstract protected function expectedRtnCode();
 
 	/**
+	 * 2016-07-19
+	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @return array(strig => string)
+	 */
+	public function getInformationForBlock() {return [];}
+
+	/**
 	 * 2016-07-09
 	 * 2016-07-14
 	 * Раньше метод isSuccessful() вызывался из метода @see \Df\Payment\R\Response::validate().
