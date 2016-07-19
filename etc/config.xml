@@ -25,6 +25,7 @@
 				<title>歐付寶 allPay</title>
 				<title_backend>歐付寶 allPay</title_backend>
 				<waitPeriodATM>3</waitPeriodATM>
+				<waitPeriodType>calendar_days</waitPeriodType>
 			</all_pay>
 		</df_payment>
         <payment>

@@ -1,5 +1,7 @@
 <?php
 namespace Dfe\AllPay;
+use Dfe\AllPay\Source\WaitPeriodType;
+use Zend_Date as ZD;
 /** @method static Settings s() */
 class Settings extends \Df\Payment\Settings {
 	/**
@@ -66,7 +68,7 @@ class Settings extends \Df\Payment\Settings {
 	public function methodsLimit() {return $this->b(__FUNCTION__);}
 
 	/**
-	 * 2016-03-15
+	 * 2016-07-17
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Payment Identification Type»
 	 * @return string
 	 */
@@ -75,9 +77,27 @@ class Settings extends \Df\Payment\Settings {
 	/**
 	 * 2016-07-19
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait period for an ATM payment»
+	 * @return int
+	 */
+	public function waitPeriodATM() {
+		if (!isset($this->{__METHOD__})) {
+			/** @var int $result */
+			/** @var int $result */
+			$result = $this->nat(__FUNCTION__);
+			if (WaitPeriodType::WORKING_DAYS === $this->waitPeriodType()) {
+				$result = df_num_calendar_days_by_num_working_days(ZD::now(), $result, $this->scope());
+			}
+			$this->{__METHOD__} = $result;
+		}
+		return $this->{__METHOD__};
+	}
+
+	/**
+	 * 2016-07-17
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait Period Type»
 	 * @return string
 	 */
-	public function waitPeriodATM() {return $this->nat(__FUNCTION__);}
+	public function waitPeriodType() {return $this->v(__FUNCTION__);}
 
 	/**
 	 * 2016-07-01
