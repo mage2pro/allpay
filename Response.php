@@ -96,6 +96,7 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-07-19
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @see \Dfe\AllPay\Response\ATM::_prepareSpecificInformation()
 	 * @return array(strig => string)
 	 */
 	public function getInformationForBlock() {return [];}

@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\Response;
 use Magento\Sales\Model\Order;
-class ATM extends \Dfe\AllPay\Response {
+class ATM extends Offline {
 	/**
 	 * 2016-07-19
 	 * @override
@@ -9,18 +9,10 @@ class ATM extends \Dfe\AllPay\Response {
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
 	 * @return array(strig => string)
 	 */
-	public function getInformationForBlock() {
-		return ['Account Number' => $this['vAccount']];
-	}
-
-	/**
-	 * 2016-07-12
-	 * @override
-	 * @see \Dfe\AllPay\Response::handleInternal()
-	 * @used-by \Dfe\AllPay\Response::handle()
-	 * @return void
-	 */
-	public function handleInternal() {}
+	public function getInformationForBlock() {return [
+		'Account Number' => $this['vAccount']
+		,'Expiration' => $this->expirationS()
+	];}
 
 	/**
 	 * 2016-07-12
