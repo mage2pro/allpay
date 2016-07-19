@@ -166,7 +166,18 @@ class Charge extends \Df\Payment\Charge {
 		// «At most 60 days; at least 1 day.
 		// Defaulted as 3 days if this is left as blank.».
 		// Could be empty.
-		,'ExpireDate' => 3
+		/**
+		 * 2016-07-04
+		 * «Effective payment period».
+		 * Int
+		 * «At most 60 days; at least 1 day.
+		 * Defaulted as 3 days if this is left as blank.».
+		 * Could be empty.
+		 *
+		 * 2016-07-19
+		 * Эта опция учитывается только для ATM.
+		 */
+		,'ExpireDate' => S::s()->waitPeriodATM()
 		// 2016-07-04
 		// «Whether or not to hold the allocation».
 		// Int

@@ -73,6 +73,13 @@ class Settings extends \Df\Payment\Settings {
 	public function paymentIdentificationType() {return $this->v(__FUNCTION__);}
 
 	/**
+	 * 2016-07-19
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait period for an ATM payment»
+	 * @return string
+	 */
+	public function waitPeriodATM() {return $this->nat(__FUNCTION__);}
+
+	/**
 	 * 2016-07-01
 	 * @override
 	 * @used-by \Df\Core\Settings::v()

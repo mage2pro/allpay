@@ -24,6 +24,7 @@
 				<testMerchantID>2000132</testMerchantID>
 				<title>歐付寶 allPay</title>
 				<title_backend>歐付寶 allPay</title_backend>
+				<waitPeriodATM>3</waitPeriodATM>
 			</all_pay>
 		</df_payment>
         <payment>

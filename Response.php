@@ -152,6 +152,7 @@ abstract class Response extends \Df\Payment\R\Response {
 
 	/**
 	 * 2016-07-10
+	 * @override
 	 * @see \Df\Payment\R\Response::externalIdKey()
 	 * @used-by \Df\Payment\R\Response::externalId()
 	 * @return string

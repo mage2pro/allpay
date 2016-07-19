@@ -37,6 +37,12 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 		$result->addData(['Payment Type' => $this->paymentType()]);
 		if ($this->responseF()) {
 			$result->addData($this->responseF()->getInformationForBlock());
+			if (!$this->getIsSecureMode()) {
+				$result->addData([
+					'allPay Payment ID' => $this->responseF()->externalId()
+					,'Magento Payment ID' => $this->responseF()->requestId()
+				]);
+			}
 		}
 		if ($this->isTest()) {
 			$result->setData('Mode', __($this->testModeLabel()));

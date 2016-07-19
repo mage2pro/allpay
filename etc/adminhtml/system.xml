@@ -265,10 +265,24 @@ contain some other symbols.</p>
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
+					id='waitPeriodATM'
+					translate='label'
+					type='text'
+					sortOrder='15'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Wait period for an ATM payment</label>
+					<comment><![CDATA[In days.]]></comment>
+					<validate>validate-digits validate-digits-range digits-range-1-60</validate>
+					<depends><field id='enable'>1</field></depends>
+				</field>
+				<field
 					id='methodsLimit'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
-					sortOrder='15'
+					sortOrder='16'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -282,7 +296,7 @@ contain some other symbols.</p>
 					id='methodsAllowed'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
-					sortOrder='16'
+					sortOrder='17'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -300,7 +314,7 @@ contain some other symbols.</p>
 					id='min_order_total'
 					translate='label'
 					type='text'
-					sortOrder='17'
+					sortOrder='18'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -314,7 +328,7 @@ contain some other symbols.</p>
 					id='max_order_total'
 					translate='label'
 					type='text'
-					sortOrder='18'
+					sortOrder='19'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -328,7 +342,7 @@ contain some other symbols.</p>
 					id='country_restriction'
 					translate='label'
 					type='select'
-					sortOrder='19'
+					sortOrder='20'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
@@ -341,7 +355,7 @@ contain some other symbols.</p>
 					id='countries'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
-					sortOrder='20'
+					sortOrder='21'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
