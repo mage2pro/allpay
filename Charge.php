@@ -270,7 +270,7 @@ class Charge extends \Df\Payment\Charge {
 		 * and allPay uses the Taiwanese time zone in the payment response.
 		 * http://php.net/manual/en/function.timezone-offset-get.php#73995
 		 */
-		,'MerchantTradeDate' => df_now('Y/m/d H:i:s', 'Asia/Taipei')
+		,'MerchantTradeDate' => df_now('Y/m/d H:i:s', Method::TIMEZONE)
 		// 2016-07-02
 		// «Merchant trade number».
 		// Varchar(20)

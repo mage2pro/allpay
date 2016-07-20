@@ -8,10 +8,17 @@ class ATM extends Offline {
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
 	 * @return array(strig => string)
 	 */
-	public function getInformationForBlock() {return [
-		'Account Number' => $this['vAccount']
-		,'Expiration' => $this->expirationS()
-	];}
+	public function getInformationForBlock() {
+		/** @var array(strig => string) $result */
+		$result = ['Account Number' => $this['vAccount']];
+		if (true) {
+			$result['Expiration'] = $this->expirationS();
+		}
+		else {
+			$result['Paid'] = $this->expirationS();
+		}
+		return $result;
+	}
 
 	/**
 	 * 2016-07-20

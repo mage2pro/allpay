@@ -2,8 +2,6 @@
 namespace Dfe\AllPay;
 use Df\Framework\Controller\Result\Text;
 use Df\Sales\Model\Order as DfOrder;
-use Dfe\AllPay\Response\ATM;
-use Dfe\AllPay\Response\BankCard;
 use Magento\Framework\Phrase;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Invoice;
@@ -15,12 +13,15 @@ use Magento\Sales\Model\Order\Payment as OP;
  */
 abstract class Response extends \Df\Payment\R\Response {
 	/**
-	 * 2016-07-19
-	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
-	 * @see \Dfe\AllPay\Response\ATM::_prepareSpecificInformation()
-	 * @return array(strig => string)
+	 * 2016-07-20
+	 * @return string
 	 */
-	public function getInformationForBlock() {return [];}
+	public function classSuffix() {
+		if (!isset($this->{__METHOD__})) {
+			$this->{__METHOD__} = self::classSuffixS($this['PaymentType']);
+		}
+		return $this->{__METHOD__};
+	}
 
 	/**
 	 * 2016-07-09
@@ -152,9 +153,22 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * @return self
 	 */
 	public static function i($params) {
-		/** @var string|null $class */
-		$class = dfa($params, 'class', df_first(explode('_', dfa($params, 'PaymentType'))));
-		return self::ic(dfa(['ATM' => ATM::class, 'Credit' => BankCard::class], $class), $params);
+		/** @var string|null $classSuffix */
+		$classSuffix = dfa($params, 'class', self::classSuffixS(dfa($params, 'PaymentType')));
+		/** @var string $class */
+		$class = df_convention(static::class, df_cc_class('Response', $classSuffix));
+		return self::ic($class, $params);
+	}
+
+	/**
+	 * 2016-07-20
+	 * @param string $type
+	 * @return string
+	 */
+	private static function classSuffixS($type) {
+		/** @var string $result */
+		$result = df_first(explode('_', $type));
+		return dfa(['Credit' => 'BankCard'], $result, $result);
 	}
 }
 

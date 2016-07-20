@@ -36,7 +36,7 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 		$result = parent::_prepareSpecificInformation($transport);
 		$result->addData(['Payment Type' => $this->paymentType()]);
 		if ($this->responseF()) {
-			$result->addData($this->responseF()->getInformationForBlock());
+			$result->addData($this->custom());
 			if (!$this->getIsSecureMode()) {
 				$result->addData([
 					'allPay Payment ID' => $this->responseF()->externalId()
@@ -49,6 +49,13 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 		}
 		return $result;
 	}
+
+	/**
+	 * 2016-07-20
+	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @return array(string => string)
+	 */
+	protected function custom() {return [];}
 }
 
 

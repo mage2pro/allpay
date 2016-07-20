@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\AllPay\Response;
+use Dfe\AllPay\Method;
 use Zend_Date as ZD;
 abstract class Offline extends \Dfe\AllPay\Response {
 	/**
@@ -10,21 +11,10 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	abstract protected function expectedRtnCodeOffline();
 
 	/**
-	 * 2016-07-12
-	 * @override
-	 * @see \Dfe\AllPay\Response::expectedRtnCode()
-	 * @used-by \Dfe\AllPay\Response::isSuccessful()
-	 * @return int
-	 */
-	protected function expectedRtnCode() {
-		return $this->needCapture() ? parent::expectedRtnCode() : $this->expectedRtnCodeOffline();
-	}
-
-	/**
 	 * 2016-07-19
 	 * @return string
 	 */
-	protected function expirationS() {
+	public function expirationS() {
 		if (!isset($this->{__METHOD__})) {
 			/** @var string $result */
 			$result = df_dts($this->expiration(), ZD::DATE_LONG);
@@ -47,6 +37,38 @@ abstract class Offline extends \Dfe\AllPay\Response {
 			$this->{__METHOD__} = "{$result} ({$note})";
 		}
 		return $this->{__METHOD__};
+	}
+
+	/**
+	 * 2016-07-20
+	 * @return bool
+	 */
+	public function isPaid() {return !!$this->paidTime();}
+
+	/**
+	 * 2016-07-20
+	 * @return ZD|null
+	 */
+	public function paidTime() {
+		if (!isset($this->{__METHOD__})) {
+			/** @var string $resultS */
+			$resultS = $this['PaymentDate'];
+			$this->{__METHOD__} = df_n_set(!$resultS ? null :
+				df_date_parse($resultS, 'y/MM/dd HH:mm:ss', Method::TIMEZONE)
+			);
+		}
+		return df_n_get($this->{__METHOD__});
+	}
+
+	/**
+	 * 2016-07-12
+	 * @override
+	 * @see \Dfe\AllPay\Response::expectedRtnCode()
+	 * @used-by \Dfe\AllPay\Response::isSuccessful()
+	 * @return int
+	 */
+	protected function expectedRtnCode() {
+		return $this->needCapture() ? parent::expectedRtnCode() : $this->expectedRtnCodeOffline();
 	}
 
 	/**

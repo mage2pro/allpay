@@ -1,19 +1,23 @@
 <?php
 namespace Dfe\AllPay;
 use Df\Payment\PlaceOrder;
+use Dfe\AllPay\Block\Info;
 use Dfe\AllPay\Settings as S;
 use Exception as E;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException as LE;
 use Magento\Payment\Model\Info as I;
 use Magento\Payment\Model\InfoInterface as II;
-use Magento\Sales\Api\Data\TransactionInterface;
 use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
 use Magento\Sales\Model\Order\Creditmemo;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Order\Payment as OP;
 use Magento\Sales\Model\Order\Payment\Transaction;
+/**
+ * @method Response responseF()
+ * @method Response responseL()
+ */
 class Method extends \Df\Payment\Method {
 	/**
 	 * 2016-06-29
@@ -82,9 +86,35 @@ class Method extends \Df\Payment\Method {
 	}
 
 	/**
+	 * 2016-07-20
+	 * @override
+	 * @see \Df\Payment\Method::getInfoBlockType()
+	 * @used-by \Magento\Payment\Helper\Data::getInfoBlock()
+	 * @return string
+	 */
+	public function getInfoBlockType() {
+		if (!isset($this->{__METHOD__})) {
+			/** @var string $suffix */
+			$suffix = 'Block\Info';
+			if ($this->responseF()) {
+				$suffix = df_cc_class($suffix, $this->responseF()->classSuffix());
+			}
+			$this->{__METHOD__} = df_convention($this, $suffix, Info::class);
+		}
+		return $this->{__METHOD__};
+	}
+
+	/**
 	 * 2016-06-29
 	 * @used-by Dfe/AllPay/etc/frontend/di.xml
 	 * @used-by \Dfe\AllPay\ConfigProvider::getConfig()
 	 */
 	const CODE = 'dfe_all_pay';
+
+	/**
+	 * 2016-07-20
+	 * @used-by \Dfe\AllPay\Charge::_requestI()
+	 * @used-by \Dfe\AllPay\Response\Offline::paidTime()
+	 */
+	const TIMEZONE = 'Asia/Taipei';
 }
