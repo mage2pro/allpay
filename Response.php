@@ -187,13 +187,13 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * on the pages 32-35 of the allPay documentation.
 	 * @override
 	 * @see \Df\Payment\R\Response::testData()
-	 * @param bool $isSuccess
+	 * @param string $type
 	 * @return array(string => string)
 	 */
-	protected function testData($isSuccess) {
-		/** @var string $type */
-		$type = df_cc_clean('-', df_class_last(get_class($this)), $isSuccess ? '' : 'failure');
-		return df_json_decode(file_get_contents(BP . "/_my/test/allPay/{$type}.json"));
+	protected function testData($type) {
+		/** @var string $basename */
+		$basename = df_cc_clean('-', df_class_last(get_class($this)), $type);
+		return df_json_decode(file_get_contents(BP . "/_my/test/allPay/{$basename}.json"));
 	}
 
 	/**
@@ -201,13 +201,13 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * @param mixed $message
 	 * @return void
 	 */
-	private function log($message) {if (!df_is_it_my_local_pc()) {df_log($message);}}
+	private function log($message) {if (!df_my_local()) {df_log($message);}}
 
 	/**
 	 * 2016-07-13
 	 * @override
 	 * @see \Df\Payment\R\Response::i()
-	 * @param array(string => mixed)|bool $params
+	 * @param array(string => mixed)|string $params
 	 * @return self
 	 */
 	public static function i($params) {

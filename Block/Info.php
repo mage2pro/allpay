@@ -16,7 +16,7 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 		if (!isset($this->{__METHOD__})) {
 			$this->{__METHOD__} =
 				!$this->responseF()
-				? __('Not paid yet') :
+				? __('Not selected yet') :
 				$this->responseF()->paymentTypeTitle()
 			;
 		}
