@@ -15,85 +15,6 @@ use Magento\Sales\Model\Order\Payment as OP;
  */
 abstract class Response extends \Df\Payment\R\Response {
 	/**
-	 * 2016-07-12
-	 * @return void
-	 */
-	abstract protected function handleInternal();
-
-	/**
-	 * 2016-07-04
-	 * @override
-	 * @see \Magento\Framework\App\Action\Action::execute()
-	 * @return Text
-	 */
-	public function handle() {
-		/** @var Text $result */
-		try {
-			$this->log($_REQUEST);
-			$this->validate();
-			$this->addTransaction();
-			/**
-			 * 2016-07-14
-			 * Если покупатель не смог или не захотел оплатить заказ,
-			 * то мы заказ отменяем, а затем, когда платёжная система возврат покупателя в магазин,
-			 * то мы проверим, не отменён ли последний заказ,
-			 * и если он отменён — то восстановим корзину покупателя.
-			 */
-			$this->isSuccessful() ? $this->handleInternal() : $this->order()->cancel();
-			$this->order()->save();
-			/**
-			 * 2016-07-15
-			 * Send email confirmation to the customer.
-			 * https://code.dmitry-fedyuk.com/m2e/allpay/issues/6
-			 * It is implemented by analogy with https://github.com/magento/magento2/blob/2.1.0/app/code/Magento/Paypal/Model/Ipn.php#L312-L321
-			 */
-			/**
-			 * 2016-07-15
-			 * What is the difference between InvoiceSender and OrderSender?
-			 * https://mage2.pro/t/1872
-			 */
-			/**
-			 * 2016-07-18
-			 * Раньше тут был код:
-					$payment = $this->order()->getPayment();
-					if ($payment && $payment->getCreatedInvoice()) {
-						df_order_send_email($this->order());
-					}
-			 */
-			df_order_send_email($this->order());
-			$result = Text::i('1|OK');
-			df_log('OK');
-		}
-		catch (\Exception $e) {
-			/**
-			 * 2016-07-15
-			 * Раньше тут стояло
-					if ($this->_order) {
-						$this->_order->cancel();
-						$this->_order->save();
-					}
-			 * На самом деле, исключительная ситуация свидетельствует о сбое в программе,
-			 * либо о некорректном запросе якобы от платёжного сервера (хакерской попытке, например),
-			 * поэтому отменять заказ тут неразумно.
-			 * В случае сбоя платёжная система будет присылать
-			 * повторные оповещения — вот пусть и присылает,
-			 * авось мы к тому времени уже починим программу, если поломка была на нашей строне
-			 */
-			$result = Text::i('0|' . df_le($e)->getMessage());
-			df_log('FAILURE');
-			df_log($e);
-		}
-		return $result;
-	}
-
-	/**
-	 * 2016-07-12
-	 * @used-by \Dfe\AllPay\Response::isSuccessful()
-	 * @return int
-	 */
-	abstract protected function expectedRtnCode();
-
-	/**
 	 * 2016-07-19
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
 	 * @see \Dfe\AllPay\Response\ATM::_prepareSpecificInformation()
@@ -151,6 +72,14 @@ abstract class Response extends \Df\Payment\R\Response {
 	}
 
 	/**
+	 * 2016-07-12
+	 * @used-by \Dfe\AllPay\Response::isSuccessful()
+	 * @return int
+	 * «Value 1 means a payment is paid successfully. The other means failure.»
+	 */
+	protected function expectedRtnCode() {return 1;}
+
+	/**
 	 * 2016-07-10
 	 * @override
 	 * @see \Df\Payment\R\Response::externalIdKey()
@@ -171,6 +100,25 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * a trade number with upper and lower cases of English letters and numbers.»
 	 */
 	protected function requestIdKey() {return 'MerchantTradeNo';}
+
+	/**
+	 * 2016-07-20
+	 * @override
+	 * @see \Df\Payment\R\Response::resultError()
+	 * @used-by \Df\Payment\R\Response::handle()
+	 * @param \Exception $e
+	 * @return Text
+	 */
+	protected function resultError(\Exception $e) {return Text::i('0|' . df_lets($e));}
+
+	/**
+	 * 2016-07-20
+	 * @override
+	 * @see \Df\Payment\R\Response::resultSuccess()
+	 * @used-by \Df\Payment\R\Response::handle()
+	 * @return Text
+	 */
+	protected function resultSuccess() {return Text::i('1|OK');}
 
 	/**
 	 * 2016-07-10
@@ -197,28 +145,16 @@ abstract class Response extends \Df\Payment\R\Response {
 	}
 
 	/**
-	 * 2016-07-06
-	 * @param mixed $message
-	 * @return void
-	 */
-	private function log($message) {if (!df_my_local()) {df_log($message);}}
-
-	/**
 	 * 2016-07-13
 	 * @override
 	 * @see \Df\Payment\R\Response::i()
-	 * @param array(string => mixed)|string $params
+	 * @param array(string => mixed) $params
 	 * @return self
 	 */
 	public static function i($params) {
-		return self::ic(
-			!is_array($params)
-				? ATM::class
-				: dfa(['ATM' => ATM::class, 'Credit' => BankCard::class],
-					df_first(explode('_', dfa($params, 'PaymentType')))
-				)
-			, $params
-		);
+		/** @var string|null $class */
+		$class = dfa($params, 'class', df_first(explode('_', dfa($params, 'PaymentType'))));
+		return self::ic(dfa(['ATM' => ATM::class, 'Credit' => BankCard::class], $class), $params);
 	}
 }
 

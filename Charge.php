@@ -402,7 +402,7 @@ class Charge extends \Df\Payment\Charge {
 		 * а оповещение по адресу «ReturnURL» приходит лишь на шаге 21,
 		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
-		,'PaymentInfoURL' => df_url_callback('dfe-allpay/confirm')
+		,'PaymentInfoURL' => df_url_callback('dfe-allpay/offline')
 		// 2016-07-02
 		// «Payment type».
 		// Varchar(20)

@@ -1,16 +1,24 @@
 <?php
 namespace Dfe\AllPay\Response;
-use Magento\Sales\Model\Order;
 use Zend_Date as ZD;
 abstract class Offline extends \Dfe\AllPay\Response {
 	/**
+	 * 2016-07-20
+	 * @used-by \Dfe\AllPay\Response\Offline::expectedRtnCode()
+	 * @return int
+	 */
+	abstract protected function expectedRtnCodeOffline();
+
+	/**
 	 * 2016-07-12
 	 * @override
-	 * @see \Dfe\AllPay\Response::handleInternal()
-	 * @used-by \Dfe\AllPay\Response::handle()
-	 * @return void
+	 * @see \Dfe\AllPay\Response::expectedRtnCode()
+	 * @used-by \Dfe\AllPay\Response::isSuccessful()
+	 * @return int
 	 */
-	public function handleInternal() {}
+	protected function expectedRtnCode() {
+		return $this->needCapture() ? parent::expectedRtnCode() : $this->expectedRtnCodeOffline();
+	}
 
 	/**
 	 * 2016-07-19
@@ -42,6 +50,45 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	}
 
 	/**
+	 * 2016-07-20
+	 * @override
+	 * @see \Df\Payment\R\Response::handleBefore()
+	 * @used-by \Df\Payment\R\Response::handle()
+	 * @return void
+	 */
+	protected function handleBefore() {
+		$this->_needCapture = !$this[self::KEY];
+		/**
+		 * 2016-07-20
+		 * Надо обязательно удалить ключ, иначе подпись будет вычислена неправильно:
+		 * @see \Df\Payment\R\Response::signer()
+		 */
+		$this->unsetData(self::KEY);
+	}
+
+	/**
+	 * 2016-07-20
+	 * @override
+	 * @see \Df\Payment\R\Response::needCapture()
+	 * @used-by \Df\Payment\R\Response::handle()
+	 * @return bool
+	 */
+	protected function needCapture() {return $this->_needCapture;}
+
+	/**
+	 * 2016-07-20
+	 * @override
+	 * @see \Df\Payment\R\Response::responseTransactionId()
+	 * @used-by \Df\Payment\R\Response::payment()
+	 * @return string
+	 */
+	protected function responseTransactionId() {
+		return implode('-', [parent::responseTransactionId(),
+			$this->needCapture() ? 'capture' : 'info'
+		]);
+	}
+
+	/**
 	 * 2016-07-19
 	 * @return ZD
 	 */
@@ -51,5 +98,18 @@ abstract class Offline extends \Dfe\AllPay\Response {
 		}
 		return $this->{__METHOD__};
 	}
+
+	/**
+	 * 2016-07-20
+	 * @var bool
+	 */
+	private $_needCapture;
+
+	/**
+	 * 2016-07-20
+	 * @used-by \Dfe\AllPay\Response\Offline::handleBefore()
+	 * @used-by \Dfe\AllPay\Controller\Offline\Index::execute()
+	 */
+	const KEY = 'offline';
 }
 
