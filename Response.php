@@ -168,7 +168,7 @@ abstract class Response extends \Df\Payment\R\Response {
 	private static function classSuffixS($type) {
 		/** @var string $result */
 		$result = df_first(explode('_', $type));
-		return dfa(['Credit' => 'BankCard'], $result, $result);
+		return dfa(['Credit' => 'BankCard', 'BARCODE' => 'Barcode'], $result, $result);
 	}
 }
 

@@ -1,7 +1,8 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
 use Dfe\AllPay\Response\Offline as R;
-class ATM extends Offline {
+// 2016-07-25
+class CVS extends Offline {
 	/**
 	 * 2016-07-25
 	 * @override
@@ -10,7 +11,7 @@ class ATM extends Offline {
 	 * @param R $f
 	 * @return string
 	 */
-	protected function paymentId(R $f) {return $f['vAccount'];}
+	protected function paymentId(R $f) {return $f['PaymentNo'];}
 
 	/**
 	 * 2016-07-25
@@ -19,6 +20,6 @@ class ATM extends Offline {
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
 	 * @return string
 	 */
-	protected function paymentIdLabel() {return 'Account Number';}
+	protected function paymentIdLabel() {return 'Payment Number';}
 }
 
