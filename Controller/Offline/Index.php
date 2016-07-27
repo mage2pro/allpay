@@ -1,15 +1,15 @@
 <?php
 namespace Dfe\AllPay\Controller\Offline;
-use Dfe\AllPay\Response as R;
 use Dfe\AllPay\Response\Offline;
-class Index extends \Magento\Framework\App\Action\Action {
+class Index extends \Dfe\AllPay\Controller\Confirm\Index {
 	/**
-	 * 2016-07-20
+	 * 2016-07-26
 	 * @override
-	 * @see \Magento\Framework\App\Action\Action::execute()
-	 * @return \Df\Framework\Controller\Result\Text
+	 * @see \Dfe\AllPay\Controller\Confirm\Index::additionalParams()
+	 * @used-by \Dfe\AllPay\Controller\Confirm\Index::execute()
+	 * @return array(string => string)
 	 */
-	public function execute() {return R::i([Offline::KEY => true] + $_REQUEST)->handle();}
+	protected function additionalParams() {return [Offline::KEY => true];}
 }
 
 

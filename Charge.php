@@ -312,16 +312,25 @@ class Charge extends \Df\Payment\Charge {
 		 * использовать в качестве идентификатора платежа номер заказа.
 		 */
 		,'MerchantTradeNo' => Identification::id($this->o())
-		// 2016-07-04
-		// «If there is a need for an extra payment information».
-		// Varchar(1)
-		// «Set up payment complete notification,
-		// return information of order query,
-		// and decide if there is a for an extra payment information
-		// (for return information, please refer to Additional Return Parameter).
-		// Default as N, not reply extra information.
-		// When the parameter is Y, then reply with extra information.».
-		// Could be empty.
+		/**
+		 * 2016-07-04
+		 * «If there is a need for an extra payment information».
+		 * Varchar(1)
+		 * «Set up payment complete notification, return information of order query,
+		 * and decide if there is a for an extra payment information
+		 * (for return information, please refer to Additional Return Parameter).
+		 * Default as N, not reply extra information.
+		 * When the parameter is Y, then reply with extra information.».
+		 * Could be empty.
+		 *
+		 * 2016-07-26
+		 * Если значением этого параметра сделать «Y»,
+		 * то платёжная система вернёт расширенную информацию о платеже:
+		 * она описана в главе 9 документации (страницы 38-39).
+		 *
+		 * Пока не смог проверить подпись при значении «Y»:
+		 * https://mage2.pro/t/1898
+		 */
 		,'NeedExtraPaidInfo' => 'N'
 		/**
 		 * 2016-07-04

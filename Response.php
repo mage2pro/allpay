@@ -110,7 +110,7 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * @param \Exception $e
 	 * @return Text
 	 */
-	protected function resultError(\Exception $e) {return Text::i('0|' . df_lets($e));}
+	protected function resultError(\Exception $e) {return self::resultErrorStatic($e);}
 
 	/**
 	 * 2016-07-20
@@ -155,10 +155,23 @@ abstract class Response extends \Df\Payment\R\Response {
 	public static function i($params) {
 		/** @var string|null $classSuffix */
 		$classSuffix = dfa($params, 'class', self::classSuffixS(dfa($params, 'PaymentType')));
+		if (!$classSuffix) {
+			df_error('The request is invalid');
+		}
 		/** @var string $class */
 		$class = df_convention(static::class, df_cc_class('Response', $classSuffix));
 		return self::ic($class, $params);
 	}
+
+	/**
+	 * 2016-07-26
+	 * @override
+	 * @used-by \Dfe\AllPay\Response::resultError()
+	 * @used-by \Dfe\AllPay\Controller\Confirm\Index::execute()
+	 * @param \Exception $e
+	 * @return Text
+	 */
+	public static function resultErrorStatic(\Exception $e) {return Text::i('0|' . df_lets($e));}
 
 	/**
 	 * 2016-07-20
