@@ -19,6 +19,11 @@ define ([
 		},
 		imports: {onActiveChange: 'active'},
 		/**
+		 * 2016-07-27
+		 * @return {Boolean}
+		 */
+		askForBillingAddress: function() {return this.config('askForBillingAddress');},
+		/**
 		 * 2016-07-01
 		 * @param {?String} key
 		 * @returns {Object}|{*}
@@ -34,12 +39,7 @@ define ([
 		 * 2016-07-01
    		 * @override
    		 */
-		getData: function() {
-			return {
-				additional_data: {}
-				,method: this.item.method
-			};
-		},
+		getData: function() {return {additional_data: {}, method: this.item.method};},
 		/**
 		 * 2016-07-01
 		 * Перекрыли родительский метод,
@@ -58,6 +58,17 @@ define ([
 		getTitle: function() {
 			var result = this._super();
 			return result + (!this.isTest() ? '' : ' [<b>TEST MODE</b>]');
+		},
+		/**
+		 * 2016-07-07
+		 * @return {Object}
+		*/
+		initialize: function() {
+			this._super();
+			if (!this.askForBillingAddress()) {
+				this.isPlaceOrderActionAllowed(true);
+			}
+			return this;
 		},
 		/**
 		 * 2016-07-01
@@ -82,7 +93,6 @@ define ([
 				this.getPlaceOrderDeferredObject()
 					.fail(function() {_this.isPlaceOrderActionAllowed(true);})
 					.done(function(json) {
-						 debugger;
 					  	_this.afterPlaceOrder();
 					 	/** @type {Object} */
 						var data = $.parseJSON(json);

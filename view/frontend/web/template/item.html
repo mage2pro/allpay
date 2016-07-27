@@ -14,11 +14,13 @@
         <!-- ko foreach: getRegion('messages') -->
         <!-- ko template: getTemplate() --><!-- /ko -->
         <!--/ko-->
-        <div class="payment-method-billing-address">
-            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
-                <!-- ko template: getTemplate() --><!-- /ko -->
-            <!--/ko-->
-        </div>
+        <!--ko if: askForBillingAddress() -->
+            <div class="payment-method-billing-address">
+                <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                <!--/ko-->
+            </div>
+        <!--/ko-->
         <form class="form dfe-all-pay" action="#" method="post">
         </form>
         <div class="payment-method-content">

@@ -12,7 +12,8 @@ class ConfigProvider implements ConfigProviderInterface {
 	 */
 	public function getConfig() {
 		return ['payment' => [Method::CODE => [
-			'isActive' => S::s()->enable()
+			'askForBillingAddress' => S::s()->askForBillingAddress()
+			,'isActive' => S::s()->enable()
 			,'isTest' => S::s()->test()
 		]]];
 	}
