@@ -6,6 +6,7 @@ use Magento\Framework\Phrase;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Order\Payment as OP;
+use Zend_Date as ZD;
 /**
  * 2016-07-09
  * The response is documented in the Chapter 7 «Payment Result Notification»
@@ -172,6 +173,24 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * @return Text
 	 */
 	public static function resultErrorStatic(\Exception $e) {return Text::i('0|' . df_lets($e));}
+
+	/**
+	 * 2016-07-28
+	 * @used-by \Dfe\AllPay\Response\Offline::paidTime()
+	 * @used-by \Dfe\AllPay\Block\Info\BankCard::custom()
+	 * @param string|null $timeS
+	 * @return ZD|null
+	 */
+	public static function time($timeS) {
+		/** @var array(string|null => ZD|string) $cache */
+		static $cache;
+		if (!isset($cache[$timeS])) {
+			$cache[$timeS] = df_n_set(
+				!$timeS ? null : df_date_parse($timeS, 'y/MM/dd HH:mm:ss', Method::TIMEZONE)
+			);
+		}
+		return df_n_get($cache[$timeS]);
+	}
 
 	/**
 	 * 2016-07-20

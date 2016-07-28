@@ -1,0 +1,85 @@
+<?php
+namespace Dfe\AllPay\Block\Info;
+use Dfe\AllPay\Response\BankCard as R;
+use Magento\Framework\Phrase;
+/**
+ * @method R responseF()
+ * @method R responseL()
+ */
+class BankCard extends \Dfe\AllPay\Block\Info {
+	/**
+	 * 2016-07-28
+	 * @override
+	 * @see \Dfe\AllPay\Block\Info::custom()
+	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @return array(string => string)
+	 */
+	protected function custom() {
+		/** @var array(strig => string) $result */
+		$result = [];
+		/** @var bool $backend */
+		$backend = !$this->getIsSecureMode();
+		$result['Card Number'] = $this->cardNumber();
+		if ($backend) {
+			$result['ECI'] = $this->eciS();
+		}
+		$result['Authorization Code'] = $this->r('auth_code');
+		if ($backend) {
+			$result['Authorization Time'] = R::time($this->r('process_date'));
+		}
+		return df_clean($result);
+	}
+
+	/** @return string */
+	private function cardNumber() {return df_cc_clean('******', $this->r('card6no', 'card4no'));}
+
+	/**
+	 * 2016-07-28
+	 * https://support.veritrans.co.id/hc/en-us/articles/204161150-What-is-ECI-on-3D-Secure-
+	 * https://www.paydollar.com/b2c2/eng/merchant/help/f_onlinehelp_eci.htm
+	 * @return int|null
+	 */
+	private function eci() {
+		if (!isset($this->{__METHOD__})) {
+			/** @var int|null $result */
+			$result = $this->r('eci');
+			$this->{__METHOD__} = df_n_set(is_null($result) ? $result : intval($result));
+		}
+		return df_n_get($this->{__METHOD__});
+	}
+
+	/**
+	 * 2016-07-28
+	 * @return Phrase
+	 */
+	private function eciMeaning() {return __(dfa([
+		0 => 'Card holder and issuing bank not registered as a 3D Secure'
+		,1 => 'One of card holder or issuing bank not registered as a 3D Secure'
+		,2 => 'Card holder and issuing bank are 3D Secure. 3dSecure authentication successful'
+		,5 => 'Card holder and issuing bank are 3D Secure. 3dSecure authentication successful'
+		,6 => 'One of card holder or issuing bank not registered as a 3D Secure'
+		,7 => 'Card holder and issuing bank not registered as a 3D Secure'
+	], $this->eci(), 'Unknown code'));}
+
+	/**
+	 * 2016-07-28
+	 * @return string|null
+	 */
+	private function eciS() {
+		return is_null($this->eci()) ? null : "0{$this->eci()} ({$this->eciMeaning()})";
+	}
+	
+	/**
+	 * 2016-07-28
+	 * @param string ...$keys
+	 * @return string|null
+	 */
+	private function r(...$keys) {
+		return
+			1 === count($keys)
+			? $this->responseF()->getData(df_first($keys))
+			: dfa_select_ordered($this->responseF()->getData(), $keys)
+		;
+	}
+}
+

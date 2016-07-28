@@ -331,7 +331,7 @@ class Charge extends \Df\Payment\Charge {
 		 * Пока не смог проверить подпись при значении «Y»:
 		 * https://mage2.pro/t/1898
 		 */
-		,'NeedExtraPaidInfo' => 'N'
+		,'NeedExtraPaidInfo' => 'Y'
 		/**
 		 * 2016-07-04
 		 * «Payment result URL returned by Client end».
