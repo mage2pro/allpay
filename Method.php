@@ -105,6 +105,19 @@ class Method extends \Df\Payment\Method {
 	}
 
 	/**
+	 * 2016-07-28
+	 * @override
+	 * @see \Df\Payment\Method::titleDetailed()
+	 * @used-by \Df\Payment\Observer\DataProvider\SearchResult::execute()
+	 * @return string
+	 */
+	public function titleDetailed() {
+		return nl2br(df_cc_n([parent::titleDetailed(),
+			!$this->responseF() ? null : $this->responseF()->paymentTypeTitle()
+		]));
+	}
+
+	/**
 	 * 2016-06-29
 	 * @used-by Dfe/AllPay/etc/frontend/di.xml
 	 * @used-by \Dfe\AllPay\ConfigProvider::getConfig()
