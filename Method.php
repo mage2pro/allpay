@@ -55,12 +55,8 @@ class Method extends \Df\Payment\Method {
 	public function getConfigPaymentAction() {
 		/** @var array(string => mixed) $params */
 		$params = Charge::request($this->ii());
-		/** @var string $uri */
-		$uri =
-			'https://payment'
-			. (S::s()->test() ? '-stage' : '')
-			. '.allpay.com.tw/Cashier/AioCheckOut/V2'
-		;
+		/** @var string $url */
+		$url = self::url('https://payment{-stage}.allpay.com.tw/Cashier/AioCheckOut/V2');
 		/**
 		 * 2016-07-01
 		 * К сожалению, если передавать в качестве результата ассоциативный массив,
@@ -70,7 +66,7 @@ class Method extends \Df\Payment\Method {
 		 * 2016-07-13
 		 * @used-by https://code.dmitry-fedyuk.com/m2e/allpay/blob/0.8.4/view/frontend/web/item.js#L91
 		 */
-		$this->iiaSet(PlaceOrder::DATA, df_json_encode(['params' => $params, 'uri' => $uri]));
+		$this->iiaSet(PlaceOrder::DATA, df_json_encode(['params' => $params, 'uri' => $url]));
 		/**
 		 * 2016-05-06
 		 * Письмо-оповещение о заказе здесь ещё не должно отправляться.
@@ -81,7 +77,7 @@ class Method extends \Df\Payment\Method {
 		 * 2016-07-10
 		 * Сохраняем информацию о транзакции.
 		 */
-		$this->saveRequest($params['MerchantTradeNo'], $uri, $params);
+		$this->saveRequest($params['MerchantTradeNo'], $url, $params);
 		return null;
 	}
 
@@ -130,4 +126,16 @@ class Method extends \Df\Payment\Method {
 	 * @used-by \Dfe\AllPay\Response\Offline::paidTime()
 	 */
 	const TIMEZONE = 'Asia/Taipei';
+
+	/**
+	 * 2016-07-29
+	 * @param string $template
+	 * @param bool $test [optional]
+	 * @param mixed[] ...$params [optional]
+	 * @return string
+	 */
+	public static function url($template, $test = null, ...$params) {
+		$test = is_null($test) ? S::s()->test() : $test;
+		return vsprintf(str_replace('{-stage}', $test ? '-stage' : '', $template), $params);
+	}
 }

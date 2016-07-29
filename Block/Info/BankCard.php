@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
+use Dfe\AllPay\Method;
 use Dfe\AllPay\Response\BankCard as R;
 use Magento\Framework\Phrase;
 /**
@@ -25,9 +26,36 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 		}
 		$result['Authorization Code'] = $this->r('auth_code');
 		if ($backend) {
-			$result['Authorization Time'] = R::time($this->r('process_date'));
+			$result += [
+				'Authorization Time' => R::time($this->r('process_date'))
+				/**
+				 * 2016-07-29
+				 * [allPay] What does mean the «gwsr» response parameter?
+				 * https://mage2.pro/t/1904
+				 *
+				 * [allPay] How to locate a bank card transaction in the «Merchant Back End Platform»
+				 * using an «allPay Authorization Code» (the «gwsr» response parameter)?
+				 * https://mage2.pro/t/1911
+				 *
+				 * http://creditvendor-stage.allpay.com.tw/DumpAuth/OrderView?TradeID=10547181
+				 */
+				,'allPay Authorization Code' => $this->allpayAuthCode()
+			];
 		}
 		return df_clean($result);
+	}
+
+	/**
+	 * 2016-07-29
+	 * @return string|null
+	 */
+	private function allpayAuthCode() {
+		/** @var string $template */
+		$template = 'http://creditvendor{-stage}.allpay.com.tw/DumpAuth/OrderView?TradeID=%d';
+		return df_tag('a', [
+			'href' => Method::url($template, $this->isTest(), $this->r('gwsr'))
+			,'target' => '_blank'
+		], $this->r('gwsr'));
 	}
 
 	/** @return string */
