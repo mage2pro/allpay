@@ -1,0 +1,13 @@
+.accordion .config .dfe-allpay-installment-plan {
+	.df-name-count, .df-name-rate, .df-name-fee {
+		// 2016-07-30
+		// Используем «:first-child», чтобы эти правила не применялись к надписям
+		// после полей ввода (например, к надписи «%»).
+		label:first-child {
+			width: 15em;
+			// 2016-07-30
+			// Иначе правило «width» не будет применено.
+			display: inline-block;
+		}
+	}
+}

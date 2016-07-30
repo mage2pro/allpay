@@ -402,7 +402,46 @@ contain some other symbols.</p>
 					</depends>
 					<comment><![CDATA[Customers from which countries can (or can not) use the method?]]></comment>
 				</field>
-            </group>
+				<group
+					id='installment_sales'
+					translate='label'
+					type='text'
+					sortOrder='24'
+					showInDefault='1'
+					showInWebsite='1'
+					showInStore='1'
+				>
+					<label>Installment Sales</label>
+					<field
+						id='enable'
+						translate='label'
+						type='Df\Framework\Form\Element\Checkbox'
+						sortOrder='1'
+						showInDefault='1'
+						showInWebsite='1'
+						showInStore='1'
+					>
+						<label>Enable?</label>
+						<backend_model>Df\Config\Backend\Checkbox</backend_model>
+						<comment><![CDATA[]]></comment>
+					</field>
+					<field
+						id='plans'
+						translate='label'
+						type='Df\Framework\Form\Element\ArrayT'
+						dfItemType='Dfe\AllPay\InstallmentSales\Plan\FormElement'
+						sortOrder='2'
+						showInDefault='1'
+						showInWebsite='1'
+						showInStore='1'
+					>
+						<label>Plans</label>
+						<comment><![CDATA[]]></comment>
+						<backend_model>Df\Config\Backend\ArrayT</backend_model>
+						<depends><field id='enable'>1</field></depends>
+					</field>
+				</group>
+			</group>
         </section>
     </system>
 </config>
