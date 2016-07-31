@@ -39,6 +39,12 @@ class Settings extends \Df\Payment\Settings {
 	public function hashKey() {return $this->test() ? $this->testHashKey() : $this->liveHashKey();}
 
 	/**
+	 * 2016-07-31
+	 * @return InstallmentSales\Settings
+	 */
+	public function installmentSales() {return $this->child(InstallmentSales\Settings::class);}
+
+	/**
 	 * 2016-06-29
 	 * @return string
 	 */
