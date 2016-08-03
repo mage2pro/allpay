@@ -430,7 +430,7 @@ contain some other symbols.</p>
 						translate='label'
 						type='Df\Framework\Form\Element\ArrayT'
 						dfItemFormElement='Dfe\AllPay\InstallmentSales\Plan\FormElement'
-						dfItemEntity='Dfe\AllPay\InstallmentSales\Plan\Entity'
+						dfEntity='Dfe\AllPay\InstallmentSales\Plan\Entity'
 						sortOrder='2'
 						showInDefault='1'
 						showInWebsite='1'
