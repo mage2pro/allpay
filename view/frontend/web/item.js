@@ -13,7 +13,6 @@ define ([
 	return Component.extend({
 		defaults: {
 			clientConfig: {id: 'dfe-all-pay'}
-			,code: 'dfe_all_pay'
 			,template: 'Dfe_AllPay/item'
 		},
 		/**
