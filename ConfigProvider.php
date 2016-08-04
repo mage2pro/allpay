@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay;
-use Dfe\AllPay\Settings as S;
 use Magento\Checkout\Model\ConfigProviderInterface;
+use Dfe\AllPay\InstallmentSales\Settings as InstallmentSalesSettings;
 class ConfigProvider implements ConfigProviderInterface {
 	/**
 	 * 2016-07-01
@@ -11,10 +11,15 @@ class ConfigProvider implements ConfigProviderInterface {
 	 * @return array(string => mixed)
 	 */
 	public function getConfig() {
+		/** @var Settings $s */
+		$s = Settings::s();
+		/** @var InstallmentSalesSettings $i */
+		$i = $s->installmentSales();
 		return ['payment' => [Method::CODE => [
-			'askForBillingAddress' => S::s()->askForBillingAddress()
-			,'isActive' => S::s()->enable()
-			,'isTest' => S::s()->test()
+			'askForBillingAddress' => $s->askForBillingAddress()
+			,'isActive' => $s->enable()
+			,'isTest' => $s->test()
+			,'installment' => ['plans' => $i->plans()->a()]
 		]]];
 	}
 }
