@@ -15,7 +15,7 @@ class Settings extends \Df\Core\Settings {
 	public function plans($paymentsCount = null, $s = null) {
 		/** @var A $result */
 		$result = $this->_a(__FUNCTION__, Plan::class, $s);
-		return is_null($paymentsCount) ? $result : $result->get($paymentsCount);
+		return !$paymentsCount ? $result : $result->get($paymentsCount);
 	}
 
 	/**
