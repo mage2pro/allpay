@@ -114,13 +114,6 @@ class Method extends \Df\Payment\Method {
 	}
 
 	/**
-	 * 2016-06-29
-	 * @used-by Dfe/AllPay/etc/frontend/di.xml
-	 * @used-by \Dfe\AllPay\ConfigProvider::getConfig()
-	 */
-	const CODE = 'dfe_all_pay';
-
-	/**
 	 * 2016-07-20
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
 	 * @used-by \Dfe\AllPay\Response\Offline::paidTime()

@@ -57,10 +57,15 @@ define ([
 			return this;
 		},
 		/**
-		 * 2016-07-01
-		 * @return {Boolean}
+		 * 2016-08-04
+		 * @return {Object}
 		 */
-		isTest: function() {return this.config('isTest');},
+		installment: function() {return this.config('installment');},
+		/**
+		 * 2016-08-04
+		 * @return {Object[]}
+		 */
+		iPlans: function() {return this.installment().plans;},
 		/**
 		 * 2016-07-01
 		 * @override
