@@ -10,11 +10,6 @@ define ([
 	askForBillingAddress: function() {return this.config('askForBillingAddress');},
 	defaults: {df: {test: {showBackendTitle: false}}, template: 'Dfe_AllPay/item'},
 	/**
-	 * 2016-07-01
-	 * @override
-	 */
-	getData: function() {return {additional_data: {}, method: this.item.method};},
-	/**
 	 * 2016-07-07
 	 * @return {Object}
 	*/
