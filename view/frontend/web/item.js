@@ -3,19 +3,23 @@ define ([
  	,'Df_Payment/js/view/payment/default'
   	,'jquery'
 ], function(redirectWithPost, parent, $) {'use strict'; return parent.extend({
-	/**
-	 * 2016-07-27
-	 * @return {Boolean}
-	 */
-	askForBillingAddress: function() {return this.config('askForBillingAddress');},
-	defaults: {df: {test: {showBackendTitle: false}}, template: 'Dfe_AllPay/item'},
+	defaults: {
+		df: {
+			test: {showBackendTitle: false},
+			// 2016-08-06
+			// @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
+			formTemplate: 'Dfe_AllPay/form'
+		}
+	},
 	/**
 	 * 2016-07-07
 	 * @return {Object}
 	*/
 	initialize: function() {
 		this._super();
-		if (!this.askForBillingAddress()) {
+		/** @type {Boolean} */
+		this.df.askForBillingAddress = this.config('askForBillingAddress');
+		if (!this.df.askForBillingAddress) {
 			this.isPlaceOrderActionAllowed(true);
 		}
 		return this;
