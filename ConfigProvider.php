@@ -18,4 +18,13 @@ class ConfigProvider extends \Df\Payment\ConfigProvider {
 			,'installment' => ['plans' => $i->plans()->a()]
 		];
 	}
+
+	/**
+	 * 2016-08-06
+	 * @override
+	 * @see \Df\Payment\ConfigProvider::route()
+	 * @used-by \Df\Payment\ConfigProvider::getConfig()
+	 * @return string
+	 */
+	protected function route() {return 'dfe-allpay';}
 }
