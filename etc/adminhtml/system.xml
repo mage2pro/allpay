@@ -330,7 +330,7 @@ contain some other symbols.</p>
 					showInStore='1'
 				>
 					<label>Allowed Payment Methods</label>
-					<source_model>Dfe\AllPay\Source\PaymentType</source_model>
+					<source_model>Dfe\AllPay\Source\Method</source_model>
 					<comment><![CDATA[Please specify the allowed payment methods.]]></comment>
 					<validate>required-entry</validate>
 					<depends>

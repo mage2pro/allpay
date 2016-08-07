@@ -4,8 +4,7 @@ define ([
  	,'Df_Payment/js/view/payment/default'
 	,'Dfe_AllPay/plan'
   	,'jquery'
-	,'mage/translate'
-], function(df, redirectWithPost, parent, Plan, $, $t) {'use strict'; return parent.extend({
+], function(df, redirectWithPost, parent, Plan, $) {'use strict'; return parent.extend({
 	defaults: {
 		df: {
 			test: {showBackendTitle: false},
@@ -51,11 +50,13 @@ define ([
 		return this._iPlans;
 	},
 	/** @returns {String} */
-	oneOffPriceS: function() {
-		return $t('One-off Price: {amount}')
-			.replace('{amount}', this.dfc.formatMoney(this.dfc.grandTotal()))
-		;
-	},
+	oneOff: function() {return df.t(
+		'One-off Payment: %s', this.dfc.formatMoney(this.dfc.grandTotal())
+	);},
+	/** @returns {String} */
+	oneOffMethods: function() {return df.t(
+		'The following payment methods are available: %s.', this.config('methods').join(', ')
+	);},
 	/**
 	 * 2016-08-06
 	 * @override

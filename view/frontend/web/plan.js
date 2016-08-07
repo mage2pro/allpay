@@ -23,16 +23,12 @@ define (['df', 'Df_Checkout/js/data', 'mage/translate'], function(
 		return this._amount;
 	},
 	/** @returns {String} */
-	amountS: function() {
-		return $t('Order Total: {amount}').replace('{amount}', dfc.formatMoney(this.amount()));
-	},
+	amountS: function() {return df.t('Order Total: %s', dfc.formatMoney(this.amount()));},
 	count: plan.count,
 	/** @returns {String} */
 	domId: function() {return 'df-plan-' + plan.count;},
 	/** @returns {String} */
-	duration: function() {
-		return $t(1 === this.count ? '1 month' : '{count} months').replace('{count}', this.count);
-	},
+	duration: function() {return df.t(1 === this.count ? '1 month' : '%s months', this.count);},
 	/** @returns {Number} */
 	firstPayment: function() {
 		if (df.undefined(this._firstPayment)) {
@@ -41,18 +37,14 @@ define (['df', 'Df_Checkout/js/data', 'mage/translate'], function(
 		return this._firstPayment;
 	},
 	/** @returns {String} */
-	firstPaymentS: function() {
-		return $t('First Payment: {amount}').replace('{amount}', dfc.formatMoney(this.firstPayment()));
-	},
+	firstPaymentS: function() {return df.t(
+		'First Payment: %s', dfc.formatMoney(this.firstPayment())
+	);},
 	/**
 	 * 2016-08-07
 	 * Добавляем 1 к count, потому что count означает количество месяцев,
 	 * а платежей на 1 больше, чем месяцев.
 	 * @returns {Number}
 	 */
-	numPayments: function() {return 1 + plan.count;},
-	/** @returns {String} */
-	title: function() {
-		return [plan.count, plan.rate, plan.fee].join(' ')
-	}
+	numPayments: function() {return 1 + plan.count;}
 };});});

@@ -1,6 +1,7 @@
 <?php
 namespace Dfe\AllPay;
 use Dfe\AllPay\InstallmentSales\Settings as InstallmentSalesSettings;
+use Dfe\AllPay\Source\Method as SourceMethod;
 /** @method Settings s() */
 class ConfigProvider extends \Df\Payment\ConfigProvider {
 	/**
@@ -17,6 +18,7 @@ class ConfigProvider extends \Df\Payment\ConfigProvider {
 			'askForBillingAddress' => $this->s()->askForBillingAddress()
 			,'currencyRateFromBaseToTWD' => df_currency_base()->getRate('TWD')
 			,'installment' => ['plans' => $i->plans()->a()]
+			,'methods' => $this->s()->methodsLabels()
 		];
 	}
 

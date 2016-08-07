@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\AllPay;
+use Dfe\AllPay\Source\Method as SourceMethod;
 use Dfe\AllPay\Source\WaitPeriodType;
 use Zend_Date as ZD;
 /** @method static Settings s() */
@@ -7,7 +8,7 @@ class Settings extends \Df\Payment\Settings {
 	/**
 	 * 2016-03-09
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Default Payment Method»
-	 * @see \Dfe\AllPay\Source\PaymentType::map()
+	 * @see \Dfe\AllPay\Source\Method::map()
 	 * @return string
 	 */
 	public function defaultPaymentMethod() {return $this->v(__FUNCTION__);}
@@ -65,6 +66,16 @@ class Settings extends \Df\Payment\Settings {
 	 * @return string[]
 	 */
 	public function methodsAllowed() {return $this->csv(__FUNCTION__);}
+
+	/**
+	 * 2016-08-07
+	 * @return string[]
+	 */
+	public function methodsLabels() {
+		return SourceMethod::s()->labels(
+			!$this->methodsLimit() ? null : $this->methodsAllowed()
+		);
+	}
 
 	/**
 	 * 2016-07-05

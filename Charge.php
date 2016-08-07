@@ -2,7 +2,7 @@
 namespace Dfe\AllPay;
 use Dfe\AllPay\Settings as S;
 use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
-use Dfe\AllPay\Source\PaymentType;
+use Dfe\AllPay\Source\Method as MethodSource;
 use Magento\Payment\Model\Info as I;
 use Magento\Payment\Model\InfoInterface as II;
 use Magento\Sales\Model\Order\Item as OI;
@@ -528,7 +528,7 @@ class Charge extends \Df\Payment\Charge {
 	private function pIgnorePayment() {
 		return implode('#',
 			!S::s()->methodsLimit() || $this->isSingleMethodChosen()
-				? [] : array_diff(PaymentType::s()->keys(), S::s()->methodsAllowed()
+				? [] : array_diff(MethodSource::s()->keys(), S::s()->methodsAllowed()
 		));
 	}
 
