@@ -1,8 +1,11 @@
 define ([
-	'Df_Core/js/redirectWithPost'
+	'df'
+	,'Df_Core/js/redirectWithPost'
  	,'Df_Payment/js/view/payment/default'
+	,'Dfe_AllPay/plan'
   	,'jquery'
-], function(redirectWithPost, parent, $) {'use strict'; return parent.extend({
+	,'mage/translate'
+], function(df, redirectWithPost, parent, Plan, $, $t) {'use strict'; return parent.extend({
 	defaults: {
 		df: {
 			test: {showBackendTitle: false},
@@ -33,7 +36,26 @@ define ([
 	 * 2016-08-04
 	 * @return {Object[]}
 	 */
-	iPlans: function() {return this.installment().plans;},
+	iPlans: function() {
+		if (df.undefined(this._iPlans)) {
+			/** @type {Number} */
+			var rateToTWD = this.config('currencyRateFromBaseToTWD');
+			this._iPlans = $.map(this.installment().plans, function(plan) {
+				return Plan({
+					count: parseInt(plan.count)
+					,fee: parseFloat(plan.fee)
+					,rate: parseFloat(plan.rate)
+				}, rateToTWD);
+			}).sort(function(a, b) {return a.count - b.count;});
+		}
+		return this._iPlans;
+	},
+	/** @returns {String} */
+	oneOffPriceS: function() {
+		return $t('One-off Price: {amount}')
+			.replace('{amount}', this.dfc.formatMoney(this.dfc.grandTotal()))
+		;
+	},
 	/**
 	 * 2016-08-06
 	 * @override
