@@ -9,7 +9,16 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Df\Config\A::get()
 	 * @return int
 	 */
-	public function getId() {return $this['count'];}
+	public function getId() {return $this->count();}
+
+	/**
+	 * 2016-08-07
+	 * @override
+	 * @see \Df\Config\ArrayItem::sortWeight()
+	 * @used-by \Df\Config\Backend\ArrayT::processI()
+	 * @return int
+	 */
+	public function sortWeight() {return $this->count();}
 
 	/**
 	 * 2016-08-02
@@ -19,5 +28,8 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @return void
 	 * @throws DFE
 	 */
-	public function validate() {df_assert(!is_array($this['count']));}
+	public function validate() {df_assert(!is_array($this->count()));}
+
+	/** @return int */
+	private function count() {return $this['count'];}
 }

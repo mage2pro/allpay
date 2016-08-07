@@ -45,7 +45,7 @@ define ([
 					,fee: parseFloat(plan.fee)
 					,rate: parseFloat(plan.rate)
 				}, rateToTWD);
-			}).sort(function(a, b) {return a.count - b.count;});
+			});
 		}
 		return this._iPlans;
 	},
