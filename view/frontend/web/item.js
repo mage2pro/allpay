@@ -14,6 +14,14 @@ define ([
 		}
 	},
 	/**
+	 * 2016-08-08
+	 * @override
+	 * @see mage2pro/core/Payment/view/frontend/web/js/view/payment/mixin.js
+	 * @used-by getData()
+	 * @returns {Object}
+	 */
+	dfData: function() {return df.o.merge(this._super(), this.plan ? {plan: this.plan} : {});},
+	/**
 	 * 2016-07-07
 	 * @return {Object}
 	*/
@@ -35,20 +43,17 @@ define ([
 	 * 2016-08-04
 	 * @return {Object[]}
 	 */
-	iPlans: function() {
-		if (df.undefined(this._iPlans)) {
-			/** @type {Number} */
-			var rateToTWD = this.config('currencyRateFromBaseToTWD');
-			this._iPlans = $.map(this.installment().plans, function(plan) {
-				return Plan({
-					count: parseInt(plan.count)
-					,fee: parseFloat(plan.fee)
-					,rate: parseFloat(plan.rate)
-				}, rateToTWD);
-			});
-		}
-		return this._iPlans;
-	},
+	iPlans: df.c(function() {
+		/** @type {Number} */
+		var rateToTWD = this.config('currencyRateFromBaseToTWD');
+		return $.map(this.installment().plans, function(plan) {
+			return Plan({
+				count: parseInt(plan.count)
+				,fee: parseFloat(plan.fee)
+				,rate: parseFloat(plan.rate)
+			}, rateToTWD);
+		});
+	}),
 	/** @returns {String} */
 	oneOff: function() {return df.t(
 		'One-off Payment: %s', this.dfc.formatMoney(this.dfc.grandTotal())
@@ -78,6 +83,7 @@ define ([
 	*/
 	placeOrder: function() {
 		if (this.validate()) {
+			this.plan = '';
 			this.placeOrderInternal();
 		}
 	}

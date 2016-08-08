@@ -1,6 +1,6 @@
 // 2016-08-06
-define (['df', 'Df_Checkout/js/data', 'mage/translate'], function(
-	df, dfc, $t
+define (['df', 'df-lodash', 'Df_Checkout/js/data'], function(
+	df, _, dfc
 ) {'use strict'; return (
 	/**
 	 * 2016-08-06
@@ -13,15 +13,9 @@ define (['df', 'Df_Checkout/js/data', 'mage/translate'], function(
 	 */
 	function(plan, rateToTWD) {return {
 	/** @returns {Number} */
-	amount: function() {
-		if (df.undefined(this._amount)) {
-			this._amount =
-				dfc.grandTotal() * (1 + plan.rate / 100)
-				+ plan.fee * rateToTWD * this.numPayments()
-			;
-		}
-		return this._amount;
-	},
+	amount: df.c(function() {
+		return dfc.grandTotal() * (1 + plan.rate / 100) + plan.fee * rateToTWD * this.numPayments();
+	}),
 	/** @returns {String} */
 	amountS: function() {return df.t('Order Total: %s', dfc.formatMoney(this.amount()));},
 	count: plan.count,
@@ -30,12 +24,7 @@ define (['df', 'Df_Checkout/js/data', 'mage/translate'], function(
 	/** @returns {String} */
 	duration: function() {return df.t(1 === this.count ? '1 month' : '%s months', this.count);},
 	/** @returns {Number} */
-	firstPayment: function() {
-		if (df.undefined(this._firstPayment)) {
-			this._firstPayment = Math.ceil(this.amount() / this.numPayments());
-		}
-		return this._firstPayment;
-	},
+	firstPayment: df.c(function() {return Math.ceil(this.amount() / this.numPayments());}),
 	/** @returns {String} */
 	firstPaymentS: function() {return df.t(
 		'First Payment: %s', dfc.formatMoney(this.firstPayment())
