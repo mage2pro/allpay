@@ -9,7 +9,7 @@ class Method extends \Df\Config\SourceT {
 	 * @return array(string => string)
 	 */
 	protected function map() {return [
-		'Credit' => 'Bank Card'
+		self::BANK_CARD => 'Bank Card'
 		// 2016-07-02
 		// Я так понял, что это чисто тайваньская штука:
 		// пользователь вставляет картридер в свой (!) компьютер,
@@ -32,4 +32,12 @@ class Method extends \Df\Config\SourceT {
 		// 2016-07-02
 		,'TopUpUsed' => '歐付寶 allPay account'
 	];}
+
+	/**
+	 * 2016-08-08
+	 * @used-by \Dfe\AllPay\Charge::pChoosePayment()
+	 * @used-by \Dfe\AllPay\Response::classSuffixS()
+	 * @used-by \Dfe\AllPay\Source\Method::map()
+	 */
+	const BANK_CARD = 'Credit';
 }

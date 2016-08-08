@@ -1,7 +1,21 @@
 <?php
 namespace Dfe\AllPay\InstallmentSales\Plan;
+use Dfe\AllPay\Charge;
 use Df\Core\Exception as DFE;
 class Entity extends \Df\Config\ArrayItem {
+	/**
+	 * 2016-08-08
+	 * @used-by \Dfe\AllPay\Charge::_requestI()
+	 * @param float $amountTWD
+	 * @return float
+	 */
+	public function amountTWD($amountTWD) {
+		return round(
+			$amountTWD * (1 + $this->rate() / 100)
+			+ Charge::toTWD($this->fee()) * (1 + $this->months())
+		);
+	}
+
 	/**
 	 * 2016-07-31
 	 * @override
@@ -9,7 +23,17 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Df\Config\A::get()
 	 * @return int
 	 */
-	public function getId() {return $this->count();}
+	public function getId() {return $this->months();}
+
+	/**
+	 * 2016-08-08
+	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::getId()
+	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::sortWeight()
+	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::validate()
+	 * @used-by \Dfe\AllPay\Charge::_requestI()
+	 * @return int
+	 */
+	public function months() {return intval($this['months']);}
 
 	/**
 	 * 2016-08-07
@@ -18,7 +42,7 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Df\Config\Backend\ArrayT::processI()
 	 * @return int
 	 */
-	public function sortWeight() {return $this->count();}
+	public function sortWeight() {return $this->months();}
 
 	/**
 	 * 2016-08-02
@@ -28,8 +52,19 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @return void
 	 * @throws DFE
 	 */
-	public function validate() {df_assert(!is_array($this->count()));}
+	public function validate() {df_assert(!is_array($this->months()));}
 
-	/** @return int */
-	private function count() {return $this['count'];}
+	/**
+	 * 2016-08-08
+	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amountTWD()
+	 * @return float
+	 */
+	private function fee() {return df_float($this['fee']);}
+
+	/**
+	 * 2016-08-08
+	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amountTWD()
+	 * @return float
+	 */
+	private function rate() {return df_float($this['rate']);}
 }

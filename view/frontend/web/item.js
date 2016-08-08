@@ -20,7 +20,7 @@ define ([
 	 * @used-by getData()
 	 * @returns {Object}
 	 */
-	dfData: function() {return df.o.merge(this._super(), this.plan ? {plan: this.plan} : {});},
+	dfData: function() {return df.o.merge(this._super(), df.clean({plan: this.plan}));},
 	/**
 	 * 2016-07-07
 	 * @return {Object}
@@ -45,13 +45,13 @@ define ([
 	 */
 	iPlans: df.c(function() {
 		/** @type {Number} */
-		var rateToTWD = this.config('currencyRateFromBaseToTWD');
+		var rateToCurrent = this.config('currencyRateFromBaseToCurrent');
 		return $.map(this.installment().plans, function(plan) {
 			return Plan({
-				count: parseInt(plan.count)
-				,fee: parseFloat(plan.fee)
+				fee: parseFloat(plan.fee)
+				,months: parseInt(plan.months)
 				,rate: parseFloat(plan.rate)
-			}, rateToTWD);
+			}, rateToCurrent);
 		});
 	}),
 	/** @returns {String} */
@@ -83,7 +83,8 @@ define ([
 	*/
 	placeOrder: function() {
 		if (this.validate()) {
-			this.plan = '';
+			// http://stackoverflow.com/a/8622351
+			this.plan = this.dfRadioValue('plan');
 			this.placeOrderInternal();
 		}
 	}

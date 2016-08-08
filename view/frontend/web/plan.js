@@ -5,35 +5,48 @@ define (['df', 'df-lodash', 'Df_Checkout/js/data'], function(
 	/**
 	 * 2016-08-06
 	 * @param {Object} plan
-	 * @param {Number} plan.count
-	 * @param {Number} plan.rate
 	 * @param {Number} plan.fee
-	 * @param {Number} rateToTWD
+	 * @param {Number} plan.months
+	 * @param {Number} plan.rate
+	 * @param {Number} rateToCurrent
 	 * @returns {Object}
 	 */
-	function(plan, rateToTWD) {return {
+	function(plan, rateToCurrent) {return {
 	/** @returns {Number} */
-	amount: df.c(function() {
-		return dfc.grandTotal() * (1 + plan.rate / 100) + plan.fee * rateToTWD * this.numPayments();
-	}),
+	amount: df.c(function() {return Math.round(
+		dfc.grandTotal() * (1 + plan.rate / 100) + plan.fee * rateToCurrent * this.numPayments()
+	);}),
 	/** @returns {String} */
 	amountS: function() {return df.t('Order Total: %s', dfc.formatMoney(this.amount()));},
-	count: plan.count,
 	/** @returns {String} */
-	domId: function() {return 'df-plan-' + plan.count;},
+	domId: function() {return 'df-plan-' + plan.months;},
 	/** @returns {String} */
-	duration: function() {return df.t(1 === this.count ? '1 month' : '%s months', this.count);},
-	/** @returns {Number} */
-	firstPayment: df.c(function() {return Math.ceil(this.amount() / this.numPayments());}),
+	duration: function() {return df.t(1 === this.months ? '1 month' : '%s months', this.months);},
+	/**
+	 * 2016-08-08
+	 * В документации сказано, что если общий размер оплаты
+	 * не делится нацело на количество платежей, то остаток переносится на первый платёж:
+	 * «串接時請帶訂單的交易總金額，無須自行計算各分期金額，除不盡的金額銀行會於第一期收取。
+	 * 舉例：總金額 1733元 分 6 期，除不盡的放第一期，293，288，288，288，288，288»
+	 * @returns {Number}
+	 */
+	firstPayment: df.c(function() {
+		/** @type {Number} */
+		var remainder = this.amount() % this.numPayments();
+		/** @type {Number} */
+		var singlePaymentAmount = Math.floor(this.amount() / this.numPayments());
+		return remainder + singlePaymentAmount;
+	}),
 	/** @returns {String} */
 	firstPaymentS: function() {return df.t(
 		'First Payment: %s', dfc.formatMoney(this.firstPayment())
 	);},
+	months: plan.months,
 	/**
 	 * 2016-08-07
-	 * Добавляем 1 к count, потому что count означает количество месяцев,
+	 * Добавляем 1 к months, потому что months означает количество месяцев,
 	 * а платежей на 1 больше, чем месяцев.
 	 * @returns {Number}
 	 */
-	numPayments: function() {return 1 + plan.count;}
+	numPayments: function() {return 1 + plan.months;}
 };});});

@@ -20,7 +20,7 @@ class FormElement extends Fieldset {
 		// 2016-07-30
 		// Этот стиль будет применён к элементу <fieldset>.
 		$this->addClass('dfe-allpay-installment-plan');
-		$this->number('count', 'Number of Monthly Payments');
+		$this->number('months', 'Number of Months');
 		$this->percent('rate', 'Interest Rate');
 		$this->money('fee', 'Fixed Monthly Fee');
 		df_fe_init($this, __CLASS__, [], [], 'plan');

@@ -101,6 +101,15 @@ class Method extends \Df\Payment\Method {
 	}
 
 	/**
+	 * 2016-08-08
+	 * @override
+	 * @see \Df\Payment\Method::iiaKeys()
+	 * @used-by \Df\Payment\Method::assignData()
+	 * @return string[]
+	 */
+	protected function iiaKeys() {return [self::II_PLAN];}
+
+	/**
 	 * 2016-07-28
 	 * @override
 	 * @see \Df\Payment\Method::titleDetailed()
@@ -112,6 +121,13 @@ class Method extends \Df\Payment\Method {
 			!$this->responseF() ? null : $this->responseF()->paymentTypeTitle()
 		]));
 	}
+
+	/**
+	 * 2016-08-08
+	 * @used-by \Dfe\AllPay\Method::iiaKeys()
+	 * @used-by \Dfe\AllPay\Charge
+	 */
+	const II_PLAN = 'plan';
 
 	/**
 	 * 2016-07-20

@@ -1,8 +1,10 @@
 <?php
 namespace Dfe\AllPay;
+use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
+use Dfe\AllPay\Method as M;
 use Dfe\AllPay\Settings as S;
 use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
-use Dfe\AllPay\Source\Method as MethodSource;
+use Dfe\AllPay\Source\Method as SMethod;
 use Magento\Payment\Model\Info as I;
 use Magento\Payment\Model\InfoInterface as II;
 use Magento\Sales\Model\Order\Item as OI;
@@ -143,6 +145,17 @@ class Charge extends \Df\Payment\Charge {
 		 * подробную инструкцию по оплате.
 		 */
 		,'ClientRedirectURL' => ''
+		/**
+		 * 2016-08-08
+		 * «Number of payment on credit card installment».
+		 * Int
+		 * «When a member selected credit card as its payment type,
+		 * seller should notify customers on the number of payment on credit card installment
+		 * if he is willing to provide installment service.
+		 * If it is not paying by credit card with installment, take 0 as its value».
+		 * Could be empty.
+		 */
+		,'CreditInstallment' => !$this->plan() ? 0 : $this->plan()->months() + 1
 		// 2016-07-04
 		// «Device Source».
 		// Varchar(10)
@@ -214,6 +227,17 @@ class Charge extends \Df\Payment\Charge {
 		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 		 */
 		,'IgnorePayment' => $this->pIgnorePayment()
+		/**
+		 * 2016-08-08
+		 * «Paying by credit card with installment.».
+		 * Money
+		 * «If the amount of paying by credit card with installment
+		 * is greater than original total payment amount,
+		 * take installment amount as its value.
+		 * If it is not paying by credit card with installment, take 0 as its value».
+		 * Could be empty.
+		 */
+		,'InstallmentAmount' => !$this->plan() ? 0 : $this->plan()->amountTWD($this->amountTWD())
 		// 2016-07-04
 		// «Electronic invoice remark».
 		// Varchar(1)
@@ -471,7 +495,7 @@ class Charge extends \Df\Payment\Charge {
 		 * 2016-07-05
 		 * Значение должно быть целым.
 		 */
-		,'TotalAmount' => round(df_currency_convert($this->amount(), null, 'TWD'))
+		,'TotalAmount' => $this->amountTWD()
 		// 2016-07-02
 		// «Trade description».
 		// Varchar(200)
@@ -480,12 +504,23 @@ class Charge extends \Df\Payment\Charge {
 	];}return $this->{__METHOD__};}
 
 	/**
+	 * 2016-08-08
+	 * @return float
+	 */
+	private function amountTWD() {
+		if (!isset($this->{__METHOD__})) {
+			$this->{__METHOD__} = self::toTWD($this->amount());
+		}
+		return $this->{__METHOD__};
+	}
+
+	/**
 	 * 2016-07-05
 	 * @return bool
 	 */
 	private function isSingleMethodChosen() {
 		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = 1 === count(S::s()->methodsAllowed());
+			$this->{__METHOD__} = !!$this->plan() || 1 === count(S::s()->methodsAllowed());
 		}
 		return $this->{__METHOD__};
 	}
@@ -509,9 +544,11 @@ class Charge extends \Df\Payment\Charge {
 	 * @return string
 	 */
 	private function pChoosePayment() {
-		return !S::s()->methodsLimit() || !$this->isSingleMethodChosen()
-			? 'ALL' : df_first(S::s()->methodsAllowed())
-		;
+		return $this->plan() ? SMethod::BANK_CARD : (
+			!S::s()->methodsLimit() || !$this->isSingleMethodChosen()
+				? 'ALL'
+				: df_first(S::s()->methodsAllowed())
+		);
 	}
 
 	/**
@@ -528,8 +565,19 @@ class Charge extends \Df\Payment\Charge {
 	private function pIgnorePayment() {
 		return implode('#',
 			!S::s()->methodsLimit() || $this->isSingleMethodChosen()
-				? [] : array_diff(MethodSource::s()->keys(), S::s()->methodsAllowed()
+				? [] : array_diff(SMethod::s()->keys(), S::s()->methodsAllowed()
 		));
+	}
+
+	/**
+	 * 2016-08-08
+	 * @return Plan|null
+	 */
+	private function plan() {
+		if (!isset($this->{__METHOD__})) {
+			$this->{__METHOD__} = df_n_set(S::s()->installmentSales()->plans($this->iia(M::II_PLAN)));
+		}
+		return df_n_get($this->{__METHOD__});
 	}
 
 	/**
@@ -562,4 +610,13 @@ class Charge extends \Df\Payment\Charge {
 	public static function request(II $payment) {
 		return (new self([self::$P__PAYMENT => $payment]))->_request();
 	}
+
+	/**
+	 * 2016-08-08
+	 * @used-by \Dfe\AllPay\Charge::amountTWD()
+	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amountTWD()
+	 * @param float $amount
+	 * @return float
+	 */
+	public static function toTWD($amount) {return round(df_currency_convert($amount, null, 'TWD'));}
 }

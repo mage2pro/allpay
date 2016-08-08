@@ -16,7 +16,7 @@ class ConfigProvider extends \Df\Payment\ConfigProvider {
 		$i = $this->s()->installmentSales();
 		return [
 			'askForBillingAddress' => $this->s()->askForBillingAddress()
-			,'currencyRateFromBaseToTWD' => df_currency_base()->getRate('TWD')
+			,'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
 			,'installment' => ['plans' => $i->plans()->a()]
 			,'methods' => $this->s()->methodsLabels()
 		];
