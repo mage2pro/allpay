@@ -1,0 +1,35 @@
+// 2016-08-09
+form.dfe_all_pay {
+	.choice.one-off {
+		> input, > label {vertical-align: baseline;}
+		> label {
+			> :first-child {
+				font-weight: 600;
+				font-size: 1.8rem;
+			}
+		}
+	}
+	table.plans {
+		width: auto;
+		margin-top: 1.25em;
+		caption {
+			width: auto;
+			height: auto;
+			margin: auto;
+			position: initial;
+			text-align: left;
+			> :nth-child(1) {
+				font-weight: 600;
+				font-size: 1.8rem;
+			}
+		}
+		th, td {
+			padding: 0.5rem 0;
+			&:nth-child(1) {width: 10em;}
+			&:nth-child(2) {width: 10em;}
+			&:nth-child(3) {width: 10em;}
+		}
+		tbody > tr:hover {background-color: rgb(245, 245, 245);}
+		td {cursor: default;}
+	}
+}

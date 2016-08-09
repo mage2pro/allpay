@@ -1,6 +1,6 @@
 // 2016-08-06
-define (['df', 'df-lodash', 'Df_Checkout/js/data'], function(
-	df, _, dfc
+define (['df', 'df-lodash', 'Df_Checkout/js/data', 'jquery'], function(
+	df, _, dfc, $
 ) {'use strict'; return (
 	/**
 	 * 2016-08-06
@@ -17,7 +17,7 @@ define (['df', 'df-lodash', 'Df_Checkout/js/data'], function(
 		dfc.grandTotal() * (1 + plan.rate / 100) + plan.fee * rateToCurrent * this.numPayments()
 	);}),
 	/** @returns {String} */
-	amountS: function() {return df.t('Order Total: %s', dfc.formatMoney(this.amount()));},
+	amountS: function() {return dfc.formatMoney(this.amount());},
 	/** @returns {String} */
 	domId: function() {return 'df-plan-' + plan.months;},
 	/** @returns {String} */
@@ -38,9 +38,7 @@ define (['df', 'df-lodash', 'Df_Checkout/js/data'], function(
 		return remainder + singlePaymentAmount;
 	}),
 	/** @returns {String} */
-	firstPaymentS: function() {return df.t(
-		'First Payment: %s', dfc.formatMoney(this.firstPayment())
-	);},
+	firstPaymentS: function() {return dfc.formatMoney(this.firstPayment());},
 	months: plan.months,
 	/**
 	 * 2016-08-07
@@ -48,5 +46,15 @@ define (['df', 'df-lodash', 'Df_Checkout/js/data'], function(
 	 * а платежей на 1 больше, чем месяцев.
 	 * @returns {Number}
 	 */
-	numPayments: function() {return 1 + plan.months;}
+	numPayments: function() {return 1 + plan.months;},
+	/**
+	 * 2016-08-09
+	 * «How to hadle a click event for a Knockout template's element with the «click» binding?»
+	 * https://mage2.pro/t/1937
+	 * @see mage2pro/allpay/view/frontend/web/template/installment.html
+	 * How to check a radio button:  http://stackoverflow.com/a/5665942
+	 * @param {Object} _this
+	 * @param {jQuery.Event} event
+	 */
+	onRowClicked: function(_this, event) {$(':radio', event.currentTarget).prop('checked', true);}
 };});});

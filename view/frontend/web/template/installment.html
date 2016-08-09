@@ -1,22 +1,41 @@
-<div class='field choice'>
+<div class='field choice one-off'>
 	<input type='radio' name='plan' class='radio' id='df-plan-0' value='0' checked />
 	<label class='label' for='df-plan-0'>
 		<span data-bind='html: oneOff()'></span>
-		<div data-bind='html: oneOffMethods()'></div>
 	</label>
 </div>
-<h3 data-bind="i18n: 'Installment Plan'"></h3>
-<!-- ko foreach: iPlans() -->
-	<div class='field choice'>
-		<input
-			data-bind="attr: {'id': domId()}, value: months"
-			type='radio' name='plan' class='radio'
-		/>
-		<label data-bind="attr: {'for': domId()}" class='label'>
-			<span data-bind='html: duration()'></span>
-			<div data-bind='html: firstPaymentS()'></div>
-			<div data-bind='html: amountS()'></div>
-		</label>
-	</div>
-<!--/ko-->
+<div data-bind='html: oneOffMethods()'></div>
+<table class='plans'>
+	<caption>
+		<div><!-- ko i18n: 'Installment Plans'--><!-- /ko --></div>
+		<div><!-- ko i18n: 'The order will be paid with a bank card.'--><!-- /ko --></div>
+	</caption>
+	<thead>
+		<tr>
+			<th><!-- ko i18n: 'Period'--><!-- /ko --></th>
+			<th><!-- ko i18n: 'First Payment'--><!-- /ko --></th>
+			<th><!-- ko i18n: 'Order Total'--><!-- /ko --></th>
+		</tr>
+	</thead>
+	<tbody>
+	<!-- ko foreach: iPlans() -->
+		<tr click='onRowClicked'>
+			<td>
+				<div class='field choice'>
+					<input
+						data-bind="attr: {'id': domId()}, value: months"
+						type='radio' name='plan' class='radio'
+					/>
+					<label data-bind="attr: {'for': domId()}" class='label'>
+						<span data-bind='html: duration()'></span>
+					</label>
+				</div>
+			</td>
+			<td data-bind='html: firstPaymentS()'></td>
+			<td data-bind='html: amountS()'></td>
+		</tr>
+	<!--/ko-->
+	</tbody>
+</table>
+
 
