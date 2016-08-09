@@ -597,7 +597,7 @@ class Charge extends \Df\Payment\Charge {
 	 * @return string
 	 */
 	private function productUrls() {
-		return df_cc_clean('+', df_map(function(OI $item) {
+		return df_ccc('+', df_map(function(OI $item) {
 			return $item->getChildrenItems() ? null : $item->getProduct()->getProductUrl();
 		}, $this->o()->getItems()));
 	}

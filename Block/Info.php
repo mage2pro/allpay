@@ -12,12 +12,12 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 	 * 2016-07-13
 	 * @return string
 	 */
-	public function paymentType() {
+	public function paymentOption() {
 		if (!isset($this->{__METHOD__})) {
 			$this->{__METHOD__} =
 				!$this->responseF()
 				? __('Not selected yet') :
-				$this->responseF()->paymentTypeTitle()
+				$this->responseF()->paymentOptionTitle()
 			;
 		}
 		return $this->{__METHOD__};
@@ -34,7 +34,7 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 	protected function _prepareSpecificInformation($transport = null) {
 		/** @var DataObject $result */
 		$result = parent::_prepareSpecificInformation($transport);
-		$result->addData(['Payment Type' => $this->paymentType()]);
+		$result->addData(['Payment Option' => $this->paymentOption()]);
 		if ($this->responseF()) {
 			$result->addData($this->custom());
 			if (!$this->getIsSecureMode()) {

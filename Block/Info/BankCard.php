@@ -59,7 +59,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	}
 
 	/** @return string */
-	private function cardNumber() {return df_cc_clean('******', $this->r('card6no', 'card4no'));}
+	private function cardNumber() {return df_ccc('******', $this->r('card6no', 'card4no'));}
 
 	/**
 	 * 2016-07-28

@@ -118,7 +118,7 @@ class Method extends \Df\Payment\Method {
 	 */
 	public function titleDetailed() {
 		return nl2br(df_cc_n([parent::titleDetailed(),
-			!$this->responseF() ? null : $this->responseF()->paymentTypeTitle()
+			!$this->responseF() ? null : $this->responseF()->paymentOptionTitle()
 		]));
 	}
 

@@ -44,7 +44,7 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * 2016-07-18
 	 * @return string
 	 */
-	public function paymentTypeTitle() {
+	public function paymentOptionTitle() {
 		if (!isset($this->{__METHOD__})) {
 			/** @var string $result */
 			$result = $this['PaymentType'];
@@ -56,10 +56,8 @@ abstract class Response extends \Df\Payment\R\Response {
 			if (1 < $c) {
 				/** @var string $f */
 				$f = $a[0];
-				/** @var string $l */
-				$l = $a[1];
 				/** @var string|null */
-				$resultD = dfa_deep($this->moduleJson('titles'), [$f, $l]);
+				$resultD = $this->paymentOptionTitleByCode($f, $a[1]);
 				if ($resultD) {
 					$resultD = __($resultD);
 					$result =
@@ -90,6 +88,17 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * @return string
 	 */
 	protected function externalIdKey() {return 'TradeNo';}
+
+	/**
+	 * 2016-08-09
+	 * @used-by \Dfe\AllPay\Response::paymentOptionTitle()
+	 * @param string $codeFirst
+	 * @param string $codeLast
+	 * @return string|null
+	 */
+	protected function paymentOptionTitleByCode($codeFirst, $codeLast) {
+		return dfa_deep($this->moduleJson('titles'), [$codeFirst, $codeLast]);
+	}
 
 	/**
 	 * 2016-07-09
@@ -143,7 +152,7 @@ abstract class Response extends \Df\Payment\R\Response {
 	 */
 	protected function testData($type) {
 		/** @var string $basename */
-		$basename = df_cc_clean('-', df_class_last(get_class($this)), $type);
+		$basename = df_ccc('-', df_class_last(get_class($this)), $type);
 		return df_json_decode(file_get_contents(BP . "/_my/test/allPay/{$basename}.json"));
 	}
 
