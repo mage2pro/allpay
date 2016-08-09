@@ -3,6 +3,14 @@ namespace Dfe\AllPay\Response;
 use Dfe\AllPay\Source\Method as SMethod;
 class BankCard extends \Dfe\AllPay\Response {
 	/**
+	 * 2016-08-09
+	 * @used-by \Dfe\AllPay\Response\BankCard::paymentOptionTitleByCode()
+	 * @used-by \Dfe\AllPay\Block\Info\BankCard::custom()
+	 * @return bool
+	 */
+	public function isInstallment() {return !!$this['stage'];}
+
+	/**
 	 * 2016-07-20
 	 * @override
 	 * @see \Df\Payment\R\Response::needCapture()
@@ -26,11 +34,5 @@ class BankCard extends \Dfe\AllPay\Response {
 			!$this->isInstallment() ? '' : '(Installments)'
 		);
 	}
-
-	/**
-	 * 2016-08-09
-	 * @return bool
-	 */
-	private function isInstallment() {return !!$this['stage'];}
 }
 
