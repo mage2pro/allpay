@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\InstallmentSales\Plan;
 use Df\Framework\Form\Element\Fieldset;
-use Df\Framework\Form\Element\Number;
+use Dfe\AllPay\InstallmentSales\Plan\Entity as O;
 /**
  * 2015-12-27
  * Этот класс не является одиночкой:
@@ -20,9 +20,9 @@ class FormElement extends Fieldset {
 		// 2016-07-30
 		// Этот стиль будет применён к элементу <fieldset>.
 		$this->addClass('dfe-allpay-installment-plan');
-		$this->number('months', 'Number of Months');
-		$this->percent('rate', 'Interest Rate');
-		$this->money('fee', 'Fixed Monthly Fee');
+		$this->number(O::months, 'Number of Months');
+		$this->percent(O::rate, 'Interest Rate');
+		$this->money(O::fee, 'Fixed Monthly Fee');
 		df_fe_init($this, __CLASS__, [], [], 'plan');
 	}
 }
