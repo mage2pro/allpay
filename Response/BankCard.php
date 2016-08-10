@@ -30,7 +30,7 @@ class BankCard extends \Dfe\AllPay\Response {
 	 */
 	protected function paymentOptionTitleByCode($codeFirst, $codeLast) {
 		df_assert_eq(SMethod::BANK_CARD, $codeFirst);
-		return df_ccc(' ', parent::paymentOptionTitleByCode($codeFirst, $codeLast),
+		return df_cc_s(parent::paymentOptionTitleByCode($codeFirst, $codeLast),
 			!$this->isInstallment() ? '' : '(Installments)'
 		);
 	}

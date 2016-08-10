@@ -60,11 +60,7 @@ abstract class Response extends \Df\Payment\R\Response {
 				$resultD = $this->paymentOptionTitleByCode($f, $a[1]);
 				if ($resultD) {
 					$resultD = __($resultD);
-					$result =
-						in_array($f, ['ATM', 'WebATM'])
-						? implode(' ', [__($f), $resultD])
-						: $resultD
-					;
+					$result = in_array($f, ['ATM', 'WebATM']) ? df_cc_s(__($f), $resultD) : $resultD;
 				}
 			}
 			$this->{__METHOD__} = $result;

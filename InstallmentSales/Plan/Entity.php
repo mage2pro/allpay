@@ -33,7 +33,7 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
 	 * @return int
 	 */
-	public function months() {return intval($this->v(__FUNCTION__));}
+	public function months() {return $this->nat();}
 
 	/**
 	 * 2016-08-07
@@ -59,14 +59,14 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amountTWD()
 	 * @return float
 	 */
-	private function fee() {return df_float($this->v(__FUNCTION__));}
+	private function fee() {return $this->f();}
 
 	/**
 	 * 2016-08-08
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amountTWD()
 	 * @return float
 	 */
-	private function rate() {return df_float($this->v(__FUNCTION__));}
+	private function rate() {return $this->f();}
 
 	const fee = 'fee';
 	const months = 'months';
