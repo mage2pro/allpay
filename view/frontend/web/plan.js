@@ -53,5 +53,16 @@ define (['df', 'df-lodash', 'Df_Checkout/js/data', 'jquery'], function(
 	 * @param {Object} _this
 	 * @param {jQuery.Event} event
 	 */
-	onRowClicked: function(_this, event) {$(':radio', event.currentTarget).prop('checked', true);}
+	onRowClicked: function(_this, event) {
+		$(':radio', event.currentTarget).prop('checked', true);
+		/**
+		 * 2016-08-12
+		 * Возврат true приводит к последующей обработке события обработчиком по умолчанию.
+		 * http://knockoutjs.com/documentation/click-binding.html#note-3-allowing-the-default-click-action
+		 * Опытным путём установил, что если этого не делать,
+		 * то при клике непосредственно по радиокнопке радиокнопка не будет выбрана
+		 * (выбор сначала происходит, а потом сбрасывается).
+		 */
+		return true;
+	}
 };});});
