@@ -155,7 +155,7 @@ class Charge extends \Df\Payment\Charge {
 		 * If it is not paying by credit card with installment, take 0 as its value».
 		 * Could be empty.
 		 */
-		,'CreditInstallment' => !$this->plan() ? 0 : $this->plan()->months() + 1
+		,'CreditInstallment' => !$this->plan() ? 0 : $this->plan()->numPayments()
 		// 2016-07-04
 		// «Device Source».
 		// Varchar(10)

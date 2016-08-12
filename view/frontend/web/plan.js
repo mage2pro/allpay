@@ -6,7 +6,7 @@ define (['df', 'df-lodash', 'Df_Checkout/js/data', 'jquery'], function(
 	 * 2016-08-06
 	 * @param {Object} plan
 	 * @param {Number} plan.fee
-	 * @param {Number} plan.months
+	 * @param {Number} plan.numPayments
 	 * @param {Number} plan.rate
 	 * @param {Number} rateToCurrent
 	 * @returns {Object}
@@ -14,14 +14,14 @@ define (['df', 'df-lodash', 'Df_Checkout/js/data', 'jquery'], function(
 	function(plan, rateToCurrent) {return {
 	/** @returns {Number} */
 	amount: df.c(function() {return Math.round(
-		dfc.grandTotal() * (1 + plan.rate / 100) + plan.fee * rateToCurrent * this.numPayments()
+		dfc.grandTotal() * (1 + plan.rate / 100) + plan.fee * rateToCurrent * plan.numPayments
 	);}),
 	/** @returns {String} */
 	amountS: function() {return dfc.formatMoney(this.amount());},
 	/** @returns {String} */
-	domId: function() {return 'df-plan-' + plan.months;},
+	domId: function() {return 'df-plan-' + plan.numPayments;},
 	/** @returns {String} */
-	duration: function() {return df.t(1 === this.months ? '1 month' : '%s months', this.months);},
+	numPaymentsS: function() {return plan.numPayments;},
 	/**
 	 * 2016-08-08
 	 * В документации сказано, что если общий размер оплаты
@@ -32,21 +32,18 @@ define (['df', 'df-lodash', 'Df_Checkout/js/data', 'jquery'], function(
 	 */
 	firstPayment: df.c(function() {
 		/** @type {Number} */
-		var remainder = this.amount() % this.numPayments();
+		var remainder = this.amount() % plan.numPayments;
 		/** @type {Number} */
-		var singlePaymentAmount = Math.floor(this.amount() / this.numPayments());
+		var singlePaymentAmount = Math.floor(this.amount() / plan.numPayments);
 		return remainder + singlePaymentAmount;
 	}),
 	/** @returns {String} */
 	firstPaymentS: function() {return dfc.formatMoney(this.firstPayment());},
-	months: plan.months,
 	/**
-	 * 2016-08-07
-	 * Добавляем 1 к months, потому что months означает количество месяцев,
-	 * а платежей на 1 больше, чем месяцев.
+	 * 2016-08-12
 	 * @returns {Number}
 	 */
-	numPayments: function() {return 1 + plan.months;},
+	numPayments: plan.numPayments,
 	/**
 	 * 2016-08-09
 	 * «How to hadle a click event for a Knockout template's element with the «click» binding?»

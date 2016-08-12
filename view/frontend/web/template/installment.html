@@ -12,7 +12,7 @@
 	</caption>
 	<thead>
 		<tr>
-			<th><!-- ko i18n: 'Period'--><!-- /ko --></th>
+			<th><!-- ko i18n: 'Payments'--><!-- /ko --></th>
 			<th><!-- ko i18n: 'First Payment'--><!-- /ko --></th>
 			<th><!-- ko i18n: 'Order Total'--><!-- /ko --></th>
 		</tr>
@@ -23,11 +23,11 @@
 			<td>
 				<div class='field choice'>
 					<input
-						data-bind="attr: {'id': domId()}, value: months"
+						data-bind="attr: {'id': domId()}, value: numPayments"
 						type='radio' name='plan' class='radio'
 					/>
 					<label data-bind="attr: {'for': domId()}" class='label'>
-						<span data-bind='html: duration()'></span>
+						<span data-bind='html: numPaymentsS()'></span>
 					</label>
 				</div>
 			</td>

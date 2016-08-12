@@ -49,7 +49,7 @@ define ([
 		return $.map(this.installment().plans, function(plan) {
 			return Plan({
 				fee: parseFloat(plan.fee)
-				,months: parseInt(plan.months)
+				,numPayments: parseInt(plan.numPayments)
 				,rate: parseFloat(plan.rate)
 			}, rateToCurrent);
 		});

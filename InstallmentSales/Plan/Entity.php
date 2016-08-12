@@ -9,12 +9,9 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @param float $amountTWD
 	 * @return float
 	 */
-	public function amountTWD($amountTWD) {
-		return round(
-			$amountTWD * (1 + $this->rate() / 100)
-			+ Charge::toTWD($this->fee()) * (1 + $this->months())
-		);
-	}
+	public function amountTWD($amountTWD) {return round(
+		$amountTWD * (1 + $this->rate() / 100) + Charge::toTWD($this->fee()) * $this->numPayments()
+	);}
 
 	/**
 	 * 2016-07-31
@@ -23,7 +20,7 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Df\Config\A::get()
 	 * @return int
 	 */
-	public function getId() {return $this->months();}
+	public function getId() {return $this->numPayments();}
 
 	/**
 	 * 2016-08-08
@@ -33,7 +30,7 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
 	 * @return int
 	 */
-	public function months() {return $this->nat();}
+	public function numPayments() {return $this->nat();}
 
 	/**
 	 * 2016-08-07
@@ -42,7 +39,7 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Df\Config\Backend\ArrayT::processI()
 	 * @return int
 	 */
-	public function sortWeight() {return $this->months();}
+	public function sortWeight() {return $this->numPayments();}
 
 	/**
 	 * 2016-08-02
@@ -52,7 +49,7 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @return void
 	 * @throws DFE
 	 */
-	public function validate() {df_assert(!is_array($this->months()));}
+	public function validate() {df_assert($this->numPayments());}
 
 	/**
 	 * 2016-08-08
@@ -69,6 +66,6 @@ class Entity extends \Df\Config\ArrayItem {
 	private function rate() {return $this->f();}
 
 	const fee = 'fee';
-	const months = 'months';
+	const numPayments = 'numPayments';
 	const rate = 'rate';
 }

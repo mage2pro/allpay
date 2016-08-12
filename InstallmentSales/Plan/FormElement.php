@@ -21,8 +21,8 @@ class FormElement extends Fieldset {
 		// Этот стиль будет применён к элементу <fieldset>.
 		$this->addClass('dfe-allpay-installment-plan');
 		// 2016-08-10
-		// Сегодня опытным путём выяснил, что allPay иные периоды не допускает.
-		$this->select2Number(O::months, 'Number of Months', [2, 5, 11, 17, 23]);
+		// Сегодня опытным путём выяснил, что allPay иное количество платежей не допускает.
+		$this->select2Number(O::numPayments, 'Payments', [3, 6, 12, 18, 24]);
 		$this->percent(O::rate, 'Interest Rate');
 		$this->money(O::fee, 'Fixed Monthly Fee');
 		df_fe_init($this, __CLASS__, [], [], 'plan');

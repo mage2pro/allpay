@@ -8,13 +8,13 @@ class Settings extends \Df\Core\Settings {
 	/**
 	 * 2016-07-31
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay»→ «Installment Sales» → «Plans»
-	 * @param int|null $months [optional]
+	 * @param int|null $numPayments [optional]
 	 * @return A|Plan|null
 	 */
-	public function plans($months = null) {
+	public function plans($numPayments = null) {
 		/** @var A $result */
 		$result = $this->_a(Plan::class);
-		return is_null($months) ? $result : $result->get(intval($months));
+		return is_null($numPayments) ? $result : $result->get(intval($numPayments));
 	}
 
 	/**
