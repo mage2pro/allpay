@@ -4,14 +4,35 @@ use Dfe\AllPay\Charge;
 use Df\Core\Exception as DFE;
 class Entity extends \Df\Config\ArrayItem {
 	/**
-	 * 2016-08-08
-	 * @used-by \Dfe\AllPay\Charge::_requestI()
-	 * @param float $amountTWD
-	 * @return float
+	 * 2016-08-13
+	 * @used-by \Dfe\AllPay\Total\Quote::collect()
+	 * @param float $amount
+	 * @param string $currencyCode
+	 * @return float|int
 	 */
-	public function amountTWD($amountTWD) {return round(
-		$amountTWD * (1 + $this->rate() / 100) + Charge::toTWD($this->fee()) * $this->numPayments()
-	);}
+	public function amount($amount, $currencyCode) {
+		/** @var float|int $result */
+		/**
+		 * 2016-08-20
+		 * $amount вполне может быть равно 0,
+		 * потому что метод @used-by \Dfe\AllPay\Total\Quote::collect() вызывается отдельно
+		 * для адресов shipping и billing, и для адреса billing, как правило, totals равны 0:
+		 * смотрите комментарий к методу @used-by \Dfe\AllPay\Total\Quote::collect()
+		 * Если же $amount равно 0, то мы не можем использовать наш обычный алгоритм,
+		 * потому что он добавит к 0 фиксированную наценку,
+		 * а нам же надо просто вернуть 0.
+		 */
+		if (!$amount) {
+			$result = 0;
+		}
+		else {
+			$result = $amount * (1 + $this->rate() / 100) + $this->fee($currencyCode) * $this->numPayments();
+			if ('TWD' === $currencyCode) {
+				$result = round($result);
+			}
+		}
+		return $result;
+	}
 
 	/**
 	 * 2016-07-31
@@ -54,9 +75,14 @@ class Entity extends \Df\Config\ArrayItem {
 	/**
 	 * 2016-08-08
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amountTWD()
+	 * @param string|null $currencyCode [optional]
 	 * @return float
 	 */
-	private function fee() {return $this->f();}
+	private function fee($currencyCode = null) {
+		/** @var float $result */
+		$result = $this->f();
+		return !$currencyCode ? $result : df_currency_convert($result, null, $currencyCode);
+	}
 
 	/**
 	 * 2016-08-08

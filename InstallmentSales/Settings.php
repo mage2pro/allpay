@@ -2,7 +2,6 @@
 namespace Dfe\AllPay\InstallmentSales;
 use Df\Config\A;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
-use Magento\Framework\App\ScopeInterface as S;
 /** @method static Settings s() */
 class Settings extends \Df\Core\Settings {
 	/**

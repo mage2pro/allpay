@@ -236,8 +236,14 @@ class Charge extends \Df\Payment\Charge {
 		 * take installment amount as its value.
 		 * If it is not paying by credit card with installment, take 0 as its value».
 		 * Could be empty.
+		 *
+		 * 2016-08-13
+		 * Раньше здесь стояло: !$this->plan() ? 0 : $this->plan()->amount($this->amountTWD())
+		 * Теперь же у нас есть класс @see \Dfe\AllPay\Total\Quote
+		 * который уже добавляет к итоговой сумме нашу наценку,
+		 * и поэтому здесь теперь уже этого делать не надо.
 		 */
-		,'InstallmentAmount' => !$this->plan() ? 0 : $this->plan()->amountTWD($this->amountTWD())
+		,'InstallmentAmount' => !$this->plan() ? 0 : $this->amountTWD()
 		// 2016-07-04
 		// «Electronic invoice remark».
 		// Varchar(1)

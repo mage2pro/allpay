@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<config
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:noNamespaceSchemaLocation='urn:magento:module:Magento_Sales:etc/sales.xsd'
+>
+	<section name='quote'>
+		<group name='totals'>
+			<!--
+				2016-08-13
+				Сделал вес на 1 меньше, чем у «grand_total»: https://mage2.pro/t/1942
+				https://github.com/magento/magento2/blob/2.1.0/app/code/Magento/Quote/etc/sales.xml#L13
+			-->
+			<item name='dfe_allpay' instance='Dfe\AllPay\Total\Quote' sort_order='549'/>
+		</group>
+	</section>
+	<section name='order_invoice'>
+		<group name='totals'>
+			<!--
+				2016-08-13
+				Сделал вес на 1 меньшим, чем у «grand_total»: https://mage2.pro/t/1951
+				https://github.com/magento/magento2/blob/2.1.0/app/code/Magento/Sales/etc/sales.xml#L16
+			-->
+			<item name='dfe_allpay' instance='Dfe\AllPay\Total\Invoice' sort_order='349'/>
+		</group>
+	</section>
+	<section name='order_creditmemo'>
+		<group name='totals'>
+			<!--
+				2016-08-13
+				Сделал вес на 1 меньшим, чем у «grand_total»: https://mage2.pro/t/1952
+				https://github.com/magento/magento2/blob/2.1.0/app/code/Magento/Sales/etc/sales.xml#L26
+			-->
+			<item name='dfe_allpay' instance='Dfe\AllPay\Total\Creditmemo' sort_order='399'/>
+		</group>
+	</section>
+</config>
