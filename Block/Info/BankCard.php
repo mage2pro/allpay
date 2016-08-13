@@ -54,11 +54,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 */
 	protected function prepareDic() {
 		if ($this->responseF()->isInstallment()) {
-			$this->dic()->addAfter('Payment Option', 'Installment Period',
-				1 === $this->installmentMonths()
-				? __('1 month')
-				: __('%1 months', $this->installmentMonths())
-			);
+			$this->dic()->addAfter('Payment Option', 'Payments', $this->numPayments());
 		}
 	}
 
@@ -115,10 +111,10 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	}
 
 	/**
-	 * 2016-08-09
+	 * 2016-08-12
 	 * @return int
 	 */
-	private function installmentMonths() {return intval($this->r('stage'));}
+	private function numPayments() {return 1 + intval($this->r('stage'));}
 	
 	/**
 	 * 2016-07-28

@@ -1,11 +1,13 @@
 <?php
 namespace Dfe\AllPay;
-use Df\Payment\PlaceOrder;
 use Dfe\AllPay\Block\Info;
+use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Dfe\AllPay\Settings as S;
+use Df\Payment\PlaceOrder;
 use Exception as E;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException as LE;
+use Magento\Framework\Phrase;
 use Magento\Payment\Model\Info as I;
 use Magento\Payment\Model\InfoInterface as II;
 use Magento\Sales\Model\Order as O;
@@ -101,6 +103,42 @@ class Method extends \Df\Payment\Method {
 	}
 
 	/**
+	 * 2016-07-28
+	 * @override
+	 * @see \Df\Payment\Method::titleDetailed()
+	 * @used-by \Df\Payment\Observer\DataProvider\SearchResult::execute()
+	 * @return string
+	 */
+	public function titleDetailed() {
+		return df_cc_br(parent::titleDetailed(), $this->paymentOptionTitle());
+	}
+
+	/**
+	 * 2016-08-13
+	 * @used-by \Dfe\AllPay\Method::titleDetailed()
+	 * @return string|Phrase|null
+	 */
+	public function paymentOptionTitle() {
+		if (!isset($this->{__METHOD__})) {
+			$this->{__METHOD__} = df_n_set(
+				$this->responseF() ? __($this->responseF()->paymentOptionTitle())
+					: (
+						// 2016-08-13
+						// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
+						// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
+						// Т.е. покупатель ещё ничего не оплатил,
+						// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
+						// Формируем заголовок по аналогии с
+						// @see \Dfe\AllPay\Response\BankCard::paymentOptionTitleByCode()
+						$this->plan() ? df_cc_br(__('Bank Card (Installments)'), __('Not paid yet.'))
+							: null
+					)
+			);
+		}
+		return df_n_get($this->{__METHOD__});
+	}
+
+	/**
 	 * 2016-08-08
 	 * @override
 	 * @see \Df\Payment\Method::iiaKeys()
@@ -110,16 +148,16 @@ class Method extends \Df\Payment\Method {
 	protected function iiaKeys() {return [self::II_PLAN];}
 
 	/**
-	 * 2016-07-28
-	 * @override
-	 * @see \Df\Payment\Method::titleDetailed()
-	 * @used-by \Df\Payment\Observer\DataProvider\SearchResult::execute()
-	 * @return string
+	 * 2016-08-13
+	 * @return Plan|null
 	 */
-	public function titleDetailed() {
-		return nl2br(df_cc_n([parent::titleDetailed(),
-			!$this->responseF() ? null : $this->responseF()->paymentOptionTitle()
-		]));
+	private function plan() {
+		if (!isset($this->{__METHOD__})) {
+			/** @var int|null $id */
+			$id = $this->iia('plan');
+			$this->{__METHOD__} = df_n_set(!$id ? null : $this->s()->installmentSales()->plans($id));
+		}
+		return df_n_get($this->{__METHOD__});
 	}
 
 	/**
