@@ -114,7 +114,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * 2016-08-12
 	 * @return int
 	 */
-	private function numPayments() {return 1 + intval($this->r('stage'));}
+	private function numPayments() {return intval($this->r('stage'));}
 	
 	/**
 	 * 2016-07-28
