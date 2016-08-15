@@ -531,6 +531,9 @@ class Charge extends \Df\Payment\Charge {
 		return $this->{__METHOD__};
 	}
 
+	/** @return Method */
+	private function method() {return $this->payment()->getMethodInstance();}
+
 	/**
 	 * 2016-07-05
 	 * Если указать отличное от «ALL» значение этого параметра,
@@ -579,12 +582,7 @@ class Charge extends \Df\Payment\Charge {
 	 * 2016-08-08
 	 * @return Plan|null
 	 */
-	private function plan() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = df_n_set(S::s()->installmentSales()->plans($this->iia(M::II_PLAN)));
-		}
-		return df_n_get($this->{__METHOD__});
-	}
+	private function plan() {return $this->method()->plan();}
 
 	/**
 	 * 2016-07-05

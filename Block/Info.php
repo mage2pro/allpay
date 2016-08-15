@@ -41,8 +41,8 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
 			// Т.е. покпатель ещё ничего не оплатил,
 			// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
-			if ($this->plan()) {
-				$result['Payments'] = $this->plan()->numPayments();
+			if ($this->method()->plan()) {
+				$result['Payments'] = $this->method()->plan()->numPayments();
 			}
 		}
 		else {
@@ -66,19 +66,6 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 	 * @return array(string => string)
 	 */
 	protected function custom() {return [];}
-
-	/**
-	 * 2016-08-13
-	 * @return Plan|null
-	 */
-	private function plan() {
-		if (!isset($this->{__METHOD__})) {
-			/** @var int|null $id */
-			$id = $this->iia('plan');
-			$this->{__METHOD__} = df_n_set(!$id ? null : S::s()->installmentSales()->plans($id));
-		}
-		return df_n_get($this->{__METHOD__});
-	}
 }
 
 

@@ -1,0 +1,13 @@
+<h3 data-bind='html: oneOff()'></h3>
+<!-- ko foreach: optionsA() -->
+	<div class='field choice'>
+		<input
+			data-bind="attr: {'id': domId}, value: value"
+			type='radio' name='option' class='radio'
+		/>
+		<label data-bind="attr: {'for': domId}" class='label'>
+			<span data-bind='html: label'></span>
+		</label>
+	</div>
+<!--/ko-->
+

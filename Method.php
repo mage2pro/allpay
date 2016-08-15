@@ -84,6 +84,22 @@ class Method extends \Df\Payment\Method {
 	}
 
 	/**
+	 * 2016-08-13
+	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @used-by \Dfe\AllPay\Method::paymentOptionTitle()
+	 *
+	 * @return Plan|null
+	 */
+	public function plan() {
+		if (!isset($this->{__METHOD__})) {
+			/** @var int|null $id */
+			$id = $this->iia(self::II_PLAN);
+			$this->{__METHOD__} = df_n_set(!$id ? null : $this->s()->installmentSales()->plans($id));
+		}
+		return df_n_get($this->{__METHOD__});
+	}
+
+	/**
 	 * 2016-07-28
 	 * @override
 	 * @see \Df\Payment\Method::titleDetailed()
@@ -126,20 +142,12 @@ class Method extends \Df\Payment\Method {
 	 * @used-by \Df\Payment\Method::assignData()
 	 * @return string[]
 	 */
-	protected function iiaKeys() {return [self::II_PLAN];}
+	protected function iiaKeys() {return [self::II_OPTION, self::II_PLAN];}
 
 	/**
-	 * 2016-08-13
-	 * @return Plan|null
+	 * 2016-08-15
 	 */
-	private function plan() {
-		if (!isset($this->{__METHOD__})) {
-			/** @var int|null $id */
-			$id = $this->iia('plan');
-			$this->{__METHOD__} = df_n_set(!$id ? null : $this->s()->installmentSales()->plans($id));
-		}
-		return df_n_get($this->{__METHOD__});
-	}
+	const II_OPTION = 'option';
 
 	/**
 	 * 2016-08-08

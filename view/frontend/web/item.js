@@ -1,10 +1,11 @@
 define ([
 	'df'
+	,'df-lodash'
 	,'Df_Core/js/redirectWithPost'
  	,'Df_Payment/js/view/payment/default'
 	,'Dfe_AllPay/plan'
   	,'jquery'
-], function(df, redirectWithPost, parent, Plan, $) {'use strict'; return parent.extend({
+], function(df, _, redirectWithPost, parent, Plan, $) {'use strict'; return parent.extend({
 	defaults: {
 		df: {
 			test: {showBackendTitle: false},
@@ -20,7 +21,9 @@ define ([
 	 * @used-by getData()
 	 * @returns {Object}
 	 */
-	dfData: function() {return df.o.merge(this._super(), df.clean({plan: this.plan}));},
+	dfData: function() {return df.o.merge(this._super(), df.clean({
+		option: this.option, plan: this.plan
+	}));},
 	/**
 	 * 2016-07-07
 	 * @return {Object}
@@ -39,6 +42,14 @@ define ([
 	 * @return {Object}
 	 */
 	installment: function() {return this.config('installment');},
+	/**
+	 * 2016-08-15
+	 * @returns {Boolean}
+	 */
+	isComplex: function() {
+		return false;
+		//return 'magento' === this.config('optionsLocation');
+	},
 	/**
 	 * 2016-08-04
 	 * @return {Object[]}
@@ -60,8 +71,15 @@ define ([
 	);},
 	/** @returns {String} */
 	oneOffMethods: function() {return df.t(
-		'The following payment methods are available: %s.', this.config('methods').join(', ')
+		'The following payment options are available: %s.', _.values(this.options()).join(', ')
 	);},
+	/**
+	 * 2016-08-15
+	 * @returns {String}
+	 */
+	oneOffTemplate: function() {
+		return 'Dfe_AllPay/one-off/' + (this.isComplex() ? 'complex' : 'simple');
+	},
 	/**
 	 * 2016-08-06
 	 * @override
@@ -76,6 +94,22 @@ define ([
 		redirectWithPost(data.uri, data.params);
 	},
 	/**
+	 * 2016-08-15
+	 * @returns {Object}
+	 */
+	options: function() {return this.config('options');},
+	/**
+	 * 2016-08-15
+	 * @returns {Object[]}
+	 */
+	optionsA: df.c(function() {
+		return $.map(this.options(), function(label, value) {return {
+			domId: 'df-option-' + value
+			,label: label
+			,value: value
+		};});
+	}),
+	/**
 	 * 2016-07-01
 	 * @override
 	 * @see https://github.com/magento/magento2/blob/2.1.0/app/code/Magento/Checkout/view/frontend/web/js/view/payment/default.js#L127-L159
@@ -84,7 +118,16 @@ define ([
 	placeOrder: function() {
 		if (this.validate()) {
 			// http://stackoverflow.com/a/8622351
-			this.plan = this.dfRadioValue('plan');
+			/** @type {?String} */
+			var option = this.dfRadioValue('option');
+			if (null !== option) {
+				if (option.match(/\d+/)) {
+					this.plan = option;
+				}
+				else if (this.isComplex()) {
+					this.option = option;
+				}
+			}
 			this.placeOrderInternal();
 		}
 	}

@@ -1,10 +1,4 @@
-<div class='field choice one-off'>
-	<input type='radio' name='plan' class='radio' id='df-plan-0' value='0' checked />
-	<label class='label' for='df-plan-0'>
-		<span data-bind='html: oneOff()'></span>
-	</label>
-</div>
-<div data-bind='html: oneOffMethods()'></div>
+<!-- ko template: oneOffTemplate() --><!-- /ko -->
 <table class='plans'>
 	<caption>
 		<div><!-- ko i18n: 'Installment Plans'--><!-- /ko --></div>
@@ -24,7 +18,7 @@
 				<div class='field choice'>
 					<input
 						data-bind="attr: {'id': domId()}, value: numPayments"
-						type='radio' name='plan' class='radio'
+						type='radio' name='option' class='radio'
 					/>
 					<label data-bind="attr: {'for': domId()}" class='label'>
 						<span data-bind='html: numPaymentsS()'></span>

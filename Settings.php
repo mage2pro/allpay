@@ -69,10 +69,10 @@ class Settings extends \Df\Payment\Settings {
 
 	/**
 	 * 2016-08-07
-	 * @return string[]
+	 * @return array(string => string)
 	 */
-	public function methodsLabels() {
-		return SMethod::s()->labels(!$this->methodsLimit() ? null : $this->methodsAllowed());
+	public function options() {
+		return SMethod::s()->options(!$this->methodsLimit() ? null : $this->methodsAllowed());
 	}
 
 	/**
@@ -81,6 +81,13 @@ class Settings extends \Df\Payment\Settings {
 	 * @return bool
 	 */
 	public function methodsLimit() {return $this->b();}
+
+	/**
+	 * 2016-08-15
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Where to ask for a payment option?»
+	 * @return string
+	 */
+	public function optionsLocation() {return $this->v();}
 
 	/**
 	 * 2016-07-17
