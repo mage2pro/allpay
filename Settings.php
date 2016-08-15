@@ -1,18 +1,10 @@
 <?php
 namespace Dfe\AllPay;
-use Dfe\AllPay\Source\Method as SMethod;
+use Dfe\AllPay\Source\Option;
 use Dfe\AllPay\Source\WaitPeriodType;
 use Zend_Date as ZD;
 /** @method static Settings s() */
 class Settings extends \Df\Payment\Settings {
-	/**
-	 * 2016-03-09
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Default Payment Method»
-	 * @see \Dfe\AllPay\Source\Method::map()
-	 * @return string
-	 */
-	public function defaultPaymentMethod() {return $this->v();}
-
 	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Description»
@@ -62,25 +54,25 @@ class Settings extends \Df\Payment\Settings {
 
 	/**
 	 * 2016-07-05
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Allowed Payment Methods»
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Allowed Payment Options»
 	 * @return string[]
 	 */
-	public function methodsAllowed() {return $this->csv();}
+	public function optionsAllowed() {return $this->csv();}
 
 	/**
 	 * 2016-08-07
 	 * @return array(string => string)
 	 */
 	public function options() {
-		return SMethod::s()->options(!$this->methodsLimit() ? null : $this->methodsAllowed());
+		return Option::s()->options(!$this->optionsLimit() ? null : $this->optionsAllowed());
 	}
 
 	/**
 	 * 2016-07-05
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Limit Payment Methods Availability?»
+	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Limit Payment Options Availability?»
 	 * @return bool
 	 */
-	public function methodsLimit() {return $this->b();}
+	public function optionsLimit() {return $this->b();}
 
 	/**
 	 * 2016-08-15

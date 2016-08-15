@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\AllPay\Response;
-use Dfe\AllPay\Source\Method as SMethod;
+use Dfe\AllPay\Source\Option;
 class BankCard extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-08-09
@@ -29,7 +29,7 @@ class BankCard extends \Dfe\AllPay\Response {
 	 * @return string|null
 	 */
 	protected function paymentOptionTitleByCode($codeFirst, $codeLast) {
-		df_assert_eq(SMethod::BANK_CARD, $codeFirst);
+		df_assert_eq(Option::BANK_CARD, $codeFirst);
 		return df_cc_s(parent::paymentOptionTitleByCode($codeFirst, $codeLast),
 			!$this->isInstallment() ? '' : '(Installments)'
 		);

@@ -302,7 +302,7 @@ contain some other symbols.</p>
 					showInStore='1'
 				>
 					<label>Where to ask for a payment option?</label>
-					<source_model>Dfe\AllPay\Source\PaymentOptionsLocation</source_model>
+					<source_model>Dfe\AllPay\Source\OptionsLocation</source_model>
 					<comment><![CDATA[]]></comment>
 					<depends><field id='enable'>1</field></depends>
 				</field>
@@ -321,7 +321,7 @@ contain some other symbols.</p>
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
-					id='methodsLimit'
+					id='optionsLimit'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
 					sortOrder='19'
@@ -329,13 +329,13 @@ contain some other symbols.</p>
 					showInWebsite='1'
 					showInStore='1'
 				>
-					<label>Limit Payment Methods Availability?</label>
+					<label>Limit Payment Options Availability?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
-					<comment><![CDATA[If checked, only the specified methods will be available to the customers.]]></comment>
+					<comment><![CDATA[If checked, only the specified options will be available to the customers.]]></comment>
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
-					id='methodsAllowed'
+					id='optionsAllowed'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
 					sortOrder='20'
@@ -343,13 +343,13 @@ contain some other symbols.</p>
 					showInWebsite='1'
 					showInStore='1'
 				>
-					<label>Allowed Payment Methods</label>
-					<source_model>Dfe\AllPay\Source\Method</source_model>
-					<comment><![CDATA[Please specify the allowed payment methods.]]></comment>
+					<label>Allowed Payment Options</label>
+					<source_model>Dfe\AllPay\Source\Option</source_model>
+					<comment><![CDATA[Please specify the allowed payment options.]]></comment>
 					<validate>required-entry</validate>
 					<depends>
 						<field id='enable'>1</field>
-						<field id='methodsLimit'>1</field>
+						<field id='optionsLimit'>1</field>
 					</depends>
 				</field>
 				<field

@@ -1,10 +1,9 @@
 <?php
 namespace Dfe\AllPay;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
-use Dfe\AllPay\Method as M;
 use Dfe\AllPay\Settings as S;
+use Dfe\AllPay\Source\Option;
 use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
-use Dfe\AllPay\Source\Method as SMethod;
 use Magento\Payment\Model\Info as I;
 use Magento\Payment\Model\InfoInterface as II;
 use Magento\Sales\Model\Order\Item as OI;
@@ -524,9 +523,9 @@ class Charge extends \Df\Payment\Charge {
 	 * 2016-07-05
 	 * @return bool
 	 */
-	private function isSingleMethodChosen() {
+	private function isSingleOptionChosen() {
 		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = !!$this->plan() || 1 === count(S::s()->methodsAllowed());
+			$this->{__METHOD__} = !!$this->plan() || 1 === count(S::s()->optionsAllowed());
 		}
 		return $this->{__METHOD__};
 	}
@@ -553,10 +552,10 @@ class Charge extends \Df\Payment\Charge {
 	 * @return string
 	 */
 	private function pChoosePayment() {
-		return $this->plan() ? SMethod::BANK_CARD : (
-			!S::s()->methodsLimit() || !$this->isSingleMethodChosen()
+		return $this->plan() ? Option::BANK_CARD : (
+			!S::s()->optionsLimit() || !$this->isSingleOptionChosen()
 				? 'ALL'
-				: df_first(S::s()->methodsAllowed())
+				: df_first(S::s()->optionsAllowed())
 		);
 	}
 
@@ -573,8 +572,8 @@ class Charge extends \Df\Payment\Charge {
 	 */
 	private function pIgnorePayment() {
 		return implode('#',
-			!S::s()->methodsLimit() || $this->isSingleMethodChosen()
-				? [] : array_diff(SMethod::s()->keys(), S::s()->methodsAllowed()
+			!S::s()->optionsLimit() || $this->isSingleOptionChosen()
+				? [] : array_diff(Option::s()->keys(), S::s()->optionsAllowed()
 		));
 	}
 

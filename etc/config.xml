@@ -9,7 +9,6 @@
 				<askForBillingAddress>1</askForBillingAddress>
 				<countries>TW</countries>
 				<country_restriction>whitelist</country_restriction>
-				<defaultPaymentMethod>ALL</defaultPaymentMethod>
 				<description>{store.name}</description>
 				<descriptionOnKiosk>{store.name}</descriptionOnKiosk>
 				<messageFailure><![CDATA[Sorry, the payment attempt is failed.

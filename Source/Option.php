@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\Source;
-/** @method static Method s() */
-class Method extends \Df\Config\SourceT {
+/** @method static Option s() */
+class Option extends \Df\Config\SourceT {
 	/**
 	 * @override
 	 * @see \Df\Config\Source::map()
@@ -37,7 +37,7 @@ class Method extends \Df\Config\SourceT {
 	 * 2016-08-08
 	 * @used-by \Dfe\AllPay\Charge::pChoosePayment()
 	 * @used-by \Dfe\AllPay\Response::classSuffixS()
-	 * @used-by \Dfe\AllPay\Source\Method::map()
+	 * @used-by \Dfe\AllPay\Source\Option::map()
 	 */
 	const BANK_CARD = 'Credit';
 }

@@ -46,10 +46,7 @@ define ([
 	 * 2016-08-15
 	 * @returns {Boolean}
 	 */
-	isComplex: function() {
-		return false;
-		//return 'magento' === this.config('optionsLocation');
-	},
+	isComplex: function() {return 'magento' === this.config('optionsLocation');},
 	/**
 	 * 2016-08-04
 	 * @return {Object[]}
@@ -70,7 +67,7 @@ define ([
 		'One-off Payment: %s', this.dfc.formatMoney(this.dfc.grandTotal())
 	);},
 	/** @returns {String} */
-	oneOffMethods: function() {return df.t(
+	oneOffOptions: function() {return df.t(
 		'The following payment options are available: %s.', _.values(this.options()).join(', ')
 	);},
 	/**
