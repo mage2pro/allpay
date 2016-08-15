@@ -25,6 +25,11 @@ define ([
 		option: this.option, plan: this.plan
 	}));},
 	/**
+	 * 2016-08-15
+	 * @returns {Boolean}
+	 */
+	hasPlans: function() {return !!this.iPlans().length;},
+	/**
 	 * 2016-07-07
 	 * @return {Object}
 	*/
@@ -43,11 +48,6 @@ define ([
 	 */
 	installment: function() {return this.config('installment');},
 	/**
-	 * 2016-08-15
-	 * @returns {Boolean}
-	 */
-	isComplex: function() {return 'magento' === this.config('optionsLocation');},
-	/**
 	 * 2016-08-04
 	 * @return {Object[]}
 	 */
@@ -62,6 +62,11 @@ define ([
 			}, rateToCurrent);
 		});
 	}),
+	/**
+	 * 2016-08-15
+	 * @returns {Boolean}
+	 */
+	needShowOptions: function() {return 'magento' === this.config('optionsLocation');},
 	/** @returns {String} */
 	oneOff: function() {return df.t(
 		'One-off Payment: %s', this.dfc.formatMoney(this.dfc.grandTotal())
@@ -72,11 +77,13 @@ define ([
 	);},
 	/**
 	 * 2016-08-15
-	 * @returns {String}
+	 * @returns {?String}
 	 */
-	oneOffTemplate: function() {
-		return 'Dfe_AllPay/one-off/' + (this.isComplex() ? 'complex' : 'simple');
-	},
+	oneOffTemplate: df.c(function() {
+		/** @type {String} */
+		var suffix = this.needShowOptions() ? 'withOptions' : (this.hasPlans() ? 'simple' : null);
+		return !suffix ? null : 'Dfe_AllPay/one-off/' + suffix;
+	}),
 	/**
 	 * 2016-08-06
 	 * @override

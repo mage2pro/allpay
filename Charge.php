@@ -525,13 +525,25 @@ class Charge extends \Df\Payment\Charge {
 	 */
 	private function isSingleOptionChosen() {
 		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = !!$this->plan() || 1 === count(S::s()->optionsAllowed());
+			/**
+			 * 2016-08-15
+			 * В отличие от JavaScript, в PHP оператор || возвращает значение логического типа,
+			 * а не первый неложный аргумент.
+			 * https://3v4l.org/fmTAA
+			 */
+			$this->{__METHOD__} = $this->plan() || $this->option() || 1 === count(S::s()->optionsAllowed());
 		}
 		return $this->{__METHOD__};
 	}
 
 	/** @return Method */
 	private function method() {return $this->payment()->getMethodInstance();}
+
+	/**
+	 * 2016-08-15
+	 * @return string|null
+	 */
+	private function option() {return $this->iia(Method::II_OPTION);}
 
 	/**
 	 * 2016-07-05
@@ -553,9 +565,11 @@ class Charge extends \Df\Payment\Charge {
 	 */
 	private function pChoosePayment() {
 		return $this->plan() ? Option::BANK_CARD : (
-			!S::s()->optionsLimit() || !$this->isSingleOptionChosen()
-				? 'ALL'
-				: df_first(S::s()->optionsAllowed())
+			$this->option() ?: (
+				!S::s()->optionsLimit() || !$this->isSingleOptionChosen()
+					? 'ALL'
+					: df_first(S::s()->optionsAllowed())
+			)
 		);
 	}
 

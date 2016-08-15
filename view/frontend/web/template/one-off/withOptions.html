@@ -1,4 +1,7 @@
-<h3 data-bind='html: oneOff()'></h3>
+<!--ko if: hasPlans() -->
+	<h3 data-bind='html: oneOff()'></h3>
+<!--/ko-->
+	<h4 data-bind="i18n: 'Please select a payment option:'"/>
 <!-- ko foreach: optionsA() -->
 	<div class='field choice'>
 		<input

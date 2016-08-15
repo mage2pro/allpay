@@ -1,3 +1,6 @@
-<!--ko if: iPlans().length -->
-	<!-- ko template: 'Dfe_AllPay/installment' --><!-- /ko -->
+<!--ko if: oneOffTemplate() -->
+	<!-- ko template: oneOffTemplate() --><!-- /ko -->
+<!--/ko-->
+<!--ko if: hasPlans() -->
+	<!-- ko template: 'Dfe_AllPay/plans' --><!-- /ko -->
 <!--/ko-->
