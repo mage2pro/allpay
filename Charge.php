@@ -515,7 +515,7 @@ class Charge extends \Df\Payment\Charge {
 	 */
 	private function amountTWD() {
 		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = self::toTWD($this->amount());
+			$this->{__METHOD__} = TWD::fromBase($this->amount());
 		}
 		return $this->{__METHOD__};
 	}
@@ -616,13 +616,4 @@ class Charge extends \Df\Payment\Charge {
 	public static function request(II $payment) {
 		return (new self([self::$P__PAYMENT => $payment]))->_request();
 	}
-
-	/**
-	 * 2016-08-08
-	 * @used-by \Dfe\AllPay\Charge::amountTWD()
-	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amountTWD()
-	 * @param float $amount
-	 * @return float
-	 */
-	public static function toTWD($amount) {return round(df_currency_convert($amount, null, 'TWD'));}
 }

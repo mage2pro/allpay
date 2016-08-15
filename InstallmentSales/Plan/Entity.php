@@ -1,37 +1,27 @@
 <?php
 namespace Dfe\AllPay\InstallmentSales\Plan;
-use Dfe\AllPay\Charge;
+use Dfe\AllPay\TWD;
 use Df\Core\Exception as DFE;
 class Entity extends \Df\Config\ArrayItem {
 	/**
 	 * 2016-08-13
 	 * @used-by \Dfe\AllPay\Total\Quote::collect()
 	 * @param float $amount
+	 * $amount вполне может быть равно 0,
+	 * потому что метод @used-by \Dfe\AllPay\Total\Quote::collect() вызывается отдельно
+	 * для адресов shipping и billing, и для адреса billing, как правило, totals равны 0:
+	 * смотрите комментарий к методу @used-by \Dfe\AllPay\Total\Quote::collect()
+	 * Если же $amount равно 0, то мы не можем использовать наш обычный алгоритм,
+	 * потому что он добавит к 0 фиксированную наценку,
+	 * а нам же надо просто вернуть 0.
 	 * @param string $currencyCode
 	 * @return float|int
 	 */
 	public function amount($amount, $currencyCode) {
-		/** @var float|int $result */
-		/**
-		 * 2016-08-20
-		 * $amount вполне может быть равно 0,
-		 * потому что метод @used-by \Dfe\AllPay\Total\Quote::collect() вызывается отдельно
-		 * для адресов shipping и billing, и для адреса billing, как правило, totals равны 0:
-		 * смотрите комментарий к методу @used-by \Dfe\AllPay\Total\Quote::collect()
-		 * Если же $amount равно 0, то мы не можем использовать наш обычный алгоритм,
-		 * потому что он добавит к 0 фиксированную наценку,
-		 * а нам же надо просто вернуть 0.
-		 */
-		if (!$amount) {
-			$result = 0;
-		}
-		else {
-			$result = $amount * (1 + $this->rate() / 100) + $this->fee($currencyCode) * $this->numPayments();
-			if ('TWD' === $currencyCode) {
-				$result = round($result);
-			}
-		}
-		return $result;
+		return !$amount ? 0 : TWD::round(
+			$amount * (1 + $this->rate() / 100) + $this->fee($currencyCode) * $this->numPayments()
+			,$currencyCode
+		);
 	}
 
 	/**

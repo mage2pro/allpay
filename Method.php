@@ -22,25 +22,6 @@ use Magento\Sales\Model\Order\Payment\Transaction;
  */
 class Method extends \Df\Payment\Method {
 	/**
-	 * 2016-06-29
-	 * @override
-	 * @see \Df\Payment\Method::capture()
-	 *
-	 * $amount содержит значение в учётной валюте системы.
-	 * https://github.com/magento/magento2/blob/6ce74b2/app/code/Magento/Sales/Model/Order/Payment/Operations/CaptureOperation.php#L37-L37
-	 * https://github.com/magento/magento2/blob/6ce74b2/app/code/Magento/Sales/Model/Order/Payment/Operations/CaptureOperation.php#L76-L82
-	 *
-	 * @param II|I|OP $payment
-	 * @param float $amount
-	 * @return $this
-	 * @throws E|LE
-	 */
-	public function capture(II $payment, $amount) {
-		df_payment_apply_custom_transaction_id($payment);
-		return $this;
-	}
-
-	/**
 	 * @override
 	 * @see \Df\Payment\Method::getConfigPaymentAction()
 	 * @return string
@@ -130,7 +111,7 @@ class Method extends \Df\Payment\Method {
 						// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
 						// Формируем заголовок по аналогии с
 						// @see \Dfe\AllPay\Response\BankCard::paymentOptionTitleByCode()
-						$this->plan() ? df_cc_br(__('Bank Card (Installments)'), __('Not paid yet.'))
+						$this->plan() ? df_cc_br(__('Bank Card (Installments)'), __('Not paid yet'))
 							: null
 					)
 			);
