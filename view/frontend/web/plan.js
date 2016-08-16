@@ -20,8 +20,6 @@ define (['df', 'df-lodash', 'Df_Checkout/js/data', 'jquery'], function(
 	amountS: function() {return dfc.formatMoney(this.amount());},
 	/** @returns {String} */
 	domId: function() {return 'df-plan-' + plan.numPayments;},
-	/** @returns {String} */
-	numPaymentsS: function() {return plan.numPayments;},
 	/**
 	 * 2016-08-08
 	 * В документации сказано, что если общий размер оплаты

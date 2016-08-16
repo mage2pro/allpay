@@ -14,11 +14,14 @@
 			<td>
 				<div class='field choice'>
 					<input
-						data-bind="attr: {id: domId()}, value: numPayments"
+						data-bind="
+							attr: {id: domId()}
+							,value: numPayments
+						"
 						type='radio' name='option' class='radio'
 					/>
 					<label data-bind="attr: {for: domId()}" class='label'>
-						<span data-bind='html: numPaymentsS()'></span>
+						<span data-bind='html: numPayments'></span>
 					</label>
 				</div>
 			</td>

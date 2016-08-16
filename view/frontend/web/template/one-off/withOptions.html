@@ -5,7 +5,10 @@
 <!-- ko foreach: optionsA() -->
 	<div class='field choice'>
 		<input
-			data-bind="attr: {'id': domId}, value: value"
+			data-bind="
+				attr: {'id': domId}
+				,value: value
+			"
 			type='radio' name='option' class='radio'
 		/>
 		<label data-bind="attr: {'for': domId}" class='label'>
