@@ -22,22 +22,34 @@ form.dfe_all_pay {
 			&:not(:last-child) {padding-right: 1em;}
 		}
 		td {padding-left: 0.2em;}
-		tbody > tr:hover {background-color: rgb(245, 245, 245);}
+		tbody > tr {
+			&:hover, &.selected {background-color: rgb(245, 245, 245);}
+		}
 		td {cursor: default;}
 	}
 	&.with-options {
 		&.has-plans {
-			width: 100%;
-			overflow: hidden;
 			margin-bottom: 1em;
 			> .container {
-				float: left;
-				&:not(:first-child) {margin-left: 4em;}
+				&:not(:first-child) {margin-top: 1em;}
 				&.container-one-off .choice {
 					padding-top: 0.25em;
 					padding-bottom: 0.25em;
 				}
 				table.plans {margin-top: 0;}
+			}
+			// 2016-08-16
+			// 667 пикселей — ширина iPhone 6 в повёрнутом виде.
+			@media (min-width: 667px) {
+				width: 100%;
+				overflow: hidden;
+				> .container {
+					float: left;
+					&:not(:first-child) {
+						margin-top: 0;
+						margin-left: 4em;
+					}
+				}
 			}
 		}
 		.container-one-off .choice {padding-left: 0.2em;}
