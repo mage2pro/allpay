@@ -16,7 +16,7 @@ class Option extends \Df\Config\SourceT {
 		// и проводит транзакцию своей физической банковской картой.
 		// https://webatm.post.gov.tw
 		// «[allPay] What is a «WebATM» payment?» https://mage2.pro/t/1838
-		,'WebATM' => 'WebATM'
+		,'WebATM' => 'Web ATM'
 		,'ATM' => 'Physical ATM machine'
 		// 2016-07-02
 		// «[allPay] What is a «CVS» payment?» https://mage2.pro/t/1828
@@ -25,12 +25,12 @@ class Option extends \Df\Config\SourceT {
 		// 2016-07-02
 		// «[allPay] What is a «BARCODE» payment?» https://mage2.pro/t/BARCODE
 		// https://mage2.pro/t/1827/2
-		,'BARCODE' => 'BARCODE'
+		,'BARCODE' => 'Barcode'
 		// 2016-07-02
 		// http://global.tenpay.com
 		,'Tenpay' => 'Tenpay (WeChat)'
 		// 2016-07-02
-		,'TopUpUsed' => '歐付寶 allPay account'
+		,'TopUpUsed' => 'allPay Account'
 	];}
 
 	/**
