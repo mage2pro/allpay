@@ -11,5 +11,3 @@ class Index extends \Dfe\AllPay\Controller\Confirm\Index {
 	 */
 	protected function additionalParams() {return [Offline::KEY => true];}
 }
-
-
