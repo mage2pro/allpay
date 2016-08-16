@@ -139,7 +139,7 @@ define ([
 				if (option.match(/\d+/)) {
 					this.plan = option;
 				}
-				else if (this.isComplex()) {
+				else if (this.needShowOptions()) {
 					this.option = option;
 				}
 			}
