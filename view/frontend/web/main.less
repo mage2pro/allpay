@@ -10,36 +10,36 @@ form.dfe_all_pay {
 		}
 	}
 	h3 {margin-top: 0;}
-	h4 {margin: 0 0 0.5em 0;}
+	h4 {
+		margin: 0 0 0.5em 0;
+		font-weight: normal;
+	}
 	table.plans {
 		width: auto;
 		margin-top: 1.25em;
-		caption {
-			width: auto;
-			height: auto;
-			margin: auto;
-			position: initial;
-			text-align: left;
-		}
 		th, td {
 			padding: 0.25em 0;
-			&:nth-child(1) {width: 10em;}
-			&:nth-child(2) {width: 10em;}
-			&:nth-child(3) {width: 10em;}
+			&:not(:last-child) {padding-right: 1em;}
 		}
+		td {padding-left: 0.2em;}
 		tbody > tr:hover {background-color: rgb(245, 245, 245);}
 		td {cursor: default;}
 	}
-	&.with-options.has-plans {
-		width: 100%;
-		overflow: hidden;
-		margin-bottom: 1em;
-		> .container {
-			width: 50%;
-			float: left;
-			&.container-one-off .choice {padding: 0.25em 0;}
-			table.plans {margin-top: 0;}
-
+	&.with-options {
+		&.has-plans {
+			width: 100%;
+			overflow: hidden;
+			margin-bottom: 1em;
+			> .container {
+				float: left;
+				&:not(:first-child) {margin-left: 4em;}
+				&.container-one-off .choice {
+					padding-top: 0.25em;
+					padding-bottom: 0.25em;
+				}
+				table.plans {margin-top: 0;}
+			}
 		}
+		.container-one-off .choice {padding-left: 0.2em;}
 	}
 }
