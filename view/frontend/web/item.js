@@ -25,6 +25,17 @@ define ([
 		option: this.option, plan: this.plan
 	}));},
 	/**
+	 * 2016-08-16
+	 * @override
+	 * @see mage2pro/core/Payment/view/frontend/web/js/view/payment/mixin.js
+	 * @used-by dfFormCssClassesS()
+	 * @returns {String[]}
+	 */
+	dfFormCssClasses: function() {return this._super().concat([
+		this.needShowOptions() ? 'with-options' : null
+		,this.hasPlans ? 'has-plans' : null
+	]);},
+	/**
 	 * 2016-08-15
 	 * @returns {Boolean}
 	 */

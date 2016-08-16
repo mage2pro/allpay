@@ -1,7 +1,7 @@
 <table class='plans'>
 	<caption>
-		<div data-bind="i18n: 'Installment Plans:'"/>
-		<div data-bind="i18n: 'The order will be paid with a bank card.'"/>
+		<h3 data-bind="i18n: 'Installment Plans'"/>
+		<h4 data-bind="i18n: 'The order will be paid with a bank card.'"/>
 	</caption>
 	<thead>
 		<tr>
@@ -16,10 +16,10 @@
 			<td>
 				<div class='field choice'>
 					<input
-						data-bind="attr: {'id': domId()}, value: numPayments"
+						data-bind="attr: {id: domId()}, value: numPayments"
 						type='radio' name='option' class='radio'
 					/>
-					<label data-bind="attr: {'for': domId()}" class='label'>
+					<label data-bind="attr: {for: domId()}" class='label'>
 						<span data-bind='html: numPaymentsS()'></span>
 					</label>
 				</div>
