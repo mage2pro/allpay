@@ -15,6 +15,11 @@ class Index extends \Magento\Framework\App\Action\Action {
 	 * @return Redirect
 	 */
 	public function execute() {
+		/**
+		 * 2016-08-17
+		 * Для тестирования можно использовать:
+		 * $order = df_order_r()->get(257);
+		 */
 		/** @var Order|DfOrder $order */
 		$order = df_checkout_session()->getLastRealOrder();
 		/** @var Redirect $result */
