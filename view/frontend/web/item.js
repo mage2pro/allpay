@@ -25,6 +25,22 @@ define ([
 		option: this.option, plan: this.plan
 	}));},
 	/**
+	 * 2016-08-17
+	 * @override
+	 * @see mage2pro/core/Payment/view/frontend/web/js/view/payment/mixin.js
+	 * @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
+	 */
+	dfFormAfterRender: function() {
+		/** @type {jQuery} HTMLDivElement */
+		var c = $('#payment');
+		var f = this.dfForm();
+		var toggle = function() {
+			f.toggleClass('df-wide', 575 <= c.width());
+		};
+		toggle();
+		$(window).resize(toggle);
+	},
+	/**
 	 * 2016-08-16
 	 * @override
 	 * @see mage2pro/core/Payment/view/frontend/web/js/view/payment/mixin.js

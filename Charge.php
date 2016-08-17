@@ -586,13 +586,18 @@ class Charge extends \Df\Payment\Charge {
 	 * @return string
 	 */
 	private function pChoosePayment() {
-		return $this->plan() ? Option::BANK_CARD : (
-			$this->option() ?: (
-				!S::s()->optionsLimit() || !$this->isSingleOptionChosen()
-					? 'ALL'
-					: df_first(S::s()->optionsAllowed())
-			)
-		);
+		if (!isset($this->{__METHOD__})) {
+			$this->{__METHOD__} =
+				$this->plan() ? Option::BANK_CARD : (
+					$this->option() ?: (
+						!S::s()->optionsLimit() || !$this->isSingleOptionChosen()
+							? 'ALL'
+							: df_first(S::s()->optionsAllowed())
+					)
+				)
+			;
+		}
+		return $this->{__METHOD__};
 	}
 
 	/**
@@ -607,10 +612,16 @@ class Charge extends \Df\Payment\Charge {
 	 * @return string
 	 */
 	private function pIgnorePayment() {
-		return implode('#',
-			!S::s()->optionsLimit() || $this->isSingleOptionChosen()
-				? [] : array_diff(Option::s()->keys(), S::s()->optionsAllowed()
-		));
+		return df_ccc('#',
+			/**
+			 * 2016-08-17
+			 * https://code.dmitry-fedyuk.com/m2e/allpay/issues/14
+			 */
+			array_merge(['ALL' === $this->pChoosePayment() ? 'Alipay' : null],
+				!S::s()->optionsLimit() || $this->isSingleOptionChosen()
+					? [] : array_diff(Option::s()->keys(), S::s()->optionsAllowed())
+			)
+		);
 	}
 
 	/**
