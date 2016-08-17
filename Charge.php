@@ -506,7 +506,7 @@ class Charge extends \Df\Payment\Charge {
 		// Varchar(200)
 		// Must be filled.
 		,'TradeDesc' => $this->text(S::s()->description())
-	];}return $this->{__METHOD__};}
+	] + $this->descriptionOnKiosk();}return $this->{__METHOD__};}
 
 	/**
 	 * 2016-08-08
@@ -517,6 +517,28 @@ class Charge extends \Df\Payment\Charge {
 			$this->{__METHOD__} = TWD::fromBase($this->amount());
 		}
 		return $this->{__METHOD__};
+	}
+
+	/**
+	 * 2016-08-17
+	 * @used-by \Dfe\AllPay\Charge::_requestI()
+	 * @return array(string => string)
+	 */
+	private function descriptionOnKiosk() {
+		/** @var string[] $lines */
+		$lines = df_explode_n(S::s()->descriptionOnKiosk());
+		/** @var int $n */
+		$n = 1;
+		/** @var array(string => string) $result */
+		$result = [];
+		foreach ($lines as $line) {
+			/** @var string $line */
+			$result['Desc_' . $n++] = mb_substr($line, 0, 20);
+			if ($n > 4) {
+				break;
+			}
+		}
+		return $result;
 	}
 
 	/**
