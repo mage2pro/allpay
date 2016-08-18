@@ -514,7 +514,9 @@ class Charge extends \Df\Payment\Charge {
 	 */
 	private function amountTWD() {
 		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = TWD::fromBase($this->amount());
+			$this->{__METHOD__} =
+				round(df_currency_convert($this->amount(), $this->currencyCode(), 'TWD'))
+			;
 		}
 		return $this->{__METHOD__};
 	}

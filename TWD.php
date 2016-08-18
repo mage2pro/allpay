@@ -4,9 +4,12 @@ class TWD {
 	/**
 	 * 2016-08-15
 	 * @param float $amount
+	 * @param string|null $currencyCode [optional]
 	 * @return float
 	 */
-	public static function fromBase($amount) {return round(df_currency_convert($amount, null, 'TWD'));}
+	public static function from($amount, $currencyCode = null) {
+		return round(df_currency_convert($amount, $currencyCode, 'TWD'));
+	}
 
 	/**
 	 * 2016-08-15
