@@ -528,7 +528,7 @@ class Charge extends \Df\Payment\Charge {
 	 */
 	private function descriptionOnKiosk() {
 		/** @var string[] $lines */
-		$lines = df_explode_n(S::s()->descriptionOnKiosk());
+		$lines = df_explode_n($this->text(S::s()->descriptionOnKiosk()));
 		/** @var int $n */
 		$n = 1;
 		/** @var array(string => string) $result */
