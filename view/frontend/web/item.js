@@ -29,11 +29,19 @@ define ([
 	 * @override
 	 * @see mage2pro/core/Payment/view/frontend/web/js/view/payment/mixin.js
 	 * @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
+	 * 2016-08-19
+	 * В версиях Magento ниже 2.1.0 эта функция вызывается вне контекста this:
+	 * https://github.com/magento/magento2/blob/2.0.9/app/code/Magento/Ui/view/base/web/js/lib/ko/bind/after-render.js#L19
+	 * Однако this передаётся вторым аргументом.
+	 * В Magento 2.1.0 функция вызывается уже в контексте this:
+	 * https://github.com/magento/magento2/blob/2.1.0/app/code/Magento/Ui/view/base/web/js/lib/knockout/bindings/after-render.js#L20
+	 * @param {HTMLElement} element
+	 * @param {Object} _this
 	 */
-	dfFormAfterRender: function() {
+	dfFormAfterRender: function(element, _this) {
 		/** @type {jQuery} HTMLDivElement */
 		var c = $('#payment');
-		var f = this.dfForm();
+		var f = _this.dfForm();
 		var toggle = function() {
 			f.toggleClass('df-wide', 575 <= c.width());
 		};

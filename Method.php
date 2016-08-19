@@ -43,23 +43,17 @@ class Method extends \Df\Payment\Method {
 		/**
 		 * 2016-07-01
 		 * К сожалению, если передавать в качестве результата ассоциативный массив,
-		 * то его ключи почему-то теряются.
-		 * Поэтому запаковываем массив в JSON.
-		 *
+		 * то его ключи почему-то теряются. Поэтому запаковываем массив в JSON.
 		 * 2016-07-13
 		 * @used-by https://code.dmitry-fedyuk.com/m2e/allpay/blob/0.8.4/view/frontend/web/item.js#L91
 		 */
 		$this->iiaSet(PlaceOrder::DATA, df_json_encode(['params' => $params, 'uri' => $url]));
-		/**
-		 * 2016-05-06
-		 * Письмо-оповещение о заказе здесь ещё не должно отправляться.
-		 * «How is a confirmation email sent on an order placement?» https://mage2.pro/t/1542
-		 */
+		// 2016-05-06
+		// Письмо-оповещение о заказе здесь ещё не должно отправляться.
+		// «How is a confirmation email sent on an order placement?» https://mage2.pro/t/1542
 		$this->o()->setCanSendNewEmailFlag(false);
-		/**
-		 * 2016-07-10
-		 * Сохраняем информацию о транзакции.
-		 */
+		// 2016-07-10
+		// Сохраняем информацию о транзакции.
 		$this->saveRequest($params['MerchantTradeNo'], $url, $params);
 		return null;
 	}
