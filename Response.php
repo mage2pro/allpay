@@ -36,6 +36,8 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * isSuccessful() же проверяет, прошла ли оплата успешно.
 	 * @override
 	 * @see \Df\Payment\R\Response::isSuccessful()
+	 * @used-by \Df\Payment\R\Response::handle()
+	 * @used-by \Df\Payment\R\Response::validAndSuccessful()
 	 * @return bool
 	 */
 	public function isSuccessful() {return $this->expectedRtnCode() === intval($this['RtnCode']);}

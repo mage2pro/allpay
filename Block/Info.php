@@ -1,9 +1,7 @@
 <?php
 namespace Dfe\AllPay\Block;
-use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Dfe\AllPay\Method;
 use Dfe\AllPay\Response as R;
-use Dfe\AllPay\Settings as S;
 use Magento\Framework\DataObject;
 use Magento\Sales\Model\Order\Payment\Transaction as T;
 /**
@@ -47,16 +45,14 @@ class Info extends \Df\Payment\Block\ConfigurableInfo {
 		}
 		else {
 			$result->addData($this->custom());
-			if (!$this->getIsSecureMode()) {
+			if ($this->isBackend()) {
 				$result->addData([
 					'allPay Payment ID' => $this->responseF()->externalId()
 					,'Magento Payment ID' => $this->responseF()->requestId()
 				]);
 			}
 		}
-		if ($this->isTest()) {
-			$result->setData('Mode', __($this->testModeLabel()));
-		}
+		$this->markTestMode($result);
 		return $result;
 	}
 

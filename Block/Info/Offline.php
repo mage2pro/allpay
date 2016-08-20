@@ -36,16 +36,14 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 		$l = $this->responseL();
 		/** @var bool $paid */
 		$paid = $f != $l;
-		/** @var bool $frontend */
-		$frontend = $this->getIsSecureMode();
 		/** @var array(strig => string) $result */
 		$result = [];
-		if (!($paid && $frontend)) {
+		if (!($paid && $this->isFrontend())) {
 			$result[$this->paymentIdLabel()] = $this->paymentId($f);
 		}
 		$result +=
 			$paid
-			? ['Paid' => $l->paidTime()->toString($frontend ? ZD::DATE_LONG : ZD::DATETIME_LONG)]
+			? ['Paid' => $l->paidTime()->toString($this->isFrontend() ? ZD::DATE_LONG : ZD::DATETIME_LONG)]
 			: ['Expiration' => $l->expirationS()]
 		;
 		return $result;

@@ -18,14 +18,12 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	protected function custom() {
 		/** @var array(strig => string) $result */
 		$result = [];
-		/** @var bool $backend */
-		$backend = !$this->getIsSecureMode();
 		$result['Card Number'] = $this->cardNumber();
-		if ($backend) {
+		if ($this->isBackend()) {
 			$result['ECI'] = $this->eciS();
 		}
 		$result['Authorization Code'] = $this->r('auth_code');
-		if ($backend) {
+		if ($this->isBackend()) {
 			$result += [
 				'Authorization Time' => R::time($this->r('process_date'))
 				/**
