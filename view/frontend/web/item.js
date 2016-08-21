@@ -65,19 +65,6 @@ define ([
 	 */
 	hasPlans: function() {return !!this.iPlans().length;},
 	/**
-	 * 2016-07-07
-	 * @return {Object}
-	*/
-	initialize: function() {
-		this._super();
-		/** @type {Boolean} */
-		this.df.askForBillingAddress = this.config('askForBillingAddress');
-		if (!this.df.askForBillingAddress) {
-			this.isPlaceOrderActionAllowed(true);
-		}
-		return this;
-	},
-	/**
 	 * 2016-08-04
 	 * @return {Object}
 	 */
