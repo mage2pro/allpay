@@ -6,6 +6,14 @@
     <default>
 		<df_payment>
 			<all_pay>
+				<!--
+					2016-08-22
+					Значением этой опции по умолчанию и так является true:
+					@see \Df\Payment\Settings::askForBillingAddress()
+					Однако здесь это значение всё равно нужно указать,
+					чтобы галка была установлена для чекбокса.
+				-->
+				<askForBillingAddress>1</askForBillingAddress>
 				<countries>TW</countries>
 				<country_restriction>whitelist</country_restriction>
 				<description>{store.name}</description>
