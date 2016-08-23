@@ -2,7 +2,7 @@ define ([
 	'df'
 	,'df-lodash'
 	,'Df_Core/js/redirectWithPost'
- 	,'Df_Payment/js/view/payment/default'
+ 	,'Df_Payment/custom'
 	,'Dfe_AllPay/plan'
   	,'jquery'
 ], function(df, _, redirectWithPost, parent, Plan, $) {'use strict'; return parent.extend({

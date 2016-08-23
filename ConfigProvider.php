@@ -6,20 +6,16 @@ class ConfigProvider extends \Df\Payment\ConfigProvider {
 	/**
 	 * 2016-08-04
 	 * @override
-	 * @see \Df\Payment\ConfigProvider::custom()
+	 * @see \Df\Payment\ConfigProvider::config()
 	 * @used-by \Df\Payment\ConfigProvider::getConfig()
 	 * @return array(string => mixed)
 	 */
-	protected function custom() {
-		/** @var InstallmentSalesSettings $i */
-		$i = $this->s()->installmentSales();
-		return [
-			'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
-			,'installment' => ['plans' => $i->plans()->a()]
-			,'options' => $this->s()->options()
-			,'optionsLocation' => $this->s()->optionsLocation()
-		];
-	}
+	protected function config() {return [
+		'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
+		,'installment' => ['plans' => $this->s()->installmentSales()->plans()->a()]
+		,'options' => $this->s()->options()
+		,'optionsLocation' => $this->s()->optionsLocation()
+	] + parent::config();}
 
 	/**
 	 * 2016-08-06
