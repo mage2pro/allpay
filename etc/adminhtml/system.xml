@@ -12,13 +12,6 @@
 				3-я и 4-я цифры sortOrder соответствуют порядковому номеру второй буквы модуля
                 в английском алфавите.
             -->
-			<!--
-			 	2016-04-12
-			 	Нельзя использовать значение «checkout.com»,
-			 	(хотя среда разработки (валидатор XSD) об этом почему-то не предупреждает):
-			 	Element 'group', attribute 'id': [facet 'pattern']
-			 	The value 'checkout.com' is not accepted by the pattern '[a-zA-Z0-9_]{1,}'.
-			-->
             <group
                 id='all_pay'
                 translate='label'

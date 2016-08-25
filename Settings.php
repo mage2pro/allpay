@@ -4,7 +4,7 @@ use Dfe\AllPay\Source\Option;
 use Dfe\AllPay\Source\WaitPeriodType;
 use Zend_Date as ZD;
 /** @method static Settings s() */
-class Settings extends \Df\Payment\Settings {
+final class Settings extends \Df\Payment\Settings {
 	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Description»
@@ -113,15 +113,6 @@ class Settings extends \Df\Payment\Settings {
 	public function waitPeriodType() {return $this->v();}
 
 	/**
-	 * 2016-07-01
-	 * @override
-	 * @see \Df\Core\Settings::prefix()
-	 * @used-by \Df\Core\Settings::v()
-	 * @return string
-	 */
-	protected function prefix() {return 'df_payment/all_pay/';}
-
-	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Live ALL IN ONE 介接 HashIV»
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
@@ -167,5 +158,3 @@ class Settings extends \Df\Payment\Settings {
 	 */
 	private function testMerchantID() {return $this->v();}
 }
-
-

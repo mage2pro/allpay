@@ -70,7 +70,7 @@ class Quote extends AbstractTotal {
 		 */
 		if ($payment && $payment->getMethod() === Method::codeS()) {
 			/** @var int|null $planId */
-			$planId = df_payment_iia($payment, 'plan');
+			$planId = dfp_iia($payment, 'plan');
 			/**
 			 * 2016-08-15
 			 * Что интересно (и аналогично комментарию выше)
