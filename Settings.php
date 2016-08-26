@@ -23,13 +23,13 @@ final class Settings extends \Df\Payment\Settings {
 	 * 2016-06-29
 	 * @return string
 	 */
-	public function hashIV() {return $this->test() ? $this->testHashIV() : $this->liveHashIV();}
+	public function hashIV() {return $this->testable();}
 
 	/**
 	 * 2016-06-29
 	 * @return string
 	 */
-	public function hashKey() {return $this->test() ? $this->testHashKey() : $this->liveHashKey();}
+	public function hashKey() {return $this->testable();}
 
 	/**
 	 * 2016-07-31
@@ -41,9 +41,7 @@ final class Settings extends \Df\Payment\Settings {
 	 * 2016-06-29
 	 * @return string
 	 */
-	public function merchantID() {
-		return $this->test() ? $this->testMerchantID() : $this->liveMerchantID();
-	}
+	public function merchantID() {return $this->testable();}
 
 	/**
 	 * 2016-07-15
@@ -118,7 +116,7 @@ final class Settings extends \Df\Payment\Settings {
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
 	 * @return string
 	 */
-	private function liveHashIV() {return $this->p();}
+	protected function liveHashIV() {return $this->p();}
 
 	/**
 	 * 2016-06-29
@@ -126,14 +124,14 @@ final class Settings extends \Df\Payment\Settings {
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
 	 * @return string
 	 */
-	private function liveHashKey() {return $this->p();}
+	protected function liveHashKey() {return $this->p();}
 
 	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Live Merchant ID (商店代號)»
 	 * @return string
 	 */
-	private function liveMerchantID() {return $this->v();}
+	protected function liveMerchantID() {return $this->v();}
 
 	/**
 	 * 2016-06-29
@@ -141,7 +139,7 @@ final class Settings extends \Df\Payment\Settings {
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
 	 * @return string
 	 */
-	private function testHashIV() {return $this->v();}
+	protected function testHashIV() {return $this->v();}
 
 	/**
 	 * 2016-06-29
@@ -149,12 +147,12 @@ final class Settings extends \Df\Payment\Settings {
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
 	 * @return string
 	 */
-	private function testHashKey() {return $this->v();}
+	protected function testHashKey() {return $this->v();}
 
 	/**
 	 * 2016-06-29
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Test Merchant ID (商店代號)»
 	 * @return string
 	 */
-	private function testMerchantID() {return $this->v();}
+	protected function testMerchantID() {return $this->v();}
 }

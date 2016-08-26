@@ -4,12 +4,8 @@ use Dfe\AllPay\Block\Info;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Dfe\AllPay\Settings as S;
 use Df\Payment\PlaceOrder;
-use Exception as E;
 use Magento\Framework\DataObject;
-use Magento\Framework\Exception\LocalizedException as LE;
 use Magento\Framework\Phrase;
-use Magento\Payment\Model\Info as I;
-use Magento\Payment\Model\InfoInterface as II;
 use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
 use Magento\Sales\Model\Order\Creditmemo;
@@ -155,6 +151,8 @@ class Method extends \Df\Payment\Method {
 
 	/**
 	 * 2016-07-29
+	 * @used-by \Dfe\AllPay\Method::getConfigPaymentAction()
+	 * @used-by \Dfe\AllPay\Block\Info\BankCard::allpayAuthCode()
 	 * @param string $template
 	 * @param bool $test [optional]
 	 * @param mixed[] ...$params [optional]

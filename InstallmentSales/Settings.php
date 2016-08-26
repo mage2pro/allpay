@@ -3,7 +3,7 @@ namespace Dfe\AllPay\InstallmentSales;
 use Df\Config\A;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 /** @method static Settings s() */
-class Settings extends \Df\Core\Settings {
+final class Settings extends \Df\Core\Settings {
 	/**
 	 * 2016-07-31
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay»→ «Installment Sales» → «Plans»
