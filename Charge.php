@@ -1,4 +1,5 @@
 <?php
+// 2016-07-04
 namespace Dfe\AllPay;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Dfe\AllPay\Settings as S;
@@ -8,7 +9,7 @@ use Magento\Payment\Model\Info as I;
 use Magento\Payment\Model\InfoInterface as II;
 use Magento\Sales\Model\Order\Item as OI;
 use Magento\Sales\Model\Order\Payment as OP;
-// 2016-07-04
+/** @method Method method() */
 class Charge extends \Df\Payment\Charge {
 	/**
 	 * 2016-07-04
@@ -559,9 +560,6 @@ class Charge extends \Df\Payment\Charge {
 		}
 		return $this->{__METHOD__};
 	}
-
-	/** @return Method */
-	private function method() {return $this->payment()->getMethodInstance();}
 
 	/**
 	 * 2016-08-15
