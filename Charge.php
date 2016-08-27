@@ -5,29 +5,17 @@ use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Dfe\AllPay\Settings as S;
 use Dfe\AllPay\Source\Option;
 use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
-use Magento\Payment\Model\Info as I;
-use Magento\Payment\Model\InfoInterface as II;
 use Magento\Sales\Model\Order\Item as OI;
-use Magento\Sales\Model\Order\Payment as OP;
 /** @method Method method() */
-class Charge extends \Df\Payment\Charge {
+class Charge extends \Df\Payment\R\Charge {
 	/**
 	 * 2016-07-04
+	 * @override
+	 * @see \Df\Payment\Charge\WithRedirect::params()
+	 * @used-by \Df\Payment\Charge\WithRedirect::p()
 	 * @return array(string => mixed)
 	 */
-	private function _request() {return $this->_requestI() + [
-		// 2016-07-02
-		// «Verification Code».
-		// Varchar
-		// Must be filled.
-		'CheckMacValue' => Signer::i($this->_requestI())->sign()
-	];}
-
-	/**
-	 * 2016-07-04
-	 * @return array(mixed => mixed)
-	 */
-	private function _requestI() {if (!isset($this->{__METHOD__})) {$this->{__METHOD__} = [
+	protected function params() {return $this->descriptionOnKiosk() + [
 		/**
 		 * 2016-07-02
 		 * «Select default payment type».
@@ -507,7 +495,16 @@ class Charge extends \Df\Payment\Charge {
 		// Varchar(200)
 		// Must be filled.
 		,'TradeDesc' => $this->text(S::s()->description())
-	] + $this->descriptionOnKiosk();}return $this->{__METHOD__};}
+	];}
+
+	/**
+	 * 2016-08-27
+	 * @override
+	 * @see \Df\Payment\Charge\WithRedirect::signatureKey()
+	 * @used-by \Df\Payment\Charge\WithRedirect::p()
+	 * @return string
+	 */
+	protected function signatureKey() {return 'CheckMacValue';}
 
 	/**
 	 * 2016-08-08
@@ -650,14 +647,5 @@ class Charge extends \Df\Payment\Charge {
 		return df_ccc('+', df_map(function(OI $item) {
 			return $item->getChildrenItems() ? null : $item->getProduct()->getProductUrl();
 		}, $this->o()->getItems()));
-	}
-
-	/**
-	 * 2016-07-04
-	 * @param II|I|OP $payment
-	 * @return array(string => mixed)
-	 */
-	public static function request(II $payment) {
-		return (new self([self::$P__PAYMENT => $payment]))->_request();
 	}
 }

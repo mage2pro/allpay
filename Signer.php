@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay;
 use Dfe\AllPay\Settings as S;
-class Signer extends \Df\Payment\R\Signer {
+final class Signer extends \Df\Payment\R\Signer {
 	/**
 	 * 2016-07-10
 	 * @override
