@@ -44,13 +44,6 @@ final class Settings extends \Df\Payment\Settings {
 	public function merchantID() {return $this->testable();}
 
 	/**
-	 * 2016-07-15
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Failure Message»
-	 * @return string
-	 */
-	public function messageFailure() {return $this->v();}
-
-	/**
 	 * 2016-07-05
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Allowed Payment Options»
 	 * @return string[]

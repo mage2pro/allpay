@@ -35,4 +35,3 @@ class BankCard extends \Dfe\AllPay\Response {
 		);
 	}
 }
-

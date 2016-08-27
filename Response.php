@@ -26,23 +26,6 @@ abstract class Response extends \Df\Payment\R\Response {
 	}
 
 	/**
-	 * 2016-07-09
-	 * 2016-07-14
-	 * Раньше метод isSuccessful() вызывался из метода @see \Df\Payment\R\Response::validate().
-	 * Отныне же @see \Df\Payment\R\Response::validate() проверяет,
-	 * корректно ли сообщение от платёжной системы.
-	 * Даже если оплата завершилась отказом покупателя, но оповещение об этом корректно,
-	 * то @see \Df\Payment\R\Response::validate() вернёт true.
-	 * isSuccessful() же проверяет, прошла ли оплата успешно.
-	 * @override
-	 * @see \Df\Payment\R\Response::isSuccessful()
-	 * @used-by \Df\Payment\R\Response::handle()
-	 * @used-by \Df\Payment\R\Response::validAndSuccessful()
-	 * @return bool
-	 */
-	public function isSuccessful() {return $this->expectedRtnCode() === intval($this['RtnCode']);}
-
-	/**
 	 * 2016-07-18
 	 * @return string
 	 */
@@ -71,21 +54,18 @@ abstract class Response extends \Df\Payment\R\Response {
 	}
 
 	/**
-	 * 2016-07-12
-	 * @used-by \Dfe\AllPay\Response::isSuccessful()
-	 * @return int
-	 * «Value 1 means a payment is paid successfully. The other means failure.»
-	 */
-	protected function expectedRtnCode() {return 1;}
-
-	/**
-	 * 2016-07-10
+	 * 2016-08-27
 	 * @override
-	 * @see \Df\Payment\R\Response::externalIdKey()
-	 * @used-by \Df\Payment\R\Response::externalId()
-	 * @return string
+	 * @see \Df\Payment\R\Response::config()
+	 * @used-by \Df\Payment\R\Response::configCached()
+	 * @return array(string => mixed)
 	 */
-	protected function externalIdKey() {return 'TradeNo';}
+	protected function config() {return [
+		self::$externalIdKey => 'TradeNo'
+		,self::$requestIdKey => 'MerchantTradeNo'
+		,self::$signatureKey => 'CheckMacValue'
+		,self::$statusKey => 'RtnCode'
+	];}
 
 	/**
 	 * 2016-08-09
@@ -99,29 +79,6 @@ abstract class Response extends \Df\Payment\R\Response {
 	}
 
 	/**
-	 * 2016-07-09
-	 * @override
-	 * @see \Df\Payment\R\Response::requestIdKey()
-	 * @used-by \Df\Payment\R\Response::requestId()
-	 * @return string
-	 * «Merchant trade number»
-	 * Varchar(20)
-	 * «When order is generated, it would send allPay coorperator
-	 * a trade number with upper and lower cases of English letters and numbers.»
-	 */
-	protected function requestIdKey() {return 'MerchantTradeNo';}
-
-	/**
-	 * 2016-07-20
-	 * @override
-	 * @see \Df\Payment\R\Response::resultError()
-	 * @used-by \Df\Payment\R\Response::handle()
-	 * @param \Exception $e
-	 * @return Text
-	 */
-	protected function resultError(\Exception $e) {return self::resultErrorStatic($e);}
-
-	/**
 	 * 2016-07-20
 	 * @override
 	 * @see \Df\Payment\R\Response::resultSuccess()
@@ -131,13 +88,14 @@ abstract class Response extends \Df\Payment\R\Response {
 	protected function resultSuccess() {return Text::i('1|OK');}
 
 	/**
-	 * 2016-07-10
+	 * 2016-08-27
+	 * «Value 1 means a payment is paid successfully. The other means failure.»
 	 * @override
-	 * @see \Df\Payment\R\Response::signatureKey()
-	 * @used-by \Df\Payment\R\Response::signatureProvided()
-	 * @return string
+	 * @see \Df\Payment\R\Response::statusExpected()
+	 * @used-by \Df\Payment\R\Response::isSuccessful()
+	 * @return string|int
 	 */
-	protected function signatureKey() {return 'CheckMacValue';}
+	protected function statusExpected() {return 1;}
 
 	/**
 	 * 2016-07-12
@@ -175,12 +133,13 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-07-26
 	 * @override
-	 * @used-by \Dfe\AllPay\Response::resultError()
-	 * @used-by \Dfe\AllPay\Controller\Confirm\Index::execute()
+	 * @see \Df\Payment\R\Response::resultError()
+	 * @used-by \Df\Payment\R\Response::handle()
+	 * @used-by \Df\Payment\R\Confirm::execute()
 	 * @param \Exception $e
 	 * @return Text
 	 */
-	public static function resultErrorStatic(\Exception $e) {return Text::i('0|' . df_lets($e));}
+	public static function resultError(\Exception $e) {return Text::i('0|' . df_lets($e));}
 
 	/**
 	 * 2016-07-28

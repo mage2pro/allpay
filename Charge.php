@@ -101,7 +101,7 @@ class Charge extends \Df\Payment\R\Charge {
 		 * потому что при «ClientBackURL» allPay отображает покупателю
 		 * подробную инструкцию по оплате.
 		 */
-		,'ClientBackURL' => df_url_frontend('dfe-allpay/customerReturn')
+		,'ClientBackURL' => $this->customerReturn()
 		/**
 		 * 2016-07-04
 		 * «Payment related information returned by Client end».
@@ -399,7 +399,7 @@ class Charge extends \Df\Payment\R\Charge {
 		 *
 		 * @see \Dfe\AllPay\Controller\CustomerReturn\Index
 		 */
-		,'OrderResultURL' => df_url_frontend('dfe-allpay/customerReturn')
+		,'OrderResultURL' => $this->customerReturnRemote()
 		/**
 		 * 2016-07-04
 		 * «Payment related information returned by Server end».
@@ -429,7 +429,7 @@ class Charge extends \Df\Payment\R\Charge {
 		 * а оповещение по адресу «ReturnURL» приходит лишь на шаге 21,
 		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
-		,'PaymentInfoURL' => df_url_callback('dfe-allpay/offline')
+		,'PaymentInfoURL' => $this->callback('offline')
 		// 2016-07-02
 		// «Payment type».
 		// Varchar(20)
@@ -475,7 +475,7 @@ class Charge extends \Df\Payment\R\Charge {
 		 * а оповещение по адресу «ReturnURL» приходит лишь на шаге 21,
 		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
-		,'ReturnURL' => df_url_callback('dfe-allpay/confirm')
+		,'ReturnURL' => $this->callback()
 		// 2016-07-02
 		// «Trade amount».
 		// «Money».

@@ -4,10 +4,10 @@ use Zend_Date as ZD;
 abstract class Offline extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-07-20
-	 * @used-by \Dfe\AllPay\Response\Offline::expectedRtnCode()
+	 * @used-by \Dfe\AllPay\Response\Offline::statusExpected()
 	 * @return int
 	 */
-	abstract protected function expectedRtnCodeOffline();
+	abstract protected function statusExpectedOffline();
 
 	/**
 	 * 2016-07-19
@@ -51,17 +51,6 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	public function paidTime() {return self::time($this['PaymentDate']);}
 
 	/**
-	 * 2016-07-12
-	 * @override
-	 * @see \Dfe\AllPay\Response::expectedRtnCode()
-	 * @used-by \Dfe\AllPay\Response::isSuccessful()
-	 * @return int
-	 */
-	protected function expectedRtnCode() {
-		return $this->needCapture() ? parent::expectedRtnCode() : $this->expectedRtnCodeOffline();
-	}
-
-	/**
 	 * 2016-07-20
 	 * @override
 	 * @see \Df\Payment\R\Response::handleBefore()
@@ -101,6 +90,18 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	}
 
 	/**
+	 * 2016-08-27
+	 * «Value 1 means a payment is paid successfully. The other means failure.»
+	 * @override
+	 * @see \Dfe\AllPay\Response::statusExpected()
+	 * @used-by \Df\Payment\R\Response::isSuccessful()
+	 * @return string|int
+	 */
+	protected function statusExpected() {
+		return $this->needCapture() ? parent::statusExpected() : $this->statusExpectedOffline();
+	}
+
+	/**
 	 * 2016-07-19
 	 * @return ZD
 	 */
@@ -124,4 +125,3 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	 */
 	const KEY = 'offline';
 }
-
