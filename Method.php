@@ -30,7 +30,7 @@ class Method extends \Df\Payment\R\Method {
 			if ($this->responseF()) {
 				$suffix = df_cc_class($suffix, $this->responseF()->classSuffix());
 			}
-			$this->{__METHOD__} = df_convention($this, $suffix, Info::class);
+			$this->{__METHOD__} = df_con($this, $suffix, Info::class);
 		}
 		return $this->{__METHOD__};
 	}

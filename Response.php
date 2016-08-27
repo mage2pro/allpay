@@ -126,7 +126,7 @@ abstract class Response extends \Df\Payment\R\Response {
 			df_error('The request is invalid');
 		}
 		/** @var string $class */
-		$class = df_convention(static::class, df_cc_class('Response', $classSuffix));
+		$class = df_con(static::class, df_cc_class('Response', $classSuffix));
 		return self::ic($class, $params);
 	}
 

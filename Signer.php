@@ -8,7 +8,7 @@ final class Signer extends \Df\Payment\R\Signer {
 	 * @see \Df\Payment\R\Signer::sign()
 	 * @return string
 	 */
-	public function sign() {
+	protected function sign() {
 		/** @var array(string => mixed) $params */
 		$params = $this->getData();
 		// 2016-07-11
