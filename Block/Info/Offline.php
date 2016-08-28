@@ -3,8 +3,8 @@ namespace Dfe\AllPay\Block\Info;
 use Dfe\AllPay\Response\Offline as R;
 use Zend_Date as ZD;
 /**
- * @method R responseF()
- * @method R responseL()
+ * @method R|string|null responseF(string $key = null)
+ * @method R|string|null responseL(string $key = null)
  */
 abstract class Offline extends \Dfe\AllPay\Block\Info {
 	/**

@@ -4,8 +4,8 @@ use Dfe\AllPay\Method;
 use Dfe\AllPay\Response\BankCard as R;
 use Magento\Framework\Phrase;
 /**
- * @method R responseF()
- * @method R responseL()
+ * @method R|string|null responseF(string $key = null)
+ * @method R|string|null responseL(string $key = null)
  */
 class BankCard extends \Dfe\AllPay\Block\Info {
 	/**

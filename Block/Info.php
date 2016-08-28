@@ -6,8 +6,8 @@ use Magento\Framework\DataObject;
 use Magento\Sales\Model\Order\Payment\Transaction as T;
 /**
  * @method Method method()
- * @method R responseF()
- * @method R responseL()
+ * @method R|string|null responseF(string $key = null)
+ * @method R|string|null responseL(string $key = null)
  */
 class Info extends \Df\Payment\Block\ConfigurableInfo {
 	/**

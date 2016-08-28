@@ -98,21 +98,6 @@ abstract class Response extends \Df\Payment\R\Response {
 	protected function statusExpected() {return 1;}
 
 	/**
-	 * 2016-07-12
-	 * The response is documented in the Chapter 7 «Payment Result Notification»
-	 * on the pages 32-35 of the allPay documentation.
-	 * @override
-	 * @see \Df\Payment\R\Response::testData()
-	 * @param string $type
-	 * @return array(string => string)
-	 */
-	protected function testData($type) {
-		/** @var string $basename */
-		$basename = df_ccc('-', df_class_last(get_class($this)), $type);
-		return df_json_decode(file_get_contents(BP . "/_my/test/allPay/{$basename}.json"));
-	}
-
-	/**
 	 * 2016-07-13
 	 * @override
 	 * @see \Df\Payment\R\Response::i()
@@ -124,6 +109,10 @@ abstract class Response extends \Df\Payment\R\Response {
 		$classSuffix = dfa($params, 'class', self::classSuffixS(dfa($params, 'PaymentType')));
 		if (!$classSuffix) {
 			df_error('The request is invalid');
+		}
+		if (isset($params['class'])) {
+			unset($params['class']);
+			$params[$params[self::$dfTest]] = 1;
 		}
 		/** @var string $class */
 		$class = df_con(static::class, df_cc_class('Response', $classSuffix));

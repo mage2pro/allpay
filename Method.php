@@ -12,8 +12,8 @@ use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Order\Payment as OP;
 use Magento\Sales\Model\Order\Payment\Transaction;
 /**
- * @method Response responseF()
- * @method Response responseL()
+ * @method Response|string|null responseF(string $key = null)
+ * @method Response|string|null responseL(string $key = null)
  */
 class Method extends \Df\Payment\R\Method {
 	/**
