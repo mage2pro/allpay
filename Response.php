@@ -62,7 +62,6 @@ abstract class Response extends \Df\Payment\R\Response {
 	 */
 	protected function config() {return [
 		self::$externalIdKey => 'TradeNo'
-		,self::$requestIdKey => 'MerchantTradeNo'
 		,self::$signatureKey => 'CheckMacValue'
 		,self::$statusKey => 'RtnCode'
 	];}
@@ -114,9 +113,7 @@ abstract class Response extends \Df\Payment\R\Response {
 			unset($params['class']);
 			$params[$params[self::$dfTest]] = 1;
 		}
-		/** @var string $class */
-		$class = df_con(static::class, df_cc_class('Response', $classSuffix));
-		return self::ic($class, $params);
+		return self::ic(df_con(static::class, df_cc_class('Response', $classSuffix)), $params);
 	}
 
 	/**

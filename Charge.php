@@ -9,10 +9,20 @@ use Magento\Sales\Model\Order\Item as OI;
 /** @method Method method() */
 class Charge extends \Df\Payment\R\Charge {
 	/**
+	 * 2016-08-29
+	 * @override
+	 * @see \Df\Payment\R\ICharge::requestIdKey()
+	 * @used-by \Df\Payment\R\Charge::p()
+	 * @used-by \Df\Payment\R\Response::requestId()
+	 * @return string
+	 */
+	public static function requestIdKey() {return 'MerchantTradeNo';}
+
+	/**
 	 * 2016-07-04
 	 * @override
-	 * @see \Df\Payment\Charge\WithRedirect::params()
-	 * @used-by \Df\Payment\Charge\WithRedirect::p()
+	 * @see \Df\Payment\R\Charge::params()
+	 * @used-by \Df\Payment\R\Charge::p()
 	 * @return array(string => mixed)
 	 */
 	protected function params() {return $this->descriptionOnKiosk() + [
@@ -289,47 +299,6 @@ class Charge extends \Df\Payment\R\Charge {
 		 * http://php.net/manual/en/function.timezone-offset-get.php#73995
 		 */
 		,'MerchantTradeDate' => df_now('Y/m/d H:i:s', Method::TIMEZONE)
-		// 2016-07-02
-		// «Merchant trade number».
-		// Varchar(20)
-		// «Merchant trade number could not be repeated.
-		// It is composed with upper and lower cases of English letter and numbers.»
-		// Must be filled.
-		/**
-		 * 2016-07-02
-		 * «Merchant trade number».
-		 * Varchar(20)
-		 * «Merchant trade number could not be repeated.
-		 * It is composed with upper and lower cases of English letter and numbers.»
-		 * Must be filled.
-		 *
-		 * 2016-07-05
-		 * Значение может содержать только цифры и латинские буквы.
-		 * Все другие символы недопустимы.
-		 * В принципе, стандартные номера заказов удовлетворяют этим условиям,
-		 * но вот нестандартные, вида ORD-2016/07-00274
-		 * (которые делает наш модуль Sales Documents Numberation) — не удовлетворяют.
-		 * Поэтому надо перекодировать проблемные символы.
-		 *
-		 * Второй мыслью было использовать df_encryptor()->encrypt($this->o()->getIncrementId())
-		 * Однако хэш md5 имеет длину 32 символа: http://stackoverflow.com/questions/6317276
-		 * А хэш sha256 — 64 символа: http://stackoverflow.com/questions/3064133
-		 * allPay же ограничивает длину идентификатора 20 символами.
-		 *
-		 * Поэтому используем иное решение: нестандартный идентификатор транзакции.
-		 *
-		 * 2016-07-17
-		 * Клиент просит, чтобы в качестве идентификатора платежа
-		 * всё-таки использовался номер заказа:
-		 * https://code.dmitry-fedyuk.com/m2e/allpay/issues/7
-		 * В принципе, это разумно: ведь нестандартные номера заказов
-		 * (которые, например, делает наш модуль Sales Documents Numberation)
-		 * будут использовать лишь немногие клиенты,
-		 * большинство же будет использовать стандартные номера заказов,
-		 * поэтому разумно предоставить этому большинству возможность
-		 * использовать в качестве идентификатора платежа номер заказа.
-		 */
-		,'MerchantTradeNo' => Identification::id($this->o())
 		/**
 		 * 2016-07-04
 		 * «If there is a need for an extra payment information».
@@ -498,10 +467,52 @@ class Charge extends \Df\Payment\R\Charge {
 	];}
 
 	/**
+	 * 2016-08-29
+	 * 2016-07-02
+	 * «Merchant trade number».
+	 * Varchar(20)
+	 * «Merchant trade number could not be repeated.
+	 * It is composed with upper and lower cases of English letter and numbers.»
+	 * Must be filled.
+	 *
+	 * 2016-07-05
+	 * Значение может содержать только цифры и латинские буквы.
+	 * Все другие символы недопустимы.
+	 * В принципе, стандартные номера заказов удовлетворяют этим условиям,
+	 * но вот нестандартные, вида ORD-2016/07-00274
+	 * (которые делает наш модуль Sales Documents Numberation) — не удовлетворяют.
+	 * Поэтому надо перекодировать проблемные символы.
+	 *
+	 * Второй мыслью было использовать df_encryptor()->encrypt($this->o()->getIncrementId())
+	 * Однако хэш md5 имеет длину 32 символа: http://stackoverflow.com/questions/6317276
+	 * А хэш sha256 — 64 символа: http://stackoverflow.com/questions/3064133
+	 * allPay же ограничивает длину идентификатора 20 символами.
+	 *
+	 * Поэтому используем иное решение: нестандартный идентификатор транзакции.
+	 *
+	 * 2016-07-17
+	 * Клиент просит, чтобы в качестве идентификатора платежа
+	 * всё-таки использовался номер заказа:
+	 * https://code.dmitry-fedyuk.com/m2e/allpay/issues/7
+	 * В принципе, это разумно: ведь нестандартные номера заказов
+	 * (которые, например, делает наш модуль Sales Documents Numberation)
+	 * будут использовать лишь немногие клиенты,
+	 * большинство же будет использовать стандартные номера заказов,
+	 * поэтому разумно предоставить этому большинству возможность
+	 * использовать в качестве идентификатора платежа номер заказа.
+	 *
+	 * @override
+	 * @see \Df\Payment\R\Charge::requestId()
+	 * @used-by \Df\Payment\R\Charge::p()
+	 * @return string
+	 */
+	protected function requestId() {return Identification::id($this->o());}
+
+	/**
 	 * 2016-08-27
 	 * @override
-	 * @see \Df\Payment\Charge\WithRedirect::signatureKey()
-	 * @used-by \Df\Payment\Charge\WithRedirect::p()
+	 * @see \Df\Payment\R\Charge::signatureKey()
+	 * @used-by \Df\Payment\R\Charge::p()
 	 * @return string
 	 */
 	protected function signatureKey() {return 'CheckMacValue';}

@@ -9,7 +9,7 @@ use Magento\Sales\Model\Order\Payment\Transaction as T;
  * @method R|string|null responseF(string $key = null)
  * @method R|string|null responseL(string $key = null)
  */
-class Info extends \Df\Payment\Block\ConfigurableInfo {
+class Info extends \Df\Payment\R\BlockInfo {
 	/**
 	 * 2016-07-13
 	 * @return string

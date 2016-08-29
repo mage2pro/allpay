@@ -19,7 +19,7 @@ class Method extends \Df\Payment\R\Method {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\Method::getInfoBlockType()
+	 * @see \Df\Payment\R\Method::getInfoBlockType()
 	 * @used-by \Magento\Payment\Helper\Data::getInfoBlock()
 	 * @return string
 	 */
