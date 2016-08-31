@@ -6,7 +6,7 @@ use Dfe\AllPay\Settings as S;
 use Dfe\AllPay\Source\Option;
 use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
 use Magento\Sales\Model\Order\Item as OI;
-/** @method Method method() */
+/** @method Method m() */
 class Charge extends \Df\Payment\R\Charge {
 	/**
 	 * 2016-08-29
@@ -636,7 +636,7 @@ class Charge extends \Df\Payment\R\Charge {
 	 * 2016-08-08
 	 * @return Plan|null
 	 */
-	private function plan() {return $this->method()->plan();}
+	private function plan() {return $this->m()->plan();}
 
 	/**
 	 * 2016-07-05
