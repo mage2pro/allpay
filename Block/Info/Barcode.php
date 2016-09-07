@@ -24,4 +24,3 @@ class Barcode extends Offline {
 	 */
 	protected function paymentIdLabel() {return 'Barcode';}
 }
-

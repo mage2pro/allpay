@@ -23,5 +23,3 @@ class Total extends \Df\Sales\Block\Order\Total {
 		}
 	}
 }
-
-

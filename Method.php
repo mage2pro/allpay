@@ -3,19 +3,24 @@ namespace Dfe\AllPay;
 use Dfe\AllPay\Block\Info;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
-use Magento\Framework\DataObject;
 use Magento\Framework\Phrase;
 use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
-use Magento\Sales\Model\Order\Creditmemo;
-use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Order\Payment as OP;
-use Magento\Sales\Model\Order\Payment\Transaction;
 /**
  * @method Response|string|null responseF(string $key = null)
  * @method Response|string|null responseL(string $key = null)
  */
 class Method extends \Df\Payment\R\Method {
+	/**
+	 * 2016-09-07
+	 * @override
+	 * @see \Df\Payment\Method::formatAmount()
+	 * @param float $amount
+	 * @return int
+	 */
+	public function formatAmount($amount) {return round($amount);}
+
 	/**
 	 * 2016-07-20
 	 * @override
@@ -23,34 +28,27 @@ class Method extends \Df\Payment\R\Method {
 	 * @used-by \Magento\Payment\Helper\Data::getInfoBlock()
 	 * @return string
 	 */
-	public function getInfoBlockType() {
-		if (!isset($this->{__METHOD__})) {
-			/** @var string $suffix */
-			$suffix = 'Block\Info';
-			if ($this->responseF()) {
-				$suffix = df_cc_class($suffix, $this->responseF()->classSuffix());
-			}
-			$this->{__METHOD__} = df_con($this, $suffix, Info::class);
+	public function getInfoBlockType() {return dfc($this, function() {
+		/** @var string $suffix */
+		$suffix = 'Block\Info';
+		if ($this->responseF()) {
+			$suffix = df_cc_class($suffix, $this->responseF()->classSuffix());
 		}
-		return $this->{__METHOD__};
-	}
+		return df_con($this, $suffix, Info::class);
+	});}
 
 	/**
 	 * 2016-08-13
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
 	 * @used-by \Dfe\AllPay\Charge::plan()
 	 * @used-by \Dfe\AllPay\Method::paymentOptionTitle()
-	 *
 	 * @return Plan|null
 	 */
-	public function plan() {
-		if (!isset($this->{__METHOD__})) {
-			/** @var int|null $id */
-			$id = $this->iia(self::$II_PLAN);
-			$this->{__METHOD__} = df_n_set(!$id ? null : $this->s()->installmentSales()->plans($id));
-		}
-		return df_n_get($this->{__METHOD__});
-	}
+	public function plan() {return dfc($this, function() {
+		/** @var int|null $id */
+		$id = $this->iia(self::$II_PLAN);
+		return !$id ? null : $this->s()->installmentSales()->plans($id);
+	});}
 
 	/**
 	 * 2016-07-28
@@ -59,33 +57,25 @@ class Method extends \Df\Payment\R\Method {
 	 * @used-by \Df\Payment\Observer\DataProvider\SearchResult::execute()
 	 * @return string
 	 */
-	public function titleDetailed() {
-		return df_cc_br(parent::titleDetailed(), $this->paymentOptionTitle());
-	}
+	public function titleDetailed() {return df_cc_br(parent::titleDetailed(), $this->paymentOptionTitle());}
 
 	/**
 	 * 2016-08-13
 	 * @used-by \Dfe\AllPay\Method::titleDetailed()
 	 * @return string|Phrase|null
 	 */
-	public function paymentOptionTitle() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = df_n_set(
-				$this->responseF() ? __($this->responseF()->paymentOptionTitle()) : (
-					// 2016-08-13
-					// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
-					// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
-					// Т.е. покупатель ещё ничего не оплатил,
-					// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
-					// Формируем заголовок по аналогии с
-					// @see \Dfe\AllPay\Response\BankCard::paymentOptionTitleByCode()
-					$this->plan() ? df_cc_br(__('Bank Card (Installments)'), __('Not paid yet'))
-						: null
-				)
-			);
-		}
-		return df_n_get($this->{__METHOD__});
-	}
+	public function paymentOptionTitle() {return dfc($this, function() {return
+		$this->responseF() ? __($this->responseF()->paymentOptionTitle()) : (
+			// 2016-08-13
+			// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
+			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
+			// Т.е. покупатель ещё ничего не оплатил,
+			// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
+			// Формируем заголовок по аналогии с
+			// @see \Dfe\AllPay\Response\BankCard::paymentOptionTitleByCode()
+			!$this->plan() ? null : df_cc_br(__('Bank Card (Installments)'), __('Not paid yet'))
+		)
+	;});}
 
 	/**
 	 * 2016-08-27

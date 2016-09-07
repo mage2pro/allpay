@@ -10,4 +10,3 @@ class WebATM extends \Dfe\AllPay\Response {
 	 */
 	protected function needCapture() {return true;}
 }
-

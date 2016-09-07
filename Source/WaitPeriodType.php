@@ -13,12 +13,10 @@ class WaitPeriodType extends \Df\Config\SourceT {
 	 * @used-by \Df\Config\Source::toOptionArray()
 	 * @return array(string => string)
 	 */
-	protected function map() {
-		return [
-			self::CALENDAR_DAYS => 'Calendar Days'
-			,self::WORKING_DAYS => 'Working Days'
-		];
-	}
+	protected function map() {return [
+		self::CALENDAR_DAYS => 'Calendar Days'
+		,self::WORKING_DAYS => 'Working Days'
+	];}
 
 	const CALENDAR_DAYS = 'calendar_days';
 	const WORKING_DAYS = 'working_days';

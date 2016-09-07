@@ -5,7 +5,7 @@ use Dfe\AllPay\Response as R;
 use Magento\Framework\DataObject;
 use Magento\Sales\Model\Order\Payment\Transaction as T;
 /**
- * @method Method method()
+ * @method Method m()
  * @method R|string|null responseF(string $key = null)
  * @method R|string|null responseL(string $key = null)
  */
@@ -14,12 +14,9 @@ class Info extends \Df\Payment\R\BlockInfo {
 	 * 2016-07-13
 	 * @return string
 	 */
-	public function paymentOption() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = $this->method()->paymentOptionTitle() ?:  __('Not selected yet');
-		}
-		return $this->{__METHOD__};
-	}
+	public function paymentOption() {return dfc($this, function() {return
+		$this->m()->paymentOptionTitle() ?:  __('Not selected yet')
+	;});}
 
 	/**
 	 * 2016-07-13
@@ -39,8 +36,8 @@ class Info extends \Df\Payment\R\BlockInfo {
 			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
 			// Т.е. покпатель ещё ничего не оплатил,
 			// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
-			if ($this->method()->plan()) {
-				$result['Payments'] = $this->method()->plan()->numPayments();
+			if ($this->m()->plan()) {
+				$result['Payments'] = $this->m()->plan()->numPayments();
 			}
 		}
 		else {
@@ -63,5 +60,3 @@ class Info extends \Df\Payment\R\BlockInfo {
 	 */
 	protected function custom() {return [];}
 }
-
-

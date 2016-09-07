@@ -13,30 +13,20 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	 * 2016-07-19
 	 * @return string
 	 */
-	public function expirationS() {
-		if (!isset($this->{__METHOD__})) {
-			/** @var string $result */
-			$result = df_dts($this->expiration(), ZD::DATE_LONG);
-			/** @var int $daysLeft */
-			$daysLeft = df_days_left($this->expiration());
-			/** @var string $note */
-			$note =
-				0 > $daysLeft
-				? __('expired')
-				: (
-					0 === $daysLeft
-					? __('today')
-					: (
-						1 === $daysLeft
-						? __('1 day left')
-					    :  __('%1 days left', $daysLeft)
-					)
-				)
-			;
-			$this->{__METHOD__} = "{$result} ({$note})";
-		}
-		return $this->{__METHOD__};
-	}
+	public function expirationS() {return dfc($this, function() {
+		/** @var string $result */
+		$result = df_dts($this->expiration(), ZD::DATE_LONG);
+		/** @var int $daysLeft */
+		$daysLeft = df_days_left($this->expiration());
+		/** @var string $note */
+		$note = 0 > $daysLeft ? __('expired') : (
+			0 === $daysLeft ? __('today') : (
+				1 === $daysLeft ? __('1 day left') :
+					__('%1 days left', $daysLeft)
+			)
+		);
+		return "{$result} ({$note})";
+	});}
 
 	/**
 	 * 2016-07-20
@@ -83,11 +73,9 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	 * @used-by \Df\Payment\R\Response::payment()
 	 * @return string
 	 */
-	protected function responseTransactionId() {
-		return implode('-', [parent::responseTransactionId(),
-			$this->needCapture() ? 'capture' : 'info'
-		]);
-	}
+	protected function responseTransactionId() {return
+		implode('-', [parent::responseTransactionId(), $this->needCapture() ? 'capture' : 'info'])
+	;}
 
 	/**
 	 * 2016-08-27
@@ -97,20 +85,17 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	 * @used-by \Df\Payment\R\Response::isSuccessful()
 	 * @return string|int
 	 */
-	protected function statusExpected() {
-		return $this->needCapture() ? parent::statusExpected() : $this->statusExpectedOffline();
-	}
+	protected function statusExpected() {return
+		$this->needCapture() ? parent::statusExpected() : $this->statusExpectedOffline()
+	;}
 
 	/**
 	 * 2016-07-19
 	 * @return ZD
 	 */
-	private function expiration() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = new ZD($this['ExpireDate'], 'y/MM/dd');
-		}
-		return $this->{__METHOD__};
-	}
+	private function expiration() {return dfc($this, function() {return
+		new ZD($this['ExpireDate'], 'y/MM/dd')
+	;});}
 
 	/**
 	 * 2016-07-20

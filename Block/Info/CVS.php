@@ -22,4 +22,3 @@ class CVS extends Offline {
 	 */
 	protected function paymentIdLabel() {return 'Payment Number';}
 }
-

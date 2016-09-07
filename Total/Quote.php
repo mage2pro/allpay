@@ -192,5 +192,3 @@ class Quote extends AbstractTotal {
 	 */
 	private static $II_FEE_BASE = 'feeBase';
 }
-
-

@@ -18,40 +18,34 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * 2016-07-20
 	 * @return string
 	 */
-	public function classSuffix() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} = self::classSuffixS($this['PaymentType']);
-		}
-		return $this->{__METHOD__};
-	}
+	public function classSuffix() {return dfc($this, function() {return
+		self::classSuffixS($this['PaymentType'])
+	;});}
 
 	/**
 	 * 2016-07-18
 	 * @return string
 	 */
-	public function paymentOptionTitle() {
-		if (!isset($this->{__METHOD__})) {
-			/** @var string $result */
-			$result = $this['PaymentType'];
-			df_assert_string_not_empty($result);
-			/** @var string[] $a */
-			$a = explode('_', $result);
-			/** @var int $c */
-			$c = count($a);
-			if (1 < $c) {
-				/** @var string $f */
-				$f = $a[0];
-				/** @var string|null */
-				$resultD = $this->paymentOptionTitleByCode($f, $a[1]);
-				if ($resultD) {
-					$resultD = __($resultD);
-					$result = in_array($f, ['ATM', 'WebATM']) ? df_cc_s(__($f), $resultD) : $resultD;
-				}
+	public function paymentOptionTitle() {return dfc($this, function() {
+		/** @var string $result */
+		$result = $this['PaymentType'];
+		df_assert_string_not_empty($result);
+		/** @var string[] $a */
+		$a = explode('_', $result);
+		/** @var int $c */
+		$c = count($a);
+		if (1 < $c) {
+			/** @var string $f */
+			$f = $a[0];
+			/** @var string|null */
+			$resultD = $this->paymentOptionTitleByCode($f, $a[1]);
+			if ($resultD) {
+				$resultD = __($resultD);
+				$result = in_array($f, ['ATM', 'WebATM']) ? df_cc_s(__($f), $resultD) : $resultD;
 			}
-			$this->{__METHOD__} = $result;
 		}
-		return $this->{__METHOD__};
-	}
+		return $result;
+	});}
 
 	/**
 	 * 2016-08-27
@@ -73,9 +67,9 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * @param string $codeLast
 	 * @return string|null
 	 */
-	protected function paymentOptionTitleByCode($codeFirst, $codeLast) {
-		return dfa_deep($this->moduleJson('titles'), [$codeFirst, $codeLast]);
-	}
+	protected function paymentOptionTitleByCode($codeFirst, $codeLast) {return
+		dfa_deep($this->moduleJson('titles'), [$codeFirst, $codeLast])
+	;}
 
 	/**
 	 * 2016-07-20
@@ -134,27 +128,16 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * @param string|null $timeS
 	 * @return ZD|null
 	 */
-	public static function time($timeS) {
-		/** @var array(string|null => ZD|string) $cache */
-		static $cache;
-		if (!isset($cache[$timeS])) {
-			$cache[$timeS] = df_n_set(
-				!$timeS ? null : df_date_parse($timeS, 'y/MM/dd HH:mm:ss', Method::TIMEZONE)
-			);
-		}
-		return df_n_get($cache[$timeS]);
-	}
+	public static function time($timeS) {return dfcf(function($timeS) {return
+		!$timeS ? null : df_date_parse($timeS, 'y/MM/dd HH:mm:ss', Method::TIMEZONE)
+	;}, func_get_args());}
 
 	/**
 	 * 2016-07-20
 	 * @param string $type
 	 * @return string
 	 */
-	private static function classSuffixS($type) {
-		/** @var string $result */
-		$result = df_first(explode('_', $type));
-		return dfa([Option::BANK_CARD => 'BankCard', 'BARCODE' => 'Barcode'], $result, $result);
-	}
+	private static function classSuffixS($type) {return dftr(df_first(explode('_', $type)), [
+		Option::BANK_CARD => 'BankCard', 'BARCODE' => 'Barcode'
+	]);}
 }
-
-

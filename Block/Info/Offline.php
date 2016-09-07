@@ -49,4 +49,3 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 		return $result;
 	}
 }
-

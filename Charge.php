@@ -240,8 +240,13 @@ class Charge extends \Df\Payment\R\Charge {
 		 * Теперь же у нас есть класс @see \Dfe\AllPay\Total\Quote
 		 * который уже добавляет к итоговой сумме нашу наценку,
 		 * и поэтому здесь теперь уже этого делать не надо.
+		 *
+		 * 2016-09-06
+		 * Значение тут всегда в TWD,
+		 * потому что для модуля AllPay платёжная валюта зашита в etc/config.xml,
+		 * и администратор не модет её изменить.
 		 */
-		,'InstallmentAmount' => !$this->plan() ? 0 : $this->amountTWD()
+		,'InstallmentAmount' => !$this->plan() ? 0 : $this->amountF()
 		// 2016-07-04
 		// «Electronic invoice remark».
 		// Varchar(1)
@@ -256,7 +261,7 @@ class Charge extends \Df\Payment\R\Charge {
 		// and would like to show cash flow selection page line by line,
 		// separate the item name with symbol #.».
 		// Must be filled.
-		,'ItemName' => df_order_items($this->o(), '#')
+		,'ItemName' => df_oi_s($this->o(), '#')
 		/**
 		 * 2016-07-02
 		 * «Item URL».
@@ -457,8 +462,13 @@ class Charge extends \Df\Payment\R\Charge {
 		 *
 		 * 2016-07-05
 		 * Значение должно быть целым.
+		 *
+		 * 2016-09-06
+		 * Значение тут всегда в TWD,
+		 * потому что для модуля AllPay платёжная валюта зашита в etc/config.xml,
+		 * и администратор не модет её изменить.
 		 */
-		,'TotalAmount' => $this->amountTWD()
+		,'TotalAmount' => $this->amountF()
 		// 2016-07-02
 		// «Trade description».
 		// Varchar(200)
@@ -518,19 +528,6 @@ class Charge extends \Df\Payment\R\Charge {
 	protected function signatureKey() {return 'CheckMacValue';}
 
 	/**
-	 * 2016-08-08
-	 * @return float
-	 */
-	private function amountTWD() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} =
-				round(df_currency_convert($this->amount(), $this->currencyCode(), 'TWD'))
-			;
-		}
-		return $this->{__METHOD__};
-	}
-
-	/**
 	 * 2016-08-17
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
 	 * @return array(string => string)
@@ -554,20 +551,15 @@ class Charge extends \Df\Payment\R\Charge {
 
 	/**
 	 * 2016-07-05
+	 * 2016-08-15
+	 * В отличие от JavaScript, в PHP оператор || возвращает значение логического типа,
+	 * а не первый неложный аргумент.
+	 * https://3v4l.org/fmTAA
 	 * @return bool
 	 */
-	private function isSingleOptionChosen() {
-		if (!isset($this->{__METHOD__})) {
-			/**
-			 * 2016-08-15
-			 * В отличие от JavaScript, в PHP оператор || возвращает значение логического типа,
-			 * а не первый неложный аргумент.
-			 * https://3v4l.org/fmTAA
-			 */
-			$this->{__METHOD__} = $this->plan() || $this->option() || 1 === count(S::s()->optionsAllowed());
-		}
-		return $this->{__METHOD__};
-	}
+	private function isSingleOptionChosen() {return dfc($this, function() {return
+		$this->plan() || $this->option() || 1 === count(S::s()->optionsAllowed())
+	;});}
 
 	/**
 	 * 2016-08-15
@@ -593,20 +585,15 @@ class Charge extends \Df\Payment\R\Charge {
 	 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 	 * @return string
 	 */
-	private function pChoosePayment() {
-		if (!isset($this->{__METHOD__})) {
-			$this->{__METHOD__} =
-				$this->plan() ? Option::BANK_CARD : (
-					$this->option() ?: (
-						!S::s()->optionsLimit() || !$this->isSingleOptionChosen()
-							? 'ALL'
-							: df_first(S::s()->optionsAllowed())
-					)
-				)
-			;
-		}
-		return $this->{__METHOD__};
-	}
+	private function pChoosePayment() {return dfc($this, function() {return
+		$this->plan() ? Option::BANK_CARD : (
+			$this->option() ?: (
+				!S::s()->optionsLimit() || !$this->isSingleOptionChosen()
+					? 'ALL'
+					: df_first(S::s()->optionsAllowed())
+			)
+		)
+	;});}
 
 	/**
 	 * 2016-07-05
@@ -619,8 +606,8 @@ class Charge extends \Df\Payment\R\Charge {
 	 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 	 * @return string
 	 */
-	private function pIgnorePayment() {
-		return df_ccc('#',
+	private function pIgnorePayment() {return
+		df_ccc('#',
 			/**
 			 * 2016-08-17
 			 * https://code.dmitry-fedyuk.com/m2e/allpay/issues/14
@@ -629,8 +616,8 @@ class Charge extends \Df\Payment\R\Charge {
 				!S::s()->optionsLimit() || $this->isSingleOptionChosen()
 					? [] : array_diff(Option::s()->keys(), S::s()->optionsAllowed())
 			)
-		);
-	}
+		)
+	;}
 
 	/**
 	 * 2016-08-08
@@ -654,9 +641,9 @@ class Charge extends \Df\Payment\R\Charge {
 	 * Could be empty.
 	 * @return string
 	 */
-	private function productUrls() {
-		return df_ccc('+', df_map(function(OI $item) {
+	private function productUrls() {return
+		df_ccc('+', df_map(function(OI $item) {
 			return $item->getChildrenItems() ? null : $item->getProduct()->getProductUrl();
-		}, $this->o()->getItems()));
-	}
+		}, $this->o()->getItems()))
+	;}
 }

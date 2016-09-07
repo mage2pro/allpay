@@ -25,5 +25,3 @@ final class Settings extends \Df\Core\Settings {
 	 */
 	protected function prefix() {return 'df_payment/all_pay/installment_sales/';}
 }
-
-

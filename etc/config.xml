@@ -16,6 +16,12 @@
 				<askForBillingAddress>1</askForBillingAddress>
 				<countries>TW</countries>
 				<country_restriction>whitelist</country_restriction>
+				<!--
+				 	2016-09-06
+				 	Платёжная система AllPay допускает транзакции только в TWD,
+				 	поэтому мы не делаем опцию выбора валюты в system.xml.
+				 -->
+				<currency>TWD</currency>
 				<description>{store.name}</description>
 				<descriptionOnKiosk>{store.name}</descriptionOnKiosk>
 				<messageFailure><![CDATA[Sorry, the payment attempt is failed.

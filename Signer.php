@@ -54,9 +54,7 @@ final class Signer extends \Df\Payment\R\Signer {
 		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L15-L18
 		 */
 		/** @var string $result */
-		$result = implode('&', df_map_k($params, function($key, $value) {
-			return implode('=', [$key, $value]);
-		}));
+		$result = implode('&', df_map_k($params, function($k, $v) {return implode('=', [$k, $v]);}));
 		/**
 		 * 2016-07-04
 		 * Step 3

@@ -1,7 +1,7 @@
 define ([
 	'df'
 	,'df-lodash'
-	,'Df_Core/js/redirectWithPost'
+	,'Df_Core/my/redirectWithPost'
  	,'Df_Payment/custom'
 	,'Dfe_AllPay/plan'
   	,'jquery'
@@ -42,9 +42,7 @@ define ([
 		/** @type {jQuery} HTMLDivElement */
 		var c = $('#payment');
 		var f = _this.dfForm();
-		var toggle = function() {
-			f.toggleClass('df-wide', 575 <= c.width());
-		};
+		var toggle = function() {f.toggleClass('df-wide', 575 <= c.width());};
 		toggle();
 		$(window).resize(toggle);
 	},

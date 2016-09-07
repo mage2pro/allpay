@@ -17,12 +17,12 @@ class Entity extends \Df\Config\ArrayItem {
 	 * @param string $currencyCode
 	 * @return float|int
 	 */
-	public function amount($amount, $currencyCode) {
-		return !$amount ? 0 : TWD::round(
+	public function amount($amount, $currencyCode) {return
+		!$amount ? 0 : TWD::round(
 			$amount * (1 + $this->rate() / 100) + $this->fee($currencyCode) * $this->numPayments()
 			,$currencyCode
-		);
-	}
+		)
+	;}
 
 	/**
 	 * 2016-07-31

@@ -21,4 +21,3 @@ class ATM extends Offline {
 	 */
 	protected function paymentIdLabel() {return 'Account Number';}
 }
-

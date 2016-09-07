@@ -64,7 +64,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 		/** @var string $template */
 		$template = 'http://creditvendor{stage}.allpay.com.tw/DumpAuth/OrderView?TradeID=%d';
 		return df_tag('a', [
-			'href' => $this->method()->url($template, $this->isTest(), $this->r('gwsr'))
+			'href' => $this->m()->url($template, $this->isTest(), $this->r('gwsr'))
 			,'target' => '_blank'
 		], $this->r('gwsr'));
 	}
@@ -78,14 +78,11 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * https://www.paydollar.com/b2c2/eng/merchant/help/f_onlinehelp_eci.htm
 	 * @return int|null
 	 */
-	private function eci() {
-		if (!isset($this->{__METHOD__})) {
-			/** @var int|null $result */
-			$result = $this->r('eci');
-			$this->{__METHOD__} = df_n_set(is_null($result) ? $result : intval($result));
-		}
-		return df_n_get($this->{__METHOD__});
-	}
+	private function eci() {return dfc($this, function() {
+		/** @var int|null $result */
+		$result = $this->r('eci');
+		return is_null($result) ? $result : intval($result);
+	});}
 
 	/**
 	 * 2016-07-28
@@ -104,9 +101,9 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * 2016-07-28
 	 * @return string|null
 	 */
-	private function eciS() {
-		return is_null($this->eci()) ? null : "0{$this->eci()} ({$this->eciMeaning()})";
-	}
+	private function eciS() {return
+		is_null($this->eci()) ? null : "0{$this->eci()} ({$this->eciMeaning()})"
+	;}
 
 	/**
 	 * 2016-08-12
@@ -116,15 +113,12 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	
 	/**
 	 * 2016-07-28
-	 * @param string ...$keys
+	 * @param string[] ...$keys
 	 * @return string|null
 	 */
-	private function r(...$keys) {
-		return
-			1 === count($keys)
-			? $this->responseF()->getData(df_first($keys))
-			: dfa_select_ordered($this->responseF()->getData(), $keys)
-		;
-	}
+	private function r(...$keys) {return
+		1 === count($keys)
+		? $this->responseF()->getData(df_first($keys))
+		: dfa_select_ordered($this->responseF()->getData(), $keys)
+	;}
 }
-

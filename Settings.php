@@ -54,9 +54,9 @@ final class Settings extends \Df\Payment\Settings {
 	 * 2016-08-07
 	 * @return array(string => string)
 	 */
-	public function options() {
-		return Option::s()->options(!$this->optionsLimit() ? null : $this->optionsAllowed());
-	}
+	public function options() {return
+		Option::s()->options(!$this->optionsLimit() ? null : $this->optionsAllowed())
+	;}
 
 	/**
 	 * 2016-07-05
@@ -84,17 +84,14 @@ final class Settings extends \Df\Payment\Settings {
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait period for an ATM payment»
 	 * @return int
 	 */
-	public function waitPeriodATM() {
-		if (!isset($this->{__METHOD__})) {
-			/** @var int $result */
-			$result = $this->nat();
-			if (WaitPeriodType::WORKING_DAYS === $this->waitPeriodType()) {
-				$result = df_num_calendar_days_by_num_working_days(ZD::now(), $result, $this->scope());
-			}
-			$this->{__METHOD__} = $result;
+	public function waitPeriodATM() {return dfc($this, function($f) {
+		/** @var int $result */
+		$result = $this->nat($f);
+		if (WaitPeriodType::WORKING_DAYS === $this->waitPeriodType()) {
+			$result = df_num_calendar_days_by_num_working_days(ZD::now(), $result, $this->scope());
 		}
-		return $this->{__METHOD__};
-	}
+		return $result;
+	}, [__FUNCTION__]);}
 
 	/**
 	 * 2016-07-17
