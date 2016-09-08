@@ -15,11 +15,11 @@ class Method extends \Df\Payment\R\Method {
 	/**
 	 * 2016-09-07
 	 * @override
-	 * @see \Df\Payment\Method::formatAmount()
+	 * @see \Df\Payment\Method::amountFormat()
 	 * @param float $amount
 	 * @return int
 	 */
-	public function formatAmount($amount) {return round($amount);}
+	public function amountFormat($amount) {return round($amount);}
 
 	/**
 	 * 2016-07-20
