@@ -1,3 +1,3 @@
 <?php
-use Magento\Framework\Component\ComponentRegistrar;
-ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Dfe_AllPay', __DIR__);
+use Magento\Framework\Component\ComponentRegistrar as R;
+R::register(R::MODULE, 'Dfe_AllPay', __DIR__);
