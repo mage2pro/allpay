@@ -17,7 +17,7 @@ define ([
 	/**
 	 * 2016-08-08
 	 * @override
-	 * @see mage2pro/core/Payment/view/frontend/web/js/view/payment/mixin.js
+	 * @see mage2pro/core/Payment/view/frontend/web/mixin.js
 	 * @used-by getData()
 	 * @returns {Object}
 	 */
@@ -27,7 +27,7 @@ define ([
 	/**
 	 * 2016-08-17
 	 * @override
-	 * @see mage2pro/core/Payment/view/frontend/web/js/view/payment/mixin.js
+	 * @see mage2pro/core/Payment/view/frontend/web/mixin.js
 	 * @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
 	 * 2016-08-19
 	 * В версиях Magento ниже 2.1.0 эта функция вызывается вне контекста this:
@@ -49,7 +49,7 @@ define ([
 	/**
 	 * 2016-08-16
 	 * @override
-	 * @see mage2pro/core/Payment/view/frontend/web/js/view/payment/mixin.js
+	 * @see mage2pro/core/Payment/view/frontend/web/mixin.js
 	 * @used-by dfFormCssClassesS()
 	 * @returns {String[]}
 	 */
@@ -107,7 +107,7 @@ define ([
 	/**
 	 * 2016-08-06
 	 * @override
-	 * @see mage2pro/core/Payment/view/frontend/web/js/view/payment/mixin.js
+	 * @see mage2pro/core/Payment/view/frontend/web/mixin.js
 	 * @used-by placeOrderInternal()
 	 */
 	onSuccess: function(json) {
