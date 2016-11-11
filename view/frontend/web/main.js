@@ -1,4 +1,4 @@
-define ([
+define([
 	'df'
 	,'df-lodash'
 	,'Df_Core/my/redirectWithPost'
@@ -64,12 +64,12 @@ define ([
 	hasPlans: function() {return !!this.iPlans().length;},
 	/**
 	 * 2016-08-04
-	 * @return {Object}
+	 * @returns {Object}
 	 */
 	installment: function() {return this.config('installment');},
 	/**
 	 * 2016-08-04
-	 * @return {Object[]}
+	 * @returns {Object[]}
 	 */
 	iPlans: df.c(function() {
 		/** @type {Number} */

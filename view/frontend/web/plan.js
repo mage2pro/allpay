@@ -1,5 +1,5 @@
 // 2016-08-06
-define (['df', 'df-lodash', 'Df_Checkout/js/data', 'jquery'], function(
+define(['df', 'df-lodash', 'Df_Checkout/js/data', 'jquery'], function(
 	df, _, dfc, $
 ) {'use strict'; return (
 	/**
