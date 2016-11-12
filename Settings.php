@@ -21,15 +21,19 @@ final class Settings extends \Df\Payment\Settings {
 
 	/**
 	 * 2016-06-29
+	 * «ALL IN ONE 介接 HashIV»
+	 * Note that we encrypt the live keys, but do not encrypt the test keys.
 	 * @return string
 	 */
-	public function hashIV() {return $this->testable();}
+	public function hashIV() {return $this->testablePV();}
 
 	/**
 	 * 2016-06-29
+	 * «LL IN ONE 介接 HashKey»
+	 * Note that we encrypt the live keys, but do not encrypt the test keys.
 	 * @return string
 	 */
-	public function hashKey() {return $this->testable();}
+	public function hashKey() {return $this->testablePV();}
 
 	/**
 	 * 2016-07-31
@@ -99,50 +103,4 @@ final class Settings extends \Df\Payment\Settings {
 	 * @return string
 	 */
 	public function waitPeriodType() {return $this->v();}
-
-	/**
-	 * 2016-06-29
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Live ALL IN ONE 介接 HashIV»
-	 * Note that we encrypt the live keys, but do not encrypt the test keys.
-	 * @return string
-	 */
-	protected function liveHashIV() {return $this->p();}
-
-	/**
-	 * 2016-06-29
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Live ALL IN ONE 介接 HashKey»
-	 * Note that we encrypt the live keys, but do not encrypt the test keys.
-	 * @return string
-	 */
-	protected function liveHashKey() {return $this->p();}
-
-	/**
-	 * 2016-06-29
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Live Merchant ID (商店代號)»
-	 * @return string
-	 */
-	protected function liveMerchantID() {return $this->v();}
-
-	/**
-	 * 2016-06-29
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Test ALL IN ONE 介接 HashIV»
-	 * Note that we encrypt the live keys, but do not encrypt the test keys.
-	 * @return string
-	 */
-	protected function testHashIV() {return $this->v();}
-
-	/**
-	 * 2016-06-29
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Test ALL IN ONE 介接 HashKey»
-	 * Note that we encrypt the live keys, but do not encrypt the test keys.
-	 * @return string
-	 */
-	protected function testHashKey() {return $this->v();}
-
-	/**
-	 * 2016-06-29
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Test Merchant ID (商店代號)»
-	 * @return string
-	 */
-	protected function testMerchantID() {return $this->v();}
 }
