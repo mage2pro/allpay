@@ -10,7 +10,10 @@
 			</argument>
 		</arguments>
 	</virtualType>
-	<virtualType name='Dfe\AllPay\Enable\Requirement\Currency' type='Df\Framework\Form\Element\Enable\Requirement\Currency'>
+	<virtualType
+		name='Dfe\AllPay\Enable\Requirement\Currency'
+		type='Df\Framework\Form\Element\Enable\Requirement\Currency'
+	>
 		<arguments>
 			<argument name='iso3' xsi:type='string'>TWD</argument>
 		</arguments>
