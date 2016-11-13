@@ -13,15 +13,6 @@ use Magento\Sales\Model\Order\Payment as OP;
  */
 class Method extends \Df\Payment\R\Method {
 	/**
-	 * 2016-09-07
-	 * @override
-	 * @see \Df\Payment\Method::amountFormat()
-	 * @param float $amount
-	 * @return int
-	 */
-	public function amountFormat($amount) {return round($amount);}
-
-	/**
 	 * 2016-07-20
 	 * @override
 	 * @see \Df\Payment\R\Method::getInfoBlockType()
@@ -87,6 +78,15 @@ class Method extends \Df\Payment\R\Method {
 	 * @return string[]
 	 */
 	public function stageNames() {return ['-stage', ''];}
+
+	/**
+	 * 2016-11-13
+	 * @override
+	 * @see \Df\Payment\Method::amountFactor()
+	 * @used-by \Df\Payment\Method::amountFormat()
+	 * @return int
+	 */
+	protected function amountFactor() {return 1;}
 
 	/**
 	 * 2016-08-08
