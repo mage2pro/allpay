@@ -6,13 +6,6 @@ use Zend_Date as ZD;
 /** @method static Settings s() */
 final class Settings extends \Df\Payment\Settings {
 	/**
-	 * 2016-06-29
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Description»
-	 * @return string
-	 */
-	public function description() {return $this->v();}
-
-	/**
 	 * 2016-07-01
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Description on a kiosk's screen»
 	 * @return string
