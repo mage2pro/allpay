@@ -19,44 +19,53 @@ class Info extends \Df\Payment\R\BlockInfo {
 	;});}
 
 	/**
-	 * 2016-07-13
-	 * @override
-	 * @see \Magento\Payment\Block\ConfigurableInfo::_prepareSpecificInformation()
-	 * @used-by \Magento\Payment\Block\Info::getSpecificInformation()
-	 * @param DataObject|null $transport
-	 * @return DataObject
-	 */
-	protected function _prepareSpecificInformation($transport = null) {
-		/** @var DataObject $result */
-		$result = parent::_prepareSpecificInformation($transport);
-		$result->addData(['Payment Option' => $this->paymentOption()]);
-		if (!$this->responseF()) {
-			// 2016-08-13
-			// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
-			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
-			// Т.е. покпатель ещё ничего не оплатил,
-			// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
-			if ($this->m()->plan()) {
-				$result['Payments'] = $this->m()->plan()->numPayments();
-			}
-		}
-		else {
-			$result->addData($this->custom());
-			if ($this->isBackend()) {
-				$result->addData([
-					'allPay Payment ID' => $this->responseF()->externalId()
-					,'Magento Payment ID' => $this->responseF()->requestId()
-				]);
-			}
-		}
-		$this->markTestMode($result);
-		return $result;
-	}
-
-	/**
 	 * 2016-07-20
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
 	 * @return array(string => string)
 	 */
 	protected function custom() {return [];}
+
+	/**
+	 * 2016-07-13
+	 * @override
+	 * @see \Df\Payment\Block\Info::prepare()
+	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
+	 */
+	protected function prepare() {
+		$this->si($this->custom());
+		$this->siB([
+			'allPay Payment ID' => $this->responseF()->externalId()
+			,'Magento Payment ID' => $this->responseF()->requestId()
+		]);
+	}
+
+	/**
+	 * 2016-11-17
+	 * @override
+	 * @see \Df\Payment\Block\Info::prepareDic()
+	 * @used-by \Df\Payment\Block\Info::getSpecificInformation()
+	 * @return void
+	 */
+	protected function prepareDic() {
+		$this->dic()->add('Payment Option', $this->paymentOption(), -10);
+	}
+
+	/**
+	 * 2016-08-13
+	 * Сюда мы попадаем в 2 случаях:
+	 * 1) Платёж либо находится в состоянии «Review» (случай модулей Stripe и Omise).
+	 * 2) Модуль работает с перенаправлением покупателя на страницу платёжной системы,
+	 * покупатель был туда перенаправлен, однако платёжная система ещё не прислала
+	 * оповещение о платеже (и способе оплаты).
+	 * Т.е. покупатель ещё ничего не оплатил,  и, возможно, просто закрыл страницу оплаты
+	 * и уже ничего не оплатит (случай модуля allPay).
+	 * @override
+	 * @see \Df\Payment\Block\Info::siWait()
+	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
+	 */
+	protected function siWait() {
+		if ($this->m()->plan()) {
+			$this->si('Payments', $this->m()->plan()->numPayments());
+		}
+	}
 }

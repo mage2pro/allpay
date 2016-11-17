@@ -46,12 +46,13 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	/**
 	 * 2016-08-09
 	 * @override
-	 * @see \Df\Payment\Block\Info::prepareDic()
+	 * @see \Dfe\AllPay\Block\Info::prepareDic()
 	 * @used-by \Df\Payment\Block\Info::getSpecificInformation()
 	 * @return void
 	 */
 	protected function prepareDic() {
-		if ($this->responseF()->isInstallment()) {
+		parent::prepareDic();
+		if ($this->responseF() && $this->responseF()->isInstallment()) {
 			$this->dic()->addAfter('Payment Option', 'Payments', $this->numPayments());
 		}
 	}
@@ -63,10 +64,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	private function allpayAuthCode() {
 		/** @var string $template */
 		$template = 'http://creditvendor{stage}.allpay.com.tw/DumpAuth/OrderView?TradeID=%d';
-		return df_tag('a', [
-			'href' => $this->m()->url($template, $this->isTest(), $this->r('gwsr'))
-			,'target' => '_blank'
-		], $this->r('gwsr'));
+		return df_tag_ab($this->r('gwsr'), $this->m()->url($template, $this->isTest(), $this->r('gwsr')));
 	}
 
 	/** @return string */
