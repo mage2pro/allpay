@@ -27,7 +27,7 @@
                 <field
                     id='enable'
                     translate='label'
-                    type='Df\Framework\Form\Element\Enable'
+                    type='Df\Framework\Form\Element\Checkbox'
                     sortOrder='1'
 					showInDefault='1'
 					showInWebsite='1'
