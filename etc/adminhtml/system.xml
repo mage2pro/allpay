@@ -34,7 +34,7 @@
 					showInStore='1'
                 >
                     <label>Enable?</label>
-					<backend_model>Df\Framework\Form\Element\Enable\Backend</backend_model>
+					<backend_model>Df\Config\Backend\Checkbox</backend_model>
 					<!--
 2016-06-30
 Можно, конечно, передавать этот класс в качестве параметра класса backend_model или type
@@ -42,7 +42,7 @@
 слишком много параметров в конструкторе, и пересылка их предку может сделать систему чересчур хрупкой:
 ведь в будущих версиях Magento перечень параметров предка может измениться.
 					-->
-					<dfEnabler>Dfe\AllPay\Enabler</dfEnabler>
+					<dfValidator>Dfe\AllPay\Validator\Enable</dfValidator>
                     <comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/allpay' target='_blank'>歐付寶 allPay</a>» payment extension?]]></comment>
                 </field>
 				<field

@@ -3,17 +3,14 @@
 	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
 	xsi:noNamespaceSchemaLocation='urn:magento:framework:ObjectManager/etc/config.xsd'
 >
-	<virtualType name='Dfe\AllPay\Enabler' type='Df\Framework\Form\Element\Enabler'>
+	<virtualType name='Dfe\AllPay\Validator\Enable' type='Df\Framework\Validator'>
 		<arguments>
 			<argument name='requirements' xsi:type='array'>
-				<item xsi:type='object' name='currency'>Dfe\AllPay\Enable\Requirement\Currency</item>
+				<item xsi:type='object' name='currency'>Dfe\AllPay\Requirement\Currency</item>
 			</argument>
 		</arguments>
 	</virtualType>
-	<virtualType
-		name='Dfe\AllPay\Enable\Requirement\Currency'
-		type='Df\Framework\Form\Element\Enable\Requirement\Currency'
-	>
+	<virtualType name='Dfe\AllPay\Requirement\Currency' type='Df\Framework\Requirement\Currency'>
 		<arguments>
 			<argument name='iso3' xsi:type='string'>TWD</argument>
 		</arguments>
