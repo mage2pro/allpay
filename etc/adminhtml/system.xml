@@ -1,50 +1,50 @@
 <?xml version='1.0'?>
 <config
-    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:noNamespaceSchemaLocation='urn:magento:module:Df_Config:etc/system_file.xsd'
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:noNamespaceSchemaLocation='urn:magento:module:Df_Config:etc/system_file.xsd'
 >
-    <system>
-        <section id='df_payment'>
-            <!--
-                2015-09-25
-                1-я и 2-я цифры sortOrder соответствуют порядковому номеру первой буквы модуля
-                в английском алфавите: https://en.wikipedia.org/wiki/English_alphabet
-				3-я и 4-я цифры sortOrder соответствуют порядковому номеру второй буквы модуля
-                в английском алфавите.
-            -->
-            <group
-                id='all_pay'
-                translate='label'
-                type='text'
-                sortOrder='112'
-                showInDefault='1'
-                showInWebsite='1'
-                showInStore='1'
-            >
-                <label>歐付寶 allPay</label>
+	<system>
+		<section id='df_payment'>
+<!--
+2015-09-25
+1-я и 2-я цифры sortOrder соответствуют порядковому номеру первой буквы модуля
+в английском алфавите: https://en.wikipedia.org/wiki/English_alphabet
+3-я и 4-я цифры sortOrder соответствуют порядковому номеру второй буквы модуля
+в английском алфавите.
+-->
+			<group
+				id='all_pay'
+				translate='label'
+				type='text'
+				sortOrder='112'
+				showInDefault='1'
+				showInWebsite='1'
+				showInStore='1'
+			>
+				<label>歐付寶 allPay</label>
 				<dfExtension>Dfe\AllPay\Ext</dfExtension>
 				<frontend_model>Df\Config\Block\System\Config\Form\Fieldset\Ext</frontend_model>
-                <field
-                    id='enable'
-                    translate='label'
-                    type='Df\Framework\Form\Element\Checkbox'
-                    sortOrder='1'
+				<field
+					id='enable'
+					translate='label'
+					type='Df\Framework\Form\Element\Checkbox'
+					sortOrder='1'
 					showInDefault='1'
 					showInWebsite='1'
 					showInStore='1'
-                >
-                    <label>Enable?</label>
+				>
+					<label>Enable?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
-					<!--
+<!--
 2016-06-30
 Можно, конечно, передавать этот класс в качестве параметра класса backend_model или type
 (используя технологию virtualType), однако у предков как backend_model, так и type
 слишком много параметров в конструкторе, и пересылка их предку может сделать систему чересчур хрупкой:
 ведь в будущих версиях Magento перечень параметров предка может измениться.
-					-->
+-->
 					<dfValidator>Dfe\AllPay\Validator\Currency</dfValidator>
-                    <comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/allpay' target='_blank'>歐付寶 allPay</a>» payment extension?]]></comment>
-                </field>
+					<comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/allpay' target='_blank'>歐付寶 allPay</a>» payment extension?]]></comment>
+				</field>
 				<field
 					id='title'
 					translate='label'
@@ -187,9 +187,9 @@
 <br/>Up to 200 characters.
 <br/>You can use <a href='https://mage2.pro/t/topic/1834' target='_blank'>the following variables in the template</a>.]]></comment>
 <!--
-	2016-07-01
-	Не используем здесь validate-length, потому что описание допускает параметры,
-	и реальная длина описания нам не известна вплоть до момента вычисления значения этих параметров.
+2016-07-01
+Не используем здесь validate-length, потому что описание допускает параметры,
+и реальная длина описания нам не известна вплоть до момента вычисления значения этих параметров.
 -->
 					<validate>required-entry</validate>
 					<depends><field id='enable'>1</field></depends>
@@ -209,9 +209,9 @@
 <br/>Up to <b>4 lines</b> with up to <b>20 characters</b> on each line.
 <br/>You can use <a href='https://mage2.pro/t/topic/1834' target='_blank'>the same variables</a> as for the «Description» parameter above.]]></comment>
 <!--
-	2016-07-01
-	Не используем здесь validate-length, потому что описание допускает параметры,
-	и реальная длина описания нам не известна вплоть до момента вычисления значения этих параметров.
+2016-07-01
+Не используем здесь validate-length, потому что описание допускает параметры,
+и реальная длина описания нам не известна вплоть до момента вычисления значения этих параметров.
 -->
 					<depends><field id='enable'>1</field></depends>
 				</field>
@@ -402,9 +402,9 @@ contain some other symbols.</p>
 					<depends>
 						<field id='enable'>1</field>
 						<!--
-						 	2016-03-08
-						 	«The negative syntax for the backend config field <depends> condition»
-                            https://mage2.pro/t/329
+							2016-03-08
+							«The negative syntax for the backend config field <depends> condition»
+							https://mage2.pro/t/329
 						-->
 						<field id='country_restriction' negative='1'>0</field>
 					</depends>
@@ -451,6 +451,6 @@ contain some other symbols.</p>
 					</field>
 				</group>
 			</group>
-        </section>
-    </system>
+		</section>
+	</system>
 </config>
