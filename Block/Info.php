@@ -2,7 +2,6 @@
 namespace Dfe\AllPay\Block;
 use Dfe\AllPay\Method;
 use Dfe\AllPay\Response as R;
-use Magento\Framework\DataObject;
 use Magento\Sales\Model\Order\Payment\Transaction as T;
 /**
  * @method Method m()

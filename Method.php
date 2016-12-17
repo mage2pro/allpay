@@ -99,21 +99,14 @@ class Method extends \Df\Payment\R\Method {
 
 	/**
 	 * 2016-08-27
-	 * @used-by \Df\Payment\R\Method::getConfigPaymentAction()
 	 * @override
-	 * @see \Df\Payment\R\Method::stageNames()
-	 * @return string
-	 */
-	protected function redirectUrl() {return 'https://payment{stage}.allpay.com.tw/Cashier/AioCheckOut/V2';}
-
-	/**
-	 * 2016-08-27
-	 * @override
-	 * @see \Df\Payment\R\Method::stageNames()
+	 * @see \Df\Payment\R\Method::redirectUrl()
 	 * @used-by \Df\Payment\R\Method::getConfigPaymentAction()
 	 * @return string
 	 */
-	protected function transId() {return Identification::id($this->o());}
+	protected function redirectUrl() {return
+		'https://payment{stage}.allpay.com.tw/Cashier/AioCheckOut/V2'
+	;}
 
 	/**
 	 * 2016-08-15
