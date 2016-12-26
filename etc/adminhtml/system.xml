@@ -411,7 +411,7 @@ https://mage2.pro/t/329
 					<comment><![CDATA[Customers from which countries can (or can not) use the method?]]></comment>
 				</field>
 				<field
-					id='logRequest'
+					id='log'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
 					sortOrder='25'
@@ -419,23 +419,9 @@ https://mage2.pro/t/329
 					showInWebsite='1'
 					showInStore='1'
 				>
-					<label>Log the requests from the store to 歐付寶 allPay?</label>
+					<label>Log the API requests and responses?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
-					<comment><![CDATA[The logs will be stored in the <b>var/log/mage2.pro</b> folder as files with the «<b>--request.log</b>» suffix. Use them for debugging.]]></comment>
-					<depends><field id='enable'>1</field></depends>
-				</field>
-				<field
-					id='logConfirmation'
-					translate='label'
-					type='Df\Framework\Form\Element\Checkbox'
-					sortOrder='26'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
-				>
-					<label>Log the payment confirmations from 歐付寶 allPay?</label>
-					<backend_model>Df\Config\Backend\Checkbox</backend_model>
-					<comment><![CDATA[The logs will be stored in the <b>var/log/mage2.pro</b> folder as files with the «<b>--confirmation.log</b>» suffix. Use them for debugging.]]></comment>
+					<comment><![CDATA[The logs will be stored in the <b>var/log/mage2.pro</b> folder. Use them for debugging.]]></comment>
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<group

@@ -50,8 +50,8 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-08-27
 	 * @override
-	 * @see \Df\Payment\R\Response::config()
-	 * @used-by \Df\Payment\R\Response::configCached()
+	 * @see \Df\Payment\Webhook\Response::config()
+	 * @used-by \Df\Payment\Webhook\Response::configCached()
 	 * @return array(string => mixed)
 	 */
 	protected function config() {return [
@@ -74,8 +74,8 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\R\Response::resultSuccess()
-	 * @used-by \Df\Payment\R\Response::handle()
+	 * @see \Df\Payment\Webhook\Response::resultSuccess()
+	 * @used-by \Df\Payment\Webhook\Response::handle()
 	 * @return Text
 	 */
 	protected function resultSuccess() {return Text::i('1|OK');}
@@ -84,8 +84,8 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * 2016-08-27
 	 * «Value 1 means a payment is paid successfully. The other means failure.»
 	 * @override
-	 * @see \Df\Payment\R\Response::statusExpected()
-	 * @used-by \Df\Payment\R\Response::isSuccessful()
+	 * @see \Df\Payment\Webhook\Response::statusExpected()
+	 * @used-by \Df\Payment\Webhook\Response::isSuccessful()
 	 * @return string|int
 	 */
 	protected function statusExpected() {return 1;}
@@ -93,7 +93,7 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-07-13
 	 * @override
-	 * @see \Df\Payment\R\Response::i()
+	 * @see \Df\Payment\Webhook\Response::i()
 	 * @param array(string => mixed) $params
 	 * @return self
 	 */
@@ -113,9 +113,9 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-07-26
 	 * @override
-	 * @see \Df\Payment\R\Response::resultError()
-	 * @used-by \Df\Payment\R\Response::handle()
-	 * @used-by \Df\Payment\R\Confirm::execute()
+	 * @see \Df\Payment\Webhook\Response::resultError()
+	 * @used-by \Df\Payment\Webhook\Response::handle()
+	 * @used-by \Df\Payment\Webhook::execute()
 	 * @param \Exception $e
 	 * @return Text
 	 */

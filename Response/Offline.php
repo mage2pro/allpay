@@ -43,8 +43,8 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\R\Response::handleBefore()
-	 * @used-by \Df\Payment\R\Response::handle()
+	 * @see \Df\Payment\Webhook\Response::handleBefore()
+	 * @used-by \Df\Payment\Webhook\Response::handle()
 	 * @return void
 	 */
 	protected function handleBefore() {
@@ -52,7 +52,7 @@ abstract class Offline extends \Dfe\AllPay\Response {
 		/**
 		 * 2016-07-20
 		 * Надо обязательно удалить ключ, иначе подпись будет вычислена неправильно:
-		 * @see \Df\Payment\R\Response::signer()
+		 * @see \Df\Payment\Webhook\Response::signer()
 		 */
 		$this->unsetData(self::KEY);
 	}
@@ -60,8 +60,8 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\R\Response::needCapture()
-	 * @used-by \Df\Payment\R\Response::handle()
+	 * @see \Df\Payment\Webhook\Response::needCapture()
+	 * @used-by \Df\Payment\Webhook\Response::handle()
 	 * @return bool
 	 */
 	protected function needCapture() {return $this->_needCapture;}
@@ -69,8 +69,8 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\R\Response::responseTransactionId()
-	 * @used-by \Df\Payment\R\Response::payment()
+	 * @see \Df\Payment\Webhook\Response::responseTransactionId()
+	 * @used-by \Df\Payment\Webhook\Response::payment()
 	 * @return string
 	 */
 	protected function responseTransactionId() {return
@@ -82,7 +82,7 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	 * «Value 1 means a payment is paid successfully. The other means failure.»
 	 * @override
 	 * @see \Dfe\AllPay\Response::statusExpected()
-	 * @used-by \Df\Payment\R\Response::isSuccessful()
+	 * @used-by \Df\Payment\Webhook\Response::isSuccessful()
 	 * @return string|int
 	 */
 	protected function statusExpected() {return

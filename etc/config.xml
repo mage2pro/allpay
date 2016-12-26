@@ -24,9 +24,7 @@
 				<currency>TWD</currency>
 				<description>{store.name}</description>
 				<descriptionOnKiosk>{store.name}</descriptionOnKiosk>
-				<!-- 2016-12-20 -->
-				<logConfirmation>1</logConfirmation>
-				<logRequest>1</logRequest>
+				<log>1</log>
 				<messageFailure><![CDATA[Sorry, the payment attempt is failed.
 <br/>The payment service's message is «<b>{originalMessage}</b>».
 <br/>Please try again, or try another payment method.]]></messageFailure>

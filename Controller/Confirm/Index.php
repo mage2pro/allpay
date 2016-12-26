@@ -1,3 +1,3 @@
 <?php
 namespace Dfe\AllPay\Controller\Confirm;
-class Index extends \Df\Payment\R\Confirm {}
+class Index extends \Df\Payment\Webhook {}

@@ -13,7 +13,7 @@ class Charge extends \Df\Payment\R\Charge {
 	 * @override
 	 * @see \Df\Payment\R\ICharge::requestIdKey()
 	 * @used-by \Df\Payment\R\Charge::p()
-	 * @used-by \Df\Payment\R\Response::requestId()
+	 * @used-by \Df\Payment\Webhook\Response::requestId()
 	 * @return string
 	 */
 	public static function requestIdKey() {return 'MerchantTradeNo';}
