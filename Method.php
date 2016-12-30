@@ -2,7 +2,6 @@
 namespace Dfe\AllPay;
 use Dfe\AllPay\Block\Info;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
-use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
 use Magento\Framework\Phrase;
 use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
@@ -20,12 +19,9 @@ class Method extends \Df\Payment\R\Method {
 	 * @return string
 	 */
 	public function getInfoBlockType() {return dfc($this, function() {
-		/** @var string $suffix */
-		$suffix = 'Block\Info';
-		if ($this->responseF()) {
-			$suffix = df_cc_class($suffix, $this->responseF()->classSuffix());
-		}
-		return df_con($this, $suffix, Info::class);
+		/** @var Response $r */
+		$r = $this->responseF();
+		return df_con($this, df_ccc('\\', 'Block\Info', !$r ? null : $r->classSuffix()), Info::class);
 	});}
 
 	/**
@@ -48,7 +44,9 @@ class Method extends \Df\Payment\R\Method {
 	 * @used-by \Df\Payment\Observer\DataProvider\SearchResult::execute()
 	 * @return string
 	 */
-	public function titleDetailed() {return df_cc_br(parent::titleDetailed(), $this->paymentOptionTitle());}
+	public function titleDetailed() {return
+		df_cc_br(parent::titleDetailed(), $this->paymentOptionTitle())
+	;}
 
 	/**
 	 * 2016-08-13
