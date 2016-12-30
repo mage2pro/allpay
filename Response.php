@@ -19,16 +19,19 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * @return string
 	 */
 	public function classSuffix() {return dfc($this, function() {return
-		self::classSuffixS($this['PaymentType'])
+		self::classSuffixS($this->type())
 	;});}
 
 	/**
 	 * 2016-07-18
+	 * @override
+	 * @see \Df\Payment\Webhook\Response::typeLabel()
+	 * @used-by \Df\Payment\Webhook\Response::log()
 	 * @return string
 	 */
-	public function paymentOptionTitle() {return dfc($this, function() {
+	final public function typeLabel() {return dfc($this, function() {
 		/** @var string $result */
-		$result = $this['PaymentType'];
+		$result = $this->type();
 		df_assert_string_not_empty($result);
 		/** @var string[] $a */
 		$a = explode('_', $result);
@@ -38,7 +41,7 @@ abstract class Response extends \Df\Payment\R\Response {
 			/** @var string $f */
 			$f = $a[0];
 			/** @var string|null */
-			$resultD = $this->paymentOptionTitleByCode($f, $a[1]);
+			$resultD = $this->typeLabelByCode($f, $a[1]);
 			if ($resultD) {
 				$resultD = __($resultD);
 				$result = in_array($f, ['ATM', 'WebATM']) ? df_cc_s(__($f), $resultD) : $resultD;
@@ -58,17 +61,18 @@ abstract class Response extends \Df\Payment\R\Response {
 		self::$externalIdKey => 'TradeNo'
 		,self::$signatureKey => 'CheckMacValue'
 		,self::$statusKey => 'RtnCode'
+		,self::$typeKey => 'PaymentType'
 	];}
 
 	/**
 	 * 2016-08-09
-	 * @used-by \Dfe\AllPay\Response::paymentOptionTitle()
+	 * @used-by typeLabel()
 	 * @param string $codeFirst
 	 * @param string $codeLast
 	 * @return string|null
 	 */
-	protected function paymentOptionTitleByCode($codeFirst, $codeLast) {return
-		dfa_deep($this->moduleJson('titles'), [$codeFirst, $codeLast])
+	protected function typeLabelByCode($codeFirst, $codeLast) {return
+		dfa_deep($this->moduleJson('labels'), [$codeFirst, $codeLast])
 	;}
 
 	/**

@@ -56,14 +56,14 @@ class Method extends \Df\Payment\R\Method {
 	 * @return string|Phrase|null
 	 */
 	public function paymentOptionTitle() {return dfc($this, function() {return
-		$this->responseF() ? __($this->responseF()->paymentOptionTitle()) : (
+		$this->responseF() ? __($this->responseF()->typeLabel()) : (
 			// 2016-08-13
 			// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
 			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
 			// Т.е. покупатель ещё ничего не оплатил,
 			// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
 			// Формируем заголовок по аналогии с
-			// @see \Dfe\AllPay\Response\BankCard::paymentOptionTitleByCode()
+			// @see \Dfe\AllPay\Response\BankCard::typeLabelByCode()
 			!$this->plan() ? null : df_cc_br(__('Bank Card (Installments)'), __('Not paid yet'))
 		)
 	;});}
