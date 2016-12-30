@@ -34,7 +34,7 @@ class Info extends \Df\Payment\R\BlockInfo {
 		$this->si($this->custom());
 		$this->siB([
 			'allPay Payment ID' => $this->responseF()->externalId()
-			,'Magento Payment ID' => $this->responseF()->requestId()
+			,'Magento Payment ID' => $this->responseF()->parentId()
 		]);
 	}
 
