@@ -1,12 +1,12 @@
 <?php
 namespace Dfe\AllPay\Block;
 use Dfe\AllPay\Method;
-use Dfe\AllPay\Response as R;
+use Dfe\AllPay\Webhook as W;
 use Magento\Sales\Model\Order\Payment\Transaction as T;
 /**
  * @method Method m()
- * @method R|string|null responseF(string $key = null)
- * @method R|string|null responseL(string $key = null)
+ * @method W|string|null responseF(string $key = null)
+ * @method W|string|null responseL(string $key = null)
  */
 class Info extends \Df\Payment\R\BlockInfo {
 	/**

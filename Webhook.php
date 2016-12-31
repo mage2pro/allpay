@@ -13,7 +13,7 @@ use Zend_Date as ZD;
  * The response is documented in the Chapter 7 «Payment Result Notification»
  * on the pages 32-35 of the allPay documentation.
  */
-abstract class Response extends \Df\Payment\R\Response {
+abstract class Webhook extends \Df\Payment\R\Webhook {
 	/**
 	 * 2016-07-20
 	 * @return string
@@ -25,8 +25,8 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-07-18
 	 * @override
-	 * @see \Df\Payment\Webhook\Response::typeLabel()
-	 * @used-by \Df\Payment\Webhook\Response::log()
+	 * @see \Df\Payment\Webhook::typeLabel()
+	 * @used-by \Df\Payment\Webhook::log()
 	 * @return string
 	 */
 	final public function typeLabel() {return dfc($this, function() {
@@ -53,8 +53,8 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-08-27
 	 * @override
-	 * @see \Df\Payment\Webhook\Response::config()
-	 * @used-by \Df\Payment\Webhook\Response::configCached()
+	 * @see \Df\Payment\Webhook::config()
+	 * @used-by \Df\Payment\Webhook::configCached()
 	 * @return array(string => mixed)
 	 */
 	protected function config() {return [
@@ -78,8 +78,8 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\Webhook\Response::resultSuccess()
-	 * @used-by \Df\Payment\Webhook\Response::handle()
+	 * @see \Df\Payment\Webhook::resultSuccess()
+	 * @used-by \Df\Payment\Webhook::handle()
 	 * @return Text
 	 */
 	protected function resultSuccess() {return Text::i('1|OK');}
@@ -88,8 +88,8 @@ abstract class Response extends \Df\Payment\R\Response {
 	 * 2016-08-27
 	 * «Value 1 means a payment is paid successfully. The other means failure.»
 	 * @override
-	 * @see \Df\Payment\Webhook\Response::statusExpected()
-	 * @used-by \Df\Payment\Webhook\Response::isSuccessful()
+	 * @see \Df\Payment\Webhook::statusExpected()
+	 * @used-by \Df\Payment\Webhook::isSuccessful()
 	 * @return string|int
 	 */
 	protected function statusExpected() {return 1;}
@@ -97,7 +97,7 @@ abstract class Response extends \Df\Payment\R\Response {
 	/**
 	 * 2016-07-13
 	 * @override
-	 * @see \Df\Payment\Webhook\Response::i()
+	 * @see \Df\Payment\Webhook::i()
 	 * @param array(string => mixed) $params
 	 * @return self
 	 */
@@ -111,15 +111,15 @@ abstract class Response extends \Df\Payment\R\Response {
 			unset($params['class']);
 			$params[$params[self::$dfTest]] = 1;
 		}
-		return self::ic(df_con(static::class, df_cc_class('Response', $classSuffix)), $params);
+		return self::ic(df_con(static::class, df_cc_class('Webhook', $classSuffix)), $params);
 	}
 
 	/**
 	 * 2016-07-26
 	 * @override
-	 * @see \Df\Payment\Webhook\Response::resultError()
-	 * @used-by \Df\Payment\Webhook\Response::handle()
-	 * @used-by \Df\Payment\Webhook::execute()
+	 * @see \Df\Payment\Webhook::resultError()
+	 * @used-by \Df\Payment\Webhook::handle()
+	 * @used-by \Df\Payment\WebhookAction::execute()
 	 * @param \Exception $e
 	 * @return Text
 	 */
@@ -127,7 +127,7 @@ abstract class Response extends \Df\Payment\R\Response {
 
 	/**
 	 * 2016-07-28
-	 * @used-by \Dfe\AllPay\Response\Offline::paidTime()
+	 * @used-by \Dfe\AllPay\Webhook\Offline::paidTime()
 	 * @used-by \Dfe\AllPay\Block\Info\BankCard::custom()
 	 * @param string|null $timeS
 	 * @return ZD|null

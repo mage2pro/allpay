@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
 use Dfe\AllPay\Method;
-use Dfe\AllPay\Response\BankCard as R;
+use Dfe\AllPay\Webhook\BankCard as R;
 use Magento\Framework\Phrase;
 /**
  * @method R|string|null responseF(string $key = null)

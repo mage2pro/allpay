@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
-use Dfe\AllPay\Response\Offline as R;
+use Dfe\AllPay\Webhook\Offline as R;
 use Zend_Date as ZD;
 /**
  * @method R|string|null responseF(string $key = null)

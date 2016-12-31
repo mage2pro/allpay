@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\AllPay\Controller\Offline;
-use Dfe\AllPay\Response\Offline;
+use Dfe\AllPay\Webhook\Offline;
 class Index extends \Dfe\AllPay\Controller\Confirm\Index {
 	/**
 	 * 2016-07-26

@@ -1,10 +1,10 @@
 <?php
-namespace Dfe\AllPay\Response;
+namespace Dfe\AllPay\Webhook;
 use Dfe\AllPay\Source\Option;
-class BankCard extends \Dfe\AllPay\Response {
+class BankCard extends \Dfe\AllPay\Webhook {
 	/**
 	 * 2016-08-09
-	 * @used-by \Dfe\AllPay\Response\BankCard::typeLabelByCode()
+	 * @used-by \Dfe\AllPay\Webhook\BankCard::typeLabelByCode()
 	 * @used-by \Dfe\AllPay\Block\Info\BankCard::custom()
 	 * @return bool
 	 */
@@ -13,8 +13,8 @@ class BankCard extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\Webhook\Response::needCapture()
-	 * @used-by \Df\Payment\Webhook\Response::handle()
+	 * @see \Df\Payment\Webhook::needCapture()
+	 * @used-by \Df\Payment\Webhook::handle()
 	 * @return bool
 	 */
 	protected function needCapture() {return true;}
@@ -22,8 +22,8 @@ class BankCard extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-08-09
 	 * @override
-	 * @see \Dfe\AllPay\Response::typeLabelByCode()
-	 * @used-by \Dfe\AllPay\Response::typeLabel()
+	 * @see \Dfe\AllPay\Webhook::typeLabelByCode()
+	 * @used-by \Dfe\AllPay\Webhook::typeLabel()
 	 * @param string $codeFirst
 	 * @param string $codeLast
 	 * @return string|null

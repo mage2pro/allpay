@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
-use Dfe\AllPay\Response\Offline as R;
+use Dfe\AllPay\Webhook\Offline as R;
 class ATM extends Offline {
 	/**
 	 * 2016-07-25

@@ -1,10 +1,10 @@
 <?php
-namespace Dfe\AllPay\Response;
+namespace Dfe\AllPay\Webhook;
 use Zend_Date as ZD;
-abstract class Offline extends \Dfe\AllPay\Response {
+abstract class Offline extends \Dfe\AllPay\Webhook {
 	/**
 	 * 2016-07-20
-	 * @used-by \Dfe\AllPay\Response\Offline::statusExpected()
+	 * @used-by \Dfe\AllPay\Webhook\Offline::statusExpected()
 	 * @return int
 	 */
 	abstract protected function statusExpectedOffline();
@@ -43,8 +43,8 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\Webhook\Response::handleBefore()
-	 * @used-by \Df\Payment\Webhook\Response::handle()
+	 * @see \Df\Payment\Webhook::handleBefore()
+	 * @used-by \Df\Payment\Webhook::handle()
 	 * @return void
 	 */
 	protected function handleBefore() {
@@ -52,7 +52,7 @@ abstract class Offline extends \Dfe\AllPay\Response {
 		/**
 		 * 2016-07-20
 		 * Надо обязательно удалить ключ, иначе подпись будет вычислена неправильно:
-		 * @see \Df\Payment\Webhook\Response::signer()
+		 * @see \Df\Payment\Webhook::signer()
 		 */
 		$this->unsetData(self::KEY);
 	}
@@ -60,8 +60,8 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\Webhook\Response::id()
-	 * @used-by \Df\Payment\Webhook\Response::payment()
+	 * @see \Df\Payment\Webhook::id()
+	 * @used-by \Df\Payment\Webhook::payment()
 	 * @return string
 	 */
 	final protected function id() {return implode('-', [
@@ -71,8 +71,8 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\Webhook\Response::needCapture()
-	 * @used-by \Df\Payment\Webhook\Response::handle()
+	 * @see \Df\Payment\Webhook::needCapture()
+	 * @used-by \Df\Payment\Webhook::handle()
 	 * @return bool
 	 */
 	protected function needCapture() {return $this->_needCapture;}
@@ -81,8 +81,8 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	 * 2016-08-27
 	 * «Value 1 means a payment is paid successfully. The other means failure.»
 	 * @override
-	 * @see \Dfe\AllPay\Response::statusExpected()
-	 * @used-by \Df\Payment\Webhook\Response::isSuccessful()
+	 * @see \Dfe\AllPay\Webhook::statusExpected()
+	 * @used-by \Df\Payment\Webhook::isSuccessful()
 	 * @return string|int
 	 */
 	protected function statusExpected() {return
@@ -105,7 +105,7 @@ abstract class Offline extends \Dfe\AllPay\Response {
 
 	/**
 	 * 2016-07-20
-	 * @used-by \Dfe\AllPay\Response\Offline::handleBefore()
+	 * @used-by \Dfe\AllPay\Webhook\Offline::handleBefore()
 	 * @used-by \Dfe\AllPay\Controller\Offline\Index::execute()
 	 */
 	const KEY = 'offline';

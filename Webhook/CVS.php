@@ -1,12 +1,12 @@
 <?php
-namespace Dfe\AllPay\Response;
+namespace Dfe\AllPay\Webhook;
 // 2016-07-25
 class CVS extends Offline {
 	/**
 	 * 2016-07-25
 	 * @override
-	 * @see \Dfe\AllPay\Response\Offline::statusExpectedOffline()
-	 * @used-by \Dfe\AllPay\Response\Offline::statusExpected()
+	 * @see \Dfe\AllPay\Webhook\Offline::statusExpectedOffline()
+	 * @used-by \Dfe\AllPay\Webhook\Offline::statusExpected()
 	 * @return int
 	 * «Successfully gets the number for CVS or BARCODE when value is 10100073.»
 	 */

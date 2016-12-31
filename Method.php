@@ -7,8 +7,8 @@ use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
 use Magento\Sales\Model\Order\Payment as OP;
 /**
- * @method Response|string|null responseF(string $key = null)
- * @method Response|string|null responseL(string $key = null)
+ * @method Webhook|string|null responseF(string $key = null)
+ * @method Webhook|string|null responseL(string $key = null)
  */
 class Method extends \Df\Payment\R\Method {
 	/**
@@ -19,7 +19,7 @@ class Method extends \Df\Payment\R\Method {
 	 * @return string
 	 */
 	public function getInfoBlockType() {return dfc($this, function() {
-		/** @var Response $r */
+		/** @var Webhook $r */
 		$r = $this->responseF();
 		return df_con($this, df_ccc('\\', 'Block\Info', !$r ? null : $r->classSuffix()), Info::class);
 	});}
@@ -61,7 +61,7 @@ class Method extends \Df\Payment\R\Method {
 			// Т.е. покупатель ещё ничего не оплатил,
 			// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
 			// Формируем заголовок по аналогии с
-			// @see \Dfe\AllPay\Response\BankCard::typeLabelByCode()
+			// @see \Dfe\AllPay\Webhook\BankCard::typeLabelByCode()
 			!$this->plan() ? null : df_cc_br(__('Bank Card (Installments)'), __('Not paid yet'))
 		)
 	;});}
@@ -116,7 +116,7 @@ class Method extends \Df\Payment\R\Method {
 	/**
 	 * 2016-07-20
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
-	 * @used-by \Dfe\AllPay\Response\Offline::paidTime()
+	 * @used-by \Dfe\AllPay\Webhook\Offline::paidTime()
 	 */
 	const TIMEZONE = 'Asia/Taipei';
 

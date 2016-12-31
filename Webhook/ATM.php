@@ -1,11 +1,11 @@
 <?php
-namespace Dfe\AllPay\Response;
+namespace Dfe\AllPay\Webhook;
 class ATM extends Offline {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Dfe\AllPay\Response\Offline::statusExpectedOffline()
-	 * @used-by \Dfe\AllPay\Response\Offline::statusExpected()
+	 * @see \Dfe\AllPay\Webhook\Offline::statusExpectedOffline()
+	 * @used-by \Dfe\AllPay\Webhook\Offline::statusExpected()
 	 * @return int
 	 * «Successfully gets the number for ATM when value is 2.»
 	 */
