@@ -109,7 +109,7 @@ abstract class Webhook extends \Df\PaypalClone\Webhook {
 		}
 		if (isset($params['class'])) {
 			unset($params['class']);
-			$params[$params[self::$dfTest]] = 1;
+			$params[self::$dfTest] = 1;
 		}
 		return self::ic(df_con(static::class, df_cc_class('Webhook', $classSuffix)), $params);
 	}
