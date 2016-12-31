@@ -65,17 +65,6 @@ abstract class Webhook extends \Df\PaypalClone\Webhook {
 	];}
 
 	/**
-	 * 2016-08-09
-	 * @used-by typeLabel()
-	 * @param string $codeFirst
-	 * @param string $codeLast
-	 * @return string|null
-	 */
-	protected function typeLabelByCode($codeFirst, $codeLast) {return
-		dfa_deep($this->moduleJson('labels'), [$codeFirst, $codeLast])
-	;}
-
-	/**
 	 * 2016-07-20
 	 * @override
 	 * @see \Df\Payment\Webhook::resultSuccess()
@@ -93,6 +82,17 @@ abstract class Webhook extends \Df\PaypalClone\Webhook {
 	 * @return string|int
 	 */
 	protected function statusExpected() {return 1;}
+
+	/**
+	 * 2016-08-09
+	 * @used-by typeLabel()
+	 * @param string $codeFirst
+	 * @param string $codeLast
+	 * @return string|null
+	 */
+	protected function typeLabelByCode($codeFirst, $codeLast) {return
+		dfa_deep($this->moduleJson('labels'), [$codeFirst, $codeLast])
+	;}
 
 	/**
 	 * 2016-07-13
