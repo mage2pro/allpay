@@ -60,22 +60,22 @@ abstract class Offline extends \Dfe\AllPay\Response {
 	/**
 	 * 2016-07-20
 	 * @override
+	 * @see \Df\Payment\Webhook\Response::id()
+	 * @used-by \Df\Payment\Webhook\Response::payment()
+	 * @return string
+	 */
+	final protected function id() {return implode('-', [
+		parent::id(), $this->needCapture() ? 'capture' : 'info'
+	]);}
+
+	/**
+	 * 2016-07-20
+	 * @override
 	 * @see \Df\Payment\Webhook\Response::needCapture()
 	 * @used-by \Df\Payment\Webhook\Response::handle()
 	 * @return bool
 	 */
 	protected function needCapture() {return $this->_needCapture;}
-
-	/**
-	 * 2016-07-20
-	 * @override
-	 * @see \Df\Payment\Webhook\Response::responseTransactionId()
-	 * @used-by \Df\Payment\Webhook\Response::payment()
-	 * @return string
-	 */
-	protected function responseTransactionId() {return
-		implode('-', [parent::responseTransactionId(), $this->needCapture() ? 'capture' : 'info'])
-	;}
 
 	/**
 	 * 2016-08-27
