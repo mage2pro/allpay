@@ -119,7 +119,7 @@ abstract class Webhook extends \Df\PaypalClone\Webhook {
 	 * @override
 	 * @see \Df\Payment\Webhook::resultError()
 	 * @used-by \Df\Payment\Webhook::handle()
-	 * @used-by \Df\Payment\WebhookAction::execute()
+	 * @used-by \Df\Payment\Action\Webhook::execute()
 	 * @param \Exception $e
 	 * @return Text
 	 */
