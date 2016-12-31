@@ -8,7 +8,7 @@ use Magento\Sales\Model\Order\Payment\Transaction as T;
  * @method W|string|null responseF(string $key = null)
  * @method W|string|null responseL(string $key = null)
  */
-class Info extends \Df\Payment\R\BlockInfo {
+class Info extends \Df\PaypalClone\BlockInfo {
 	/**
 	 * 2016-07-13
 	 * @return string

@@ -1,11 +1,11 @@
 <?php
 namespace Dfe\AllPay;
 use Dfe\AllPay\Settings as S;
-final class Signer extends \Df\Payment\R\Signer {
+final class Signer extends \Df\PaypalClone\Signer {
 	/**
 	 * 2016-07-10
 	 * @override
-	 * @see \Df\Payment\R\Signer::sign()
+	 * @see \Df\PaypalClone\Signer::sign()
 	 * @return string
 	 */
 	protected function sign() {

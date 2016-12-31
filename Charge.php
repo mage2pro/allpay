@@ -7,12 +7,12 @@ use Dfe\AllPay\Source\Option;
 use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
 use Magento\Sales\Model\Order\Item as OI;
 /** @method Method m() */
-class Charge extends \Df\Payment\R\Charge {
+class Charge extends \Df\PaypalClone\Charge {
 	/**
 	 * 2016-08-29
 	 * @override
-	 * @see \Df\Payment\R\ICharge::requestIdKey()
-	 * @used-by \Df\Payment\R\Charge::p()
+	 * @see \Df\PaypalClone\ICharge::requestIdKey()
+	 * @used-by \Df\PaypalClone\Charge::p()
 	 * @used-by \Df\Payment\Webhook::requestId()
 	 * @return string
 	 */
@@ -21,8 +21,8 @@ class Charge extends \Df\Payment\R\Charge {
 	/**
 	 * 2016-07-04
 	 * @override
-	 * @see \Df\Payment\R\Charge::params()
-	 * @used-by \Df\Payment\R\Charge::p()
+	 * @see \Df\PaypalClone\Charge::params()
+	 * @used-by \Df\PaypalClone\Charge::p()
 	 * @return array(string => mixed)
 	 */
 	protected function params() {return $this->descriptionOnKiosk() + [
@@ -512,8 +512,8 @@ class Charge extends \Df\Payment\R\Charge {
 	 * использовать в качестве идентификатора платежа номер заказа.
 	 *
 	 * @override
-	 * @see \Df\Payment\R\Charge::requestId()
-	 * @used-by \Df\Payment\R\Charge::p()
+	 * @see \Df\PaypalClone\Charge::requestId()
+	 * @used-by \Df\PaypalClone\Charge::p()
 	 * @return string
 	 */
 	protected function requestId() {return Identification::id($this->o());}
@@ -521,8 +521,8 @@ class Charge extends \Df\Payment\R\Charge {
 	/**
 	 * 2016-08-27
 	 * @override
-	 * @see \Df\Payment\R\Charge::signatureKey()
-	 * @used-by \Df\Payment\R\Charge::p()
+	 * @see \Df\PaypalClone\Charge::signatureKey()
+	 * @used-by \Df\PaypalClone\Charge::p()
 	 * @return string
 	 */
 	protected function signatureKey() {return 'CheckMacValue';}

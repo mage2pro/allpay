@@ -10,11 +10,11 @@ use Magento\Sales\Model\Order\Payment as OP;
  * @method Webhook|string|null responseF(string $key = null)
  * @method Webhook|string|null responseL(string $key = null)
  */
-class Method extends \Df\Payment\R\Method {
+class Method extends \Df\PaypalClone\Method {
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\R\Method::getInfoBlockType()
+	 * @see \Df\PaypalClone\Method::getInfoBlockType()
 	 * @used-by \Magento\Payment\Helper\Data::getInfoBlock()
 	 * @return string
 	 */
@@ -70,9 +70,9 @@ class Method extends \Df\Payment\R\Method {
 	 * 2016-08-27
 	 * Первый параметр — для test, второй — для live.
 	 * @override
-	 * @see \Df\Payment\R\Method::stageNames()
-	 * @used-by \Df\Payment\R\Method::getConfigPaymentAction()
-	 * @used-by \Df\Payment\R\Refund::stageNames()
+	 * @see \Df\PaypalClone\Method::stageNames()
+	 * @used-by \Df\PaypalClone\Method::getConfigPaymentAction()
+	 * @used-by \Df\PaypalClone\Refund::stageNames()
 	 * @return string[]
 	 */
 	public function stageNames() {return ['-stage', ''];}
@@ -98,8 +98,8 @@ class Method extends \Df\Payment\R\Method {
 	/**
 	 * 2016-08-27
 	 * @override
-	 * @see \Df\Payment\R\Method::redirectUrl()
-	 * @used-by \Df\Payment\R\Method::getConfigPaymentAction()
+	 * @see \Df\PaypalClone\Method::redirectUrl()
+	 * @used-by \Df\PaypalClone\Method::getConfigPaymentAction()
 	 * @return string
 	 */
 	protected function redirectUrl() {return
