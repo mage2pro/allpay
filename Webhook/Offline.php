@@ -47,7 +47,7 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 	 * @used-by \Df\Payment\Webhook::handle()
 	 * @return void
 	 */
-	protected function handleBefore() {
+	final protected function handleBefore() {
 		$this->_needCapture = !$this[self::KEY];
 		/**
 		 * 2016-07-20

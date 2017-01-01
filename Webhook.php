@@ -13,7 +13,7 @@ use Zend_Date as ZD;
  * The response is documented in the Chapter 7 «Payment Result Notification»
  * on the pages 32-35 of the allPay documentation.
  */
-abstract class Webhook extends \Df\PaypalClone\Webhook {
+abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	/**
 	 * 2016-07-20
 	 * @return string
