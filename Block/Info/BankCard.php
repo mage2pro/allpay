@@ -111,12 +111,8 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	
 	/**
 	 * 2016-07-28
-	 * @param string[] ...$keys
-	 * @return string|null
+	 * @param string[] ...$k
+	 * @return string|null|array(string => mixed)
 	 */
-	private function r(...$keys) {return
-		1 === count($keys)
-		? $this->responseF()->getData(df_first($keys))
-		: dfa_select_ordered($this->responseF()->getData(), $keys)
-	;}
+	private function r(...$k) {return $this->responseF()->req(1 === count($k) ? df_first($k) : $k);}
 }

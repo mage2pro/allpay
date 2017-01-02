@@ -35,27 +35,18 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 	public function isPaid() {return !!$this->paidTime();}
 
 	/**
-	 * 2016-07-20
-	 * @return ZD|null
+	 * 2017-01-02
+	 * @used-by \Dfe\AllPay\Controller\Offline\Index::prepare()
+	 * @param bool $v
+	 * @return void
 	 */
-	public function paidTime() {return self::time($this['PaymentDate']);}
+	public function needCaptureSet($v) {$this->_needCapture = $v;}
 
 	/**
 	 * 2016-07-20
-	 * @override
-	 * @see \Df\Payment\Webhook::handleBefore()
-	 * @used-by \Df\Payment\Webhook::handle()
-	 * @return void
+	 * @return ZD|null
 	 */
-	final protected function handleBefore() {
-		$this->_needCapture = !$this[self::KEY];
-		/**
-		 * 2016-07-20
-		 * Надо обязательно удалить ключ, иначе подпись будет вычислена неправильно:
-		 * @see \Df\Payment\Webhook::signer()
-		 */
-		$this->unsetData(self::KEY);
-	}
+	public function paidTime() {return self::time($this->req('PaymentDate'));}
 
 	/**
 	 * 2016-07-20
@@ -70,6 +61,12 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 
 	/**
 	 * 2016-07-20
+	 * 2017-01-02
+	 * Результат этого метода зависит от контроллера:
+	 * если контроллер — @see \Dfe\AllPay\Controller\Offline\Index,
+	 * то needCapture() должен вернуть false,
+	 * а если контроллер — класс @see \Dfe\AllPay\Controller\Confirm\Index,
+	 * то needCapture() должен вернуть true.
 	 * @override
 	 * @see \Df\Payment\Webhook::needCapture()
 	 * @used-by \Df\Payment\Webhook::handle()
@@ -94,19 +91,20 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 	 * @return ZD
 	 */
 	private function expiration() {return dfc($this, function() {return
-		new ZD($this['ExpireDate'], 'y/MM/dd')
+		new ZD($this->req('ExpireDate'), 'y/MM/dd')
 	;});}
 
 	/**
 	 * 2016-07-20
+	 * 2017-01-02
+	 * Значение этого поля зависит от контроллера:
+	 * если контроллер — @see \Dfe\AllPay\Controller\Offline\Index,
+	 * то needCapture() должен вернуть false,
+	 * а если контроллер — класс @see \Dfe\AllPay\Controller\Confirm\Index,
+	 * то needCapture() должен вернуть true.
+	 * @used-by needCapture()
+	 * @used-by needCaptureSet()
 	 * @var bool
 	 */
-	private $_needCapture;
-
-	/**
-	 * 2016-07-20
-	 * @used-by \Dfe\AllPay\Webhook\Offline::handleBefore()
-	 * @used-by \Dfe\AllPay\Controller\Offline\Index::execute()
-	 */
-	const KEY = 'offline';
+	private $_needCapture = true;
 }

@@ -10,7 +10,7 @@ class ATM extends Offline {
 	 * @param R $f
 	 * @return string
 	 */
-	protected function paymentId(R $f) {return $f['vAccount'];}
+	protected function paymentId(R $f) {return $f->req('vAccount');}
 
 	/**
 	 * 2016-07-25

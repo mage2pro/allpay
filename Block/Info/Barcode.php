@@ -13,7 +13,7 @@ class Barcode extends Offline {
 	 * @see nl2br() для результата вызывать не надо,
 	 * потому что ядро вызовет эту функцию автоматически.
 	 */
-	protected function paymentId(R $f) {return df_cc_n($f['Barcode1'], $f['Barcode2'], $f['Barcode3']);}
+	protected function paymentId(R $f) {return df_cc_n($f->req(['Barcode1', 'Barcode2', 'Barcode3']));}
 
 	/**
 	 * 2016-07-25

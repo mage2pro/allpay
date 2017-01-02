@@ -11,7 +11,7 @@ class CVS extends Offline {
 	 * @param R $f
 	 * @return string
 	 */
-	protected function paymentId(R $f) {return $f['PaymentNo'];}
+	protected function paymentId(R $f) {return $f->req('PaymentNo');}
 
 	/**
 	 * 2016-07-25

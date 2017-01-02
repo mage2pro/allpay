@@ -1,11 +1,9 @@
 <?php
 namespace Dfe\AllPay;
 use Df\Framework\Controller\Result\Text;
+use Df\Framework\Request as Req;
 use Df\Sales\Model\Order as DfOrder;
 use Dfe\AllPay\Source\Option;
-use Magento\Framework\Phrase;
-use Magento\Sales\Model\Order;
-use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Order\Payment as OP;
 use Zend_Date as ZD;
 /**
@@ -84,6 +82,15 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	protected function statusExpected() {return 1;}
 
 	/**
+	 * 2017-01-02
+	 * @override
+	 * @see \Df\Payment\Webhook::test()
+	 * @used-by \Df\Payment\Webhook::req()
+	 * @return bool
+	 */
+	final protected function test() {return parent::test() || $this->extra('class');}
+
+	/**
 	 * 2016-08-09
 	 * @used-by typeLabel()
 	 * @param string $codeFirst
@@ -95,31 +102,21 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	;}
 
 	/**
-	 * 2016-07-13
-	 * @override
-	 * @see \Df\Payment\Webhook::i()
-	 * @param array(string => mixed) $params
-	 * @return self
+	 * 2016-07-20
+	 * @used-by \Dfe\AllPay\WebhookF::_class()
+	 * @param string $type
+	 * @return string
 	 */
-	public static function i($params) {
-		/** @var string|null $classSuffix */
-		$classSuffix = dfa($params, 'class', self::classSuffixS(dfa($params, 'PaymentType')));
-		if (!$classSuffix) {
-			df_error('The request is invalid');
-		}
-		if (isset($params['class'])) {
-			unset($params['class']);
-			$params[self::$dfTest] = 1;
-		}
-		return self::ic(df_con(static::class, df_cc_class('Webhook', $classSuffix)), $params);
-	}
+	public static function classSuffixS($type) {return dftr(df_first(explode('_', $type)), [
+		Option::BANK_CARD => 'BankCard', 'BARCODE' => 'Barcode'
+	]);}
 
 	/**
 	 * 2016-07-26
 	 * @override
 	 * @see \Df\Payment\Webhook::resultError()
+	 * @used-by  \Dfe\AllPay\Controller\Confirm\Index::error()
 	 * @used-by \Df\Payment\Webhook::handle()
-	 * @used-by \Df\Payment\Action\Webhook::execute()
 	 * @param \Exception $e
 	 * @return Text
 	 */
@@ -135,13 +132,4 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	public static function time($timeS) {return dfcf(function($timeS) {return
 		!$timeS ? null : df_date_parse($timeS, 'y/MM/dd HH:mm:ss', Method::TIMEZONE)
 	;}, func_get_args());}
-
-	/**
-	 * 2016-07-20
-	 * @param string $type
-	 * @return string
-	 */
-	private static function classSuffixS($type) {return dftr(df_first(explode('_', $type)), [
-		Option::BANK_CARD => 'BankCard', 'BARCODE' => 'Barcode'
-	]);}
 }

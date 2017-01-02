@@ -8,7 +8,7 @@ class BankCard extends \Dfe\AllPay\Webhook {
 	 * @used-by \Dfe\AllPay\Block\Info\BankCard::custom()
 	 * @return bool
 	 */
-	public function isInstallment() {return !!$this['stage'];}
+	public function isInstallment() {return !!$this->req('stage');}
 
 	/**
 	 * 2016-07-20
