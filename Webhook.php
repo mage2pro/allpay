@@ -1,7 +1,6 @@
 <?php
 namespace Dfe\AllPay;
 use Df\Framework\Controller\Result\Text;
-use Df\Framework\Request as Req;
 use Df\Sales\Model\Order as DfOrder;
 use Dfe\AllPay\Source\Option;
 use Magento\Sales\Model\Order\Payment as OP;
@@ -58,6 +57,9 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	protected function config() {return [
 		self::$externalIdKey => 'TradeNo'
 		,self::$signatureKey => 'CheckMacValue'
+		// 2016-08-27
+		// «Value 1 means a payment is paid successfully. The other means failure.»
+		,self::$statusExpected => 1
 		,self::$statusKey => 'RtnCode'
 		,self::$typeKey => 'PaymentType'
 	];}
@@ -70,16 +72,6 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * @return Text
 	 */
 	protected function resultSuccess() {return Text::i('1|OK');}
-
-	/**
-	 * 2016-08-27
-	 * «Value 1 means a payment is paid successfully. The other means failure.»
-	 * @override
-	 * @see \Df\Payment\Webhook::statusExpected()
-	 * @used-by \Df\Payment\Webhook::isSuccessful()
-	 * @return string|int
-	 */
-	protected function statusExpected() {return 1;}
 
 	/**
 	 * 2017-01-02

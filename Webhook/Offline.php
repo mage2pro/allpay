@@ -4,7 +4,7 @@ use Zend_Date as ZD;
 abstract class Offline extends \Dfe\AllPay\Webhook {
 	/**
 	 * 2016-07-20
-	 * @used-by \Dfe\AllPay\Webhook\Offline::statusExpected()
+	 * @used-by statusExpected()
 	 * @return int
 	 */
 	abstract protected function statusExpectedOffline();
@@ -70,6 +70,7 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 	 * @override
 	 * @see \Df\Payment\Webhook::needCapture()
 	 * @used-by \Df\Payment\Webhook::handle()
+	 * @used-by statusExpected()
 	 * @return bool
 	 */
 	protected function needCapture() {return $this->_needCapture;}
@@ -78,8 +79,8 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 	 * 2016-08-27
 	 * «Value 1 means a payment is paid successfully. The other means failure.»
 	 * @override
-	 * @see \Dfe\AllPay\Webhook::statusExpected()
-	 * @used-by \Df\Payment\Webhook::isSuccessful()
+	 * @see \Df\PaypalClone\Webhook::statusExpected()
+	 * @used-by \Df\PaypalClone\Webhook::isSuccessful()
 	 * @return string|int
 	 */
 	protected function statusExpected() {return
