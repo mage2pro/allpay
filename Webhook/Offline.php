@@ -50,9 +50,11 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 
 	/**
 	 * 2016-07-20
+	 * 2017-01-04
+	 * Своим поведением этот метод напоминает мне @see \Df\StripeClone\Method::e2i()
 	 * @override
 	 * @see \Df\Payment\Webhook::id()
-	 * @used-by \Df\Payment\Webhook::payment()
+	 * @used-by \Df\Payment\Webhook::ii()
 	 * @return string
 	 */
 	final protected function id() {return implode('-', [
