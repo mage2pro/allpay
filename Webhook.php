@@ -54,7 +54,7 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * @used-by \Df\Payment\Webhook::configCached()
 	 * @return array(string => mixed)
 	 */
-	protected function config() {return [
+	final protected function config() {return [
 		self::$externalIdKey => 'TradeNo'
 		,self::$signatureKey => 'CheckMacValue'
 		// 2016-08-27
@@ -65,13 +65,22 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	];}
 
 	/**
+	 * 2017-01-04
+	 * @override
+	 * @see \Df\Payment\Webhook::resultNotForUs()
+	 * @used-by \Df\Payment\Webhook::handle()
+	 * @return Text
+	 */
+	final protected function resultNotForUs() {return $this->resultSuccess();}
+
+	/**
 	 * 2016-07-20
 	 * @override
 	 * @see \Df\Payment\Webhook::resultSuccess()
 	 * @used-by \Df\Payment\Webhook::handle()
 	 * @return Text
 	 */
-	protected function resultSuccess() {return Text::i('1|OK');}
+	final protected function resultSuccess() {return Text::i('1|OK');}
 
 	/**
 	 * 2017-01-02

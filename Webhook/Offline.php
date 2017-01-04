@@ -68,8 +68,8 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 	 * а если контроллер — класс @see \Dfe\AllPay\Controller\Confirm\Index,
 	 * то needCapture() должен вернуть true.
 	 * @override
-	 * @see \Df\Payment\Webhook::needCapture()
-	 * @used-by \Df\Payment\Webhook::handle()
+	 * @see \Df\PaypalClone\Confirmation::needCapture()
+	 * @used-by \Df\PaypalClone\Confirmation::_handle()
 	 * @used-by statusExpected()
 	 * @return bool
 	 */

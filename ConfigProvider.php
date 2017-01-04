@@ -9,7 +9,7 @@ class ConfigProvider extends \Df\Payment\ConfigProvider {
 	 * @used-by \Df\Payment\ConfigProvider::getConfig()
 	 * @return array(string => mixed)
 	 */
-	protected function config() {return [
+	final protected function config() {return [
 		'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
 		,'installment' => ['plans' => $this->s()->installmentSales()->plans()->a()]
 		,'options' => $this->s()->options()
