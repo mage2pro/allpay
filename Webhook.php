@@ -61,7 +61,6 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 		// «Value 1 means a payment is paid successfully. The other means failure.»
 		,self::$statusExpected => 1
 		,self::$statusKey => 'RtnCode'
-		,self::$typeKey => 'PaymentType'
 	];}
 
 	/**
@@ -90,6 +89,17 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * @return bool
 	 */
 	final protected function test() {return parent::test() || $this->extra('class');}
+
+	/**
+	 * 2017-01-04
+	 * @override
+	 * @see \Df\PaypalClone\Confirmation::type()
+	 * @used-by \Df\Payment\Webhook::typeLabel()
+	 * @used-by \Dfe\AllPay\Webhook::classSuffix()
+	 * @used-by \Dfe\AllPay\Webhook::typeLabel()
+	 * @return string
+	 */
+	final protected function type() {return $this->req(WebhookF::KEY_TYPE);}
 
 	/**
 	 * 2016-08-09

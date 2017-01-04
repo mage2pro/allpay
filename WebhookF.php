@@ -17,7 +17,14 @@ class WebhookF extends \Df\Payment\WebhookF {
 	 */
 	final protected function _class($module, array $req, array $extra = []) {
 		/** @var string|null $s */
-		$s = dfa($extra, 'class', W::classSuffixS(dfa($req, 'PaymentType')));
+		$s = dfa($extra, 'class', W::classSuffixS(dfa($req, self::KEY_TYPE)));
 		return $s ? df_con($module, df_cc_class('Webhook', $s)) : df_error('The request is invalid.');
 	}
+
+	/**
+	 * 2017-01-04
+	 * @used-by _class()
+	 * @used-by \Dfe\AllPay\Webhook::type()
+	 */
+	const KEY_TYPE = 'PaymentType';
 }
