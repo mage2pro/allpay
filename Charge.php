@@ -511,12 +511,18 @@ class Charge extends \Df\PaypalClone\Charge {
 	 * поэтому разумно предоставить этому большинству возможность
 	 * использовать в качестве идентификатора платежа номер заказа.
 	 *
+	 * 2017-01-05
+	 * Локальный внутренний идентификатор транзакции.
+	 * Мы намеренно передаваём этот идентификатор локальным (без приставки с именем модуля)
+	 * для удобства работы с этими идентификаторами в интерфейсе платёжной системы:
+	 * ведь там все идентификаторы имели бы одинаковую приставку.
+	 *
 	 * @override
 	 * @see \Df\PaypalClone\Charge::requestId()
 	 * @used-by \Df\PaypalClone\Charge::p()
 	 * @return string
 	 */
-	protected function requestId() {return Identification::id($this->o());}
+	final protected function requestId() {return Identification::id($this->o());}
 
 	/**
 	 * 2016-08-27
