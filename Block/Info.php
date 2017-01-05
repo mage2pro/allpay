@@ -34,7 +34,7 @@ class Info extends \Df\PaypalClone\BlockInfo {
 		$this->si($this->custom());
 		$this->siB([
 			'allPay Payment ID' => $this->responseF()->externalId()
-			,'Magento Payment ID' => $this->responseF()->parentIdL()
+			,'Magento Payment ID' => $this->responseF()->parentIdRaw()
 		]);
 	}
 
