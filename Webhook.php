@@ -15,7 +15,7 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * 2016-07-20
 	 * @return string
 	 */
-	public function classSuffix() {return dfc($this, function() {return
+	final public function classSuffix() {return dfc($this, function() {return
 		self::classSuffixS($this->type())
 	;});}
 
