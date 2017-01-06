@@ -70,16 +70,16 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * @used-by \Df\Payment\Webhook::handle()
 	 * @return Text
 	 */
-	final protected function resultNotForUs() {return $this->resultSuccess();}
+	final protected function resultNotForUs() {return $this->result();}
 
 	/**
 	 * 2016-07-20
 	 * @override
-	 * @see \Df\Payment\Webhook::resultSuccess()
+	 * @see \Df\Payment\Webhook::result()
 	 * @used-by \Df\Payment\Webhook::handle()
 	 * @return Text
 	 */
-	final protected function resultSuccess() {return Text::i('1|OK');}
+	final protected function result() {return Text::i('1|OK');}
 
 	/**
 	 * 2017-01-02
