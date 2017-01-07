@@ -9,16 +9,14 @@ class WebhookF extends \Df\Payment\WebhookF {
 	 * @override
 	 * @see \Df\Payment\WebhookF::_class()
 	 * @used-by \Df\Payment\WebhookF::i()
-	 * @param string|object $module
-	 * @param array(string => mixed) $req
-	 * @param array(string => mixed) $extra [optional]
 	 * @return string
 	 * @throws DFE
 	 */
-	final protected function _class($module, array $req, array $extra = []) {
+	final protected function _class() {
 		/** @var string|null $s */
-		$s = dfa($extra, 'class', W::classSuffixS(dfa($req, self::KEY_TYPE)));
-		return $s ? df_con($module, df_cc_class('Webhook', $s)) : df_error('The request is invalid.');
+		$s = $this->extra('class', W::classSuffixS($this->req(self::KEY_TYPE)));
+		$this->assertType($s);
+		return df_con($this->module(), df_cc_class('Webhook', $s));
 	}
 
 	/**
