@@ -126,7 +126,7 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * 2016-07-26
 	 * @override
 	 * @see \Df\Payment\Webhook::resultError()
-	 * @used-by  \Dfe\AllPay\Controller\Confirm\Index::error()
+	 * @used-by \Dfe\AllPay\Controller\Confirm\Index::error()
 	 * @used-by \Df\Payment\Webhook::handle()
 	 * @param \Exception $e
 	 * @return Text
