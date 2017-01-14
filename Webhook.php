@@ -29,7 +29,7 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	final public function typeLabel() {return dfc($this, function() {
 		/** @var string $result */
 		$result = $this->type();
-		df_assert_string_not_empty($result);
+		df_assert_sne($result);
 		/** @var string[] $a */
 		$a = explode('_', $result);
 		/** @var int $c */

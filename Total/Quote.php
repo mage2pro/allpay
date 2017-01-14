@@ -85,8 +85,7 @@ class Quote extends AbstractTotal {
 			 */
 			if ($planId) {
 				/** @var Plan $plan */
-				$plan = S::s()->installmentSales()->plans($planId);
-				df_assert($plan);
+				$plan = df_assert(S::s()->installmentSales()->plans($planId));
 				$this->setCode('dfe_allpay');
 				parent::collect($quote, $shippingAssignment, $total);
 				/** @var string $quoteCurrency */
@@ -137,11 +136,10 @@ class Quote extends AbstractTotal {
 	 */
 	private function iiAdd(QP $payment, $fee, $feeBase) {
 		/** @var int $id */
-		$id = intval($this->_getAddress()->getId());
 		// 2016-08-15
 		// Адрес уже сохранён в БД и имеет идентификатор даже для анонимного покупателя:
 		// проверил собственноручно.
-		df_assert($id);
+		$id = df_assert(intval($this->_getAddress()->getId()));
 		/** @var array(int => array(string => float)) $values */
 		$values = df_nta($payment->getAdditionalInformation(self::$II_KEY));
 		$payment->setAdditionalInformation(self::$II_KEY,
