@@ -28,10 +28,8 @@ class BankCard extends \Dfe\AllPay\Webhook {
 	 * @param string $codeLast
 	 * @return string|null
 	 */
-	final protected function typeLabelByCode($codeFirst, $codeLast) {
-		df_assert_eq(Option::BANK_CARD, $codeFirst);
-		return df_cc_s(parent::typeLabelByCode($codeFirst, $codeLast),
-			!$this->isInstallment() ? '' : '(Installments)'
-		);
-	}
+	final protected function typeLabelByCode($codeFirst, $codeLast) {return df_cc_s(
+		parent::typeLabelByCode(df_assert_eq(Option::BANK_CARD, $codeFirst), $codeLast)
+		,!$this->isInstallment() ? '' : '(Installments)'
+	);}
 }
