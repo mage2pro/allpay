@@ -71,7 +71,8 @@ class Method extends \Df\PaypalClone\Method {
 	 * Первый параметр — для test, второй — для live.
 	 * @override
 	 * @see \Df\PaypalClone\Method::stageNames()
-	 * @used-by \Df\PaypalClone\Method::getConfigPaymentAction()
+	 * @used-by \Df\PaypalClone\Method::url()
+	 * @used-by \Df\PaypalClone\Method::url2()
 	 * @used-by \Df\PaypalClone\Refund::stageNames()
 	 * @return string[]
 	 */
