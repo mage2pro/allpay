@@ -72,7 +72,6 @@ class Method extends \Df\PaypalClone\Method {
 	 * @override
 	 * @see \Df\PaypalClone\Method::stageNames()
 	 * @used-by \Df\PaypalClone\Method::url()
-	 * @used-by \Df\PaypalClone\Method::url2()
 	 * @used-by \Df\PaypalClone\Refund::stageNames()
 	 * @return string[]
 	 */
