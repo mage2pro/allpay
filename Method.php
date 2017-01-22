@@ -10,7 +10,7 @@ use Magento\Sales\Model\Order\Payment as OP;
  * @method Webhook|string|null responseF(string $key = null)
  * @method Webhook|string|null responseL(string $key = null)
  */
-class Method extends \Df\PaypalClone\Method {
+class Method extends \Df\PaypalClone\Method\Normal {
 	/**
 	 * 2016-07-20
 	 * @override
@@ -70,8 +70,8 @@ class Method extends \Df\PaypalClone\Method {
 	 * 2016-08-27
 	 * Первый параметр — для test, второй — для live.
 	 * @override
-	 * @see \Df\PaypalClone\Method::stageNames()
-	 * @used-by \Df\PaypalClone\Method::url()
+	 * @see \Df\PaypalClone\Method\Normal::stageNames()
+	 * @used-by \Df\PaypalClone\Method\Normal::url()
 	 * @used-by \Df\PaypalClone\Refund::stageNames()
 	 * @return string[]
 	 */
@@ -98,11 +98,11 @@ class Method extends \Df\PaypalClone\Method {
 	/**
 	 * 2016-08-27
 	 * @override
-	 * @see \Df\PaypalClone\Method::redirectUrl()
-	 * @used-by \Df\PaypalClone\Method::getConfigPaymentAction()
+	 * @see \Df\PaypalClone\Method\Normal::redirectUrl()
+	 * @used-by \Df\PaypalClone\Method\Normal::getConfigPaymentAction()
 	 * @return string
 	 */
-	protected function redirectUrl() {return
+	final protected function redirectUrl() {return
 		'https://payment{stage}.allpay.com.tw/Cashier/AioCheckOut/V2'
 	;}
 
