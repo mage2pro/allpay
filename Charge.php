@@ -1,12 +1,14 @@
 <?php
-// 2016-07-04
 namespace Dfe\AllPay;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
-use Dfe\AllPay\Settings as S;
 use Dfe\AllPay\Source\Option;
 use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
 use Magento\Sales\Model\Order\Item as OI;
-/** @method Method m() */
+/**
+ * 2016-07-04
+ * @method Method m()
+ * @method Settings ss()
+ */
 class Charge extends \Df\PaypalClone\Charge {
 	/**
 	 * 2016-08-29
@@ -188,7 +190,7 @@ class Charge extends \Df\PaypalClone\Charge {
 		 * 2016-07-19
 		 * Эта опция учитывается только для ATM.
 		 */
-		,'ExpireDate' => S::s()->waitPeriodATM()
+		,'ExpireDate' => $this->ss()->waitPeriodATM()
 		// 2016-07-04
 		// «Whether or not to hold the allocation».
 		// Int
@@ -282,7 +284,7 @@ class Charge extends \Df\PaypalClone\Charge {
 		// «Merchant Identification number (provided by allPay)».
 		// Varchar(10)
 		// Must be filled.
-		,'MerchantID' => S::s()->merchantID()
+		,'MerchantID' => $this->ss()->merchantID()
 		/**
 		 * 2016-07-02
 		 * «Merchant trade date».
@@ -473,7 +475,7 @@ class Charge extends \Df\PaypalClone\Charge {
 		// «Trade description».
 		// Varchar(200)
 		// Must be filled.
-		,'TradeDesc' => $this->text(S::s()->description())
+		,'TradeDesc' => $this->text($this->ss()->description())
 	];}
 
 	/**
@@ -540,7 +542,7 @@ class Charge extends \Df\PaypalClone\Charge {
 	 */
 	private function descriptionOnKiosk() {
 		/** @var string[] $lines */
-		$lines = df_explode_n($this->text(S::s()->descriptionOnKiosk()));
+		$lines = df_explode_n($this->text($this->ss()->descriptionOnKiosk()));
 		/** @var int $n */
 		$n = 1;
 		/** @var array(string => string) $result */
@@ -564,7 +566,7 @@ class Charge extends \Df\PaypalClone\Charge {
 	 * @return bool
 	 */
 	private function isSingleOptionChosen() {return dfc($this, function() {return
-		$this->plan() || $this->option() || 1 === count(S::s()->optionsAllowed())
+		$this->plan() || $this->option() || 1 === count($this->ss()->optionsAllowed())
 	;});}
 
 	/**
@@ -594,9 +596,9 @@ class Charge extends \Df\PaypalClone\Charge {
 	private function pChoosePayment() {return dfc($this, function() {return
 		$this->plan() ? Option::BANK_CARD : (
 			$this->option() ?: (
-				!S::s()->optionsLimit() || !$this->isSingleOptionChosen()
+				!$this->ss()->optionsLimit() || !$this->isSingleOptionChosen()
 					? 'ALL'
-					: df_first(S::s()->optionsAllowed())
+					: df_first($this->ss()->optionsAllowed())
 			)
 		)
 	;});}
@@ -619,8 +621,8 @@ class Charge extends \Df\PaypalClone\Charge {
 			 * https://code.dmitry-fedyuk.com/m2e/allpay/issues/14
 			 */
 			array_merge(['ALL' === $this->pChoosePayment() ? 'Alipay' : null],
-				!S::s()->optionsLimit() || $this->isSingleOptionChosen()
-					? [] : array_diff(Option::s()->keys(), S::s()->optionsAllowed())
+				!$this->ss()->optionsLimit() || $this->isSingleOptionChosen()
+					? [] : array_diff(Option::s()->keys(), $this->ss()->optionsAllowed())
 			)
 		)
 	;}
