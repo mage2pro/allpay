@@ -2,7 +2,7 @@
 namespace Dfe\AllPay\InstallmentSales\Plan;
 use Dfe\AllPay\TWD;
 use Df\Core\Exception as DFE;
-class Entity extends \Df\Config\ArrayItem {
+final class Entity extends \Df\Config\ArrayItem {
 	/**
 	 * 2016-08-13
 	 * @used-by \Dfe\AllPay\Total\Quote::collect()
@@ -27,11 +27,11 @@ class Entity extends \Df\Config\ArrayItem {
 	/**
 	 * 2016-07-31
 	 * @override
-	 * @see \Df\Config\ArrayItem::getId()
+	 * @see \Df\Config\ArrayItem::id()
 	 * @used-by \Df\Config\A::get()
 	 * @return int
 	 */
-	public function getId() {return $this->numPayments();}
+	public function id() {return $this->numPayments();}
 
 	/**
 	 * 2016-08-08
