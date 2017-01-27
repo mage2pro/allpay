@@ -5,11 +5,9 @@ use Df\Sales\Model\Order as DfOrder;
 use Dfe\AllPay\Source\Option;
 use Magento\Sales\Model\Order\Payment as OP;
 use Zend_Date as ZD;
-/**
- * 2016-07-09
- * The response is documented in the Chapter 7 «Payment Result Notification»
- * on the pages 32-35 of the allPay documentation.
- */
+// 2016-07-09
+// The response is documented in the Chapter 7 «Payment Result Notification»
+// on the pages 32-35 of the allPay documentation.
 abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	/**
 	 * 2016-07-20
