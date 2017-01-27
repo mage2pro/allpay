@@ -93,13 +93,14 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 
 	/**
 	 * 2016-08-09
-	 * @used-by typeLabel()
+	 * @used-by typeLabel()  
+	 * @see \Dfe\AllPay\Webhook\BankCard::typeLabelByCode()
 	 * @param string $codeFirst
 	 * @param string $codeLast
 	 * @return string|null
 	 */
 	protected function typeLabelByCode($codeFirst, $codeLast) {return
-		dfa_deep($this->moduleJson('labels'), [$codeFirst, $codeLast])
+		dfa_deep(df_module_json($this, 'labels'), [$codeFirst, $codeLast])
 	;}
 
 	/**
