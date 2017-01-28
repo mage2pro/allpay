@@ -1,12 +1,12 @@
 ## Demo videos
 
-1. [Capture a **bank card** payment](https://www.youtube.com/watch?v=tmy-YbPGrio)
-2. [Capture an **ATM** payment](https://www.youtube.com/watch?v=1S-j8UbXZtA)
-3. [Capture a **Barcode** payment](https://www.youtube.com/watch?v=ujA-BOQV6GM)
-4. [A payment by **installments**](https://www.youtube.com/watch?v=rAkXZlP8Xok)
-5. [Payment **options** on the Magento checkout screen](https://www.youtube.com/watch?v=V0vYTeRALyo)
-6. [**Mobile** mode](https://www.youtube.com/watch?v=vZGABg-31xo)
-7. [**Fast** mode: skip the billing address form filling](https://www.youtube.com/watch?v=a-gTR5JNlwk)
+1. [Capture a **bank card** payment](https://www.youtube.com/watch?v=tmy-YbPGrio).
+2. [Capture an **ATM** payment](https://www.youtube.com/watch?v=1S-j8UbXZtA).
+3. [Capture a **Barcode** payment](https://www.youtube.com/watch?v=ujA-BOQV6GM).
+4. [A payment by **installments**](https://www.youtube.com/watch?v=rAkXZlP8Xok).
+5. [Payment **options** on the Magento checkout screen](https://www.youtube.com/watch?v=V0vYTeRALyo).
+6. [**Mobile** mode](https://www.youtube.com/watch?v=vZGABg-31xo).
+7. [**Fast** mode: skip the billing address form filling](https://www.youtube.com/watch?v=a-gTR5JNlwk).
 
 ## Licensing
 It is a paid extension, not free.  
