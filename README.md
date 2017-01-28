@@ -1,3 +1,5 @@
+The extension integrates your Magento 2 store with the **[歐付寶 allPay](https://www.allpay.com.tw)** Taiwanese payment service.
+
 ## Demo videos
 
 1. [Capture a **bank card** payment](https://www.youtube.com/watch?v=tmy-YbPGrio).
