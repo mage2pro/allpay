@@ -31,7 +31,7 @@ If you have already bought the extension, then its installation is a **free serv
 Follow the generic [installation instruction](https://mage2.pro/t/263). 
 
 ## Support
-- [The extension's **forum** branch](https://mage2.pro/c/extensions/stripe).
+- [The extension's **forum** branch](https://mage2.pro/c/extensions/allpay).
 - [Where and how to report a Mage2.PRO extension's issue?](https://mage2.pro/t/2034)
 
 ## Need another payment extension for Magento 2?
