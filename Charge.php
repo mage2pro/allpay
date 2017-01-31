@@ -9,7 +9,7 @@ use Magento\Sales\Model\Order\Item as OI;
  * @method Method m()
  * @method Settings ss()
  */
-class Charge extends \Df\PaypalClone\Charge {
+final class Charge extends \Df\PaypalClone\Charge {
 	/**
 	 * 2016-08-29
 	 * @override
