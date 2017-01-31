@@ -614,18 +614,14 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 	 * @return string
 	 */
-	private function pIgnorePayment() {return
-		df_ccc('#',
-			/**
-			 * 2016-08-17
-			 * https://code.dmitry-fedyuk.com/m2e/allpay/issues/14
-			 */
-			array_merge(['ALL' === $this->pChoosePayment() ? 'Alipay' : null],
-				!$this->ss()->optionsLimit() || $this->isSingleOptionChosen()
-					? [] : array_diff(Option::s()->keys(), $this->ss()->optionsAllowed())
-			)
+	private function pIgnorePayment() {return df_ccc('#',
+		// 2016-08-17
+		// https://code.dmitry-fedyuk.com/m2e/allpay/issues/14
+		array_merge(['ALL' === $this->pChoosePayment() ? 'Alipay' : null],
+			!$this->ss()->optionsLimit() || $this->isSingleOptionChosen()
+				? [] : array_diff(Option::s()->keys(), $this->ss()->optionsAllowed())
 		)
-	;}
+	);}
 
 	/**
 	 * 2016-08-08
@@ -649,9 +645,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * Could be empty.
 	 * @return string
 	 */
-	private function productUrls() {return
-		df_ccc('+', df_map(function(OI $item) {
-			return $item->getChildrenItems() ? null : $item->getProduct()->getProductUrl();
-		}, $this->o()->getItems()))
-	;}
+	private function productUrls() {return df_ccc('+', $this->oiLeafsM(function(OI $i) {return
+		$i->getProduct()->getProductUrl()
+	;}));}
 }
