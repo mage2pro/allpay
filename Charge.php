@@ -646,6 +646,6 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @return string
 	 */
 	private function productUrls() {return df_ccc('+', $this->oiLeafs(function(OI $i) {return
-		$i->getProduct()->getProductUrl()
+		df_oi_url($i)
 	;}));}
 }
