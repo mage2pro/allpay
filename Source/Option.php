@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\Source;
 /** @method static Option s() */
-class Option extends \Df\Config\SourceT {
+final class Option extends \Df\Config\SourceT {
 	/**
 	 * @override
 	 * @see \Df\Config\Source::map()
