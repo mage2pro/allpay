@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay;
 /** @method Settings s() */
-class ConfigProvider extends \Df\Payment\ConfigProvider {
+final class ConfigProvider extends \Df\Payment\ConfigProvider {
 	/**
 	 * 2016-08-04
 	 * @override
@@ -9,7 +9,7 @@ class ConfigProvider extends \Df\Payment\ConfigProvider {
 	 * @used-by \Df\Payment\ConfigProvider::getConfig()
 	 * @return array(string => mixed)
 	 */
-	final protected function config() {return [
+	protected function config() {return [
 		'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
 		,'installment' => ['plans' => $this->s()->installmentSales()->plans()->a()]
 		,'options' => $this->s()->options()
