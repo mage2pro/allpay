@@ -13,4 +13,16 @@
 	}]
 	,"require": {"mage2pro/core": "^1.12.3"}
 	,"autoload": {"files": ["registration.php"], "psr-4": {"Dfe\\AllPay\\": ""}}
+	,"keywords": [
+		"allpay"
+		,"歐付寶"
+		,"api"
+		,"bank card"
+		,"ecommerce"
+		,"magento"
+		,"magento 2"
+		,"magento extension"
+		,"payment"
+		,"taiwan"
+	]
 }
