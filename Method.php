@@ -10,7 +10,7 @@ use Magento\Sales\Model\Order\Payment as OP;
  * @method Webhook|string|null responseF(string $key = null)
  * @method Webhook|string|null responseL(string $key = null)
  */
-class Method extends \Df\PaypalClone\Method\Normal {
+final class Method extends \Df\PaypalClone\Method\Normal {
 	/**
 	 * 2016-07-20
 	 * @override
@@ -102,7 +102,7 @@ class Method extends \Df\PaypalClone\Method\Normal {
 	 * @used-by \Df\PaypalClone\Method\Normal::getConfigPaymentAction()
 	 * @return string
 	 */
-	final protected function redirectUrl() {return
+	protected function redirectUrl() {return
 		'https://payment{stage}.allpay.com.tw/Cashier/AioCheckOut/V2'
 	;}
 
