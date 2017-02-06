@@ -185,7 +185,7 @@
 					<label>Description</label>
 					<comment><![CDATA[It will be displayed to the customer on the 歐付寶 allPay payment page.
 <br/>Up to 200 characters.
-<br/>You can use <a href='https://mage2.pro/t/topic/1834' target='_blank'>the following variables in the template</a>.]]></comment>
+<br/>You can use <a href='https://mage2.pro/t/1834' target='_blank'>the following variables in the template</a>.]]></comment>
 <!--
 2016-07-01
 Не используем здесь validate-length, потому что описание допускает параметры,
@@ -207,7 +207,7 @@
 					<label>Description on a kiosk's screen</label>
 					<comment><![CDATA[It will be displayed to the customer <a href='https://mage2.pro/t/1828' target='_blank'>on a kiosk's screen</a>.
 <br/>Up to <b>4 lines</b> with up to <b>20 characters</b> on each line.
-<br/>You can use <a href='https://mage2.pro/t/topic/1834' target='_blank'>the same variables</a> as for the «Description» parameter above.]]></comment>
+<br/>You can use <a href='https://mage2.pro/t/1834' target='_blank'>the same variables</a> as for the «Description» parameter above.]]></comment>
 <!--
 2016-07-01
 Не используем здесь validate-length, потому что описание допускает параметры,
