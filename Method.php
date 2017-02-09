@@ -90,15 +90,13 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * 2017-02-08
 	 * @override
 	 * Результат — в рублях, не в копейках.
-	 * I did not find such information on the allpay.com.tw website.
 	 * «Does allPay have minimum and maximum amount limitations on a single payment?»
 	 * https://mage2.pro/t/2688
-	 * https://mail.google.com/mail/u/0/#sent/15a1f2dc4506f42e
 	 * @see \Df\Payment\Method::amountLimits()
 	 * @used-by \Df\Payment\Method::isAvailable()
 	 * @return null
 	 */
-	protected function amountLimits() {return null;}
+	protected function amountLimits() {return [null, 30000];}
 
 	/**
 	 * 2016-08-08
