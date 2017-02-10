@@ -89,7 +89,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	/**
 	 * 2017-02-08
 	 * @override
-	 * Результат — в рублях, не в копейках.
+	 * The result should be in the basic monetary unit (like dollars), not in fractions (like cents).
 	 * «Does allPay have minimum and maximum amount limitations on a single payment?»
 	 * https://mage2.pro/t/2688
 	 * @see \Df\Payment\Method::amountLimits()
