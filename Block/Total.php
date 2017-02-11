@@ -9,7 +9,7 @@ class Total extends \Df\Sales\Block\Order\Total {
 	 * @used-by \Magento\Sales\Block\Order\Totals::_beforeToHtml()
 	 * @return void
 	 */
-	public function initTotals() {
+	function initTotals() {
 		/** @var float|null $v */
 		/** @var float|null $b */
 		list($v, $b) = TQuote::iiGet($this->payment());

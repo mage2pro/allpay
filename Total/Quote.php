@@ -52,7 +52,7 @@ class Quote extends AbstractTotal {
 	 * @param Total $total
 	 * @return CollectorInterface
 	 */
-	public function collect(Q $quote, IShippingAssignment $shippingAssignment, Total $total) {
+	function collect(Q $quote, IShippingAssignment $shippingAssignment, Total $total) {
 		/** @var QP $payment */
 		$payment = $quote->getPayment();
 		/**
@@ -124,7 +124,7 @@ class Quote extends AbstractTotal {
 	 * @param Total $total
 	 * @return array
 	 */
-	public function fetch(Q $quote, Total $total) {return [];}
+	function fetch(Q $quote, Total $total) {return [];}
 
 	/**
 	 * 2016-08-14

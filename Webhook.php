@@ -13,7 +13,7 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * 2016-07-20
 	 * @return string
 	 */
-	final public function classSuffix() {return dfc($this, function() {return
+	final function classSuffix() {return dfc($this, function() {return
 		self::classSuffixS($this->type())
 	;});}
 
@@ -24,7 +24,7 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * @used-by \Df\Payment\Webhook::log()
 	 * @return string
 	 */
-	final public function typeLabel() {return dfc($this, function() {
+	final function typeLabel() {return dfc($this, function() {
 		/** @var string $result */
 		$result = $this->type();
 		df_assert_sne($result);

@@ -18,7 +18,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @used-by \Magento\Payment\Helper\Data::getInfoBlock()
 	 * @return string
 	 */
-	public function getInfoBlockType() {return dfc($this, function() {
+	function getInfoBlockType() {return dfc($this, function() {
 		/** @var Webhook $r */
 		$r = $this->responseF();
 		return df_con($this, df_ccc('\\', 'Block\Info', !$r ? null : $r->classSuffix()), Info::class);
@@ -31,7 +31,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @used-by \Dfe\AllPay\Method::paymentOptionTitle()
 	 * @return Plan|null
 	 */
-	public function plan() {return dfc($this, function() {
+	function plan() {return dfc($this, function() {
 		/** @var int|null $id */
 		$id = $this->iia(self::$II_PLAN);
 		return !$id ? null : $this->s()->installmentSales()->plans($id);
@@ -44,7 +44,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @used-by \Df\Payment\Observer\DataProvider\SearchResult::execute()
 	 * @return string
 	 */
-	public function titleDetailed() {return
+	function titleDetailed() {return
 		df_cc_br(parent::titleDetailed(), $this->paymentOptionTitle())
 	;}
 
@@ -53,7 +53,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @used-by \Dfe\AllPay\Method::titleDetailed()
 	 * @return string|Phrase|null
 	 */
-	public function paymentOptionTitle() {return dfc($this, function() {return
+	function paymentOptionTitle() {return dfc($this, function() {return
 		$this->responseF() ? __($this->responseF()->typeLabel()) : (
 			// 2016-08-13
 			// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
@@ -75,7 +75,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @used-by \Df\PaypalClone\Refund::stageNames()
 	 * @return string[]
 	 */
-	public function stageNames() {return ['-stage', ''];}
+	function stageNames() {return ['-stage', ''];}
 
 	/**
 	 * 2016-11-13

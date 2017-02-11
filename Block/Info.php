@@ -13,7 +13,7 @@ class Info extends \Df\PaypalClone\BlockInfo {
 	 * 2016-07-13
 	 * @return string
 	 */
-	public function paymentOption() {return dfc($this, function() {return
+	function paymentOption() {return dfc($this, function() {return
 		$this->m()->paymentOptionTitle() ?:  __('Not selected yet')
 	;});}
 

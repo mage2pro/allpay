@@ -13,7 +13,7 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 	 * 2016-07-19
 	 * @return string
 	 */
-	public function expirationS() {return dfc($this, function() {
+	function expirationS() {return dfc($this, function() {
 		/** @var string $result */
 		$result = df_dts($this->expiration(), ZD::DATE_LONG);
 		/** @var int $daysLeft */
@@ -32,7 +32,7 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 	 * 2016-07-20
 	 * @return bool
 	 */
-	public function isPaid() {return !!$this->paidTime();}
+	function isPaid() {return !!$this->paidTime();}
 
 	/**
 	 * 2017-01-02
@@ -40,13 +40,13 @@ abstract class Offline extends \Dfe\AllPay\Webhook {
 	 * @param bool $v
 	 * @return void
 	 */
-	public function needCaptureSet($v) {$this->_needCapture = $v;}
+	function needCaptureSet($v) {$this->_needCapture = $v;}
 
 	/**
 	 * 2016-07-20
 	 * @return ZD|null
 	 */
-	public function paidTime() {return self::time($this->req('PaymentDate'));}
+	function paidTime() {return self::time($this->req('PaymentDate'));}
 
 	/**
 	 * 2016-07-20

@@ -10,7 +10,7 @@ final class Settings extends \Df\Config\Settings {
 	 * @param int|null $numPayments [optional]
 	 * @return A|Plan|null
 	 */
-	public function plans($numPayments = null) {
+	function plans($numPayments = null) {
 		/** @var A $result */
 		$result = $this->_a(Plan::class);
 		return is_null($numPayments) ? $result : $result->get(intval($numPayments));

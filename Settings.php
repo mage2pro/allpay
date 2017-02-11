@@ -10,7 +10,7 @@ final class Settings extends \Df\Payment\Settings {
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Description on a kiosk's screen»
 	 * @return string
 	 */
-	public function descriptionOnKiosk() {return $this->v();}
+	function descriptionOnKiosk() {return $this->v();}
 
 	/**
 	 * 2016-06-29
@@ -18,7 +18,7 @@ final class Settings extends \Df\Payment\Settings {
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
 	 * @return string
 	 */
-	public function hashIV() {return $this->testablePV();}
+	function hashIV() {return $this->testablePV();}
 
 	/**
 	 * 2016-06-29
@@ -26,32 +26,32 @@ final class Settings extends \Df\Payment\Settings {
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
 	 * @return string
 	 */
-	public function hashKey() {return $this->testablePV();}
+	function hashKey() {return $this->testablePV();}
 
 	/**
 	 * 2016-07-31
 	 * @return InstallmentSales\Settings
 	 */
-	public function installmentSales() {return $this->child(InstallmentSales\Settings::class);}
+	function installmentSales() {return $this->child(InstallmentSales\Settings::class);}
 
 	/**
 	 * 2016-06-29
 	 * @return string
 	 */
-	public function merchantID() {return $this->testable();}
+	function merchantID() {return $this->testable();}
 
 	/**
 	 * 2016-07-05
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Allowed Payment Options»
 	 * @return string[]
 	 */
-	public function optionsAllowed() {return $this->csv();}
+	function optionsAllowed() {return $this->csv();}
 
 	/**
 	 * 2016-08-07
 	 * @return array(string => string)
 	 */
-	public function options() {return
+	function options() {return
 		Option::s()->options(!$this->optionsLimit() ? null : $this->optionsAllowed())
 	;}
 
@@ -60,28 +60,28 @@ final class Settings extends \Df\Payment\Settings {
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Limit Payment Options Availability?»
 	 * @return bool
 	 */
-	public function optionsLimit() {return $this->b();}
+	function optionsLimit() {return $this->b();}
 
 	/**
 	 * 2016-08-15
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Where to ask for a payment option?»
 	 * @return string
 	 */
-	public function optionsLocation() {return $this->v();}
+	function optionsLocation() {return $this->v();}
 
 	/**
 	 * 2016-07-17
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Payment Identification Type»
 	 * @return string
 	 */
-	public function paymentIdentificationType() {return $this->v();}
+	function paymentIdentificationType() {return $this->v();}
 
 	/**
 	 * 2016-07-19
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait period for an ATM payment»
 	 * @return int
 	 */
-	public function waitPeriodATM() {return dfc($this, function($f) {
+	function waitPeriodATM() {return dfc($this, function($f) {
 		/** @var int $result */
 		$result = $this->nat($f);
 		if (WaitPeriodType::WORKING_DAYS === $this->waitPeriodType()) {
@@ -95,5 +95,5 @@ final class Settings extends \Df\Payment\Settings {
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait Period Type»
 	 * @return string
 	 */
-	public function waitPeriodType() {return $this->v();}
+	function waitPeriodType() {return $this->v();}
 }

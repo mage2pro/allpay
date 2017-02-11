@@ -17,7 +17,7 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * @param string $currencyCode
 	 * @return float|int
 	 */
-	public function amount($amount, $currencyCode) {return
+	function amount($amount, $currencyCode) {return
 		!$amount ? 0 : TWD::round(
 			$amount * (1 + $this->rate() / 100) + $this->fee($currencyCode) * $this->numPayments()
 			,$currencyCode
@@ -31,7 +31,7 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Df\Config\A::get()
 	 * @return int
 	 */
-	public function id() {return $this->numPayments();}
+	function id() {return $this->numPayments();}
 
 	/**
 	 * 2016-08-08
@@ -41,7 +41,7 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
 	 * @return int
 	 */
-	public function numPayments() {return $this->nat();}
+	function numPayments() {return $this->nat();}
 
 	/**
 	 * 2016-08-07
@@ -50,7 +50,7 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Df\Config\Backend\ArrayT::processI()
 	 * @return int
 	 */
-	public function sortWeight() {return $this->numPayments();}
+	function sortWeight() {return $this->numPayments();}
 
 	/**
 	 * 2016-08-02
@@ -60,7 +60,7 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * @return void
 	 * @throws DFE
 	 */
-	public function validate() {df_assert($this->numPayments());}
+	function validate() {df_assert($this->numPayments());}
 
 	/**
 	 * 2016-08-08
