@@ -109,7 +109,7 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * @param string $type
 	 * @return string
 	 */
-	public static function classSuffixS($type) {return dftr(df_first(explode('_', $type)), [
+	static function classSuffixS($type) {return dftr(df_first(explode('_', $type)), [
 		Option::BANK_CARD => 'BankCard', 'BARCODE' => 'Barcode'
 	]);}
 
@@ -122,7 +122,7 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * @param \Exception $e
 	 * @return Text
 	 */
-	public static function resultError(\Exception $e) {return Text::i('0|' . df_lets($e));}
+	static function resultError(\Exception $e) {return Text::i('0|' . df_lets($e));}
 
 	/**
 	 * 2016-07-28
@@ -131,7 +131,7 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	 * @param string|null $timeS
 	 * @return ZD|null
 	 */
-	public static function time($timeS) {return dfcf(function($timeS) {return
+	static function time($timeS) {return dfcf(function($timeS) {return
 		!$timeS ? null : df_date_parse($timeS, 'y/MM/dd HH:mm:ss', Method::TIMEZONE)
 	;}, func_get_args());}
 }

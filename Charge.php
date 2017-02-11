@@ -18,7 +18,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @used-by \Df\PaypalClone\Webhook::parentIdRawKey()
 	 * @return string
 	 */
-	public static function requestIdKey() {return 'MerchantTradeNo';}
+	static function requestIdKey() {return 'MerchantTradeNo';}
 
 	/**
 	 * 2016-07-04

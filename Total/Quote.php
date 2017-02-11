@@ -154,7 +154,7 @@ class Quote extends AbstractTotal {
 	 * @param IPayment|QP|OP $payment
 	 * @return null|float[]
 	 */
-	public static function iiGet(IPayment $payment) {
+	static function iiGet(IPayment $payment) {
 		/** @var array(int => array(string => float)) $values */
 		$values = df_nta($payment->getAdditionalInformation(self::$II_KEY));
 		/** @var float $fee */
