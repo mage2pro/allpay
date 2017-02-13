@@ -1,6 +1,8 @@
 <?php
 namespace Dfe\AllPay\Controller\Confirm;
 use Dfe\AllPay\Webhook as W;
+// 2017-02-14
+/** @see \Dfe\AllPay\Controller\Offline\Index */
 class Index extends \Df\Payment\Action\Webhook {
 	/**
 	 * 2017-01-02
