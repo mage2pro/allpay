@@ -13,9 +13,8 @@ class WebhookF extends \Df\Payment\WebhookF {
 	 * @throws DFE
 	 */
 	final protected function _class() {
-		/** @var string|null $s */
-		$s = $this->extra('class', W::classSuffixS($this->req(self::KEY_TYPE)));
-		$this->assertType($s);
+		/** @var string $s */
+		$s = $this->assertType($this->extra('class', W::classSuffixS($this->req(self::KEY_TYPE))));
 		return df_con($this->module(), df_cc_class('Webhook', $s));
 	}
 
