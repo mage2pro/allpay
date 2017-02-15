@@ -9,11 +9,11 @@
 				<!--
 					2016-08-22
 					Значением этой опции по умолчанию и так является true:
-					@see \Df\Payment\Settings::askForBillingAddress()
+					@see \Df\Payment\Settings::requireBillingAddress()
 					Однако здесь это значение всё равно нужно указать,
 					чтобы галка была установлена для чекбокса.
 				-->
-				<askForBillingAddress>1</askForBillingAddress>
+				<requireBillingAddress>1</requireBillingAddress>
 				<countries>TW</countries>
 				<country_restriction>whitelist</country_restriction>
 				<!--
