@@ -3,7 +3,9 @@ namespace Dfe\AllPay\Block\Info;
 use Dfe\AllPay\Method;
 use Dfe\AllPay\Webhook\BankCard as R;
 use Magento\Framework\Phrase;
-/**
+/**  
+ * 2016-07-28
+ * @final
  * @method R|string|null responseF(string $key = null)
  * @method R|string|null responseL(string $key = null)
  */

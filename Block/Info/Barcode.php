@@ -2,6 +2,7 @@
 namespace Dfe\AllPay\Block\Info;
 use Dfe\AllPay\Webhook\Offline as R;
 // 2016-07-25
+/** @final */
 class Barcode extends Offline {
 	/**
 	 * 2016-07-25
