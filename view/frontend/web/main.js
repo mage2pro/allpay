@@ -81,9 +81,18 @@ define([
 	oneOff: function() {return df.t(
 		'One-off Payment: %s', this.dfc.formatMoney(this.dfc.grandTotal())
 	);},
-	/** @returns {String} */
-	oneOffOptions: function() {return df.t(
-		'The following payment options are available: %s.', _.values(this.options()).join(', ')
+	/**
+	 * 2016-08-15
+	 * 2017-03-01
+	 * Этот метод используется в том случае,
+	 * когда администратор предпочёл выбор покупателем варианта оплаты
+	 * на странице allPay, а не на странице Magento.
+	 * В этом случае мы информируем покупателя о доступных вариантах оплаты простым текстом,
+	 * без элементов управления.
+	 * @returns {String}
+	 */
+	oneOffOptions: function() {return df.t('The following payment options are available: %s.',
+	   _.values(this.options()).join(', ')
 	);},
 	/**
 	 * 2016-08-15
