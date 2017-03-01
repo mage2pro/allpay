@@ -87,12 +87,17 @@ define([
 	);},
 	/**
 	 * 2016-08-15
+	 * 2017-03-01
+	 * Эта функция вернёт null только при выполнении сразу обоих следующих условий:
+	 * 1) Администратор предпочёл выбор покупателем варианта оплаты
+	 * на странице allPay, а не на странице Magento.
+	 * 2) Оплата в рассрочку отключена.
 	 * @returns {?String}
 	 */
 	oneOffTemplate: df.c(function() {
 		/** @type {String} */
-		var suffix = this.needShowOptions() ? 'withOptions' : (this.hasPlans() ? 'simple' : null);
-		return !suffix ? null : 'Dfe_AllPay/one-off/' + suffix;
+		var s = this.needShowOptions() ? 'withOptions' : (this.hasPlans() ? 'simple' : null);
+		return !s ? null : 'Dfe_AllPay/one-off/' + s;
 	}),
 	/**
 	 * 2016-08-06
