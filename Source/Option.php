@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\AllPay\Source;
+// 2016-07-02
 /** @method static Option s() */
 final class Option extends \Df\Config\SourceT {
 	/**
