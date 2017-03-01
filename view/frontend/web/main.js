@@ -89,6 +89,7 @@ define([
 	 * на странице allPay, а не на странице Magento.
 	 * В этом случае мы информируем покупателя о доступных вариантах оплаты простым текстом,
 	 * без элементов управления.
+	 * @used-by https://github.com/mage2pro/allpay/blob/1.1.32/view/frontend/web/template/one-off/simple.html?ts=4#L7-L12
 	 * @returns {String}
 	 */
 	oneOffOptions: function() {return df.t('The following payment options are available: %s.',
