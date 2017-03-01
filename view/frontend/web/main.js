@@ -68,13 +68,9 @@ define([
 	iPlans: df.c(function() {
 		/** @type {Number} */
 		var rateToCurrent = this.config('currencyRateFromBaseToCurrent');
-		return $.map(this.installment().plans, function(plan) {
-			return Plan({
-				fee: parseFloat(plan.fee)
-				,numPayments: parseInt(plan.numPayments)
-				,rate: parseFloat(plan.rate)
-			}, rateToCurrent);
-		});
+		return $.map(this.installment().plans, function(p) {return Plan({
+			fee: parseFloat(p.fee), numPayments: parseInt(p.numPayments), rate: parseFloat(p.rate)
+		}, rateToCurrent);});
 	}),
 	/**
 	 * 2016-08-15
