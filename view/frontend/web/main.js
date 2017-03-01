@@ -18,7 +18,8 @@ define([
 	 * 2016-08-08
 	 * @override
 	 * @see mage2pro/core/Payment/view/frontend/web/mixin.js
-	 * @used-by getData()
+	 * @used-by mage2pro/core/Payment/view/frontend/web/mixin.js::getData()
+	 * https://github.com/mage2pro/core/blob/2.0.21/Payment/view/frontend/web/mixin.js?ts=4#L208-L225
 	 * @returns {Object}
 	 */
 	dfData: function() {return df.o.merge(this._super(), df.clean({
