@@ -1,11 +1,14 @@
 <div class='field choice one-off'>
 	<input checked class='radio' id='df-option-oneoff' name='option' type='radio' value='oneoff'/>
 	<label class='label' for='df-option-oneoff'>
+<!-- 2017-03-01
+Показывает текст с размером платежа: «One-off Payment: : <...>».
+https://github.com/mage2pro/allpay/blob/1.1.32/view/frontend/web/main.js?ts=4#L80-L83 -->
 		<span data-bind='html: oneOff()'></span>
 	</label>
 </div>
 <!-- 2017-03-01
-Показывает текст вида: «The following payment options are available...»,
+Показывает текст вида: «The following payment options are available: <...>»,
 при этом выбор покупателем варианта оплаты происходит на стороне allPay,
 потому что администратор так решил.
 @see https://github.com/mage2pro/allpay/blob/1.1.32/view/frontend/web/main.js?ts=4#L84-L96 -->
