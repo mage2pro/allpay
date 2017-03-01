@@ -25,7 +25,14 @@ define([
 	 * @returns {Object}
 	 */
 	dfData: function() {return df.o.merge(this._super(), df.clean({
-		option: this.option, plan: this.plan
+		// 2017-03-01
+		// @see \Dfe\AllPay\Method::II_OPTION
+		// https://github.com/mage2pro/allpay/blob/1.1.32/Method.php?ts=4#L126
+		option: this.option
+		// 2017-03-01
+		// @see \Dfe\AllPay\Method::$II_PLAN
+		// https://github.com/mage2pro/allpay/blob/1.1.32/Method.php?ts=4#L140
+		,plan: this.plan
 	}));},
 	/**
 	 * 2016-08-17
