@@ -74,6 +74,9 @@ define([
 	}),
 	/**
 	 * 2016-08-15
+	 * 2017-03-01
+	 * Результатом этого метода является предпочтение администратором
+	 * стороны для запроса у покупателя варианта оплаты allPay или Magento.
 	 * @returns {Boolean}
 	 */
 	needShowOptions: function() {return 'magento' === this.config('optionsLocation');},
@@ -137,13 +140,9 @@ define([
 	 * 2016-08-15
 	 * @returns {Object[]}
 	 */
-	optionsA: df.c(function() {
-		return $.map(this.options(), function(label, value) {return {
-			domId: 'df-option-' + value
-			,label: label
-			,value: value
-		};});
-	}),
+	optionsA: df.c(function() {return $.map(this.options(), function(label, v) {return {
+		domId: 'df-option-' + v, label: label, value: v
+	};});}),
 	/**
 	 * 2016-07-01
 	 * @override
