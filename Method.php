@@ -120,8 +120,8 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 
 	/**
 	 * 2016-08-15
-	 * @used-by \Dfe\AllPay\Method::iiaKeys()
-	 * @used-by \Dfe\AllPay\Charge
+	 * @used-by iiaKeys()
+	 * @used-by \Dfe\AllPay\Charge::option()
 	 */
 	const II_OPTION = 'option';
 
@@ -134,8 +134,8 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 
 	/**
 	 * 2016-08-08
-	 * @used-by \Dfe\AllPay\Method::iiaKeys()
-	 * @used-by \Dfe\AllPay\Method::plan()
+	 * @used-by iiaKeys()
+	 * @used-by plan()
 	 */
 	private static $II_PLAN = 'plan';
 }
