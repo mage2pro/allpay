@@ -325,7 +325,7 @@ contain some other symbols.</p>
 				>
 					<label>Limit Payment Options Availability?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
-					<comment><![CDATA[If checked, only the specified options will be available to the customers.]]></comment>
+					<comment><![CDATA[If checked, only the specified options will be shown to the customers.]]></comment>
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
