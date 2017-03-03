@@ -2,7 +2,7 @@
 // 2016-06-29
 namespace Dfe\AllPay;
 use Df\Payment\Settings\Options as O;
-use Dfe\AllPay\Source\Option as OS;
+use Dfe\AllPay\Source\Option as OptionSource;
 use Dfe\AllPay\Source\WaitPeriodType;
 use Zend_Date as ZD;
 /** @method static Settings s() */
@@ -47,7 +47,7 @@ final class Settings extends \Df\Payment\Settings {
 	 * @used-by \Dfe\AllPay\ConfigProvider::config()
 	 * @return O
 	 */
-	function options() {return dfc($this, function() {return new O($this, OS::s());});}
+	function options() {return $this->_options(OptionSource::class);}
 
 	/**
 	 * 2016-08-15
