@@ -23,17 +23,14 @@ form.dfe_all_pay {
 		> .container:not(:first-child) {margin-top: 1em;}
 	}
 	&.with-options {
-		&.has-plans {
-			> .container.container-one-off .choice {padding-top: 0.25em;  padding-bottom: 0.25em;}
-			&.df-wide {
-				width: 100%;
-				overflow: hidden;
-				> .container {
-					float: left;
-					&:not(:first-child) {margin-top: 0; margin-left: 4em;}
-				}
+		&.has-plans.df-wide {
+			width: 100%;
+			overflow: hidden;
+			> .container {
+				float: left;
+				&:not(:first-child) {margin-top: 0; margin-left: 4em;}
 			}
 		}
-		.container-one-off .choice {padding-left: 0.2em;}
+		.container-one-off .choice {padding: 0.25em 0 0.25em 0.2em;}
 	}
 }
