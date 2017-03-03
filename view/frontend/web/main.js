@@ -100,9 +100,7 @@ define([
 	 * @used-by https://github.com/mage2pro/allpay/blob/1.1.32/view/frontend/web/template/one-off/withOptions.html?ts=4#L2
 	 * @returns {String}
 	 */
-	oneOff: function() {return df.t('One-off Payment: %s',
-		this.dfc.formatMoney(this.dfc.grandTotal())
-	);},
+	oneOff: function() {return df.t('One-off Payment: %s', this.dfc.formatMoney(this.dfc.grandTotal()));},
 	/**
 	 * 2016-08-15
 	 * 2017-03-01
