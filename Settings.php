@@ -44,6 +44,10 @@ final class Settings extends \Df\Payment\Settings {
 	/**
 	 * 2016-07-05
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Allowed Payment Options»
+	 * @used-by \Dfe\AllPay\Charge::isSingleOptionChosen()
+	 * @used-by \Dfe\AllPay\Charge::pChoosePayment()
+	 * @used-by \Dfe\AllPay\Charge::pIgnorePayment()
+	 * @used-by options()
 	 * @return string[]
 	 */
 	function optionsAllowed() {return $this->csv();}
@@ -60,6 +64,9 @@ final class Settings extends \Df\Payment\Settings {
 	/**
 	 * 2016-07-05
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Limit Payment Options Availability?»
+	 * @used-by options()
+	 * @used-by \Dfe\AllPay\Charge::pChoosePayment()
+	 * @used-by \Dfe\AllPay\Charge::pIgnorePayment()
 	 * @return bool
 	 */
 	function optionsLimit() {return $this->b();}
