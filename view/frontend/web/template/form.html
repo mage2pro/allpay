@@ -1,3 +1,9 @@
+<!-- 2017-03-03
+Метод oneOffTemplate() вернёт null только при выполнении сразу обоих следующих условий:
+1) Администратор предпочёл выбор покупателем варианта оплаты
+на странице allPay, а не на странице Magento.
+2) Оплата в рассрочку отключена. 
+-->
 <!--ko if: oneOffTemplate() -->
 	<div class='container container-one-off'>
 		<!-- ko template: oneOffTemplate() --><!-- /ko -->
