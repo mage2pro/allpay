@@ -3,18 +3,15 @@ define([
 	'df'
 	,'df-lodash'
 	,'Df_Core/my/redirectWithPost'
- 	,'Df_Payment/custom'
+ 	,'Df_Payment/withOptions'
 	,'Dfe_AllPay/plan'
   	,'jquery'
 ], function(df, _, redirectWithPost, parent, Plan, $) {'use strict'; return parent.extend({
-	defaults: {
-		df: {
-			test: {showBackendTitle: false},
-			// 2016-08-06
-			// @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
-			formTemplate: 'Dfe_AllPay/form'
-		}
-	},
+	defaults: {df: {
+		// 2016-08-06
+		// @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
+		formTemplate: 'Dfe_AllPay/form'
+	}},
 	/**
 	 * 2016-08-08
 	 * 2017-03-01
@@ -27,13 +24,9 @@ define([
 	 */
 	dfData: function() {return df.o.merge(this._super(), df.clean({
 		// 2017-03-01
-		// @see \Dfe\AllPay\Method::II_OPTION
-		// https://github.com/mage2pro/allpay/blob/1.1.32/Method.php?ts=4#L126
-		option: this.option
-		// 2017-03-01
 		// @see \Dfe\AllPay\Method::$II_PLAN
 		// https://github.com/mage2pro/allpay/blob/1.1.32/Method.php?ts=4#L140
-		,plan: this.plan
+		plan: this.plan
 	}));},
 	/**
 	 * 2016-08-17
@@ -129,31 +122,6 @@ define([
 		var s = this.needShowOptions() ? 'withOptions' : (this.hasPlans() ? 'simple' : null);
 		return !s ? null : 'Dfe_AllPay/one-off/' + s;
 	}),
-	/**
-	 * 2016-08-06
-	 * @override
-	 * @see mage2pro/core/Payment/view/frontend/web/mixin.js
-	 * @used-by placeOrderInternal()
-	 */
-	onSuccess: function(json) {
-		/** @type {Object} */
-		var data = $.parseJSON(json);
-		// 2016-07-10
-		// @see \Dfe\AllPay\Method::getConfigPaymentAction()
-		redirectWithPost(data.uri, data.params);
-	},
-	/**
-	 * 2016-08-15
-	 * @returns {Object}
-	 */
-	options: function() {return this.config('options');},
-	/**
-	 * 2016-08-15
-	 * @returns {Object[]}
-	 */
-	optionsA: df.c(function() {return $.map(this.options(), function(label, v) {return {
-		domId: 'df-option-' + v, label: label, value: v
-	};});}),
 	/**
 	 * 2016-07-01
 	 * @override
