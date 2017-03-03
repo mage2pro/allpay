@@ -1,10 +1,6 @@
 // 2016-08-04
 define([
-	'df'
-	,'df-lodash'
- 	,'Df_Payment/withOptions'
-	,'Dfe_AllPay/plan'
-  	,'jquery'
+	'df', 'df-lodash', 'Df_Payment/withOptions', 'Dfe_AllPay/plan', 'jquery'
 ], function(df, _, parent, Plan, $) {'use strict'; return parent.extend({
 	defaults: {df: {
 		// 2016-08-06
