@@ -1,13 +1,15 @@
 // 2016-08-09
 form.dfe_all_pay {
+	// 2017-03-04
+	// @used-by Dfe_AllPay/one-off/simple
+	// https://github.com/mage2pro/allpay/blob/1.1.38/view/frontend/web/template/one-off/simple.html?ts=4#L1
+	// Этот шаблон используется при выполнении сразу обоих следующих условий:
+	// 1) Администратор предпочёл выбор покупателем варианта оплаты
+	// на странице allPay, а не на странице Magento.
+	// 2) Оплата в рассрочку включена.
 	.choice.one-off {
 		> input, > label {vertical-align: baseline;}
-		> label {
-			> :first-child {
-				font-weight: 600;
-				font-size: 1.8rem;
-			}
-		}
+		> label > :first-child {font-weight: 600; font-size: 1.8rem;}
 	}
 	table.plans {
 		width: auto;
