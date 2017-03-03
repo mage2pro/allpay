@@ -43,7 +43,7 @@ final class Settings extends \Df\Payment\Settings {
 	function merchantID() {return $this->testable();}
 
 	/**
-	 * 2016-08-07
+	 * 2017-03-03
 	 * @used-by \Dfe\AllPay\ConfigProvider::config()
 	 * @return O
 	 */
