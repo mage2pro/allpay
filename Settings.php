@@ -50,6 +50,7 @@ final class Settings extends \Df\Payment\Settings {
 
 	/**
 	 * 2016-08-07
+	 * @used-by \Dfe\AllPay\ConfigProvider::config()
 	 * @return array(string => string)
 	 */
 	function options() {return
