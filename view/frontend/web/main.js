@@ -49,8 +49,7 @@ define([
 	 * @returns {String[]}
 	 */
 	dfFormCssClasses: function() {return this._super().concat([
-		this.needShowOptions() ? 'with-options' : null
-		,this.hasPlans ? 'has-plans' : null
+		this.needShowOptions() ? 'with-options' : null, this.hasPlans ? 'has-plans' : null
 	]);},
 	/**
 	 * 2016-08-15
