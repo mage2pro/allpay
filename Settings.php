@@ -53,9 +53,9 @@ final class Settings extends \Df\Payment\Settings {
 	 * @used-by \Dfe\AllPay\ConfigProvider::config()
 	 * @return array(string => string)
 	 */
-	function options() {return
-		Option::s()->options(!$this->optionsLimit() ? null : $this->optionsAllowed())
-	;}
+	function options() {return Option::s()->options(
+		!$this->optionsLimit() ? null : $this->optionsAllowed()
+	);}
 
 	/**
 	 * 2016-07-05
