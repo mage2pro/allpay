@@ -1,7 +1,8 @@
 <?php
 // 2016-06-29
 namespace Dfe\AllPay;
-use Dfe\AllPay\Source\Option;
+use Df\Payment\Settings\Options as O;
+use Dfe\AllPay\Source\Option as OS;
 use Dfe\AllPay\Source\WaitPeriodType;
 use Zend_Date as ZD;
 /** @method static Settings s() */
@@ -42,34 +43,11 @@ final class Settings extends \Df\Payment\Settings {
 	function merchantID() {return $this->testable();}
 
 	/**
-	 * 2016-07-05
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Allowed Payment Options»
-	 * @used-by \Dfe\AllPay\Charge::isSingleOptionChosen()
-	 * @used-by \Dfe\AllPay\Charge::pChoosePayment()
-	 * @used-by \Dfe\AllPay\Charge::pIgnorePayment()
-	 * @used-by options()
-	 * @return string[]
-	 */
-	function optionsAllowed() {return $this->csv();}
-
-	/**
 	 * 2016-08-07
 	 * @used-by \Dfe\AllPay\ConfigProvider::config()
-	 * @return array(string => string)
+	 * @return O
 	 */
-	function options() {return Option::s()->options(
-		!$this->optionsLimit() ? null : $this->optionsAllowed()
-	);}
-
-	/**
-	 * 2016-07-05
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Limit Payment Options Availability?»
-	 * @used-by options()
-	 * @used-by \Dfe\AllPay\Charge::pChoosePayment()
-	 * @used-by \Dfe\AllPay\Charge::pIgnorePayment()
-	 * @return bool
-	 */
-	function optionsLimit() {return $this->b();}
+	function options() {return dfc($this, function() {return new O($this, OS::s());});}
 
 	/**
 	 * 2016-08-15

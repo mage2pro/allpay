@@ -14,7 +14,7 @@ final class ConfigProvider extends \Df\Payment\ConfigProvider {
 	protected function config() {return [
 		'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
 		,'installment' => ['plans' => $this->s()->installmentSales()->plans()->a()]
-		,'options' => $this->s()->options()
+		,'options' => $this->s()->options()->o()
 		,'optionsLocation' => $this->s()->optionsLocation()
 	] + parent::config();}
 }

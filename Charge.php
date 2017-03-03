@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\AllPay;
+use Df\Payment\Settings\Options as O;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Dfe\AllPay\Source\Option;
 use Dfe\AllPay\Source\PaymentIdentificationType as Identification;
@@ -593,15 +594,13 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 	 * @return string
 	 */
-	private function pChoosePayment() {return dfc($this, function() {return
-		$this->plan() ? Option::BANK_CARD : (
-			$this->option() ?: (
-				!$this->ss()->optionsLimit() || !$this->isSingleOptionChosen()
-					? 'ALL'
-					: df_first($this->ss()->optionsAllowed())
-			)
-		)
-	;});}
+	private function pChoosePayment() {return dfc($this, function() {
+		/** @var O $o */
+		$o = $this->ss()->options();
+		return $this->plan() ? Option::BANK_CARD : ($this->option() ?: (
+			!$o->isLimited() || !$this->isSingleOptionChosen() ? 'ALL' : df_first($o->allowed())
+		));
+	});}
 
 	/**
 	 * 2016-07-05
@@ -614,12 +613,11 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 	 * @return string
 	 */
-	private function pIgnorePayment() {return df_ccc('#',
+	private function pIgnorePayment() {/** @var O $o */ $o = $this->ss()->options(); return df_ccc('#',
 		// 2016-08-17
 		// https://code.dmitry-fedyuk.com/m2e/allpay/issues/14
 		array_merge(['ALL' === $this->pChoosePayment() ? 'Alipay' : null],
-			!$this->ss()->optionsLimit() || $this->isSingleOptionChosen()
-				? [] : array_diff(Option::s()->keys(), $this->ss()->optionsAllowed())
+			!$o->isLimited() || $this->isSingleOptionChosen() ? [] : $o->denied()
 		)
 	);}
 
