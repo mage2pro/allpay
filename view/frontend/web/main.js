@@ -2,11 +2,9 @@
 define([
 	'df', 'df-lodash', 'Df_Payment/withOptions', 'Dfe_AllPay/plan', 'jquery'
 ], function(df, _, parent, Plan, $) {'use strict'; return parent.extend({
-	defaults: {df: {
-		// 2016-08-06
-		// @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
-		formTemplate: 'Dfe_AllPay/form'
-	}},
+	// 2016-08-06
+	// @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
+	defaults: {df: {formTemplate: 'Dfe_AllPay/form'}},
 	/**
 	 * 2016-08-08
 	 * 2017-03-01
@@ -15,14 +13,11 @@ define([
 	 * @see mage2pro/core/Payment/view/frontend/web/mixin.js::dfData()
 	 * @used-by mage2pro/core/Payment/view/frontend/web/mixin.js::getData()
 	 * https://github.com/mage2pro/core/blob/2.0.21/Payment/view/frontend/web/mixin.js?ts=4#L208-L225
+	 * @see \Dfe\AllPay\Method::$II_PLAN
+	 * https://github.com/mage2pro/allpay/blob/1.1.32/Method.php?ts=4#L140
 	 * @returns {Object}
 	 */
-	dfData: function() {return df.o.merge(this._super(), df.clean({
-		// 2017-03-01
-		// @see \Dfe\AllPay\Method::$II_PLAN
-		// https://github.com/mage2pro/allpay/blob/1.1.32/Method.php?ts=4#L140
-		plan: this.plan
-	}));},
+	dfData: function() {return df.o.merge(this._super(), df.clean({plan: this.plan}));},
 	/**
 	 * 2016-08-17
 	 * @override
@@ -32,12 +27,9 @@ define([
 	 * @param {Object} _this
 	 */
 	dfFormAfterRender: function(element, _this) {
-		/** @type {jQuery} HTMLDivElement */
-		var c = $('#payment');
-		var f = _this.dfForm();
-		var toggle = function() {f.toggleClass('df-wide', 575 <= c.width());};
-		toggle();
-		$(window).resize(toggle);
+		var t = function() {_this.dfForm().toggleClass('df-wide', 575 <= $('#payment').width());};
+		t();
+		$(window).resize(t);
 	},
 	/**
 	 * 2016-08-16
