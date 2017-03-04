@@ -8,8 +8,13 @@ form.dfe_all_pay {
 	// на странице allPay, а не на странице Magento.
 	// 2) Оплата в рассрочку включена.
 	.choice.one-off {
-		> input, > label {vertical-align: baseline;}
-		> label > :first-child {font-weight: 600; font-size: 1.8rem;}
+		// 2017-03-05
+		// Добавил [type=radio], чтобы правило было весомее общего правила из Df_Checkout.
+		> input[type=radio] {display: block; float: left; margin-top: 0.5em;}
+		> label {
+			display: block; margin-left: 1.5em;
+			> :first-child {font-weight: 600; font-size: 1.8rem;}
+		}
 	}
 	table.plans {
 		width: auto;
