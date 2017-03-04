@@ -1,6 +1,6 @@
 {
 	"name": "mage2pro/allpay"
-	,"version": "1.1.41"
+	,"version": "1.2.0"
 	,"description": "The «歐付寶 allPay» payment extension for Magento 2."
 	,"type": "magento2-module"
 	,"homepage": "https://mage2.pro/c/extensions/allpay"
@@ -11,7 +11,7 @@
 		"homepage": "https://mage2.pro/users/dmitry_fedyuk",
 		"role": "Developer"
 	}]
-	,"require": {"mage2pro/core": "^2.0.35"}
+	,"require": {"mage2pro/core": "^2.0.36"}
 	,"autoload": {"files": ["registration.php"], "psr-4": {"Dfe\\AllPay\\": ""}}
 	,"keywords": [
 		"allPay"
