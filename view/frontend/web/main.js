@@ -6,19 +6,6 @@ define([
 	// @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
 	defaults: {df: {formTemplate: 'Dfe_AllPay/form'}},
 	/**
-	 * 2016-08-08
-	 * 2017-03-01
-	 * Задаёт набор передаваемых на сервер при нажатии кнопки «Place Order» данных.
-	 * @override
-	 * @see mage2pro/core/Payment/view/frontend/web/mixin.js::dfData()
-	 * @used-by mage2pro/core/Payment/view/frontend/web/mixin.js::getData()
-	 * https://github.com/mage2pro/core/blob/2.0.21/Payment/view/frontend/web/mixin.js?ts=4#L208-L225
-	 * @see \Dfe\AllPay\Method::$II_PLAN
-	 * https://github.com/mage2pro/allpay/blob/1.1.32/Method.php?ts=4#L140
-	 * @returns {Object}
-	 */
-	dfData: function() {return df.o.merge(this._super(), df.clean({plan: this.plan}));},
-	/**
 	 * 2016-08-17
 	 * @override
 	 * @see mage2pro/core/Payment/view/frontend/web/mixin.js
@@ -60,8 +47,12 @@ define([
 	iPlans: df.c(function() {
 		/** @type {Number} */
 		var rateToCurrent = this.config('currencyRateFromBaseToCurrent');
+		var option = this.option;
 		return $.map(this.installment().plans, function(p) {return Plan({
-			fee: parseFloat(p.fee), numPayments: parseInt(p.numPayments), rate: parseFloat(p.rate)
+			fee: parseFloat(p.fee)
+			,numPayments: parseInt(p.numPayments)
+			,option: option
+			,rate: parseFloat(p.rate)
 		}, rateToCurrent);});
 	}),
 	/**
@@ -109,25 +100,14 @@ define([
 		return !s ? null : 'Dfe_AllPay/one-off/' + s;
 	}),
 	/**
-	 * 2016-07-01
+	 * 2017-03-05
 	 * @override
-	 * @see https://github.com/magento/magento2/blob/2.1.0/app/code/Magento/Checkout/view/frontend/web/js/view/payment/default.js#L127-L159
-	 * @used-by https://github.com/magento/magento2/blob/2.1.0/lib/web/knockoutjs/knockout.js#L3863
-	*/
-	placeOrder: function() {
-		if (this.validate()) {
-			// http://stackoverflow.com/a/8622351
-			/** @type {?String} */
-			var option = this.dfRadioValue('option');
-			if (null !== option) {
-				if (option.match(/\d+/)) {
-					this.plan = option;
-				}
-				else if (this.needShowOptions()) {
-					this.option = option;
-				}
-			}
-			this.placeOrderInternal();
-		}
-	}
+	 * @see Df_Payment/withOptions::postProcessOption()
+	 * @used-by Df_Payment/withOptions::dfData()
+	 * Значение «undefined» задано в шаблоне Dfe_AllPay/one-off/simple.
+	 * @used-by dfData()
+	 * @param {String} option
+	 * @returns {?String}
+	 */
+	postProcessOption: function(option) {return 'undefined' === option ? null : option;}
 });});

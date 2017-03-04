@@ -7,6 +7,7 @@ define([
 	 * @param {Object} plan
 	 * @param {Number} plan.fee
 	 * @param {Number} plan.numPayments
+	 * @param {Function} plan.option
 	 * @param {Number} plan.rate
 	 * @param {Number} rateToCurrent
 	 * @returns {Object}
@@ -53,7 +54,7 @@ define([
 	 * @param {jQuery.Event} event
 	 */
 	onRowClicked: function(_this, event) {
-		$(':radio', event.currentTarget).prop('checked', true);
+		plan.option(_this.numPayments);
 		// 2016-08-12
 		// Возврат true приводит к последующей обработке события обработчиком по умолчанию.
 		// http://knockoutjs.com/documentation/click-binding.html#note-3-allowing-the-default-click-action

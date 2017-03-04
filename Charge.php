@@ -564,17 +564,17 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * В отличие от JavaScript, в PHP оператор || возвращает значение логического типа,
 	 * а не первый неложный аргумент.
 	 * https://3v4l.org/fmTAA
+	 * 2017-03-05
+	 * Этот метод возвращает false, если покупатель ещё не определился со способом оплаты.
+	 * Такое возможно, если покупатель решил не платить в рассрочку,
+	 * а администратор решил разместить выбор единократных опций
+	 * на стороне allPay, а не на стороне Magento.
+	 * Значение «undefined» задано в шаблоне Dfe_AllPay/one-off/simple.
 	 * @return bool
 	 */
 	private function isSingleOptionChosen() {return dfc($this, function() {return
-		$this->plan() || $this->option() || 1 === count($this->ss()->optionsAllowed())
+		$this->m()->option() || 1 === count($this->ss()->options()->allowed())
 	;});}
-
-	/**
-	 * 2016-08-15
-	 * @return string|null
-	 */
-	private function option() {return $this->iia(Method::II_OPTION);}
 
 	/**
 	 * 2016-07-05
@@ -597,7 +597,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	private function pChoosePayment() {return dfc($this, function() {
 		/** @var O $o */
 		$o = $this->ss()->options();
-		return $this->plan() ? Option::BANK_CARD : ($this->option() ?: (
+		return $this->plan() ? Option::BANK_CARD : ($this->m()->option() ?: (
 			!$o->isLimited() || !$this->isSingleOptionChosen() ? 'ALL' : df_first($o->allowed())
 		));
 	});}

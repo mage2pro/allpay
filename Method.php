@@ -25,17 +25,24 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	});}
 
 	/**
+	 * 2017-03-05
+	 * @used-by plan()
+	 * @used-by \Dfe\AllPay\Charge::isSingleOptionChosen()
+	 * @used-by \Dfe\AllPay\Charge::pChoosePayment()
+	 * @return string|null
+	 */
+	function option() {return $this->iia(self::$II_OPTION);}
+
+	/**
 	 * 2016-08-13
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
 	 * @used-by \Dfe\AllPay\Charge::plan()
 	 * @used-by \Dfe\AllPay\Method::paymentOptionTitle()
 	 * @return Plan|null
 	 */
-	function plan() {return dfc($this, function() {
-		/** @var int|null $id */
-		$id = $this->iia(self::$II_PLAN);
-		return !$id ? null : $this->s()->installmentSales()->plans($id);
-	});}
+	function plan() {return dfc($this, function() {/** @var int|string|null $id */ return
+		!ctype_digit($id = $this->option()) ? null : $this->s()->installmentSales()->plans($id)
+	;});}
 
 	/**
 	 * 2016-07-28
@@ -44,9 +51,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @used-by \Df\Payment\Observer\DataProvider\SearchResult::execute()
 	 * @return string
 	 */
-	function titleDetailed() {return
-		df_cc_br(parent::titleDetailed(), $this->paymentOptionTitle())
-	;}
+	function titleDetailed() {return df_cc_br(parent::titleDetailed(), $this->paymentOptionTitle());}
 
 	/**
 	 * 2016-08-13
@@ -105,7 +110,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @used-by \Df\Payment\Method::assignData()
 	 * @return string[]
 	 */
-	protected function iiaKeys() {return [self::II_OPTION, self::$II_PLAN];}
+	protected function iiaKeys() {return [self::$II_OPTION];}
 
 	/**
 	 * 2016-08-27
@@ -119,13 +124,6 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	;}
 
 	/**
-	 * 2016-08-15
-	 * @used-by iiaKeys()
-	 * @used-by \Dfe\AllPay\Charge::option()
-	 */
-	const II_OPTION = 'option';
-
-	/**
 	 * 2016-07-20
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
 	 * @used-by \Dfe\AllPay\Webhook\Offline::paidTime()
@@ -133,9 +131,9 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	const TIMEZONE = 'Asia/Taipei';
 
 	/**
-	 * 2016-08-08
+	 * 2016-08-15
 	 * @used-by iiaKeys()
 	 * @used-by plan()
 	 */
-	private static $II_PLAN = 'plan';
+	private static $II_OPTION = 'option';
 }
