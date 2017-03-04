@@ -54,14 +54,12 @@ define([
 	 */
 	onRowClicked: function(_this, event) {
 		$(':radio', event.currentTarget).prop('checked', true);
-		/**
-		 * 2016-08-12
-		 * Возврат true приводит к последующей обработке события обработчиком по умолчанию.
-		 * http://knockoutjs.com/documentation/click-binding.html#note-3-allowing-the-default-click-action
-		 * Опытным путём установил, что если этого не делать,
-		 * то при клике непосредственно по радиокнопке радиокнопка не будет выбрана
-		 * (выбор сначала происходит, а потом сбрасывается).
-		 */
+		// 2016-08-12
+		// Возврат true приводит к последующей обработке события обработчиком по умолчанию.
+		// http://knockoutjs.com/documentation/click-binding.html#note-3-allowing-the-default-click-action
+		// Опытным путём установил, что если этого не делать,
+		// то при клике непосредственно по радиокнопке радиокнопка не будет выбрана
+		// (выбор сначала происходит, а потом сбрасывается).
 		return true;
 	}
 };});});
