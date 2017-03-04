@@ -46,7 +46,8 @@ define([
 	 * 2016-08-09
 	 * «How to handle a click event for a Knockout template's element with the «click» binding?»
 	 * https://mage2.pro/t/1937
-	 * @see mage2pro/allpay/view/frontend/web/template/installment.html
+	 * @see Dfe_AllPay/plans
+	 * https://github.com/mage2pro/allpay/blob/1.1.40/view/frontend/web/template/plans.html?ts=4#L13
 	 * How to check a radio button:  http://stackoverflow.com/a/5665942
 	 * @param {Object} _this
 	 * @param {jQuery.Event} event
