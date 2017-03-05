@@ -16,7 +16,6 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @override
 	 * @see \Df\PaypalClone\Charge\IRequestIdKey::requestIdKey()
 	 * @used-by \Df\PaypalClone\Charge::p()
-	 * @used-by \Dfe\AllPay\Webhook::parentIdRawKey()
 	 * @return string
 	 */
 	static function requestIdKey() {return 'MerchantTradeNo';}
