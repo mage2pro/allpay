@@ -1,6 +1,7 @@
 <?php
 namespace Dfe\AllPay\Webhook;
-class ATM extends Offline {
+// 2016-07-20
+final class ATM extends Offline {
 	/**
 	 * 2016-07-20
 	 * @override

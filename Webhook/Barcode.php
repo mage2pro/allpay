@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\Webhook;
 // 2016-07-25
-class Barcode extends Offline {
+final class Barcode extends Offline {
 	/**
 	 * 2016-07-25
 	 * @override

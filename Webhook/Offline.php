@@ -1,6 +1,12 @@
 <?php
 namespace Dfe\AllPay\Webhook;
 use Zend_Date as ZD;
+/**
+ * 2016-07-19
+ * @see \Dfe\AllPay\Webhook\ATM
+ * @see \Dfe\AllPay\Webhook\Barcode
+ * @see \Dfe\AllPay\Webhook\CVS
+ */
 abstract class Offline extends \Dfe\AllPay\Webhook {
 	/**
 	 * 2016-07-20

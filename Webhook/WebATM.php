@@ -1,6 +1,7 @@
 <?php
 namespace Dfe\AllPay\Webhook;
-class WebATM extends \Dfe\AllPay\Webhook {
+// 2016-07-26
+final class WebATM extends \Dfe\AllPay\Webhook {
 	/**
 	 * 2016-07-26
 	 * @override

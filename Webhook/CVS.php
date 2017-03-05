@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\Webhook;
 // 2016-07-25
-class CVS extends Offline {
+final class CVS extends Offline {
 	/**
 	 * 2016-07-25
 	 * @override
