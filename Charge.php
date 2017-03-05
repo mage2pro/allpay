@@ -14,11 +14,11 @@ final class Charge extends \Df\PaypalClone\Charge {
 	/**
 	 * 2016-07-04
 	 * @override
-	 * @see \Df\PaypalClone\Charge::params()
+	 * @see \Df\PaypalClone\Charge::pCharge()
 	 * @used-by \Df\PaypalClone\Charge::p()
 	 * @return array(string => mixed)
 	 */
-	protected function params() {return $this->descriptionOnKiosk() + [
+	protected function pCharge() {return $this->descriptionOnKiosk() + [
 		/**
 		 * 2016-07-02
 		 * «Select default payment type».
