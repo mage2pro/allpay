@@ -14,7 +14,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	/**
 	 * 2016-08-29
 	 * @override
-	 * @see \Df\PaypalClone\ICharge::requestIdKey()
+	 * @see \Df\PaypalClone\Charge\IRequestIdKey::requestIdKey()
 	 * @used-by \Df\PaypalClone\Charge::p()
 	 * @used-by \Df\PaypalClone\Webhook::parentIdRawKey()
 	 * @return string
