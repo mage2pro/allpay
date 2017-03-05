@@ -65,6 +65,15 @@ abstract class Webhook extends \Df\PaypalClone\Confirmation {
 	];}
 
 	/**
+	 * 2017-03-06
+	 * @override
+	 * @see \Df\Payment\Webhook::parentIdRawKey()
+	 * @used-by \Df\Payment\Webhook::parentIdRaw()
+	 * @return string
+	 */
+	final protected function parentIdRawKey() {return Charge::requestIdKey();}
+
+	/**
 	 * 2017-01-04
 	 * @override
 	 * @see \Df\Payment\Webhook::resultNotForUs()
