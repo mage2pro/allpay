@@ -3,13 +3,15 @@ define([
 	'df', 'df-lodash', 'Df_Payment/withOptions', 'Dfe_AllPay/plan', 'jquery'
 ], function(df, _, parent, Plan, $) {'use strict'; return parent.extend({
 	// 2016-08-06
-	// @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
+	// @used-by Df_Payment/main
+	// https://github.com/mage2pro/core/blob/2.0.36/Payment/view/frontend/web/template/main.html?ts=4#L36-L38
 	defaults: {df: {formTemplate: 'Dfe_AllPay/form'}},
 	/**
 	 * 2016-08-17
 	 * @override
 	 * @see mage2pro/core/Payment/view/frontend/web/mixin.js
-	 * @used-by mage2pro/core/Payment/view/frontend/web/template/item.html
+	 * @used-by Df_Payment/main
+	 * https://github.com/mage2pro/core/blob/2.0.36/Payment/view/frontend/web/template/main.html?ts=4#L33
 	 * @param {HTMLElement} element
 	 * @param {Object} _this
 	 */
