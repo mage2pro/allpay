@@ -14,6 +14,9 @@ final class ConfigProvider extends \Df\Payment\ConfigProvider {
 	protected function config() {return [
 		'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
 		,'installment' => ['plans' => $this->s()->installmentSales()->plans()->a()]
+		// 2017-03-05
+		// @used-by Df_Payments/withOptions::options()
+		// https://github.com/mage2pro/core/blob/2.0.36/Payment/view/frontend/web/withOptions.js?ts=4#L55
 		,'options' => $this->s()->options()->o()
 		,'optionsLocation' => $this->s()->optionsLocation()
 	] + parent::config();}
