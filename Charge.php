@@ -12,15 +12,6 @@ use Magento\Sales\Model\Order\Item as OI;
  */
 final class Charge extends \Df\PaypalClone\Charge {
 	/**
-	 * 2016-08-29
-	 * @override
-	 * @see \Df\PaypalClone\Charge\IRequestIdKey::requestIdKey()
-	 * @used-by \Df\PaypalClone\Charge::p()
-	 * @return string
-	 */
-	static function requestIdKey() {return 'MerchantTradeNo';}
-
-	/**
 	 * 2016-07-04
 	 * @override
 	 * @see \Df\PaypalClone\Charge::params()
@@ -524,7 +515,16 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @used-by \Df\PaypalClone\Charge::p()
 	 * @return string
 	 */
-	final protected function requestId() {return Identification::id($this->o());}
+	protected function requestId() {return Identification::id($this->o());}
+
+	/**
+	 * 2016-08-29
+	 * @override
+	 * @see \Df\PaypalClone\Charge::requestIdKey()
+	 * @used-by \Df\PaypalClone\Charge::p()
+	 * @return string
+	 */
+	protected function requestIdKey() {return 'MerchantTradeNo';}
 
 	/**
 	 * 2016-08-27
