@@ -471,6 +471,24 @@ final class Charge extends \Df\PaypalClone\Charge {
 
 	/**
 	 * 2016-08-29
+	 * @override
+	 * @see \Df\PaypalClone\Charge::k_RequestId()
+	 * @used-by \Df\PaypalClone\Charge::p()
+	 * @return string
+	 */
+	protected function k_RequestId() {return 'MerchantTradeNo';}
+
+	/**
+	 * 2016-08-27
+	 * @override
+	 * @see \Df\PaypalClone\Charge::k_Signature()
+	 * @used-by \Df\PaypalClone\Charge::p()
+	 * @return string
+	 */
+	protected function k_Signature() {return 'CheckMacValue';}
+
+	/**
+	 * 2016-08-29
 	 * 2016-07-02
 	 * «Merchant trade number».
 	 * Varchar(20)
@@ -516,24 +534,6 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @return string
 	 */
 	protected function requestId() {return Identification::id($this->o());}
-
-	/**
-	 * 2016-08-29
-	 * @override
-	 * @see \Df\PaypalClone\Charge::requestIdKey()
-	 * @used-by \Df\PaypalClone\Charge::p()
-	 * @return string
-	 */
-	protected function requestIdKey() {return 'MerchantTradeNo';}
-
-	/**
-	 * 2016-08-27
-	 * @override
-	 * @see \Df\PaypalClone\Charge::signatureKey()
-	 * @used-by \Df\PaypalClone\Charge::p()
-	 * @return string
-	 */
-	protected function signatureKey() {return 'CheckMacValue';}
 
 	/**
 	 * 2016-08-17
