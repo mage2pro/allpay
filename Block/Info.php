@@ -6,8 +6,8 @@ use Magento\Sales\Model\Order\Payment\Transaction as T;
 /**
  * 2016-07-13
  * @method Method m()
- * @method W|string|null responseF(string $key = null)
- * @method W|string|null responseL(string $key = null)
+ * @method W|string|null responseF(string $k = null)
+ * @method W|string|null responseL(string $k = null)
  * @see \Dfe\AllPay\Block\Info\BankCard
  * @see \Dfe\AllPay\Block\Info\Offline
  */

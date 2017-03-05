@@ -7,8 +7,8 @@ use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
 use Magento\Sales\Model\Order\Payment as OP;
 /**
- * @method Webhook|string|null responseF(string $key = null)
- * @method Webhook|string|null responseL(string $key = null)
+ * @method Webhook|string|null responseF(string $k = null)
+ * @method Webhook|string|null responseL(string $k = null)
  */
 final class Method extends \Df\PaypalClone\Method\Normal {
 	/**

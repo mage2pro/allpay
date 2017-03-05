@@ -4,8 +4,8 @@ use Dfe\AllPay\Webhook\Offline as R;
 use Zend_Date as ZD;
 /**   
  * 2016-07-25
- * @method R|string|null responseF(string $key = null)
- * @method R|string|null responseL(string $key = null)  
+ * @method R|string|null responseF(string $k = null)
+ * @method R|string|null responseL(string $k = null)  
  * @see \Dfe\AllPay\Block\Info\ATM 
  * @see \Dfe\AllPay\Block\Info\Barcode
  * @see \Dfe\AllPay\Block\Info\CVS

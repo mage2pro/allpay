@@ -6,8 +6,8 @@ use Magento\Framework\Phrase;
 /**  
  * 2016-07-28
  * @final
- * @method R|string|null responseF(string $key = null)
- * @method R|string|null responseL(string $key = null)
+ * @method R|string|null responseF(string $k = null)
+ * @method R|string|null responseL(string $k = null)
  */
 class BankCard extends \Dfe\AllPay\Block\Info {
 	/**
