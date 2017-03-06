@@ -466,7 +466,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 		// «Trade description».
 		// Varchar(200)
 		// Must be filled.
-		,'TradeDesc' => $this->text($this->ss()->description())
+		,'TradeDesc' => $this->description()
 	];}
 
 	/**
