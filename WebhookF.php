@@ -3,7 +3,7 @@
 namespace Dfe\AllPay;
 use Df\Core\Exception as DFE;
 use Dfe\AllPay\Webhook as W;
-class WebhookF extends \Df\Payment\WebhookF {
+final class WebhookF extends \Df\Payment\WebhookF {
 	/**
 	 * 2017-01-02
 	 * @override
@@ -12,7 +12,7 @@ class WebhookF extends \Df\Payment\WebhookF {
 	 * @return string
 	 * @throws DFE
 	 */
-	final protected function _class() {
+	protected function _class() {
 		/** @var string $s */
 		$s = $this->assertType($this->extra('class', W::classSuffixS($this->req(self::KEY_TYPE))));
 		return df_con($this->module(), df_cc_class('Webhook', $s));
