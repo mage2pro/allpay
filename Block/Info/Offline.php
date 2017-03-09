@@ -33,7 +33,7 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
 	 * @return array(string => string)
 	 */
-	protected function custom() {
+	final protected function custom() {
 		/** @var R $f */
 		$f = $this->responseF();
 		/** @var R $l */

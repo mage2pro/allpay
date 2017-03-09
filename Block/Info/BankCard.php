@@ -1,11 +1,10 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
-use Dfe\AllPay\Method;
 use Dfe\AllPay\Webhook\BankCard as R;
 use Magento\Framework\Phrase;
 /**  
- * 2016-07-28
- * @final
+ * 2016-07-28 
+ * @final Unable to use the PHP «final» keyword because of the M2 code generation.
  * @method R|string|null responseF(string $k = null)
  * @method R|string|null responseL(string $k = null)
  */
@@ -17,7 +16,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
 	 * @return array(string => string)
 	 */
-	protected function custom() {
+	final protected function custom() {
 		/** @var array(strig => string) $result */
 		$result = [];
 		$result['Card Number'] = $this->cardNumber();
@@ -52,7 +51,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @used-by \Df\Payment\Block\Info::getSpecificInformation()
 	 * @return void
 	 */
-	protected function prepareDic() {
+	final protected function prepareDic() {
 		parent::prepareDic();
 		if ($this->responseF() && $this->responseF()->isInstallment()) {
 			$this->dic()->addAfter('Payment Option', 'Payments', $this->numPayments());

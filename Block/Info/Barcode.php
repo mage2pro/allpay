@@ -2,7 +2,7 @@
 namespace Dfe\AllPay\Block\Info;
 use Dfe\AllPay\Webhook\Offline as R;
 // 2016-07-25
-/** @final */
+/** @final Unable to use the PHP «final» keyword because of the M2 code generation. */
 class Barcode extends Offline {
 	/**
 	 * 2016-07-25
@@ -14,7 +14,9 @@ class Barcode extends Offline {
 	 * @see nl2br() для результата вызывать не надо,
 	 * потому что ядро вызовет эту функцию автоматически.
 	 */
-	protected function paymentId(R $f) {return df_cc_n($f->req(['Barcode1', 'Barcode2', 'Barcode3']));}
+	final protected function paymentId(R $f) {return df_cc_n($f->req([
+		'Barcode1', 'Barcode2', 'Barcode3'
+	]));}
 
 	/**
 	 * 2016-07-25
@@ -23,5 +25,5 @@ class Barcode extends Offline {
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
 	 * @return string
 	 */
-	protected function paymentIdLabel() {return 'Barcode';}
+	final protected function paymentIdLabel() {return 'Barcode';}
 }

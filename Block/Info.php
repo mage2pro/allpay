@@ -11,9 +11,10 @@ use Magento\Sales\Model\Order\Payment\Transaction as T;
  * @see \Dfe\AllPay\Block\Info\BankCard
  * @see \Dfe\AllPay\Block\Info\Offline
  */
-class Info extends \Df\PaypalClone\BlockInfo {
+abstract class Info extends \Df\PaypalClone\BlockInfo {
 	/**
 	 * 2016-07-13
+	 * @final
 	 * @return string
 	 */
 	function paymentOption() {return dfc($this, function() {return
@@ -23,6 +24,8 @@ class Info extends \Df\PaypalClone\BlockInfo {
 	/**
 	 * 2016-07-20
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @see \Dfe\AllPay\Block\Info\BankCard::custom()
+	 * @see \Dfe\AllPay\Block\Info\Offline::custom()
 	 * @return array(string => string)
 	 */
 	protected function custom() {return [];}
@@ -33,7 +36,7 @@ class Info extends \Df\PaypalClone\BlockInfo {
 	 * @see \Df\Payment\Block\Info::prepare()
 	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
 	 */
-	protected function prepare() {
+	final protected function prepare() {
 		$this->si($this->custom());
 		$this->siB([
 			'allPay Payment ID' => $this->responseF()->externalId()
@@ -46,11 +49,10 @@ class Info extends \Df\PaypalClone\BlockInfo {
 	 * @override
 	 * @see \Df\Payment\Block\Info::prepareDic()
 	 * @used-by \Df\Payment\Block\Info::getSpecificInformation()
+	 * @see \Dfe\AllPay\Block\Info\BankCard::prepareDic()
 	 * @return void
 	 */
-	protected function prepareDic() {
-		$this->dic()->add('Payment Option', $this->paymentOption(), -10);
-	}
+	protected function prepareDic() {$this->dic()->add('Payment Option', $this->paymentOption(), -10);}
 
 	/**
 	 * 2016-08-13

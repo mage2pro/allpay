@@ -2,7 +2,7 @@
 namespace Dfe\AllPay\Block\Info;
 use Dfe\AllPay\Webhook\Offline as R;
 // 2016-07-25
-/** @final */
+/** @final Unable to use the PHP «final» keyword because of the M2 code generation. */
 class CVS extends Offline {
 	/**
 	 * 2016-07-25
@@ -12,7 +12,7 @@ class CVS extends Offline {
 	 * @param R $f
 	 * @return string
 	 */
-	protected function paymentId(R $f) {return $f->req('PaymentNo');}
+	final protected function paymentId(R $f) {return $f->req('PaymentNo');}
 
 	/**
 	 * 2016-07-25
@@ -21,5 +21,5 @@ class CVS extends Offline {
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
 	 * @return string
 	 */
-	protected function paymentIdLabel() {return 'Payment Number';}
+	final protected function paymentIdLabel() {return 'Payment Number';}
 }
