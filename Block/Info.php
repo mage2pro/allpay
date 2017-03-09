@@ -14,7 +14,7 @@ use Magento\Sales\Model\Order\Payment\Transaction as T;
 abstract class Info extends \Df\PaypalClone\BlockInfo {
 	/**
 	 * 2016-07-13
-	 * @final
+	 * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
 	 * @return string
 	 */
 	function paymentOption() {return dfc($this, function() {return

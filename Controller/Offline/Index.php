@@ -3,7 +3,7 @@ namespace Dfe\AllPay\Controller\Offline;
 use Df\Payment\Webhook as W;
 use Dfe\AllPay\Webhook\Offline;
 // 2017-02-14
-/** @final Unable to use the PHP «final» keyword because of the M2 code generation. */
+/** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
 class Index extends \Dfe\AllPay\Controller\Confirm\Index {
 	/**
 	 * 2017-01-02

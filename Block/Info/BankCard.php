@@ -4,7 +4,7 @@ use Dfe\AllPay\Webhook\BankCard as R;
 use Magento\Framework\Phrase;
 /**  
  * 2016-07-28 
- * @final Unable to use the PHP «final» keyword because of the M2 code generation.
+ * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
  * @method R|string|null responseF(string $k = null)
  * @method R|string|null responseL(string $k = null)
  */

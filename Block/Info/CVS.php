@@ -2,7 +2,7 @@
 namespace Dfe\AllPay\Block\Info;
 use Dfe\AllPay\Webhook\Offline as R;
 // 2016-07-25
-/** @final Unable to use the PHP «final» keyword because of the M2 code generation. */
+/** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
 class CVS extends Offline {
 	/**
 	 * 2016-07-25
