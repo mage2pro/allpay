@@ -1,7 +1,6 @@
 <?php
 // 2017-01-02
 namespace Dfe\AllPay;
-use Df\Core\Exception as DFE;
 use Dfe\AllPay\Webhook as W;
 final class WebhookF extends \Df\Payment\WebhookF {
 	/**
@@ -10,13 +9,11 @@ final class WebhookF extends \Df\Payment\WebhookF {
 	 * @see \Df\Payment\WebhookF::_class()
 	 * @used-by \Df\Payment\WebhookF::i()
 	 * @return string
-	 * @throws DFE
+	 * @throws \Df\Core\Exception
 	 */
-	protected function _class() {
-		/** @var string $s */
-		$s = $this->assertType($this->extra('class', W::classSuffixS($this->req(self::KEY_TYPE))));
-		return df_con($this->module(), df_cc_class('Webhook', $s));
-	}
+	protected function _class() {return df_con($this->module(), df_cc_class('Webhook',
+		$this->assertType($this->extra('class', W::classSuffixS($this->req(self::KEY_TYPE))))
+	));}
 
 	/**
 	 * 2017-01-04
