@@ -13,8 +13,8 @@ class Index extends \Dfe\AllPay\Controller\Confirm\Index {
 	 * а если контроллер — класс @see \Dfe\AllPay\Controller\Confirm\Index,
 	 * то needCapture() должен вернуть true.
 	 * @override
-	 * @see \Df\Payment\Action\Webhook::prepare()
-	 * @used-by \Df\Payment\Action\Webhook::execute()
+	 * @see \Df\Payment\WebhookA::prepare()
+	 * @used-by \Df\Payment\WebhookA::execute()
 	 * @param W|Offline $w
 	 * @return void
 	 */
