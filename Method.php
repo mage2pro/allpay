@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\AllPay;
+use Df\Payment\W\Event;
 use Dfe\AllPay\Block\Info;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Magento\Framework\Phrase;
@@ -7,22 +8,26 @@ use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
 use Magento\Sales\Model\Order\Payment as OP;
 /**
- * @method Webhook|string|null responseF(string $k = null)
- * @method Webhook|string|null responseL(string $k = null)
+ * 2016-07-20
+ * @method Event|string|null responseF(string $k = null)
+ * @method Event|string|null responseL(string $k = null)
  */
 final class Method extends \Df\PaypalClone\Method\Normal {
 	/**
 	 * 2016-07-20
+	 * 2017-03-12
+	 * Используем @uses df_cts(), чтобы избавиться от окончания «\Interceptor».
+	 * 2017-03-14
+	 * @see responseF() вернёт null, ПС ещё не присылала нам оповещений.
+	 * В этом случае наш метод вернёт обобщённый класс @see \Dfe\AllPay\Block\Info
 	 * @override
 	 * @see \Df\PaypalClone\Method::getInfoBlockType()
 	 * @used-by \Magento\Payment\Helper\Data::getInfoBlock()
 	 * @return string
 	 */
-	function getInfoBlockType() {return dfc($this, function() {
-		/** @var Webhook $r */
-		$r = $this->responseF();
-		return df_con($this, df_ccc('\\', 'Block\Info', !$r ? null : $r->classSuffix()), Info::class);
-	});}
+	function getInfoBlockType() {return df_cc_class(
+		df_cts(Info::class), ($r = $this->responseF()) ? $r->t() : null
+	);}
 
 	/**
 	 * 2017-03-05
@@ -59,14 +64,14 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @return string|Phrase|null
 	 */
 	function paymentOptionTitle() {return dfc($this, function() {return
-		$this->responseF() ? __($this->responseF()->typeLabel()) : (
+		$this->responseF() ? __($this->responseF()->tl()) : (
 			// 2016-08-13
 			// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
 			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
 			// Т.е. покупатель ещё ничего не оплатил,
 			// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
 			// Формируем заголовок по аналогии с
-			// @see \Dfe\AllPay\Webhook\BankCard::typeLabelByCode()
+			// @see \Dfe\AllPay\W\Handler\BankCard::typeLabelByCode()
 			!$this->plan() ? null : df_cc_br(__('Bank Card (Installments)'), __('Not paid yet'))
 		)
 	;});}
@@ -126,7 +131,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	/**
 	 * 2016-07-20
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
-	 * @used-by \Dfe\AllPay\Webhook\Offline::paidTime()
+	 * @used-by \Dfe\AllPay\W\Handler\Offline::paidTime()
 	 */
 	const TIMEZONE = 'Asia/Taipei';
 

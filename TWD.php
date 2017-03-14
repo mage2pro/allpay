@@ -1,25 +1,23 @@
 <?php
 namespace Dfe\AllPay;
-class TWD {
+final class TWD {
 	/**
 	 * 2016-08-15
 	 * @param float $amount
-	 * @param string|null $currencyCode [optional]
+	 * @param string|null $cCode [optional]
 	 * @return float
 	 */
-	static function from($amount, $currencyCode = null) {return
-		round(df_currency_convert($amount, $currencyCode, 'TWD'))
-	;}
+	static function from($amount, $cCode = null) {return round(df_currency_convert(
+		$amount, $cCode, 'TWD'
+	));}
 
 	/**
 	 * 2016-08-15
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amount()
 	 * @used-by \Dfe\AllPay\Total\Quote::collect()
 	 * @param float $amount
-	 * @param string $currencyCode
+	 * @param string $cCode
 	 * @return float|int
 	 */
-	static function round($amount, $currencyCode) {return
-		'TWD' === $currencyCode ? round($amount) : $amount
-	;}
+	static function round($amount, $cCode) {return 'TWD' === $cCode ? round($amount) : $amount;}
 }

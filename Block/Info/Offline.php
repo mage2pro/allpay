@@ -1,11 +1,11 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
-use Dfe\AllPay\Webhook\Offline as R;
+use Dfe\AllPay\W\Event\Offline as Event;
 use Zend_Date as ZD;
 /**   
  * 2016-07-25
- * @method R|string|null responseF(string $k = null)
- * @method R|string|null responseL(string $k = null)  
+ * @method Event|string|null responseF(string $k = null)
+ * @method Event|string|null responseL(string $k = null)
  * @see \Dfe\AllPay\Block\Info\ATM 
  * @see \Dfe\AllPay\Block\Info\Barcode
  * @see \Dfe\AllPay\Block\Info\CVS
@@ -14,10 +14,10 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	/**
 	 * 2016-07-25
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
-	 * @param R $f
+	 * @param Event $f
 	 * @return string
 	 */
-	abstract protected function paymentId(R $f);
+	abstract protected function paymentId(Event $f);
 
 	/**
 	 * 2016-07-25
@@ -34,9 +34,9 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * @return array(string => string)
 	 */
 	final protected function custom() {
-		/** @var R $f */
+		/** @var Event $f */
 		$f = $this->responseF();
-		/** @var R $l */
+		/** @var Event $l */
 		$l = $this->responseL();
 		/** @var bool $paid */
 		$paid = $f != $l;

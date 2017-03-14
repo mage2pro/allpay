@@ -1,12 +1,12 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
-use Dfe\AllPay\Webhook\BankCard as R;
+use Dfe\AllPay\W\Event\BankCard as Event;
 use Magento\Framework\Phrase;
 /**  
  * 2016-07-28 
  * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
- * @method R|string|null responseF(string $k = null)
- * @method R|string|null responseL(string $k = null)
+ * @method Event|string|null responseF(string $k = null)
+ * @method Event|string|null responseL(string $k = null)
  */
 class BankCard extends \Dfe\AllPay\Block\Info {
 	/**
@@ -26,7 +26,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 		$result['Authorization Code'] = $this->r('auth_code');
 		if ($this->isBackend()) {
 			$result += [
-				'Authorization Time' => R::time($this->r('process_date'))
+				'Authorization Time' => $this->responseF()->authTime()
 				/**
 				 * 2016-07-29
 				 * [allPay] What does mean the «gwsr» response parameter?
@@ -115,5 +115,5 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @param string[] ...$k
 	 * @return string|null|array(string => mixed)
 	 */
-	private function r(...$k) {return $this->responseF()->req(1 === count($k) ? df_first($k) : $k);}
+	private function r(...$k) {return $this->responseF()->r(1 === count($k) ? df_first($k) : $k);}
 }

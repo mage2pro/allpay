@@ -26,7 +26,7 @@ final class Option extends \Df\Config\SourceT {
 		// 2016-07-02
 		// «[allPay] What is a «BARCODE» payment?» https://mage2.pro/t/BARCODE
 		// https://mage2.pro/t/1827/2
-		,'BARCODE' => 'Barcode'
+		,self::BARCODE => 'Barcode'
 		// 2016-07-02
 		// http://global.tenpay.com
 		,'Tenpay' => 'Tenpay (WeChat)'
@@ -37,8 +37,15 @@ final class Option extends \Df\Config\SourceT {
 	/**
 	 * 2016-08-08
 	 * @used-by \Dfe\AllPay\Charge::pChoosePayment()
-	 * @used-by \Dfe\AllPay\Webhook::classSuffixS()
 	 * @used-by \Dfe\AllPay\Source\Option::map()
+	 * @used-by \Dfe\AllPay\W\Reader::te2i()
 	 */
 	const BANK_CARD = 'Credit';
+
+	/**
+	 * 2017-03-12
+	 * @used-by \Dfe\AllPay\Source\Option::map()
+	 *  @used-by \Dfe\AllPay\W\Reader::te2i()
+	 */
+	const BARCODE = 'BARCODE';
 }

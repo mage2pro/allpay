@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
-use Dfe\AllPay\Webhook\Offline as R;
+use Dfe\AllPay\W\Event\Offline as Event;
 // 2016-07-25
 /** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
 class CVS extends Offline {
@@ -9,10 +9,10 @@ class CVS extends Offline {
 	 * @override
 	 * @see \Dfe\AllPay\Block\Info\Offline::paymentId()
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
-	 * @param R $f
+	 * @param Event $f
 	 * @return string
 	 */
-	final protected function paymentId(R $f) {return $f->req('PaymentNo');}
+	final protected function paymentId(Event $f) {return $f->r('PaymentNo');}
 
 	/**
 	 * 2016-07-25

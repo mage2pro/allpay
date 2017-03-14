@@ -1,17 +1,21 @@
 <?php
 namespace Dfe\AllPay\Block;
 use Dfe\AllPay\Method;
-use Dfe\AllPay\Webhook as W;
+use Dfe\AllPay\W\Event;
 use Magento\Sales\Model\Order\Payment\Transaction as T;
 /**
  * 2016-07-13
  * @method Method m()
- * @method W|string|null responseF(string $k = null)
- * @method W|string|null responseL(string $k = null)
+ * @method Event|string|null responseF(string $k = null)
+ * @method Event|string|null responseL(string $k = null)
  * @see \Dfe\AllPay\Block\Info\BankCard
  * @see \Dfe\AllPay\Block\Info\Offline
+ * 2017-03-14
+ * Этот класс намеренно НЕ АБСТРАКТНЫЙ!
+ * Мы его используем в том случае, когда ПС ещё не прислала нам никаких оповещений,
+ * и у нас @see responseF() в этом случае возвращает null.
  */
-abstract class Info extends \Df\PaypalClone\BlockInfo {
+class Info extends \Df\PaypalClone\BlockInfo {
 	/**
 	 * 2016-07-13
 	 * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
@@ -39,8 +43,8 @@ abstract class Info extends \Df\PaypalClone\BlockInfo {
 	final protected function prepare() {
 		$this->si($this->custom());
 		$this->siB([
-			'allPay Payment ID' => $this->responseF()->externalId()
-			,'Magento Payment ID' => $this->responseF()->parentIdRaw()
+			'allPay Payment ID' => $this->responseF('TradeNo')
+			,'Magento Payment ID' => $this->responseF('MerchantTradeNo')
 		]);
 	}
 

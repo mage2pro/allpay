@@ -1,18 +1,20 @@
 <?php
 namespace Dfe\AllPay;
 use Dfe\AllPay\Settings as S;
+// 2016-07-10
 final class Signer extends \Df\PaypalClone\Signer {
 	/**
 	 * 2016-07-10
 	 * @override
-	 * @see \Df\PaypalClone\Signer::sign()
+	 * @see \Df\PaypalClone\Signer::sign()   
+	 * @used-by \Df\PaypalClone\Signer::_sign() 
 	 * @return string
 	 */
 	protected function sign() {
-		/** @var array(string => mixed) $params */
-		$params = $this->getData();
+		/** @var array(string => mixed) $p */
+		$p = $this->v();
 		// 2016-07-11
-		unset($params['CheckMacValue']);
+		unset($p['CheckMacValue']);
 		/**
 		 * 2016-07-04
 		 * Step 1
@@ -36,13 +38,13 @@ final class Signer extends \Df\PaypalClone\Signer {
 		 * В модуле для для Magento 1.x это прокатывает,
 		 * потому что там ключи предварительно приводятся к нижнему регистру.
 		 */
-		uksort($params, function($a, $b) {return strcasecmp($a, $b);});
+		uksort($p, function($a, $b) {return strcasecmp($a, $b);});
 		/**
 		 * 2016-07-04
 		 * Step 2
 		 * «Add HashKey at the front of parameter and HashIV at the end of parameter.»
 		 */
-		$params = ['HashKey' => S::s()->hashKey()] + $params + ['HashIV' => S::s()->hashIV()];
+		$p = ['HashKey' => S::s()->hashKey()] + $p + ['HashIV' => S::s()->hashIV()];
 		/**
 		 * 2016-07-04
 		 * Step 1.1
@@ -54,7 +56,7 @@ final class Signer extends \Df\PaypalClone\Signer {
 		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L15-L18
 		 */
 		/** @var string $result */
-		$result = implode('&', df_map_k($params, function($k, $v) {return implode('=', [$k, $v]);}));
+		$result = implode('&', df_map_k($p, function($k, $v) {return implode('=', [$k, $v]);}));
 		/**
 		 * 2016-07-04
 		 * Step 3
@@ -76,9 +78,9 @@ final class Signer extends \Df\PaypalClone\Signer {
 	}
 
 	/**
-	 * 2016-07-04
-	 * Сделал по аналогии с
-	 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L3-L10
+	 * 2016-07-04     
+	 * @used-by sign()
+	 * Сделал по аналогии с https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L3-L10
 	 * @param string $s
 	 * @return string
 	 */
