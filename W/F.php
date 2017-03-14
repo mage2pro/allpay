@@ -14,6 +14,7 @@ final class F extends \Df\Payment\W\F {
 	 * @return string|string[]|null
 	 */
 	protected function suf($a, $t) {return
-		self::$EVENT !== $a || $this->r()->isBankCard() ? parent::suf($a, $t) : df_class_l(O::class)
+		self::$EVENT !== $a || $this->r()->isBankCard() ? parent::suf($a, $t) :
+			df_cc_class($a, df_class_l(O::class))
 	;}
 }
