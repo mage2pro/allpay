@@ -1,20 +1,15 @@
 <?php
 namespace Dfe\AllPay\W;
+use Dfe\AllPay\W\Event\BankCard as B;
 use Dfe\AllPay\W\Event\Offline as O;
 // 2017-03-13
 /** @method Reader r() */
 final class F extends \Df\Payment\W\F {
 	/**
-	 * 2017-03-13
-	 * @override
-	 * @see \Df\Payment\W\F::suf()
-	 * @used-by \Df\Payment\W\F::c()
-	 * @param string $a
+	 * 2017-03-15
+	 * @used-by \Df\Payment\W\F::suf()
 	 * @param string|null $t
-	 * @return string|string[]|null
+	 * @return string
 	 */
-	protected function suf($a, $t) {return
-		self::$EVENT !== $a || $this->r()->isBankCard() ? parent::suf($a, $t) :
-			df_cc_class($a, df_class_l(O::class))
-	;}
+	protected function sufEvent($t) {return df_class_l($this->r()->isBankCard() ? B::class : O::class);}
 }
