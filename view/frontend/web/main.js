@@ -64,7 +64,7 @@ define([
 	 * стороны для запроса у покупателя варианта оплаты allPay или Magento.
 	 * @returns {Boolean}
 	 */
-	needShowOptions: function() {return 'magento' === this.config('optionsLocation');},
+	needShowOptions: function() {return this.config('needShowOptions');},
 	/**
 	 * 2016-08-15
 	 * 2017-03-01

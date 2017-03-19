@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\AllPay;
+use Dfe\AllPay\Source\OptionsLocation as OL;
 // 2016-08-04
 // @used-by https://github.com/mage2pro/allpay/blob/1.1.33/etc/frontend/di.xml?ts=4#L9
 /** @method Settings s() */
@@ -18,6 +19,6 @@ final class ConfigProvider extends \Df\Payment\ConfigProvider {
 		// @used-by Df_Payments/withOptions::options()
 		// https://github.com/mage2pro/core/blob/2.0.36/Payment/view/frontend/web/withOptions.js?ts=4#L55
 		,'options' => $this->s()->options()->o()
-		,'optionsLocation' => $this->s()->optionsLocation()
+		,'needShowOptions' => OL::MAGENTO === $this->s()->optionsLocation()
 	] + parent::config();}
 }

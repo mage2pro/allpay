@@ -3,11 +3,62 @@ namespace Dfe\AllPay\W;
 use Dfe\AllPay\Method;
 use Zend_Date as ZD;
 /**
+ * 2016-07-09
+ * The response is documented in the Chapter 7 «Payment Result Notification»
+ * on the pages 32-35 of the allPay documentation.
  * 2017-03-13
  * @see \Dfe\AllPay\W\Event\BankCard
  * @see \Dfe\AllPay\W\Event\Offline
+ * 2017-03-16 Этот класс намеренно НЕ абстрактный, потому что он напрямую используется для WebATM.
  */
-abstract class Event extends \Df\Payment\W\Event {
+class Event extends \Df\PaypalClone\W\Event {
+	/**
+	 * 2017-03-16
+	 * @override
+	 * @see \Df\PaypalClone\W\Event::k_idE()
+	 * @used-by \Df\PaypalClone\W\Event::idE()
+	 * @return string
+	 */
+	final protected function k_idE() {return 'TradeNo';}
+	
+	/**
+	 * 2017-03-16
+	 * @override
+	 * @see \Df\Payment\W\Event::k_pid()
+	 * @used-by \Df\Payment\W\Event::pid()
+	 * @return string
+	 */
+	final protected function k_pid() {return 'MerchantTradeNo';}
+
+	/**
+	 * 2017-03-18
+	 * @override
+	 * @see \Df\PaypalClone\W\Event::k_signature()
+	 * @used-by \Df\PaypalClone\W\Event::signatureProvided()
+	 * @return string
+	 */
+	final protected function k_signature() {return 'CheckMacValue';}
+
+	/**
+	 * 2017-03-18
+	 * @override
+	 * @see \Df\PaypalClone\W\Event::k_status()
+	 * @used-by \Df\PaypalClone\W\Event::status()
+	 * @return string
+	 */
+	final protected function k_status() {return 'RtnCode';}
+
+	/**
+	 * 2016-08-27 «Value 1 means a payment is paid successfully. The other means failure.»
+	 * 2017-03-18
+	 * @override
+	 * @see \Df\PaypalClone\W\Event::statusExpected()
+	 * @used-by \Df\PaypalClone\W\Event::isSuccessful() 
+	 * @see \Dfe\AllPay\W\Event\Offline::statusExpected()
+	 * @return int
+	 */
+	protected function statusExpected() {return 1;}
+
 	/**
 	 * 2017-03-10
 	 * @override

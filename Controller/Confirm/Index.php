@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\AllPay\Controller\Confirm;
-use Dfe\AllPay\W\Handler as W;
+use Dfe\AllPay\W\Handler;
 // 2017-02-14
 /** @see \Dfe\AllPay\Controller\Offline\Index */
 class Index extends \Df\Payment\W\Action {
@@ -12,5 +12,5 @@ class Index extends \Df\Payment\W\Action {
 	 * @param \Exception $e
 	 * @return $this
 	 */
-	final protected function error(\Exception $e) {return W::resultError($e);}
+	final protected function error(\Exception $e) {return Handler::resultError($e);}
 }

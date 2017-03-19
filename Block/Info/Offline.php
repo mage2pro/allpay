@@ -45,8 +45,7 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 		if (!($paid && $this->isFrontend())) {
 			$result[$this->paymentIdLabel()] = $this->paymentId($f);
 		}
-		$result +=
-			$paid
+		$result += $paid
 			? ['Paid' => $l->paidTime()->toString($this->isFrontend() ? ZD::DATE_LONG : ZD::DATETIME_LONG)]
 			: ['Expiration' => $l->expirationS()]
 		;

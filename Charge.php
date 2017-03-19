@@ -396,7 +396,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * а оповещение по адресу «ReturnURL» приходит лишь на шаге 21,
 		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
-		,'PaymentInfoURL' => $this->callback('offline')
+		,'PaymentInfoURL' => $this->callback(self::OFFLINE)
 		// 2016-07-02
 		// «Payment type».
 		// Varchar(20)
@@ -645,4 +645,12 @@ final class Charge extends \Df\PaypalClone\Charge {
 	private function productUrls() {return df_ccc('+', $this->oiLeafs(function(OI $i) {return
 		df_oi_url($i)
 	;}));}
+
+	/**
+	 * 2017-03-16
+	 * @used-by pCharge()
+	 * @used-by \Dfe\AllPay\W\Event\Offline::needCapture()
+	 * @see \Dfe\AllPay\Controller\Offline\Index
+	 */
+	const OFFLINE = 'offline';
 }

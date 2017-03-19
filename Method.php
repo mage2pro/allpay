@@ -131,7 +131,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	/**
 	 * 2016-07-20
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
-	 * @used-by \Dfe\AllPay\W\Handler\Offline::paidTime()
+	 * @used-by \Dfe\AllPay\W\Event\Offline::paidTime()
 	 */
 	const TIMEZONE = 'Asia/Taipei';
 

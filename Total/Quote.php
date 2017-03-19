@@ -53,65 +53,57 @@ class Quote extends AbstractTotal {
 	 * @return CollectorInterface
 	 */
 	function collect(Q $quote, IShippingAssignment $shippingAssignment, Total $total) {
-		/** @var QP $payment */
-		$payment = $quote->getPayment();
 		/**
 		 * 2016-08-15
 		 * Что интересно, при первых вызовах $payment->getMethod() возвращает null:
 		 * @see \Magento\Checkout\Model\PaymentInformationManagement::savePaymentInformation()
 		 * Там такой код:
-				if ($billingAddress) {
-					$this->billingAddressManagement->assign($cartId, $billingAddress);
-				}
-				$this->paymentMethodManagement->set($cartId, $paymentMethod);
+		 *		if ($billingAddress) {
+		 *			$this->billingAddressManagement->assign($cartId, $billingAddress);
+		 *		}
+		 *		$this->paymentMethodManagement->set($cartId, $paymentMethod);
 		 * Так вот, впервые мы попадаем сюда уже при вызове assign,
 		 * и тогда у $quote ещё отсутствует ссылка на $payment,
 		 * хотя сам объект $payment к тому времени уже создан.
+		 *
+		 * Что интересно (и аналогично комментарию выше) при первом попадении сюда $planId ещё отсутствует,
+		 * потому что мы попадаем сюда из @see \Magento\Quote\Model\Quote\Payment::importData(),
+		 * и там такой код:
+		 *		$quote->collectTotals();
+		 *		(...)
+		 *		$method->assignData($data);
+		 * $planId инициализируется только на assignData, а сюда мы попадаем уже на collectTotals.
 		 */
-		if ($payment && $payment->getMethod() === Method::codeS()) {
-			/** @var int|null $planId */
-			$planId = dfp_iia($payment, 'plan');
-			/**
-			 * 2016-08-15
-			 * Что интересно (и аналогично комментарию выше)
-			 * при первом попадении сюда $planId ещё отсутствует,
-			 * потому что мы попадаем сюда из @see \Magento\Quote\Model\Quote\Payment::importData(),
-			 * и там такой код:
-					$quote->collectTotals();
-					(...)
-					$method->assignData($data);
-			 * $planId инициализируется только на assignData,
-			 * а сюда мы попадаем уже на collectTotals.
-			 */
-			if ($planId) {
-				/** @var Plan $plan */
-				$plan = df_assert(S::s()->installmentSales()->plans($planId));
-				$this->setCode('dfe_allpay');
-				parent::collect($quote, $shippingAssignment, $total);
-				/** @var string $quoteCurrency */
-				$quoteCurrency = $quote->getQuoteCurrencyCode();
-				/** @var string $baseCurrency */
-				$baseCurrency = $quote->getBaseCurrencyCode();
-				/**
-				 * 2016-08-13
-				 * По аналогии с @see \Magento\Quote\Model\Quote\Address\Total\Grand::collect()
-				 */
-				/** @var float $totals */
-				$totals = array_sum($total->getAllTotalAmounts());
-				/** @var float|int $totalsNew */
-				$totalsNew = $plan->amount($totals, $quoteCurrency);
-				/** @var float $fee */
-				$fee = TWD::round($totalsNew - $totals, $quoteCurrency);
-				$this->_setAmount($fee);
-				/** @var float $baseTotals */
-				$baseTotals = array_sum($total->getAllBaseTotalAmounts());
-				/** @var float|int $baseTotalsNew */
-				$baseTotalsNew = $plan->amount($baseTotals, $baseCurrency);
-				/** @var float $feeBase */
-				$feeBase = TWD::round($baseTotalsNew - $baseTotals, $baseCurrency);
-				$this->_setBaseAmount($feeBase);
-				$this->iiAdd($payment, $fee, $feeBase);
-			}
+		/** @var QP $payment */
+		/** @var int|null $planId */
+		if (($payment = $quote->getPayment())
+			&& $payment->getMethod() === Method::codeS()
+			&& ($planId = dfp_iia($payment, 'plan'))
+		) {
+			/** @var Plan $plan */
+			$plan = df_assert(S::s()->installmentSales()->plans($planId));
+			$this->setCode('dfe_allpay');
+			parent::collect($quote, $shippingAssignment, $total);
+			/** @var string $quoteCurrency */
+			$quoteCurrency = $quote->getQuoteCurrencyCode();
+			/** @var string $baseCurrency */
+			$baseCurrency = $quote->getBaseCurrencyCode();
+			/** 2016-08-13 По аналогии с @see \Magento\Quote\Model\Quote\Address\Total\Grand::collect() */
+			/** @var float $totals */
+			$totals = array_sum($total->getAllTotalAmounts());
+			/** @var float|int $totalsNew */
+			$totalsNew = $plan->amount($totals, $quoteCurrency);
+			/** @var float $fee */
+			$fee = TWD::round($totalsNew - $totals, $quoteCurrency);
+			$this->_setAmount($fee);
+			/** @var float $baseTotals */
+			$baseTotals = array_sum($total->getAllBaseTotalAmounts());
+			/** @var float|int $baseTotalsNew */
+			$baseTotalsNew = $plan->amount($baseTotals, $baseCurrency);
+			/** @var float $feeBase */
+			$feeBase = TWD::round($baseTotalsNew - $baseTotals, $baseCurrency);
+			$this->_setBaseAmount($feeBase);
+			$this->iiAdd($payment, $fee, $feeBase);
 		}
 		return $this;
 	}

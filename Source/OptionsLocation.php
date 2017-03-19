@@ -10,12 +10,13 @@ final class OptionsLocation extends \Df\Config\SourceT {
 	 * @return array(string => string)
 	 */
 	protected function map() {return [
-		self::$ALLPAY => 'on the allPay payment page'
-		,self::$MAGENTO => 'on the Magento checkout page'
+		'allpay' => 'on the allPay payment page', self::MAGENTO => 'on the Magento checkout page'
 	];}
 
-	/** @var string */
-	private static $ALLPAY = 'allpay';
-	/** @var string */
-	private static $MAGENTO = 'magento';
+	/**
+	 * 2017-03-19
+	 * @used-by \Dfe\AllPay\ConfigProvider::config()
+	 * @used-by \Dfe\AllPay\Source\OptionsLocation::map()
+	 */
+	const MAGENTO = 'magento';
 }

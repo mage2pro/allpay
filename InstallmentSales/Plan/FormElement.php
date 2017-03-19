@@ -3,9 +3,9 @@ namespace Dfe\AllPay\InstallmentSales\Plan;
 use Df\Framework\Form\Element\Fieldset;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as O;
 /**
- * 2015-12-27
- * Этот класс не является одиночкой:
- * https://github.com/magento/magento2/blob/2.0.0/lib/internal/Magento/Framework/Data/Form/AbstractForm.php#L155
+ * 2016-07-30
+ * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
+ * 2015-12-27 Этот класс не является одиночкой: https://github.com/magento/magento2/blob/2.0.0/lib/internal/Magento/Framework/Data/Form/AbstractForm.php#L155
  */
 class FormElement extends Fieldset {
 	/**

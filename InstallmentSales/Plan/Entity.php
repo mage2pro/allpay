@@ -14,15 +14,13 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * Если же $amount равно 0, то мы не можем использовать наш обычный алгоритм,
 	 * потому что он добавит к 0 фиксированную наценку,
 	 * а нам же надо просто вернуть 0.
-	 * @param string $currencyCode
+	 * @param string $cCode
 	 * @return float|int
 	 */
-	function amount($amount, $currencyCode) {return
-		!$amount ? 0 : TWD::round(
-			$amount * (1 + $this->rate() / 100) + $this->fee($currencyCode) * $this->numPayments()
-			,$currencyCode
-		)
-	;}
+	function amount($amount, $cCode) {return !$amount ? 0 : TWD::round(
+		$amount * (1 + $this->rate() / 100) + $this->fee($cCode) * $this->numPayments()
+		,$cCode
+	);}
 
 	/**
 	 * 2016-07-31
