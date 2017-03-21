@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\Total;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
-use Dfe\AllPay\Method;
+use Dfe\AllPay\Method as M;
 use Dfe\AllPay\Settings as S;
 use Dfe\AllPay\TWD;
 use Magento\Payment\Model\InfoInterface as IPayment;
@@ -74,12 +74,9 @@ class Quote extends AbstractTotal {
 		 *		$method->assignData($data);
 		 * $planId инициализируется только на assignData, а сюда мы попадаем уже на collectTotals.
 		 */
-		/** @var QP $payment */
+		/** @var QP $qp */
 		/** @var int|null $planId */
-		if (($payment = $quote->getPayment())
-			&& $payment->getMethod() === Method::codeS()
-			&& ($planId = dfp_iia($payment, 'plan'))
-		) {
+		if (($qp = dfp($quote)) && $qp->getMethod() === M::codeS() && ($planId = dfp_iia($qp, 'plan'))) {
 			/** @var Plan $plan */
 			$plan = df_assert(S::s()->installmentSales()->plans($planId));
 			$this->setCode('dfe_allpay');
@@ -103,7 +100,7 @@ class Quote extends AbstractTotal {
 			/** @var float $feeBase */
 			$feeBase = TWD::round($baseTotalsNew - $baseTotals, $baseCurrency);
 			$this->_setBaseAmount($feeBase);
-			$this->iiAdd($payment, $fee, $feeBase);
+			$this->iiAdd($qp, $fee, $feeBase);
 		}
 		return $this;
 	}
