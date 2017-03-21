@@ -120,11 +120,11 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	/**
 	 * 2016-08-27
 	 * @override
-	 * @see \Df\PaypalClone\Method\Normal::redirectUrl()
+	 * @see \Df\PaypalClone\Method\Normal::pcRedirectUrl()
 	 * @used-by \Df\PaypalClone\Method\Normal::getConfigPaymentAction()
 	 * @return string
 	 */
-	protected function redirectUrl() {return
+	protected function pcRedirectUrl() {return
 		'https://payment{stage}.allpay.com.tw/Cashier/AioCheckOut/V2'
 	;}
 
