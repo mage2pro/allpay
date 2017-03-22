@@ -118,17 +118,6 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	protected function iiaKeys() {return [self::$II_OPTION];}
 
 	/**
-	 * 2016-08-27
-	 * @override
-	 * @see \Df\PaypalClone\Method\Normal::pcRedirectUrl()
-	 * @used-by \Df\PaypalClone\Method\Normal::getConfigPaymentAction()
-	 * @return string
-	 */
-	protected function pcRedirectUrl() {return
-		'https://payment{stage}.allpay.com.tw/Cashier/AioCheckOut/V2'
-	;}
-
-	/**
 	 * 2016-07-20
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
 	 * @used-by \Dfe\AllPay\W\Event\Offline::paidTime()
