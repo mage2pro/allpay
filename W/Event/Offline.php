@@ -27,7 +27,7 @@ final class Offline extends \Dfe\AllPay\W\Event {
 	 * @override
 	 * @see \Df\PaypalClone\W\Event::needCapture()
 	 * @used-by statusExpected()
-	 * @used-by \Df\PaypalClone\W\Confirmation::_handle()
+	 * @used-by \Df\PaypalClone\W\Handler::_handle()
 	 * @used-by \Dfe\AllPay\W\Nav\Offline::id()
 	 * @return bool
 	 */

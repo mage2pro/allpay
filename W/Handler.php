@@ -4,7 +4,7 @@ use Df\Framework\Controller\Result\Text;
 use Df\Sales\Model\Order as DfOrder;
 use Magento\Sales\Model\Order\Payment as OP;
 // 2016-07-09
-final class Handler extends \Df\PaypalClone\W\Confirmation {
+final class Handler extends \Df\PaypalClone\W\Handler {
 	/**
 	 * 2017-01-04
 	 * @override
