@@ -7,12 +7,8 @@ use Magento\Framework\Phrase;
 use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
 use Magento\Sales\Model\Order\Payment as OP;
-/**
- * 2016-07-20
- * @method Event|string|null responseF(string $k = null)
- * @method Event|string|null responseL(string $k = null)
- */
-final class Method extends \Df\PaypalClone\Method\Normal {
+// 2016-07-20
+final class Method extends \Df\PaypalClone\Method {
 	/**
 	 * 2016-07-20
 	 * 2017-03-12
@@ -25,8 +21,8 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @used-by \Magento\Payment\Helper\Data::getInfoBlock()
 	 * @return string
 	 */
-	function getInfoBlockType() {return df_cc_class(
-		df_cts(Info::class), ($r = $this->responseF()) ? $r->t() : null
+	function getInfoBlockType() {/** @var Event $ev */ return df_cc_class(
+		df_cts(Info::class), ($ev = df_tm($this)->responseF()) ? $ev->t() : null
 	);}
 
 	/**
@@ -63,8 +59,8 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @used-by \Dfe\AllPay\Method::titleDetailed()
 	 * @return string|Phrase|null
 	 */
-	function paymentOptionTitle() {return dfc($this, function() {return
-		($ev = $this->responseF()) ? __($ev->tl()) : (
+	function paymentOptionTitle() {return dfc($this, function() {return /** @var Event $ev */
+		($ev = df_tm($this)->responseF()) ? __($ev->tl()) : (
 			// 2016-08-13
 			// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
 			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
@@ -80,8 +76,8 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * 2016-08-27
 	 * Первый параметр — для test, второй — для live.
 	 * @override
-	 * @see \Df\PaypalClone\Method\Normal::stageNames()
-	 * @used-by \Df\PaypalClone\Method\Normal::url()
+	 * @see \Df\PaypalClone\Method::stageNames()
+	 * @used-by \Df\PaypalClone\Method::url()
 	 * @used-by \Df\PaypalClone\Refund::stageNames()
 	 * @return string[]
 	 */

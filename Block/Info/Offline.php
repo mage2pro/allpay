@@ -36,7 +36,7 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 		/** @var Event $f */
 		$f = $this->responseF();
 		/** @var Event $l */
-		$l = $this->m()->tm()->responseL();
+		$l = df_tm($this->m())->responseL();
 		/** @var bool $paid */
 		$paid = $f != $l;
 		/** @var array(strig => string) $result */
