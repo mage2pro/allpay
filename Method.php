@@ -22,7 +22,7 @@ final class Method extends \Df\PaypalClone\Method {
 	 * @return string
 	 */
 	function getInfoBlockType() {/** @var Event $ev */ return df_cc_class(
-		df_cts(Info::class), ($ev = df_tm($this)->responseF()) ? $ev->t() : null
+		df_cts(Info::class), ($ev = df_tmf($this)) ? $ev->t() : null
 	);}
 
 	/**
@@ -60,7 +60,7 @@ final class Method extends \Df\PaypalClone\Method {
 	 * @return string|Phrase|null
 	 */
 	function paymentOptionTitle() {return dfc($this, function() {return /** @var Event $ev */
-		($ev = df_tm($this)->responseF()) ? __($ev->tl()) : (
+		($ev = df_tmf($this)) ? __($ev->tl()) : (
 			// 2016-08-13
 			// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
 			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
