@@ -60,10 +60,10 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @return string|null
 	 */
 	private function allpayAuthCode() {
-		/** @var string $template */
-		$template = 'http://creditvendor{stage}.allpay.com.tw/DumpAuth/OrderView?TradeID=%d';
+		/** @var string $url */
+		$url = 'http://creditvendor{stage}.allpay.com.tw/DumpAuth/OrderView?TradeID=%d';
 		/** @var string $gwsr */
-		return df_tag_ab($gwsr = $this->e('gwsr'), $this->m()->url($template, $this->isTest(), $gwsr));
+		return df_tag_ab($gwsr = $this->e('gwsr'), dfp_url($this, $url, [], $this->isTest(), $gwsr));
 	}
 
 	/**

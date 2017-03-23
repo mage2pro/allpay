@@ -73,17 +73,6 @@ final class Method extends \Df\PaypalClone\Method {
 	;});}
 
 	/**
-	 * 2016-08-27
-	 * Первый параметр — для test, второй — для live.
-	 * @override
-	 * @see \Df\PaypalClone\Method::stageNames()
-	 * @used-by \Df\PaypalClone\Method::url()
-	 * @used-by \Df\PaypalClone\Refund::stageNames()
-	 * @return string[]
-	 */
-	function stageNames() {return ['-stage', ''];}
-
-	/**
 	 * 2016-11-13
 	 * @override
 	 * @see \Df\Payment\Method::amountFactor()
