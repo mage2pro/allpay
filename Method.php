@@ -64,7 +64,7 @@ final class Method extends \Df\PaypalClone\Method\Normal {
 	 * @return string|Phrase|null
 	 */
 	function paymentOptionTitle() {return dfc($this, function() {return
-		$this->responseF() ? __($this->responseF()->tl()) : (
+		($ev = $this->responseF()) ? __($ev->tl()) : (
 			// 2016-08-13
 			// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
 			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).

@@ -5,7 +5,6 @@ use Zend_Date as ZD;
 /**   
  * 2016-07-25
  * @method Event|string|null responseF(string $k = null)
- * @method Event|string|null responseL(string $k = null)
  * @see \Dfe\AllPay\Block\Info\ATM 
  * @see \Dfe\AllPay\Block\Info\Barcode
  * @see \Dfe\AllPay\Block\Info\CVS
@@ -37,7 +36,7 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 		/** @var Event $f */
 		$f = $this->responseF();
 		/** @var Event $l */
-		$l = $this->responseL();
+		$l = $this->m()->tm()->responseL();
 		/** @var bool $paid */
 		$paid = $f != $l;
 		/** @var array(strig => string) $result */
