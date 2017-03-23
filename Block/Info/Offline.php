@@ -4,7 +4,6 @@ use Dfe\AllPay\W\Event\Offline as Event;
 use Zend_Date as ZD;
 /**   
  * 2016-07-25
- * @method Event|string|null responseF(string $k = null)
  * @see \Dfe\AllPay\Block\Info\ATM 
  * @see \Dfe\AllPay\Block\Info\Barcode
  * @see \Dfe\AllPay\Block\Info\CVS
@@ -34,11 +33,9 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 */
 	final protected function custom() {
 		/** @var Event $f */
-		$f = $this->responseF();
 		/** @var Event $l */
-		$l = df_tm($this->m())->responseL();
 		/** @var bool $paid */
-		$paid = $f != $l;
+		$paid = ($f = $this->e()) != ($l = df_tm($this->m())->responseL());
 		/** @var array(strig => string) $result */
 		$result = [];
 		if (!($paid && $this->isFrontend())) {

@@ -5,8 +5,7 @@ use Magento\Framework\Phrase;
 /**  
  * 2016-07-28 
  * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
- * @method Event|string|null responseF(string $k = null)
- * @method Event|string|null responseL(string $k = null)
+ * @method Event|string|null e(...$k)
  */
 class BankCard extends \Dfe\AllPay\Block\Info {
 	/**
@@ -19,13 +18,13 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	final protected function custom() {
 		/** @var array(strig => string) $result */
 		$result = [];
-		$result['Card Number'] = $this->cardNumber();
+		$result['Card Number'] = df_ccc('******', $this->e('card6no', 'card4no'));
 		if ($this->isBackend()) {
-			$result['ECI'] = $this->eciS();
+			$result['ECI'] = $this->eci();
 		}
-		$result['Authorization Code'] = $this->r('auth_code');
+		$result['Authorization Code'] = $this->e('auth_code');
 		if ($this->isBackend()) {$result += [
-			'Authorization Time' => $this->responseF()->authTime()
+			'Authorization Time' => $this->e()->authTime()
 			// 2016-07-29
 			// [allPay] What does mean the «gwsr» response parameter?
 			// https://mage2.pro/t/1904
@@ -49,8 +48,10 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 */
 	final protected function prepareDic() {
 		parent::prepareDic();
-		if ($this->responseF() && $this->responseF()->isInstallment()) {
-			$this->dic()->addAfter('Payment Option', 'Payments', $this->numPayments());
+		/** @var Event $e */
+		/** @var int $n */
+		if (($e = $this->e()) && ($n = $e->numPayments())) {
+			$this->dic()->addAfter('Payment Option', 'Payments', $n);
 		}
 	}
 
@@ -61,55 +62,25 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	private function allpayAuthCode() {
 		/** @var string $template */
 		$template = 'http://creditvendor{stage}.allpay.com.tw/DumpAuth/OrderView?TradeID=%d';
-		return df_tag_ab($this->r('gwsr'), $this->m()->url($template, $this->isTest(), $this->r('gwsr')));
+		/** @var string $gwsr */
+		return df_tag_ab($gwsr = $this->e('gwsr'), $this->m()->url($template, $this->isTest(), $gwsr));
 	}
-
-	/** @return string */
-	private function cardNumber() {return df_ccc('******', $this->r('card6no', 'card4no'));}
 
 	/**
 	 * 2016-07-28
 	 * https://support.veritrans.co.id/hc/en-us/articles/204161150-What-is-ECI-on-3D-Secure-
 	 * https://www.paydollar.com/b2c2/eng/merchant/help/f_onlinehelp_eci.htm
-	 * @return int|null
-	 */
-	private function eci() {return dfc($this, function() {
-		/** @var int|null $result */
-		$result = $this->r('eci');
-		return is_null($result) ? $result : intval($result);
-	});}
-
-	/**
-	 * 2016-07-28
-	 * @return Phrase
-	 */
-	private function eciMeaning() {return __(dfa([
-		0 => 'Card holder and issuing bank not registered as a 3D Secure'
-		,1 => 'One of card holder or issuing bank not registered as a 3D Secure'
-		,2 => 'Card holder and issuing bank are 3D Secure. 3dSecure authentication successful'
-		,5 => 'Card holder and issuing bank are 3D Secure. 3dSecure authentication successful'
-		,6 => 'One of card holder or issuing bank not registered as a 3D Secure'
-		,7 => 'Card holder and issuing bank not registered as a 3D Secure'
-	], $this->eci(), 'Unknown code'));}
-
-	/**
-	 * 2016-07-28
+	 * @used-by custom()
 	 * @return string|null
 	 */
-	private function eciS() {return
-		is_null($this->eci()) ? null : "0{$this->eci()} ({$this->eciMeaning()})"
+	private function eci() {/** @var string|null $eci */return is_null($eci = $this->e('eci')) ? null :
+		sprintf("0{$eci} (%s)", dfa([
+			0 => 'Card holder and issuing bank not registered as a 3D Secure'
+			,1 => 'One of card holder or issuing bank not registered as a 3D Secure'
+			,2 => 'Card holder and issuing bank are 3D Secure. 3dSecure authentication successful'
+			,5 => 'Card holder and issuing bank are 3D Secure. 3dSecure authentication successful'
+			,6 => 'One of card holder or issuing bank not registered as a 3D Secure'
+			,7 => 'Card holder and issuing bank not registered as a 3D Secure'
+		], intval($eci), 'Unknown code'))
 	;}
-
-	/**
-	 * 2016-08-12
-	 * @return int
-	 */
-	private function numPayments() {return intval($this->r('stage'));}
-	
-	/**
-	 * 2016-07-28
-	 * @param string[] ...$k
-	 * @return string|null|array(string => mixed)
-	 */
-	private function r(...$k) {return $this->responseF()->r(1 === count($k) ? df_first($k) : $k);}
 }

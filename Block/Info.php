@@ -1,19 +1,19 @@
 <?php
 namespace Dfe\AllPay\Block;
+use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Dfe\AllPay\Method;
 use Dfe\AllPay\W\Event;
 use Magento\Sales\Model\Order\Payment\Transaction as T;
 /**
  * 2016-07-13
+ * @method Event|string|null e(...$k)
  * @method Method m()
- * @method Event|string|null responseF(string $k = null)
- * @method Event|string|null responseL(string $k = null)
  * @see \Dfe\AllPay\Block\Info\BankCard
  * @see \Dfe\AllPay\Block\Info\Offline
  * 2017-03-14
  * Этот класс намеренно НЕ АБСТРАКТНЫЙ!
  * Мы его используем в том случае, когда ПС ещё не прислала нам никаких оповещений,
- * и у нас @see responseF() в этом случае возвращает null.
+ * и у нас @see e() в этом случае возвращает null.
  */
 class Info extends \Df\PaypalClone\BlockInfo {
 	/**
@@ -43,8 +43,8 @@ class Info extends \Df\PaypalClone\BlockInfo {
 	final protected function prepare() {
 		$this->si($this->custom());
 		$this->siB([
-			'allPay Payment ID' => $this->responseF()->idE()
-			,'Magento Payment ID' => $this->responseF('MerchantTradeNo')
+			'allPay Payment ID' => $this->e()->idE()
+			,'Magento Payment ID' => $this->e('MerchantTradeNo')
 		]);
 	}
 
@@ -72,8 +72,8 @@ class Info extends \Df\PaypalClone\BlockInfo {
 	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
 	 */
 	protected function siWait() {
-		if ($this->m()->plan()) {
-			$this->si('Payments', $this->m()->plan()->numPayments());
+		if (/** @var Plan $p*/$p = $this->m()->plan()) {
+			$this->si('Payments', $p->numPayments());
 		}
 	}
 }

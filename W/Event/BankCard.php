@@ -13,11 +13,12 @@ final class BankCard extends \Dfe\AllPay\W\Event {
 
 	/**
 	 * 2016-08-09
+	 * 2017-03-23 Если оплата произведена единоразово, то метод вернёт 0.
 	 * @used-by tlByCode()
 	 * @used-by \Dfe\AllPay\Block\Info\BankCard::prepareDic()
-	 * @return bool
+	 * @return int
 	 */
-	function isInstallment() {return !!$this->r('stage');}
+	function numPayments() {return intval($this->r('stage'));}
 
 	/**
 	 * 2016-08-09
@@ -30,6 +31,6 @@ final class BankCard extends \Dfe\AllPay\W\Event {
 	 */
 	protected function tlByCode($f, $l) {return df_cc_s(
 		parent::tlByCode(df_assert_eq(Option::BANK_CARD, $f), $l)
-		,!$this->isInstallment() ? '' : '(Installments)'
+		,!$this->numPayments() ? '' : '(Installments)'
 	);}
 }

@@ -14,7 +14,7 @@ final class Method extends \Df\PaypalClone\Method {
 	 * 2017-03-12
 	 * Используем @uses df_cts(), чтобы избавиться от окончания «\Interceptor».
 	 * 2017-03-14
-	 * @see responseF() вернёт null, ПС ещё не присылала нам оповещений.
+	 * @uses df_tmf() вернёт null, ПС ещё не присылала нам оповещений.
 	 * В этом случае наш метод вернёт обобщённый класс @see \Dfe\AllPay\Block\Info
 	 * @override
 	 * @see \Df\PaypalClone\Method::getInfoBlockType()
