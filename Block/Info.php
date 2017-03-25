@@ -15,7 +15,7 @@ use Magento\Sales\Model\Order\Payment\Transaction as T;
  * Мы его используем в том случае, когда ПС ещё не прислала нам никаких оповещений,
  * и у нас @see e() в этом случае возвращает null.
  */
-class Info extends \Df\PaypalClone\BlockInfo {
+class Info extends \Df\Payment\Block\Info {
 	/**
 	 * 2016-07-13
 	 * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
