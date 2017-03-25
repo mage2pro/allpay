@@ -1,7 +1,6 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
 use Dfe\AllPay\W\Event\BankCard as Event;
-use Magento\Framework\Phrase;
 /**  
  * 2016-07-28 
  * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
