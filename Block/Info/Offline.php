@@ -32,17 +32,18 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * @return array(string => string)
 	 */
 	final protected function custom() {
+		/** @var bool $b */
+		$b = df_is_backend();
 		/** @var Event $f */
 		/** @var Event $l */
 		/** @var bool $paid */
-		$paid = ($f = $this->e()) != ($l = df_tm($this->m())->responseL());
 		/** @var array(strig => string) $result */
 		$result = [];
-		if (!($paid && $this->isFrontend())) {
+		if (!($paid = ($f = $this->e()) != ($l = df_tm($this->m())->responseL())) || $b) {
 			$result[$this->paymentIdLabel()] = $this->paymentId($f);
 		}
 		$result += $paid
-			? ['Paid' => $l->paidTime()->toString($this->isFrontend() ? ZD::DATE_LONG : ZD::DATETIME_LONG)]
+			? ['Paid' => $l->paidTime()->toString($b ? ZD::DATETIME_LONG : ZD::DATE_LONG)]
 			: ['Expiration' => $l->expirationS()]
 		;
 		return $result;
