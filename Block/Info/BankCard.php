@@ -19,12 +19,12 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 		/** @var array(strig => string) $result */
 		$result = [];
 		$result['Card Number'] = df_ccc('******', $this->e('card6no', 'card4no'));
-		/** @var bool $b */
-		if ($b = df_is_backend()) {
+		/** @var bool $ex */
+		if ($ex = $this->extended()) {
 			$result['ECI'] = $this->eci();
 		}
 		$result['Authorization Code'] = $this->e('auth_code');
-		if ($b) {$result += [
+		if ($ex) {$result += [
 			'Authorization Time' => $this->e()->authTime()
 			// 2016-07-29
 			// [allPay] What does mean the «gwsr» response parameter?

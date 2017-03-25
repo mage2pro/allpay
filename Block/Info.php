@@ -42,7 +42,7 @@ class Info extends \Df\PaypalClone\BlockInfo {
 	 */
 	final protected function prepare() {
 		$this->si($this->custom());
-		$this->siB([
+		$this->siEx([
 			'allPay Payment ID' => $this->e()->idE()
 			,'Magento Payment ID' => $this->e('MerchantTradeNo')
 		]);
