@@ -68,10 +68,10 @@ class Info extends \Df\PaypalClone\BlockInfo {
 	 * Т.е. покупатель ещё ничего не оплатил,  и, возможно, просто закрыл страницу оплаты
 	 * и уже ничего не оплатит (случай модуля allPay).
 	 * @override
-	 * @see \Df\Payment\Block\Info::siWait()
+	 * @see \Df\Payment\Block\Info::prepareUnconfirmed()
 	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
 	 */
-	protected function siWait() {
+	protected function prepareUnconfirmed() {
 		if (/** @var Plan $p*/$p = $this->m()->plan()) {
 			$this->si('Payments', $p->numPayments());
 		}
