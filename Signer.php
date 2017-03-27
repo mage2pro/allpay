@@ -39,12 +39,12 @@ final class Signer extends \Df\PaypalClone\Signer {
 		 * потому что там ключи предварительно приводятся к нижнему регистру.
 		 */
 		uksort($p, function($a, $b) {return strcasecmp($a, $b);});
-		/**
-		 * 2016-07-04
-		 * Step 2
-		 * «Add HashKey at the front of parameter and HashIV at the end of parameter.»
-		 */
-		$p = ['HashKey' => S::s()->hashKey()] + $p + ['HashIV' => S::s()->hashIV()];
+		/** @var S $s */
+		$s = $this->s();
+		// 2016-07-04
+		// Step 2
+		// «Add HashKey at the front of parameter and HashIV at the end of parameter.»
+		$p = ['HashKey' => $s->hashKey()] + $p + ['HashIV' => $s->hashIV()];
 		/**
 		 * 2016-07-04
 		 * Step 1.1

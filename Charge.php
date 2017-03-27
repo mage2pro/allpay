@@ -8,7 +8,7 @@ use Magento\Sales\Model\Order\Item as OI;
 /**
  * 2016-07-04
  * @method Method m()
- * @method Settings ss()
+ * @method Settings s()
  */
 final class Charge extends \Df\PaypalClone\Charge {
 	/**
@@ -181,7 +181,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * 2016-07-19
 		 * Эта опция учитывается только для ATM.
 		 */
-		,'ExpireDate' => $this->ss()->waitPeriodATM()
+		,'ExpireDate' => $this->s()->waitPeriodATM()
 		// 2016-07-04
 		// «Whether or not to hold the allocation».
 		// Int
@@ -275,7 +275,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 		// «Merchant Identification number (provided by allPay)».
 		// Varchar(10)
 		// Must be filled.
-		,'MerchantID' => $this->ss()->merchantID()
+		,'MerchantID' => $this->s()->merchantID()
 		/**
 		 * 2016-07-02
 		 * «Merchant trade date».
@@ -542,7 +542,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 */
 	private function descriptionOnKiosk() {
 		/** @var string[] $lines */
-		$lines = df_explode_n($this->text($this->ss()->descriptionOnKiosk()));
+		$lines = df_explode_n($this->text($this->s()->descriptionOnKiosk()));
 		/** @var int $n */
 		$n = 1;
 		/** @var array(string => string) $result */
@@ -572,7 +572,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @return bool
 	 */
 	private function isSingleOptionChosen() {return dfc($this, function() {return
-		$this->m()->option() || 1 === count($this->ss()->options()->allowed())
+		$this->m()->option() || 1 === count($this->s()->options()->allowed())
 	;});}
 
 	/**
@@ -595,7 +595,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 */
 	private function pChoosePayment() {return dfc($this, function() {
 		/** @var O $o */
-		$o = $this->ss()->options();
+		$o = $this->s()->options();
 		return $this->plan() ? Option::BANK_CARD : ($this->m()->option() ?: (
 			!$o->isLimited() || !$this->isSingleOptionChosen() ? 'ALL' : df_first($o->allowed())
 		));
@@ -612,7 +612,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 	 * @return string
 	 */
-	private function pIgnorePayment() {/** @var O $o */ $o = $this->ss()->options(); return df_ccc('#',
+	private function pIgnorePayment() {/** @var O $o */ $o = $this->s()->options(); return df_ccc('#',
 		// 2016-08-17
 		// https://code.dmitry-fedyuk.com/m2e/allpay/issues/14
 		array_merge(['ALL' === $this->pChoosePayment() ? 'Alipay' : null],

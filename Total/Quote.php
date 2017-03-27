@@ -77,8 +77,10 @@ class Quote extends AbstractTotal {
 		/** @var QP $qp */
 		/** @var int|null $planId */
 		if (($qp = dfp($quote)) && $qp->getMethod() === M::codeS() && ($planId = dfp_iia($qp, 'plan'))) {
+			/** @var S $s */
+			$s = dfps($qp);
 			/** @var Plan $plan */
-			$plan = df_assert(S::s()->installmentSales()->plans($planId));
+			$plan = df_assert($s->installmentSales()->plans($planId));
 			$this->setCode('dfe_allpay');
 			parent::collect($quote, $shippingAssignment, $total);
 			/** @var string $quoteCurrency */
