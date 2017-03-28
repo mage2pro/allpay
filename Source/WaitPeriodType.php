@@ -3,7 +3,7 @@ namespace Dfe\AllPay\Source;
 use Magento\Sales\Model\Order as O;
 // 2016-07-19
 /** @method static WaitPeriodType s() */
-final class WaitPeriodType extends \Df\Config\SourceT {
+final class WaitPeriodType extends \Df\Config\Source {
 	/**
 	 * 2016-07-19
 	 * @override

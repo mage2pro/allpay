@@ -2,7 +2,7 @@
 namespace Dfe\AllPay\Source;
 // 2016-07-02
 /** @method static Option s() */
-final class Option extends \Df\Config\SourceT {
+final class Option extends \Df\Config\Source {
 	/**
 	 * @override
 	 * @see \Df\Config\Source::map()

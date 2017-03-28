@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\Source;
 // 2016-08-15
-final class OptionsLocation extends \Df\Config\SourceT {
+final class OptionsLocation extends \Df\Config\Source {
 	/**
 	 * 2016-08-15
 	 * @override

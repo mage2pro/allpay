@@ -24,7 +24,7 @@ use Magento\Sales\Model\Order as O;
  *
  * @method static PaymentIdentificationType s()
  */
-final class PaymentIdentificationType extends \Df\Config\SourceT {
+final class PaymentIdentificationType extends \Df\Config\Source {
 	/**
 	 * 2016-07-17
 	 * @override
