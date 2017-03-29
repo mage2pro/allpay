@@ -39,7 +39,7 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 		/** @var bool $paid */
 		/** @var array(strig => string) $result */
 		$result = [];
-		if (!($paid = ($f = $this->e()) != ($l = df_tm($this->m())->responseL())) || $ex) {
+		if (!($paid = ($f = $this->e()) != ($l = $this->tm()->responseL())) || $ex) {
 			$result[$this->paymentIdLabel()] = $this->paymentId($f);
 		}
 		$result += $paid
