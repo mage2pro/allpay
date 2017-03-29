@@ -43,8 +43,7 @@ class Info extends \Df\Payment\Block\Info {
 	final protected function prepare() {
 		$this->si($this->custom());
 		$this->siEx([
-			'allPay Payment ID' => $this->e()->idE()
-			,'Magento Payment ID' => $this->e('MerchantTradeNo')
+			'allPay Payment ID' => $this->e()->idE(), 'Magento Payment ID' => $this->e('MerchantTradeNo')
 		]);
 	}
 
