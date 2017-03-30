@@ -55,7 +55,6 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * @override
 	 * @see \Df\Config\O::validate()
 	 * @used-by \Df\Config\Backend\Serialized::validate()
-	 * @return void
 	 * @throws DFE
 	 */
 	function validate() {df_assert($this->numPayments());}

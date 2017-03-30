@@ -123,7 +123,6 @@ class Quote extends AbstractTotal {
 	 * @param QP $payment
 	 * @param float $fee
 	 * @param float $feeBase
-	 * @return void
 	 */
 	private function iiAdd(QP $payment, $fee, $feeBase) {
 		/** @var int $id */

@@ -44,7 +44,6 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @override
 	 * @see \Dfe\AllPay\Block\Info::prepareDic()
 	 * @used-by \Df\Payment\Block\Info::getSpecificInformation()
-	 * @return void
 	 */
 	final protected function prepareDic() {
 		parent::prepareDic();

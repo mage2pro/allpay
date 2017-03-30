@@ -53,7 +53,6 @@ class Info extends \Df\Payment\Block\Info {
 	 * @see \Df\Payment\Block\Info::prepareDic()
 	 * @used-by \Df\Payment\Block\Info::getSpecificInformation()
 	 * @see \Dfe\AllPay\Block\Info\BankCard::prepareDic()
-	 * @return void
 	 */
 	protected function prepareDic() {$this->dic()->add('Payment Option', $this->paymentOption(), -10);}
 

@@ -9,7 +9,6 @@ class Total extends \Df\Sales\Block\Order\Total {
 	 * @override
 	 * @see \Df\Sales\Block\Order\Total::initTotals()
 	 * @used-by \Magento\Sales\Block\Order\Totals::_beforeToHtml()
-	 * @return void
 	 */
 	function initTotals() {
 		/** @var float|null $v */
