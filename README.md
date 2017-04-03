@@ -11,7 +11,7 @@ The extension integrates your Magento 2 store with the **[歐付寶 allPay](http
 7. [**Fast** mode: skip the billing address form filling](https://www.youtube.com/watch?v=a-gTR5JNlwk).
 
 ## How to buy
-You can buy it with PayPal [here](https://mage2.pro/t/1627).
+You can buy it with PayPal [here](https://mage2.pro/t/1791).
 
 ## How to install
 ### 1. Free installation service
