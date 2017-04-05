@@ -73,7 +73,7 @@ final class Signer extends \Df\PaypalClone\Signer {
 		 * результаты работы @uses strtolower и @see mb_strtolower() должны быть одинаковыми.
 		 */
 		$result = strtolower(urlencode($result));
-		$result = $this->signatureReplace($result);
+		$result = $this->encodeSpecialChars($result);
 		return strtoupper(md5($result));
 	}
 
@@ -84,7 +84,7 @@ final class Signer extends \Df\PaypalClone\Signer {
 	 * @param string $s
 	 * @return string
 	 */
-	private function signatureReplace($s) {return strtr($s, [
+	private function encodeSpecialChars($s) {return strtr($s, [
 		'%2d' => '-', '%5f' => '_', '%2e' => '.', '%21' => '!'
 		,'%2a' => '*', '%28' => '(', '%29'	=> ')'
 	]);}
