@@ -13,7 +13,7 @@ class Total extends \Df\Sales\Block\Order\Total {
 	function initTotals() {
 		/** @var float|null $v */
 		/** @var float|null $b */
-		list($v, $b) = TQuote::iiGet($this->payment());
+		list($v, $b) = TQuote::iiGet($this->op());
 		if ($v) {
 			/**
 			 * 2016-08-14
