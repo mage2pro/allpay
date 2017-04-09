@@ -6,19 +6,19 @@ final class Entity extends \Df\Config\ArrayItem {
 	/**
 	 * 2016-08-13
 	 * @used-by \Dfe\AllPay\Total\Quote::collect()
-	 * @param float $amount
-	 * $amount вполне может быть равно 0,
+	 * @param float $a
+	 * $a вполне может быть равно 0,
 	 * потому что метод @used-by \Dfe\AllPay\Total\Quote::collect() вызывается отдельно
 	 * для адресов shipping и billing, и для адреса billing, как правило, totals равны 0:
 	 * смотрите комментарий к методу @used-by \Dfe\AllPay\Total\Quote::collect()
-	 * Если же $amount равно 0, то мы не можем использовать наш обычный алгоритм,
+	 * Если же $a равно 0, то мы не можем использовать наш обычный алгоритм,
 	 * потому что он добавит к 0 фиксированную наценку,
 	 * а нам же надо просто вернуть 0.
 	 * @param string $cCode
 	 * @return float|int
 	 */
-	function amount($amount, $cCode) {return !$amount ? 0 : TWD::round(
-		$amount * (1 + $this->rate() / 100) + $this->fee($cCode) * $this->numPayments()
+	function amount($a, $cCode) {return !$a ? 0 : TWD::round(
+		$a * (1 + $this->rate() / 100) + $this->fee($cCode) * $this->numPayments()
 		,$cCode
 	);}
 
