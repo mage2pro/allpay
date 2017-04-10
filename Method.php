@@ -77,6 +77,7 @@ final class Method extends \Df\PaypalClone\Method {
 	 * @override
 	 * @see \Df\Payment\Method::amountFactor()
 	 * @used-by \Df\Payment\Method::amountFormat()
+	 * @used-by \Df\Payment\Method::amountParse()
 	 * @return int
 	 */
 	protected function amountFactor() {return 1;}
