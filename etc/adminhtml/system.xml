@@ -296,7 +296,7 @@ contain some other symbols.</p>
 					showInStore='1'
 				>
 					<label>Where to ask for a payment option?</label>
-					<source_model>Dfe\AllPay\Source\OptionsLocation</source_model>
+					<source_model>Df\PaypalClone\Source\OptionsLocation</source_model>
 					<comment><![CDATA[]]></comment>
 					<depends><field id='enable'>1</field></depends>
 				</field>

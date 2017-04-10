@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\AllPay;
-use Dfe\AllPay\Source\OptionsLocation as OL;
+use Df\PaypalClone\Source\OptionsLocation as OL;
 // 2016-08-04
 // @used-by https://github.com/mage2pro/allpay/blob/1.1.33/etc/frontend/di.xml?ts=4#L9
 /** @method Settings s() */
