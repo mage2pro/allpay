@@ -22,8 +22,8 @@
 				showInStore='1'
 			>
 				<label>歐付寶 allPay</label>
-				<dfExtension>Dfe\AllPay\Ext</dfExtension>
-				<frontend_model>Df\Config\Block\System\Config\Form\Fieldset\Ext</frontend_model>
+				<dfExtension>Dfe_AllPay</dfExtension>
+				<frontend_model>Df\Config\Fieldset</frontend_model>
 				<field
 					id='enable'
 					translate='label'
