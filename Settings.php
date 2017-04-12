@@ -37,12 +37,6 @@ final class Settings extends \Df\Payment\Settings {
 	function installmentSales() {return $this->child(InstallmentSales\Settings::class);}
 
 	/**
-	 * 2016-06-29
-	 * @return string
-	 */
-	function merchantID() {return $this->testable();}
-
-	/**
 	 * 2017-03-03
 	 * @used-by \Dfe\AllPay\ConfigProvider::config()
 	 * @return O
