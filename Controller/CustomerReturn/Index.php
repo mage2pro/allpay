@@ -10,5 +10,5 @@ class Index extends \Df\Payment\CustomerReturn {
 	 * @used-by \Df\Payment\CustomerReturn::execute()
 	 * @return string
 	 */
-	protected function message() {return df_request('RtnMsg');}
+	final protected function message() {return df_request('RtnMsg');}
 }
