@@ -62,7 +62,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 		/** @var string $url */
 		$url = 'http://creditvendor{stage}.allpay.com.tw/DumpAuth/OrderView?TradeID=%d';
 		/** @var string $gwsr */
-		return df_tag_ab($gwsr = $this->e('gwsr'), dfp_url($this, $url, [], $this->isTest(), $gwsr));
+		return df_tag_ab($gwsr = $this->e('gwsr'), dfp_url_api($this, $url, [], $this->isTest(), $gwsr));
 	}
 
 	/**
