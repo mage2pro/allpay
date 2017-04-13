@@ -1,46 +1,46 @@
 {
 	"ATM": {
-		"BOT": "Bank of Taiwan"
-		,"CATHAY": "Cathy United Bank"
-		,"CHB": "CHANG HWA BANK"
-		,"CHINATRUST": "China Trust Bank"
-		,"ESUN": "E.Sun Bank"
-		,"FIRST": "First Bank"
-		,"FUBON": "Taipei Fubon Bank"
-		,"HUANAN": "Hua Nan Bank"
-		,"LAND": "Land Bank"
-		,"Sinopac": "Bank Sinopac"
-		,"Tachong": "TC Bank"
-		,"TAISHIN": "Tai Shin Bank"
+		"BOT": "台灣銀行"
+		,"CATHAY": "國泰世華銀行"
+		,"CHB": "彰化銀行"
+		,"CHINATRUST": "中國信託"
+		,"ESUN": "玉山銀行"
+		,"FIRST": "第一銀行"
+		,"FUBON": "台北富邦"
+		,"HUANAN": "華南銀行"
+		,"LAND": "土地銀行"
+		,"Sinopac": "永豐銀行"
+		,"Tachong": "大眾銀行"
+		,"TAISHIN": "台新銀行"
 	},
 	"BARCODE": {
-		"BARCODE": "BARCODE payment"
+		"BARCODE": "超商條碼繳款"
 	},
 	"Credit": {
-		"CreditCard": "Bank Card"
+		"CreditCard": "信用卡"
 	},
 	"CVS": {
-		"CVS": "Convenient store code payment"
-		,"FAMILY": "Family Mart code payment"
-		,"HILIFE": "Hilife code payment"
-		,"IBON": "7-11 ibon code payment"
-		,"OK": "OK Mart code payment"
+		"CVS": "超商代碼繳款"
+		,"FAMILY": "全家超商代碼繳款"
+		,"HILIFE": "萊爾富超商代碼繳款"
+		,"IBON": "7-11 ibon 代碼繳款"
+		,"OK": "OK 超商代碼繳款"
 	},
 	"TopUpUsed": {
-		"AllPay": "Top up/Balance payment with Allpay"
+		"AllPay": "儲值/餘額消費_歐付寶"
 	},
 	"WebATM": {
-		"BOT": "Bank of Taiwan",
-		"CATHAY": "Cathy United Bank",
-		"CHINATRUST": "China Trust Bank",
-		"ESUN": "E.Sun Bank",
-		"FIRST": "First Bank",
-		"FUBON": "Taipei Fubon Bank",
-		"HUANAN": "Hua Nan Bank",
-		"LAND": "Land Bank",
-		"MEGA": "Mega Bank",
-		"TAISHIN": "Tai Shin Bank",
-		"YUANTA": "Yuan Ta Bank"
+		"BOT": "台灣銀行"
+		,"CATHAY": "國泰世華"
+		,"CHINATRUST": "中國信託"
+		,"ESUN": "玉山銀行"
+		,"FIRST": "第一銀行"
+		,"FUBON": "台北富邦"
+		,"HUANAN": "華南銀行"
+		,"LAND": "土地銀行"
+		,"MEGA": "兆豐銀行"
+		,"TAISHIN": "台新銀行"
+		,"YUANTA": "元大銀行"
 	}
 }
 

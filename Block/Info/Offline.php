@@ -28,7 +28,6 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * 2016-07-25
 	 * @override
 	 * @see \Dfe\AllPay\Block\Info::custom()
-	 * @used-by prepareUnconfirmed()
 	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
 	 * @return array(string => string)
 	 */
@@ -47,6 +46,13 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 			? ['Paid' => $l->paidTime()->toString($ex ? ZD::DATETIME_LONG : ZD::DATE_LONG)]
 			: ['Expiration' => $l->expirationS()]
 		;
+		// 2017-04-14
+		// «About ATM payment information:
+		// It's lost BankCode(If don't have bankcode can't pay it) ,can you add it?»
+		// https://mage2.pro/t/3686/6
+		if ($bankCode = $f->r('BankCode')) {
+			$result += ['Bank Code' => $bankCode];
+		}
 		return $result;
 	}
 
@@ -60,5 +66,5 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * @see \Df\Payment\Block\Info::prepareUnconfirmed()
 	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
 	 */
-	final protected function prepareUnconfirmed() {$this->si($this->custom());}
+	final protected function prepareUnconfirmed() {$this->prepare();}
 }

@@ -38,6 +38,7 @@ class Info extends \Df\Payment\Block\Info {
 	 * @override
 	 * @see \Df\Payment\Block\Info::prepare()
 	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
+	 * @used-by \Dfe\AllPay\Block\Info\Offline::prepareUnconfirmed()
 	 */
 	final protected function prepare() {
 		$this->si($this->custom());
