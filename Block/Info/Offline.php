@@ -28,7 +28,8 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * 2016-07-25
 	 * @override
 	 * @see \Dfe\AllPay\Block\Info::custom()
-	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @used-by prepareUnconfirmed()
+	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
 	 * @return array(string => string)
 	 */
 	final protected function custom() {
@@ -48,4 +49,16 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 		;
 		return $result;
 	}
+
+	/**
+	 * 2017-04-13
+	 * ПС работает с перенаправлением покупателя на свою страницу.
+	 * Покупатель был туда перенаправлен, однако ПС ещё не прислала оповещение о платеже
+	 * (и способе оплаты). Т.е. покупатель ещё ничего не оплатил,
+	 * и, возможно, просто закрыл страницу оплаты и уже ничего не оплатит.
+	 * @override
+	 * @see \Df\Payment\Block\Info::prepareUnconfirmed()
+	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
+	 */
+	final protected function prepareUnconfirmed() {$this->si($this->custom());}
 }

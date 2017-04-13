@@ -1,5 +1,6 @@
 <?php
 namespace Dfe\AllPay\Block\Info;
+use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Dfe\AllPay\W\Event\BankCard as Event;
 /**  
  * 2016-07-28 
@@ -51,6 +52,22 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 		/** @var int $n */
 		if (($e = $this->e()) && ($n = $e->numPayments())) {
 			$this->dic()->addAfter('Payment Option', 'Payments', $n);
+		}
+	}
+
+	/**
+	 * 2016-08-13
+	 * ПС работает с перенаправлением покупателя на свою страницу.
+	 * Покупатель был туда перенаправлен, однако ПС ещё не прислала оповещение о платеже
+	 * (и способе оплаты). Т.е. покупатель ещё ничего не оплатил,
+	 * и, возможно, просто закрыл страницу оплаты и уже ничего не оплатит.
+	 * @override
+	 * @see \Df\Payment\Block\Info::prepareUnconfirmed()
+	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
+	 */
+	final protected function prepareUnconfirmed() {
+		if (/** @var Plan $p*/$p = $this->m()->plan()) {
+			$this->si('Payments', $p->numPayments());
 		}
 	}
 
