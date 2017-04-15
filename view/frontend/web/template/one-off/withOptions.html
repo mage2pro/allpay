@@ -10,4 +10,6 @@
 https://github.com/mage2pro/allpay/blob/1.1.32/view/frontend/web/main.js?ts=4#L80-L83 -->
 <h3 data-bind='html: oneOff()'></h3>
 <!--/ko-->
-<!-- ko template: 'Df_Payment/withOptions' --><!-- /ko -->
+<!-- ko template: {
+	data: require('df').o.merge($data, {hideTitle: true}), name: 'Df_Payment/withOptions'
+} --><!-- /ko -->
