@@ -51,13 +51,6 @@ final class Settings extends \Df\Payment\Settings {
 	function optionsLocation() {return $this->v();}
 
 	/**
-	 * 2016-07-17
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Payment Identification Type»
-	 * @return string
-	 */
-	function paymentIdentificationType() {return $this->v();}
-
-	/**
 	 * 2016-07-19
 	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait period for an ATM payment»
 	 * @return int
