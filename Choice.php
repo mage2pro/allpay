@@ -1,18 +1,19 @@
 <?php
 namespace Dfe\AllPay;
 use Df\Payment\W\Event;
+use Magento\Framework\Phrase;
 // 2017-04-17
 /** @method \Dfe\AllPay\Method m() */
-final class Status extends \Df\Payment\Status {
+final class Choice extends \Df\Payment\Choice {
 	/**
 	 * 2017-04-17
 	 * @override
-	 * @see \Df\Payment\Status::_p()
-	 * @used-by \Df\Payment\Status::p()
-	 * @return string|null
+	 * @see \Df\Payment\Choice::title()
+	 * @used-by \Df\Payment\Observer\DataProvider\SearchResult::execute()
+	 * @return Phrase|string|null
 	 */
-	protected function _p() {return dfc($this, function() {return /** @var Event $ev */
-		($ev = df_tmf($this->m())) ? __($ev->tl()) : (
+	function title() {return dfc($this, function() {return /** @var Event $ev */
+		($ev = $this->responseF()) ? __($ev->tl()) : (
 			// 2016-08-13
 			// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
 			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).

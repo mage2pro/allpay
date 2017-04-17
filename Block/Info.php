@@ -16,15 +16,6 @@ use Magento\Sales\Model\Order\Payment\Transaction as T;
  */
 class Info extends \Df\Payment\Block\Info {
 	/**
-	 * 2016-07-13
-	 * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
-	 * @return string
-	 */
-	function paymentOption() {return dfc($this, function() {return
-		dfp_status($this->ii()) ?:  __('Not selected yet')
-	;});}
-
-	/**
 	 * 2016-07-20
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
 	 * @see \Dfe\AllPay\Block\Info\BankCard::custom()
@@ -54,5 +45,5 @@ class Info extends \Df\Payment\Block\Info {
 	 * @used-by \Df\Payment\Block\Info::getSpecificInformation()
 	 * @see \Dfe\AllPay\Block\Info\BankCard::prepareDic()
 	 */
-	protected function prepareDic() {$this->dic()->add('Payment Option', $this->paymentOption(), -10);}
+	protected function prepareDic() {$this->dic()->add('Payment Option', $this->choiceT(), -10);}
 }
