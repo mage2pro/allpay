@@ -21,7 +21,7 @@ class Info extends \Df\Payment\Block\Info {
 	 * @return string
 	 */
 	function paymentOption() {return dfc($this, function() {return
-		$this->m()->paymentOptionTitle() ?:  __('Not selected yet')
+		dfp_status($this->ii()) ?:  __('Not selected yet')
 	;});}
 
 	/**

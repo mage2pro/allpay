@@ -38,38 +38,11 @@ final class Method extends \Df\PaypalClone\Method {
 	 * 2016-08-13
 	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
 	 * @used-by \Dfe\AllPay\Charge::plan()
-	 * @used-by \Dfe\AllPay\Method::paymentOptionTitle()
+	 * @used-by \Dfe\AllPay\Status::_p()
 	 * @return Plan|null
 	 */
 	function plan() {return dfc($this, function() {/** @var int|string|null $id */ return
 		!ctype_digit($id = $this->option()) ? null : $this->s()->installmentSales()->plans($id)
-	;});}
-
-	/**
-	 * 2016-07-28
-	 * @override
-	 * @see \Df\Payment\Method::titleDetailed()
-	 * @used-by \Df\Payment\Observer\DataProvider\SearchResult::execute()
-	 * @return string
-	 */
-	function titleDetailed() {return df_cc_br(parent::titleDetailed(), $this->paymentOptionTitle());}
-
-	/**
-	 * 2016-08-13
-	 * @used-by \Dfe\AllPay\Method::titleDetailed()
-	 * @return string|Phrase|null
-	 */
-	function paymentOptionTitle() {return dfc($this, function() {return /** @var Event $ev */
-		($ev = df_tmf($this)) ? __($ev->tl()) : (
-			// 2016-08-13
-			// Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,
-			// но платёжная система ещё не прислала оповещение о платеже (и способе оплаты).
-			// Т.е. покупатель ещё ничего не оплатил,
-			// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
-			// Формируем заголовок по аналогии с
-			// @see \Dfe\AllPay\W\Handler\BankCard::typeLabelByCode()
-			!$this->plan() ? null : df_cc_br(__('Bank Card (Installments)'), __('Not paid yet'))
-		)
 	;});}
 
 	/**
