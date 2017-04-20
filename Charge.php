@@ -271,7 +271,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 		// and would like to show cash flow selection page line by line,
 		// separate the item name with symbol #.».
 		// Must be filled.
-		,'ItemName' => df_oi_s($this->o(), '#')
+		,'ItemName' => df_oqi_s($this->o(), '#')
 		/**
 		 * 2016-07-02
 		 * «Item URL».
@@ -594,7 +594,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @return string
 	 */
 	private function productUrls() {return df_ccc('+', $this->oiLeafs(function(OI $i) {return
-		df_oi_url($i)
+		df_oqi_url($i)
 	;}));}
 
 	/**
