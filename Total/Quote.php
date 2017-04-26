@@ -131,7 +131,7 @@ class Quote extends AbstractTotal {
 		// проверил собственноручно.
 		$id = df_assert(intval($this->_getAddress()->getId()));
 		/** @var array(int => array(string => float)) $values */
-		$values = df_nta($payment->getAdditionalInformation(self::$II_KEY));
+		$values = df_eta($payment->getAdditionalInformation(self::$II_KEY));
 		$payment->setAdditionalInformation(self::$II_KEY,
 			[$id => [self::$II_FEE => $fee, self::$II_FEE_BASE => $feeBase]] + $values
 		);
@@ -146,7 +146,7 @@ class Quote extends AbstractTotal {
 	 */
 	static function iiGet(IPayment $payment) {
 		/** @var array(int => array(string => float)) $values */
-		$values = df_nta($payment->getAdditionalInformation(self::$II_KEY));
+		$values = df_eta($payment->getAdditionalInformation(self::$II_KEY));
 		/** @var float $fee */
 		$fee = 0;
 		/** @var float $fee */
