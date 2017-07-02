@@ -15,7 +15,6 @@
 			<group
 				id='all_pay'
 				translate='label'
-				type='text'
 				sortOrder='112'
 				showInDefault='1'
 				showInWebsite='1'
@@ -427,7 +426,6 @@ https://mage2.pro/t/329
 				<group
 					id='installment_sales'
 					translate='label'
-					type='text'
 					sortOrder='27'
 					showInDefault='1'
 					showInWebsite='1'
