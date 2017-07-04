@@ -14,23 +14,19 @@
 -->
 			<group
 				id='all_pay'
-				translate='label'
+				showInDefault='1' showInStore='1' showInWebsite='1'
 				sortOrder='112'
-				showInDefault='1'
-				showInWebsite='1'
-				showInStore='1'
+				translate='label'
 			>
 				<label>歐付寶 allPay</label>
 				<dfExtension>Dfe_AllPay</dfExtension>
 				<frontend_model>Df\Config\Fieldset</frontend_model>
 				<field
 					id='enable'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='1'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
-					sortOrder='1'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Enable?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
@@ -46,12 +42,10 @@
 				</field>
 				<field
 					id='title'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='2'
 					translate='label'
 					type='text'
-					sortOrder='2'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Title</label>
 					<comment><![CDATA[It is shown on the checkout screen.]]></comment>
@@ -60,12 +54,10 @@
 				</field>
 				<field
 					id='test'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='3'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
-					sortOrder='3'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Test Mode?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
@@ -74,11 +66,9 @@
 				</field>
 				<field
 					id='testMerchantID'
-					translate='label'
+					showInDefault='1' showInStore='1' showInWebsite='1'
 					sortOrder='4'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
+					translate='label'
 				>
 					<label>Test Merchant ID (商店代號)</label>
 					<comment><![CDATA[<a href='https://mage2.pro/t/1822' target='_blank'>Where to find it?</a>]]></comment>
@@ -90,11 +80,9 @@
 				</field>
 				<field
 					id='testHashKey'
-					translate='label'
+					showInDefault='1' showInStore='1' showInWebsite='1'
 					sortOrder='5'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
+					translate='label'
 				>
 					<label>Test ALL IN ONE 介接 HashKey</label>
 					<comment><![CDATA[<a href='https://mage2.pro/t/1823' target='_blank'>Where to find it?</a>]]></comment>
@@ -106,11 +94,9 @@
 				</field>
 				<field
 					id='testHashIV'
-					translate='label'
+					showInDefault='1' showInStore='1' showInWebsite='1'
 					sortOrder='6'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
+					translate='label'
 				>
 					<label>Test ALL IN ONE 介接 HashIV</label>
 					<comment><![CDATA[<a href='https://mage2.pro/t/1824' target='_blank'>Where to find it?</a>]]></comment>
@@ -122,11 +108,9 @@
 				</field>
 				<field
 					id='liveMerchantID'
-					translate='label'
+					showInDefault='1' showInStore='1' showInWebsite='1'
 					sortOrder='7'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
+					translate='label'
 				>
 					<label>Live Merchant ID (商店代號)</label>
 					<comment><![CDATA[<a href='https://mage2.pro/t/1822' target='_blank'>Where to find it?</a>]]></comment>
@@ -138,12 +122,10 @@
 				</field>
 				<field
 					id='liveHashKey'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='8'
 					translate='label'
 					type='obscure'
-					sortOrder='8'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Live ALL IN ONE 介接 HashKey</label>
 					<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
@@ -156,12 +138,10 @@
 				</field>
 				<field
 					id='liveHashIV'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='9'
 					translate='label'
 					type='obscure'
-					sortOrder='9'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Live ALL IN ONE 介接 HashIV</label>
 					<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
@@ -174,12 +154,10 @@
 				</field>
 				<field
 					id='description'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='11'
 					translate='label'
 					type='textarea'
-					sortOrder='11'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Description</label>
 					<comment><![CDATA[It will be displayed to the customer on the 歐付寶 allPay payment page.
@@ -194,14 +172,12 @@
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
+					dfRows='4'
 					id='descriptionOnKiosk'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='12'
 					translate='label'
 					type='Df\Framework\Form\Element\Textarea'
-					dfRows='4'
-					sortOrder='12'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Description on a kiosk's screen</label>
 					<comment><![CDATA[It will be displayed to the customer <a href='https://mage2.pro/t/1828' target='_blank'>on a kiosk's screen</a>.
@@ -215,14 +191,12 @@
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
+					dfRows='4'
 					id='messageFailure'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='13'
 					translate='label'
 					type='Df\Framework\Form\Element\Textarea'
-					dfRows='4'
-					sortOrder='13'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Failure Message</label>
 					<comment><![CDATA[The failure message will be displayed to the customer on the checkout screen when the customer returns from the allPay payment page to the store after an unsuccessful payment attempt.
@@ -237,12 +211,10 @@
 				</field>
 				<field
 					id='identification'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='14'
 					translate='label'
 					type='select'
-					sortOrder='14'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Payment Identification Type</label>
 					<source_model>Df\PaypalClone\Source\Identification</source_model>
@@ -259,12 +231,10 @@ contain some other symbols.</p>
 				</field>
 				<field
 					id='waitPeriodATM'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='15'
 					translate='label'
 					type='text'
-					sortOrder='15'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Wait period for an ATM payment</label>
 					<comment><![CDATA[In days.]]></comment>
@@ -273,12 +243,10 @@ contain some other symbols.</p>
 				</field>
 				<field
 					id='waitPeriodType'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='16'
 					translate='label'
 					type='select'
-					sortOrder='16'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Wait Period Type</label>
 					<source_model>Dfe\AllPay\Source\WaitPeriodType</source_model>
@@ -287,12 +255,10 @@ contain some other symbols.</p>
 				</field>
 				<field
 					id='optionsLocation'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='17'
 					translate='label'
 					type='select'
-					sortOrder='17'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Where to ask for a payment option?</label>
 					<source_model>Df\PaypalClone\Source\OptionsLocation</source_model>
@@ -301,12 +267,10 @@ contain some other symbols.</p>
 				</field>
 				<field
 					id='requireBillingAddress'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='18'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
-					sortOrder='18'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Require the billing address?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
@@ -315,12 +279,10 @@ contain some other symbols.</p>
 				</field>
 				<field
 					id='optionsLimit'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='19'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
-					sortOrder='19'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Limit Payment Options Availability?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
@@ -329,12 +291,10 @@ contain some other symbols.</p>
 				</field>
 				<field
 					id='optionsAllowed'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='20'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
-					sortOrder='20'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Allowed Payment Options</label>
 					<source_model>Dfe\AllPay\Source\Option</source_model>
@@ -347,12 +307,10 @@ contain some other symbols.</p>
 				</field>
 				<field
 					id='min_order_total'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='21'
 					translate='label'
 					type='text'
-					sortOrder='21'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Minimum Order Total</label>
 					<comment><![CDATA[]]></comment>
@@ -361,12 +319,10 @@ contain some other symbols.</p>
 				</field>
 				<field
 					id='max_order_total'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='22'
 					translate='label'
 					type='text'
-					sortOrder='22'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Maximum Order Total</label>
 					<comment><![CDATA[]]></comment>
@@ -375,12 +331,10 @@ contain some other symbols.</p>
 				</field>
 				<field
 					id='country_restriction'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='23'
 					translate='label'
 					type='select'
-					sortOrder='23'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Country Restriction</label>
 					<source_model>Df\Config\Source\NoWhiteBlack</source_model>
@@ -388,12 +342,10 @@ contain some other symbols.</p>
 				</field>
 				<field
 					id='countries'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='24'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
-					sortOrder='24'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Countries</label>
 					<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
@@ -411,12 +363,10 @@ https://mage2.pro/t/329
 				</field>
 				<field
 					id='log'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='25'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
-					sortOrder='25'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
 				>
 					<label>Log the API requests and responses?</label>
 					<backend_model>Df\Config\Backend\Checkbox</backend_model>
@@ -425,36 +375,30 @@ https://mage2.pro/t/329
 				</field>
 				<group
 					id='installment_sales'
-					translate='label'
+					showInDefault='1' showInStore='1' showInWebsite='1'
 					sortOrder='27'
-					showInDefault='1'
-					showInWebsite='1'
-					showInStore='1'
+					translate='label'
 				>
 					<label>Installment Sales</label>
 					<field
 						id='enable'
+						showInDefault='1' showInStore='1' showInWebsite='1'
+						sortOrder='1'
 						translate='label'
 						type='Df\Framework\Form\Element\Checkbox'
-						sortOrder='1'
-						showInDefault='1'
-						showInWebsite='1'
-						showInStore='1'
 					>
 						<label>Enable?</label>
 						<backend_model>Df\Config\Backend\Checkbox</backend_model>
 						<comment><![CDATA[]]></comment>
 					</field>
 					<field
+						dfEntity='Dfe\AllPay\InstallmentSales\Plan\Entity'
+						dfItemFormElement='Dfe\AllPay\InstallmentSales\Plan\FormElement'
 						id='plans'
+						showInDefault='1' showInStore='1' showInWebsite='1'
+						sortOrder='2'
 						translate='label'
 						type='Df\Framework\Form\Element\ArrayT'
-						dfItemFormElement='Dfe\AllPay\InstallmentSales\Plan\FormElement'
-						dfEntity='Dfe\AllPay\InstallmentSales\Plan\Entity'
-						sortOrder='2'
-						showInDefault='1'
-						showInWebsite='1'
-						showInStore='1'
 					>
 						<label>Plans</label>
 						<comment><![CDATA[]]></comment>
