@@ -52,7 +52,7 @@ define([
 		var option = this.option;
 		return $.map(this.installment().plans, function(p) {return Plan({
 			fee: parseFloat(p.fee)
-			,numPayments: parseInt(p.numPayments)
+			,numPayments: df.int(p.numPayments)
 			,option: option
 			,rate: parseFloat(p.rate)
 		}, rateToCurrent);});
