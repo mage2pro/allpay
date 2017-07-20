@@ -42,6 +42,9 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 
 	/**
 	 * 2016-08-09
+	 * 2017-07-20
+	 * A similar implementation for the Moip extension:
+	 * https://github.com/mage2pro/moip/blob/0.8.3/Block/Info.php#L26
 	 * @override
 	 * @see \Dfe\AllPay\Block\Info::prepareDic()
 	 * @used-by \Df\Payment\Block\Info::getSpecificInformation()
@@ -61,6 +64,9 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * Покупатель был туда перенаправлен, однако ПС ещё не прислала оповещение о платеже
 	 * (и способе оплаты). Т.е. покупатель ещё ничего не оплатил,
 	 * и, возможно, просто закрыл страницу оплаты и уже ничего не оплатит.
+	 * 2017-07-20
+	 * A similar implementation for the Moip extension:
+	 * https://github.com/mage2pro/moip/blob/0.8.3/Block/Info.php#L26
 	 * @override
 	 * @see \Df\Payment\Block\Info::prepareUnconfirmed()
 	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
