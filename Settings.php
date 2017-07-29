@@ -4,7 +4,6 @@ namespace Dfe\AllPay;
 use Df\Config\Source\WaitPeriodType;
 use Df\Payment\Settings\Options as O;
 use Dfe\AllPay\Source\Option as OptionSource;
-use Zend_Date as ZD;
 /** @method static Settings s() */
 final class Settings extends \Df\Payment\Settings {
 	/**
@@ -51,23 +50,8 @@ final class Settings extends \Df\Payment\Settings {
 	function optionsLocation() {return $this->v();}
 
 	/**
-	 * 2016-07-19
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait period for an ATM payment»
+	 * 2016-07-19 «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait period for an ATM payment»
 	 * @return int
 	 */
-	function waitPeriodATM() {return dfc($this, function($f) {
-		/** @var int $result */
-		$result = $this->nat($f);
-		if (WaitPeriodType::WORKING_DAYS === $this->waitPeriodType()) {
-			$result = df_num_calendar_days_by_num_working_days(ZD::now(), $result, $this->scope());
-		}
-		return $result;
-	}, [__FUNCTION__]);}
-
-	/**
-	 * 2016-07-17
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait Period Type»
-	 * @return string
-	 */
-	function waitPeriodType() {return $this->v();}
+	function waitPeriodATM() {return WaitPeriodType::calculate($this);}
 }
