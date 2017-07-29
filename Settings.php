@@ -1,9 +1,9 @@
 <?php
 // 2016-06-29
 namespace Dfe\AllPay;
+use Df\Config\Source\WaitPeriodType;
 use Df\Payment\Settings\Options as O;
 use Dfe\AllPay\Source\Option as OptionSource;
-use Dfe\AllPay\Source\WaitPeriodType;
 use Zend_Date as ZD;
 /** @method static Settings s() */
 final class Settings extends \Df\Payment\Settings {

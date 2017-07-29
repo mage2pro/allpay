@@ -249,7 +249,7 @@ contain some other symbols.</p>
 					type='select'
 				>
 					<label>Wait Period Type</label>
-					<source_model>Dfe\AllPay\Source\WaitPeriodType</source_model>
+					<source_model>Df\Config\Source\WaitPeriodType</source_model>
 					<comment><![CDATA[You can set the working days with the<br/>«<b>General</b>» → «<b>General</b>» → «<b>Locale Options</b>» → «<b>Weekend Days</b>» option.]]></comment>
 					<depends><field id='enable'>1</field></depends>
 				</field>
