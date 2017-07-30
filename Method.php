@@ -11,10 +11,9 @@ use Magento\Sales\Model\Order\Payment as OP;
 final class Method extends \Df\PaypalClone\Method {
 	/**
 	 * 2016-07-20
-	 * 2017-03-12
-	 * Используем @uses df_cts(), чтобы избавиться от окончания «\Interceptor».
+	 * 2017-03-12 Используем @uses df_cts(), чтобы избавиться от окончания «\Interceptor».
 	 * 2017-03-14
-	 * @uses df_tmf() вернёт null, ПС ещё не присылала нам оповещений.
+	 * @uses df_tmf() вернёт null, если ПС ещё не присылала нам оповещений.
 	 * В этом случае наш метод вернёт обобщённый класс @see \Dfe\AllPay\Block\Info
 	 * @override
 	 * @see \Df\PaypalClone\Method::getInfoBlockType()
