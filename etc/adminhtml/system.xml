@@ -219,20 +219,46 @@
 					<label>Payment Identification Type</label>
 					<source_model>Df\PaypalClone\Source\Identification</source_model>
 					<comment><![CDATA[
-<p class='note'>«<b>Visible ID</b>» is the recommended value for the most shops,
+<p class='df-note'>This option defines what will be the value of the <a href='https://mage2.pro/t/topic/2839' target='_blank' title='The allPay API documentation'><code>MerchantTradeNo</code></a> API parameter.</p>
+<p class='df-note'>«<b>Visible ID</b>» is the recommended value for the most shops,
 because it allows you to locate a payment in the allPay Merchant Backend
 knowing only the order's visible identifier.</p>
-<p class='note'>allPay allows only digits and the Latin letters in the payment identifiers,
-so the «Visible ID» option will not work if order identifiers
-contain some other symbols.</p>
-<p class='note'>For example, the «<a href='https://mage2.pro/t/512' target='_blank'>Sales Documents Numeration</a>» extension allows you to implement a custom order numeration scheme like <b>ORD-2016/07-00327</b>.</p>
-<p class='note'>If you use such non-standard orders numbers, then choose the «<b>Internal ID</b>» value for the «Payment Identification Type» option.</p>]]></comment>
+<p class='df-note'>allPay allows only the digits and the Latin letters in the payment identifiers, and limits them up to <a href='https://mage2.pro/t/topic/2839' target='_blank' title='The allPay API documentation'><b>20 characters</b></a>,
+so the «Visible ID» option will not work if an order identifier
+contain some other symbols or is too long.</p>
+<p class='df-note'>For example, the «<a href='https://mage2.pro/t/512' target='_blank'>Sales Documents Numeration</a>» extension allows you to implement a custom order numeration scheme like <b>ORD-2016/07-00327</b>.</p>
+<p class='df-note'>If you use such non-standard orders numbers, then choose the «<b>Internal ID</b>» value for the «Payment Identification Type» option.</p>]]></comment>
+					<depends><field id='enable'>1</field></depends>
+				</field>
+				<field
+					id='idPrefix'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='15'
+					translate='label'
+				>
+					<label>Payment ID prefix</label>
+					<comment><![CDATA[<p class='df-note'>This option allows you to define a prefix for the payment identificators (the values of the <a href='https://mage2.pro/t/topic/2839' target='_blank' title='The allPay API documentation'><code>MerchantTradeNo</code></a> API parameter).</p>
+<p class='df-note'>In the most cases you do not need any prefix and can leave this option empty.</p>
+<p class='df-note'>But there are <a href='https://github.com/mage2pro/allpay/issues/1' target='_blank' title='The «歐付寶 allPay» payment extension issue tracker (GitHub-based)'>some (rare) cases</a> when your allPay payment identifiers can potentially overlap with the previous ones:</p>
+<ul class='df-note'>
+<li>If you use a single allPay merchant account for multiple shops.</li>
+<li>If you have changed (e.g., reset) your Magento order numeration scheme.</li>
+</ul>
+<p class='df-note'>If allPay encounters a payment identifier which has been already used for another payment, it fails with the message: «<b>訂單編號重覆，建立失敗(100002)</b>» (it can be translated as «failed to make a payment because the order number is already in use»).</p>
+<p class='df-note'>So to evade such situation you can define a prefix for the payment identifiers.</p>
+<p class='df-note'>Please note that:</p>
+<ul class='df-note'>
+<li>The full payment identifier length (prefix + order number) should be not greater than <a href='https://mage2.pro/t/topic/2839' target='_blank' title='The allPay API documentation'><b>20 charachters</b></a>.</li>
+<li>allPay allows only the digits and the Latin letters in the payment identifiers, so you should not use other characters in the prefix too.</li>
+</ul>
+</p>
+]]></comment>
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
 					id='waitPeriodATM'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='15'
+					sortOrder='16'
 					translate='label'
 					type='text'
 				>
@@ -244,7 +270,7 @@ contain some other symbols.</p>
 				<field
 					id='waitPeriodType'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='16'
+					sortOrder='17'
 					translate='label'
 					type='select'
 				>
@@ -256,7 +282,7 @@ contain some other symbols.</p>
 				<field
 					id='optionsLocation'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='17'
+					sortOrder='18'
 					translate='label'
 					type='select'
 				>
@@ -268,7 +294,7 @@ contain some other symbols.</p>
 				<field
 					id='requireBillingAddress'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='18'
+					sortOrder='19'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
 				>
@@ -280,7 +306,7 @@ contain some other symbols.</p>
 				<field
 					id='optionsLimit'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='19'
+					sortOrder='20'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
 				>
@@ -292,7 +318,7 @@ contain some other symbols.</p>
 				<field
 					id='optionsAllowed'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='20'
+					sortOrder='21'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
 				>
@@ -308,7 +334,7 @@ contain some other symbols.</p>
 				<field
 					id='min_order_total'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='21'
+					sortOrder='22'
 					translate='label'
 					type='text'
 				>
@@ -320,7 +346,7 @@ contain some other symbols.</p>
 				<field
 					id='max_order_total'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='22'
+					sortOrder='23'
 					translate='label'
 					type='text'
 				>
@@ -332,7 +358,7 @@ contain some other symbols.</p>
 				<field
 					id='country_restriction'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='23'
+					sortOrder='24'
 					translate='label'
 					type='select'
 				>
@@ -343,7 +369,7 @@ contain some other symbols.</p>
 				<field
 					id='countries'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='24'
+					sortOrder='25'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
 				>
@@ -364,7 +390,7 @@ https://mage2.pro/t/329
 				<field
 					id='log'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='25'
+					sortOrder='26'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
 				>
