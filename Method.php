@@ -3,7 +3,6 @@ namespace Dfe\AllPay;
 use Df\Payment\W\Event;
 use Dfe\AllPay\Block\Info;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
-use Magento\Framework\Phrase;
 use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
 use Magento\Sales\Model\Order\Payment as OP;
