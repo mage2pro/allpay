@@ -16,7 +16,15 @@ final class Method extends \Df\PaypalClone\Method {
 	 * В этом случае наш метод вернёт обобщённый класс @see \Dfe\AllPay\Block\Info
 	 * @override
 	 * @see \Df\PaypalClone\Method::getInfoBlockType()
-	 * @used-by \Magento\Payment\Helper\Data::getInfoBlock()
+	 * @used-by \Magento\Payment\Helper\Data::getInfoBlock():
+	 *		public function getInfoBlock(InfoInterface $info, LayoutInterface $layout = null) {
+	 *			$layout = $layout ?: $this->_layout;
+	 *			$blockType = $info->getMethodInstance()->getInfoBlockType();
+	 *			$block = $layout->createBlock($blockType);
+	 *			$block->setInfo($info);
+	 *			return $block;
+	 *		}
+	 * https://github.com/magento/magento2/blob/2.2.0-RC1.6/app/code/Magento/Payment/Helper/Data.php#L182-L196
 	 * @return string
 	 */
 	function getInfoBlockType() {/** @var Event $ev */ return df_cc_class(
