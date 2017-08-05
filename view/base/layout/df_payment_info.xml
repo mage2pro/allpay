@@ -3,8 +3,11 @@
 	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
 	xsi:noNamespaceSchemaLocation='urn:magento:framework:View/Layout/etc/page_configuration.xsd'>
 	<body>
+		<referenceBlock name='invoice_totals'>
+			<block class='Dfe\AllPay\Block\Total' name='dfe_allpay_total_1'/>
+		</referenceBlock>
 		<referenceBlock name='order_totals'>
-			<block class='Dfe\AllPay\Block\Total' name='dfe_allpay_total'/>
+			<block class='Dfe\AllPay\Block\Total' name='dfe_allpay_total_2'/>
 		</referenceBlock>
 	</body>
 </page>
