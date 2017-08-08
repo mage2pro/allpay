@@ -1,21 +1,22 @@
 <?php
 namespace Dfe\AllPay\InstallmentSales\Plan;
-use Df\Framework\Form\Element\Fieldset;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as O;
 /**
  * 2016-07-30
- * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
- * 2015-12-27 Этот класс не является одиночкой: https://github.com/magento/magento2/blob/2.0.0/lib/internal/Magento/Framework/Data/Form/AbstractForm.php#L155
+ * @final Unable to use the PHP «final» keyword here because of the M2 code generation. 
+ * This class is not a singleton:
+ * @see \Magento\Framework\Data\Form\AbstractForm::addField():
+ * 		$element = $this->_factoryElement->create($type, ['data' => $config]);
+ * https://github.com/magento/magento2/blob/2.2.0-RC1.8/lib/internal/Magento/Framework/Data/Form/AbstractForm.php#L137-L159
  */
-class FormElement extends Fieldset {
+class FormElement extends \Df\Framework\Form\Element\Fieldset {
 	/**
 	 * 2016-07-30
-	 * @final Unable to use the PHP «final» keyword here because of the M2 code generation.
 	 * @override
 	 * @see \Df\Framework\Form\Element\Fieldset::onFormInitialized()
 	 * @used-by \Df\Framework\Plugin\Data\Form\Element\AbstractElement::afterSetForm()
 	 */
-	function onFormInitialized() {
+	final function onFormInitialized() {
 		parent::onFormInitialized();
 		// 2016-07-30 This CSS class will be applied to the <fieldset> DOM node.
 		$this->addClass('dfe-allpay-installment-plan');
