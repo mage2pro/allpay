@@ -16,11 +16,9 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @return array(string => string)
 	 */
 	final protected function custom() {
-		/** @var array(strig => string) $result */
-		$result = [];
+		$result = []; /** @var array(strig => string) $result */
 		$result['Card Number'] = df_ccc('******', $this->e('card6no', 'card4no'));
-		/** @var bool $ex */
-		if ($ex = $this->extended()) {
+		if ($ex = $this->extended()) {  /** @var bool $ex */
 			$result['ECI'] = $this->eci();
 		}
 		$result['Authorization Code'] = $this->e('auth_code');
@@ -51,8 +49,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 */
 	final protected function prepareDic() {
 		parent::prepareDic();
-		/** @var Event $e */
-		/** @var int $n */
+		/** @var Event $e */ /** @var int $n */
 		if (($e = $this->e()) && ($n = $e->numPayments())) {
 			$this->dic()->addAfter('Payment Option', 'Payments', $n);
 		}
@@ -82,8 +79,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @return string|null
 	 */
 	private function allpayAuthCode() {
-		/** @var string $url */
-		$url = 'http://creditvendor{stage}.allpay.com.tw/DumpAuth/OrderView?TradeID=%d';
+		$url = 'http://creditvendor{stage}.allpay.com.tw/DumpAuth/OrderView?TradeID=%d'; /** @var string $url */
 		/** @var string $gwsr */
 		return df_tag_ab($gwsr = $this->e('gwsr'), dfp_url_api($this, $url, [], $this->isTest(), $gwsr));
 	}
