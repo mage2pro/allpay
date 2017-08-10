@@ -74,33 +74,22 @@ class Quote extends AbstractTotal {
 		 *		$method->assignData($data);
 		 * $planId инициализируется только на assignData, а сюда мы попадаем уже на collectTotals.
 		 */
-		/** @var QP $qp */
-		/** @var int|null $planId */
+		/** @var QP $qp */ /** @var int|null $planId */
 		if (($qp = dfp($quote)) && $qp->getMethod() === M::codeS() && ($planId = dfp_iia($qp, 'plan'))) {
-			/** @var S $s */
-			$s = dfps($qp);
-			/** @var Plan $plan */
-			$plan = df_assert($s->installmentSales()->plans($planId));
+			$s = dfps($qp); /** @var S $s */
+			$plan = df_assert($s->installmentSales()->plans($planId)); /** @var Plan $plan */
 			$this->setCode('dfe_allpay');
 			parent::collect($quote, $shippingAssignment, $total);
-			/** @var string $quoteCurrency */
-			$quoteCurrency = $quote->getQuoteCurrencyCode();
-			/** @var string $baseCurrency */
-			$baseCurrency = $quote->getBaseCurrencyCode();
-			/** 2016-08-13 По аналогии с @see \Magento\Quote\Model\Quote\Address\Total\Grand::collect() */
-			/** @var float $totals */
-			$totals = array_sum($total->getAllTotalAmounts());
-			/** @var float|int $totalsNew */
-			$totalsNew = $plan->amount($totals, $quoteCurrency);
-			/** @var float $fee */
-			$fee = TWD::round($totalsNew - $totals, $quoteCurrency);
+			$quoteCurrency = $quote->getQuoteCurrencyCode(); /** @var string $quoteCurrency */
+			$baseCurrency = $quote->getBaseCurrencyCode(); /** @var string $baseCurrency */
+			/** 2016-08-13 By analogy with @see \Magento\Quote\Model\Quote\Address\Total\Grand::collect() */
+			$totals = array_sum($total->getAllTotalAmounts()); /** @var float $totals */
+			$totalsNew = $plan->amount($totals, $quoteCurrency); /** @var float|int $totalsNew */
+			$fee = TWD::round($totalsNew - $totals, $quoteCurrency); /** @var float $fee */
 			$this->_setAmount($fee);
-			/** @var float $baseTotals */
-			$baseTotals = array_sum($total->getAllBaseTotalAmounts());
-			/** @var float|int $baseTotalsNew */
-			$baseTotalsNew = $plan->amount($baseTotals, $baseCurrency);
-			/** @var float $feeBase */
-			$feeBase = TWD::round($baseTotalsNew - $baseTotals, $baseCurrency);
+			$baseTotals = array_sum($total->getAllBaseTotalAmounts()); /** @var float $baseTotals */
+			$baseTotalsNew = $plan->amount($baseTotals, $baseCurrency); /** @var float|int $baseTotalsNew */
+			$feeBase = TWD::round($baseTotalsNew - $baseTotals, $baseCurrency); /** @var float $feeBase */
 			$this->_setBaseAmount($feeBase);
 			$this->iiAdd($qp, $fee, $feeBase);
 		}
