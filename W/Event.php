@@ -103,5 +103,5 @@ class Event extends \Df\PaypalClone\W\Event {
 	 */
 	final protected static function time($timeS) {return dfcf(function($timeS) {return
 		!$timeS ? null : df_date_parse($timeS, true, 'y/MM/dd HH:mm:ss', Method::TIMEZONE)
-	;}, func_get_args());}
+	;}, [$timeS]);}
 }
