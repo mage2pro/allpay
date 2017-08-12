@@ -1,6 +1,6 @@
 {
 	"name": "mage2pro/allpay"
-	,"version": "1.6.12"
+	,"version": "1.6.13"
 	,"description": "The «歐付寶 allPay» payment extension for Magento 2."
 	,"type": "magento2-module"
 	,"homepage": "https://mage2.pro/c/extensions/allpay"
