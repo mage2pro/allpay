@@ -6,6 +6,13 @@ use Dfe\AllPay\Source\Option;
 use Magento\Sales\Model\Order\Item as OI;
 /**
  * 2016-07-04
+ * 2017-08-13
+ * The charge parameters are described in the following places of the official documentation:
+ * 1) In Chinese: the Chapter 4 «訂單產生» (pages 16-29)
+ * of the «歐付寶全方位金流 介接技術文件» , version 1.1.38 (2016-07-22): https://mage2.pro/t/2839
+ * 2) In English: the Chapter 5 «Generating Purchasing Order» (pages 16-28)
+ * of the «allPay All-In-One Cash Flow API Interfacing Document» , version 1.1.32 (2016-08-29):
+ * https://mage2.pro/t/2838
  * @method Method m()
  * @method Settings s()
  */
