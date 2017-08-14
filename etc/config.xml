@@ -57,6 +57,27 @@ https://code.dmitry-fedyuk.com/m2e/allpay/issues/7
 ведь там все идентификаторы имели бы одинаковую приставку.
 -->				
 				<identification>increment_id</identification>
+<!-- 2017-08-14
+*) Param name: `MerchantTradeNo`
+*) Param type and limitations: «Varchar (20), upper and lower cases of English letters and numbers».
+*) Reference:
+	1) In Chinese: Chapter 4 «訂單產生» (page 16)
+	of the «歐付寶全方位金流 介接技術文件» , version 1.1.38 (2016-07-22): https://mage2.pro/t/2839
+	2) In English: Chapter 5 «Generating Purchasing Order» (page 16)
+	of the «allPay All-In-One Cash Flow API Interfacing Document» , version 1.1.32 (2016-08-29):
+-->
+				<identification_rules>
+<!-- 2017-08-14
+ctype_alnum does not fit here
+because an identifier should be validated against the English letters, not the Latin letters.
+https://stackoverflow.com/a/13695722
+-->
+					<regex>
+						<pattern><![CDATA[#^[a-z0-9]+$#i]]></pattern>
+						<message>it should consist of the English letters and digits only</message>
+					</regex>
+					<max_length>20</max_length>
+				</identification_rules>
 				<log>1</log>
 				<messageFailure><![CDATA[Sorry, the payment attempt is failed.
 <br/>The payment service's message is «<b>{originalMessage}</b>».
