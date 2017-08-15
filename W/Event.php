@@ -5,7 +5,7 @@ use Zend_Date as ZD;
 /**
  * 2016-07-09
  * The response is documented in the Chapter 7 «Payment Result Notification»
- * on the pages 32-35 of the allPay documentation.
+ * on the pages 32-35 of the allPay documentation: https://mage2.pro/t/2837
  * 2017-03-13
  * @see \Dfe\AllPay\W\Event\BankCard
  * @see \Dfe\AllPay\W\Event\Offline
@@ -68,10 +68,8 @@ class Event extends \Df\PaypalClone\W\Event {
 	 * @return string
 	 */
 	final protected function tl_($t) {return
-		/** @var string[] $a */
-		/** @var string|null $l */
-		2 > count($a = explode('_', df_param_sne($t, 0)))
-		|| !($l = $this->tlByCode($f = $a[0], $a[1]))
+		/** @var string[] $a */ /** @var string|null $l */
+		2 > count($a = explode('_', df_param_sne($t, 0))) || !($l = $this->tlByCode($f = $a[0], $a[1]))
 		? $t : (!in_array($f, ['ATM', 'WebATM']) ? __($l) : df_cc_s(__($f), __($l)))
 	;}
 
