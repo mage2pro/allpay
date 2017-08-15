@@ -12,5 +12,5 @@ final class Offline extends \Df\PaypalClone\W\Nav {
 	 * @used-by \Df\PaypalClone\W\Nav::id()
 	 * @return string
 	 */
-	protected function type() {return $this->e()->needCapture() ? 'capture' : 'info';}
+	protected function type() {return $this->e()->needChangePaymentState() ? 'capture' : 'info';}
 }
