@@ -18,7 +18,7 @@ final class Reader extends \Df\Payment\W\Reader {
 	 * 2017-03-10
 	 * @override
 	 * @see \Df\Payment\W\Reader::kt()
-	 * @used-by \Df\Payment\W\Reader::t()
+	 * @used-by \Df\Payment\W\Reader::tRaw()
 	 * @return string
 	 */
 	 protected function kt() {return 'PaymentType';}
