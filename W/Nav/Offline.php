@@ -1,7 +1,8 @@
 <?php
 namespace Dfe\AllPay\W\Nav;
+use Dfe\AllPay\W\Event as Ev;
 // 2017-03-15
-/** @method \Dfe\AllPay\W\Event e() */
+/** @method Ev e() */
 final class Offline extends \Df\PaypalClone\W\Nav {
 	/**
 	 * 2016-07-20
@@ -11,5 +12,5 @@ final class Offline extends \Df\PaypalClone\W\Nav {
 	 * @used-by \Df\PaypalClone\W\Nav::id()
 	 * @return string
 	 */
-	protected function type() {return $this->e()->needChangePaymentState() ? 'capture' : 'info';}
+	protected function type() {return $this->e()->needChangePaymentState() ? Ev::T_CAPTURE : Ev::T_INFO;}
 }
