@@ -607,7 +607,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	/**
 	 * 2017-03-16
 	 * @used-by pCharge()
-	 * @used-by \Dfe\AllPay\W\Event\Offline::needChangePaymentState()
+	 * @used-by \Dfe\AllPay\W\Event\Offline::ttCurrent()
 	 * @see \Dfe\AllPay\Controller\Offline\Index
 	 */
 	const OFFLINE = 'offline';

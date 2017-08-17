@@ -17,13 +17,4 @@ final class F extends \Df\Payment\W\F {
 	protected function sufEvent($t) {return Option::WEB_ATM === $t ? '' : (
 		$this->r()->isOffline() ? 'Offline' : $t
 	);}
-
-	/**
-	 * 2017-03-16
-	 * @used-by \Df\Payment\W\F::c()
-	 * @see \Dfe\AllPay\W\Nav\Offline
-	 * @param string|null $t
-	 * @return string
-	 */
-	protected function sufNav($t) {return $this->r()->isOffline() ? 'Offline' : '';}
 }

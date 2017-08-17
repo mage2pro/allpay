@@ -21,16 +21,12 @@ final class Offline extends \Dfe\AllPay\W\Event {
 	});}
 
 	/**
-	 * 2017-03-16
-	 * @override
-	 * @see \Df\Payment\W\Event::needChangePaymentState()
-	 * @used-by statusExpected()
+	 * 2017-08-17
+	 * @override The type of the current transaction.
+	 * @see \Df\PaypalClone\W\Event::ttCurrent()
 	 * @used-by \Df\Payment\W\Strategy\ConfirmPending::_handle()
-	 * @used-by \Df\PaypalClone\W\Event::ttCurrent()
-	 * @used-by \Dfe\AllPay\W\Nav\Offline::id()
-	 * @return bool
 	 */
-	function needChangePaymentState() {return !df_action_has(Charge::OFFLINE);}
+	function ttCurrent() {return df_action_has(Charge::OFFLINE) ? self::T_INFO : self::T_CAPTURE;}
 
 	/**
 	 * 2016-07-20
@@ -49,7 +45,9 @@ final class Offline extends \Dfe\AllPay\W\Event {
 	 * @used-by \Df\PaypalClone\W\Event::isSuccessful()
 	 * @return int
 	 */
-	protected function statusExpected() {return $this->needChangePaymentState() ? parent::statusExpected() : (
-		Option::ATM === $this->t() ? 2 : 10100073
-	);}
+	protected function statusExpected() {return
+		(self::T_CAPTURE === $this->ttCurrent()) ? parent::statusExpected() : (
+			Option::ATM === $this->t() ? 2 : 10100073
+		)
+	;}
 }
