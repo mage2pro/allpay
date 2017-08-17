@@ -233,7 +233,7 @@ contain some other symbols or is too long.</p>
 					translate='label'
 				>
 					<label>Payment ID prefix</label>
-					<comment><![CDATA[<p class='df-note'>This option allows you to define a prefix for the payment identificators (the values of the <a href='https://mage2.pro/t/topic/2839' target='_blank' title='The allPay API documentation'><code>MerchantTradeNo</code></a> API parameter).</p>
+					<comment><![CDATA[<p class='df-note'>This option allows you to define a prefix for the payment identificators (the values of the <a href='https://mage2.pro/t/2839' target='_blank' title='The allPay API documentation'><code>MerchantTradeNo</code></a> API parameter).</p>
 <p class='df-note'>In the most cases you do not need any prefix and can leave this option empty.</p>
 <p class='df-note'>But there are <a href='https://github.com/mage2pro/allpay/issues/1' target='_blank' title='The «歐付寶 allPay» payment extension issue tracker (GitHub-based)'>some (rare) cases</a> when your allPay payment identifiers can potentially overlap with the previous ones:</p>
 <ul class='df-note'>
@@ -244,7 +244,7 @@ contain some other symbols or is too long.</p>
 <p class='df-note'>So to evade such situation you can define a prefix for the payment identifiers.</p>
 <p class='df-note'>Please note that:</p>
 <ul class='df-note'>
-<li>The full payment identifier length (prefix + order number) should be not greater than <a href='https://mage2.pro/t/topic/2839' target='_blank' title='The allPay API documentation'><b>20 charachters</b></a>.</li>
+<li>The full payment identifier length (prefix + order number) should be not greater than <a href='https://mage2.pro/t/2839' target='_blank' title='The allPay API documentation'><b>20 charachters</b></a>.</li>
 <li>allPay allows only the digits and the Latin letters in the payment identifiers, so you should not use other characters in the prefix too.</li>
 </ul>
 </p>
