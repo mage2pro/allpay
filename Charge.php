@@ -18,6 +18,16 @@ use Magento\Sales\Model\Order\Item as OI;
  */
 final class Charge extends \Df\PaypalClone\Charge {
 	/**
+	 * 2017-08-19
+	 * 2016-07-02 «Merchant Identification number (provided by allPay)». Varchar(10). Must be filled.
+	 * @override
+	 * @see \Df\PaypalClone\Charge::k_MerchantId()
+	 * @used-by \Df\PaypalClone\Charge::p()
+	 * @return string
+	 */
+	protected function k_MerchantId() {return 'MerchantID';}
+
+	/**
 	 * 2016-08-29
 	 * @override
 	 * @see \Df\PaypalClone\Charge::k_RequestId()
@@ -295,11 +305,6 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * Could be empty.
 		 */
 		,'ItemURL' => $this->productUrls()
-		// 2016-07-02
-		// «Merchant Identification number (provided by allPay)».
-		// Varchar(10)
-		// Must be filled.
-		,'MerchantID' => $this->s()->merchantID()
 		/**
 		 * 2016-07-02
 		 * «Merchant trade date».
