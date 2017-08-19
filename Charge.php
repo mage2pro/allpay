@@ -19,6 +19,20 @@ use Magento\Sales\Model\Order\Item as OI;
 final class Charge extends \Df\PaypalClone\Charge {
 	/**
 	 * 2017-08-19
+	 * 2016-07-02 «Trade amount». Money. Must be filled.
+	 * 2016-07-05 Значение должно быть целым.
+	 * 2016-09-06
+	 * Значение тут всегда в TWD, потому что для модуля AllPay платёжная валюта зашита в etc/config.xml,
+	 * и администратор не может её изменить.
+	 * @override
+	 * @see \Df\PaypalClone\Charge::k_Amount()
+	 * @used-by \Df\PaypalClone\Charge::p()
+	 * @return string
+	 */
+	protected function k_Amount() {return 'TotalAmount';}
+	
+	/**
+	 * 2017-08-19
 	 * 2016-07-02 «Merchant Identification number (provided by allPay)». Varchar(10). Must be filled.
 	 * @override
 	 * @see \Df\PaypalClone\Charge::k_MerchantId()
@@ -472,25 +486,6 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
 		,'ReturnURL' => $this->callback()
-		// 2016-07-02
-		// «Trade amount».
-		// «Money».
-		// Must be filled.
-		/**
-		 * 2016-07-02
-		 * «Trade amount».
-		 * «Money».
-		 * Must be filled.
-		 *
-		 * 2016-07-05
-		 * Значение должно быть целым.
-		 *
-		 * 2016-09-06
-		 * Значение тут всегда в TWD,
-		 * потому что для модуля AllPay платёжная валюта зашита в etc/config.xml,
-		 * и администратор не модет её изменить.
-		 */
-		,'TotalAmount' => $this->amountF()
 		// 2016-07-02
 		// «Trade description».
 		// Varchar(200)
