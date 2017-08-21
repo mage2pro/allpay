@@ -11,8 +11,7 @@ final class Signer extends \Df\PaypalClone\Signer {
 	 * @return string
 	 */
 	protected function sign() {
-		/** @var array(string => mixed) $p */
-		$p = $this->v();
+		$p = $this->v(); /** @var array(string => mixed) $p */
 		// 2016-07-11
 		unset($p['CheckMacValue']);
 		/**
@@ -39,11 +38,8 @@ final class Signer extends \Df\PaypalClone\Signer {
 		 * потому что там ключи предварительно приводятся к нижнему регистру.
 		 */
 		uksort($p, function($a, $b) {return strcasecmp($a, $b);});
-		/** @var S $s */
-		$s = $this->s();
-		// 2016-07-04
-		// Step 2
-		// «Add HashKey at the front of parameter and HashIV at the end of parameter.»
+		$s = $this->s(); /** @var S $s */
+		// 2016-07-04 Step 2. «Add HashKey at the front of parameter and HashIV at the end of parameter.»
 		$p = ['HashKey' => $s->hashKey()] + $p + ['HashIV' => $s->hashIV()];
 		/**
 		 * 2016-07-04
