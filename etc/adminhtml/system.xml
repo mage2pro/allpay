@@ -244,7 +244,7 @@ contain some other symbols or is too long.</p>
 <p class='df-note'>So to evade such situation you can define a prefix for the payment identifiers.</p>
 <p class='df-note'>Please note that:</p>
 <ul class='df-note'>
-<li>The full payment identifier length (prefix + order number) should be not greater than <a href='https://mage2.pro/t/2839' target='_blank' title='The allPay API documentation'><b>20 charachters</b></a>.</li>
+<li>The full payment identifier length (prefix + order number) should be not greater than <a href='https://mage2.pro/t/2839' target='_blank' title='The allPay API documentation'><b>20 characters</b></a>.</li>
 <li>allPay allows only the digits and the Latin letters in the payment identifiers, so you should not use other characters in the prefix too.</li>
 </ul>
 </p>
