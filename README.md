@@ -10,6 +10,19 @@ The extension integrates your Magento 2 store with the **[歐付寶 allPay](http
 6. [**Mobile** mode](https://www.youtube.com/watch?v=vZGABg-31xo).
 7. [**Fast** mode: skip the billing address form filling](https://www.youtube.com/watch?v=a-gTR5JNlwk).
 
+## Screenshots
+### Frontend checkout screen
+![](https://mage2.pro/uploads/default/original/2X/d/d5a9df1dccbd3b39848379b0aa7e5465c4a21adf.png)
+
+### Frontend checkout screen in the fast mode
+![](https://mage2.pro/uploads/default/original/2X/8/8c51244f8c9d30eb1afdea2cb8efcb45a91e0d39.png)
+
+### Backend orders list
+![](https://mage2.pro/uploads/default/original/2X/d/da7d7adc8ff2ba83924a51fe6d9d5c73db949833.png)
+
+### Backend settings
+![](https://mage2.pro/uploads/default/original/2X/c/c4d1d3bfe10360ca3d21dc978338a50be8138dc3.png)
+
 ## How to buy
 You can buy it with PayPal [here](https://mage2.pro/t/1791).
 
@@ -106,15 +119,3 @@ I provide a [custom payment gateway integration service](https://mage2.pro/t/917
 It is possible: the price depends on a extension and starts from $6.990.  
 You will get free lifetime support, updates, and installation service for all your clients.
 
-## Screenshots
-### Frontend checkout screen
-![](https://mage2.pro/uploads/default/original/2X/d/d5a9df1dccbd3b39848379b0aa7e5465c4a21adf.png)
-
-### Frontend checkout screen in the fast mode
-![](https://mage2.pro/uploads/default/original/2X/8/8c51244f8c9d30eb1afdea2cb8efcb45a91e0d39.png)
-
-### Backend orders list
-![](https://mage2.pro/uploads/default/original/2X/d/da7d7adc8ff2ba83924a51fe6d9d5c73db949833.png)
-
-### Backend settings
-![](https://mage2.pro/uploads/default/original/2X/f/f97a738fb619db48e37a066f01a7ab125db564a6.png)
