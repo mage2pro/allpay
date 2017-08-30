@@ -25,6 +25,7 @@ final class Offline extends \Dfe\AllPay\W\Event {
 	 * @override
 	 * @see \Df\PaypalClone\W\Event::ttCurrent()
 	 * @used-by \Df\Payment\W\Strategy\ConfirmPending::_handle()
+	 * @used-by \Df\PaypalClone\W\Nav::id()
 	 */
 	function ttCurrent() {return df_action_has(Charge::OFFLINE) ? self::T_INFO : self::T_CAPTURE;}
 
