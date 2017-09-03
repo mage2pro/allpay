@@ -213,7 +213,7 @@ because the value can contain variables, so do not know the real length here. --
 					type='select'
 				>
 					<label>Payment Identification Type</label>
-					<source_model>Df\PaypalClone\Source\Identification</source_model>
+					<source_model>Df\Payment\Source\Identification</source_model>
 					<comment><![CDATA[
 <p class='df-note'>This option defines what will be the value of the <a href='https://mage2.pro/t/topic/2839' target='_blank' title='The allPay API documentation'><code>MerchantTradeNo</code></a> API parameter.</p>
 <p class='df-note'>«<b>Visible ID</b>» is the recommended value for the most shops,
