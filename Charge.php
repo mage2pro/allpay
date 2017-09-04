@@ -486,11 +486,13 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
 		,'ReturnURL' => $this->callback()
-		// 2016-07-02
-		// «Trade description».
-		// Varchar(200)
-		// Must be filled.
-		,'TradeDesc' => $this->description()
+		/**
+		 * 2016-07-02 «Trade description». Required, string(200).
+		 * 2017-09-04
+		 * [歐付寶 allPay] The maximum length of a payment description («TradeDesc») is 200 characters:
+		 * https://mage2.pro/t/4456
+		 */
+		,'TradeDesc' => $this->description(200)
 	];}
 
 	/**
