@@ -51,6 +51,7 @@ final class Settings extends \Df\Payment\Settings {
 
 	/**
 	 * 2016-07-19 «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait period for an ATM payment»
+	 * @used-by \Dfe\AllPay\Charge::pCharge()
 	 * @return int
 	 */
 	function waitPeriodATM() {return WaitPeriodType::calculate($this);}
