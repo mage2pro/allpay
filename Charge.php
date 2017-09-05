@@ -492,7 +492,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * [歐付寶 allPay] The maximum length of a payment description («TradeDesc») is 200 characters:
 		 * https://mage2.pro/t/4456
 		 */
-		,'TradeDesc' => $this->description(200)
+		,'TradeDesc' => $this->description()
 	];}
 
 	/**
