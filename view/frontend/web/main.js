@@ -1,7 +1,9 @@
 // 2016-08-04
 define([
 	'df', 'df-lodash', 'Df_Payment/withOptions', 'Dfe_AllPay/plan', 'jquery'
-], function(df, _, parent, Plan, $) {'use strict'; return parent.extend({
+], function(df, _, parent, Plan, $) {'use strict';
+/** 2017-09-06 @uses Class::extend() https://github.com/magento/magento2/blob/2.2.0-rc2.3/app/code/Magento/Ui/view/base/web/js/lib/core/class.js#L106-L140 */
+return parent.extend({
 	// 2016-08-06
 	// @used-by Df_Payment/main
 	// https://github.com/mage2pro/core/blob/2.4.21/Payment/view/frontend/web/template/main.html#L36-L38
