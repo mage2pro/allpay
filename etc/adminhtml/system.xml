@@ -211,7 +211,7 @@ because the value can contain variables, so do not know the real length here. --
 					<comment><![CDATA[
 <p class='df-note'>This option defines what will be the value of the <a href='https://mage2.pro/t/topic/2839' target='_blank' title='The allPay API documentation'><code>MerchantTradeNo</code></a> API parameter.</p>
 <p class='df-note'>«<b>Visible ID</b>» is the recommended value for the most shops,
-because it allows you to locate a payment in the allPay Merchant Backend
+because it allows you to locate a payment in the allPay merchant backend
 knowing only the order's visible identifier.</p>
 <p class='df-note'>allPay allows only the digits and the Latin letters in the payment identifiers, and limits them up to <a href='https://mage2.pro/t/topic/2839' target='_blank' title='The allPay API documentation'><b>20 characters</b></a>,
 so the «Visible ID» option will not work if an order identifier

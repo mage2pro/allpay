@@ -79,8 +79,8 @@ because an identifier should be validated against the English letters, not the L
 https://stackoverflow.com/a/13695722
 -->
 					<regex>
-						<pattern><![CDATA[#^[a-z0-9]+$#i]]></pattern>
 						<message>it should consist of the English letters and digits only</message>
+						<pattern><![CDATA[#^[a-z0-9]+$#i]]></pattern>
 					</regex>
 					<max_length>20</max_length>
 				</identification_rules>
