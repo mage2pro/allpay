@@ -15,12 +15,19 @@
 				<currency>TWD</currency>
 				<description>{store.name}</description>
 				<description_rules>
+					<locations>
+						<customer>
+							<shown>1</shown>
+						</customer>
+						<merchant>
+							<shown>1</shown>
+						</merchant>
+					</locations>
 					<maxLength>
 						<title>[歐付寶 allPay] The maximum length of a payment description («TradeDesc») is 200 characters.</title>
 						<url>https://mage2.pro/t/4456</url>
 						<value>200</value>
 					</maxLength>
-					<shownToTheCustomers>1</shownToTheCustomers>
 				</description_rules>
 				<descriptionOnKiosk>{store.name}</descriptionOnKiosk>
 <!-- 
