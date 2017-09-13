@@ -21,7 +21,7 @@ final class Choice extends \Df\Payment\Choice {
 			// Т.е. покупатель ещё ничего не оплатил,
 			// и, возможно, просто закрыт страницу оплаты и уже ничего не оплатит.
 			// Формируем заголовок по аналогии с
-			// @see \Dfe\AllPay\W\Handler\BankCard::typeLabelByCode()
+			// @see \Dfe\AllPay\W\Event\BankCard::tlByCode()
 			!$this->m()->plan() ? null : df_cc_br(__('Bank Card (Installments)'), __('Not yet paid'))
 		)
 	;});}
