@@ -234,7 +234,7 @@ contain some other symbols or is too long.</p>
 <li>If you use a single allPay merchant account for multiple shops.</li>
 <li>If you have changed (e.g., reset) your Magento order numeration scheme.</li>
 </ul>
-<p class='df-note'>If allPay encounters a payment identifier which has been already used for another payment, it fails with the message: «<b>訂單編號重覆，建立失敗(100002)</b>» (it can be translated as «failed to make a payment because the order number is already in use»).</p>
+<p class='df-note'>If allPay encounters a payment identifier which has been already used for another payment, then it fails with the message: «<b>訂單編號重覆，建立失敗(100002)</b>» (it can be translated as «failed to make a payment because the order number is already in use»).</p>
 <p class='df-note'>So to evade such situation you can define a prefix for the payment identifiers.</p>
 <p class='df-note'>Please note that:</p>
 <ul class='df-note'>
