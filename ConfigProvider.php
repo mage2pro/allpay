@@ -12,11 +12,12 @@ final class ConfigProvider extends \Df\Payment\ConfigProvider {
 	 * @return array(string => mixed)
 	 */
 	protected function config() {
-		/** @var Settings $s */ $s = $this->s();
+		$s = $this->s(); /** @var Settings $s */
 		$o = $s->options();	/** @var O $o */
 		return [
 		'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
 		,'installment' => ['plans' => $s->installmentSales()->plans()->a()]
+		,'needShowOptions' => $o->needShow()
 	   /**
 		* 2017-03-05
 		* @used-by Df_Payments/withOptions::options()
@@ -27,6 +28,5 @@ final class ConfigProvider extends \Df\Payment\ConfigProvider {
 		* then we just enumerate the allowed options on the Magento side.
 		*/
 		,'options' => $o->o(true)
-		,'needShowOptions' => $o->needShow()
 	] + parent::config();}
 }
