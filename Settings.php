@@ -7,23 +7,20 @@ use Dfe\AllPay\Source\Option as OptionSource;
 /** @method static Settings s() */
 final class Settings extends \Df\Payment\Settings {
 	/**
-	 * 2016-07-01
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Description on a kiosk's screen»
+	 * 2016-07-01 «Description on a kiosk's screen»
 	 * @return string
 	 */
 	function descriptionOnKiosk() {return $this->v();}
 
 	/**
-	 * 2016-06-29
-	 * «ALL IN ONE 介接 HashIV»
+	 * 2016-06-29 «ALL IN ONE 介接 HashIV»
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
 	 * @return string
 	 */
 	function hashIV() {return $this->testablePV();}
 
 	/**
-	 * 2016-06-29
-	 * «LL IN ONE 介接 HashKey»
+	 * 2016-06-29 «LL IN ONE 介接 HashKey»
 	 * Note that we encrypt the live keys, but do not encrypt the test keys.
 	 * @return string
 	 */
@@ -43,14 +40,13 @@ final class Settings extends \Df\Payment\Settings {
 	function options() {return $this->_options(OptionSource::class);}
 
 	/**
-	 * 2016-08-15
-	 * «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Where to ask for a payment option?»
+	 * 2016-08-15 «Where to ask for a payment option?»
 	 * @return string
 	 */
 	function optionsLocation() {return $this->v();}
 
 	/**
-	 * 2016-07-19 «Mage2.PRO» → «Payment» → «歐付寶 allPay» → «Wait period for an ATM payment»
+	 * 2016-07-19 «Wait period for an ATM payment»
 	 * @used-by \Dfe\AllPay\Charge::pCharge()
 	 * @return int
 	 */
