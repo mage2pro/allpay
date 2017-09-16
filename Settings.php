@@ -40,12 +40,6 @@ final class Settings extends \Df\Payment\Settings {
 	function options() {return $this->_options(OptionSource::class);}
 
 	/**
-	 * 2016-08-15 «Where to ask for a payment option?»
-	 * @return string
-	 */
-	function optionsLocation() {return $this->v();}
-
-	/**
 	 * 2016-07-19 «Wait period for an ATM payment»
 	 * @used-by \Dfe\AllPay\Charge::pCharge()
 	 * @return int
