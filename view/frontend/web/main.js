@@ -62,8 +62,9 @@ return parent.extend({
 	/**
 	 * 2016-08-15
 	 * 2017-03-01
-	 * Результатом этого метода является предпочтение администратором
-	 * стороны для запроса у покупателя варианта оплаты allPay или Magento.
+	 * 2017-09-17
+	 * The `true` value means that the payment options need to be shown on the Magento side.
+	 * The `false` value means that the payment options need to be shown on the allPay side.
 	 * @returns {Boolean}
 	 */
 	needShowOptions: function() {return this.config('needShowOptions');},
