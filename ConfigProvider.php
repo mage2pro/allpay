@@ -15,18 +15,19 @@ final class ConfigProvider extends \Df\Payment\ConfigProvider {
 		$s = $this->s(); /** @var Settings $s */
 		$o = $s->options();	/** @var O $o */
 		return [
-		'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
-		,'installment' => ['plans' => $s->installmentSales()->plans()->a()]
-		,'needShowOptions' => $o->needShow()
-	   /**
-		* 2017-03-05
-		* @used-by Df_Payments/withOptions::options()
-		* https://github.com/mage2pro/core/blob/2.0.36/Payment/view/frontend/web/withOptions.js?ts=4#L55
-		* 2017-09-17
-		* We always need the allowed options on the frontend.
-		* If an option is intended to be chosen on the PSP side,
-		* then we just enumerate the allowed options on the Magento side.
-		*/
-		,'options' => $o->o(true)
-	] + parent::config();}
+			'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
+			,'installment' => ['plans' => $s->installmentSales()->plans()->a()]
+			,'needShowOptions' => $o->needShow()
+		   /**
+			* 2017-03-05
+			* @used-by Df_Payments/withOptions::options()
+			* https://github.com/mage2pro/core/blob/2.0.36/Payment/view/frontend/web/withOptions.js?ts=4#L55
+			* 2017-09-17
+			* We always need the allowed options on the frontend.
+			* If an option is intended to be chosen on the PSP side,
+			* then we just enumerate the allowed options on the Magento side.
+			*/
+			,'options' => $o->o(true)
+		] + parent::config();
+	}
 }
