@@ -97,6 +97,7 @@ https://stackoverflow.com/a/13695722
 				<messageFailure><![CDATA[Sorry, the payment attempt is failed.
 <br/>The payment service's message is «<b>{originalMessage}</b>».
 <br/>Please try again, or try another payment method.]]></messageFailure>
+				<optionsDescription><![CDATA[The following payment options are available: {options}.]]></optionsDescription>
 				<optionsLocation>magento</optionsLocation>
 <!-- 2016-08-22
 Значением этой опции по умолчанию и так является true: @see \Df\Payment\Settings::requireBillingAddress()

@@ -62,15 +62,6 @@ return parent.extend({
 	/**
 	 * 2016-08-15
 	 * 2017-03-01
-	 * 2017-09-17
-	 * The `true` value means that the payment options need to be shown on the Magento side.
-	 * The `false` value means that the payment options need to be shown on the allPay side.
-	 * @returns {Boolean}
-	 */
-	needShowOptions: function() {return this.config('needShowOptions');},
-	/**
-	 * 2016-08-15
-	 * 2017-03-01
 	 * @used-by https://github.com/mage2pro/allpay/blob/1.1.32/view/frontend/web/template/one-off/simple.html?ts=4#L4
 	 * @used-by https://github.com/mage2pro/allpay/blob/1.1.32/view/frontend/web/template/one-off/withOptions.html?ts=4#L2
 	 * @returns {String}

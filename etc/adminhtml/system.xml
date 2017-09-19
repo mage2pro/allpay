@@ -282,9 +282,30 @@ contain some other symbols or is too long.</p>
 					<depends><field id='enable'>1</field></depends>
 				</field>
 				<field
-					id='requireBillingAddress'
+					dfRows='3'
+					id='optionsDescription'
 					showInDefault='1' showInStore='1' showInWebsite='1'
 					sortOrder='19'
+					translate='label'
+					type='Df\Framework\Form\Element\Textarea'
+				>
+					<label>Options Description</label>
+					<comment><![CDATA[A text to be shown on the Magento checkout page instead of the payment options dialog (as you have chosen to show the payment options on the allPay side, the options dialog will not be shown on the Magento checkout screen).
+<br/>You can:
+<ul class='df-note'>
+<li>Use the HTML tags.</li>
+<li>Use the <code>{options}</code> variable. It will be substituted with the available payment options.</li>
+<li>Set the description empty to hide it.</li>
+</ul>]]></comment>
+					<depends>
+						<field id='enable'>1</field>
+						<field id='optionsLocation'>psp</field>
+					</depends>
+				</field>
+				<field
+					id='requireBillingAddress'
+					showInDefault='1' showInStore='1' showInWebsite='1'
+					sortOrder='20'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
 				>
@@ -296,7 +317,7 @@ contain some other symbols or is too long.</p>
 				<field
 					id='optionsLimit'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='20'
+					sortOrder='21'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
 				>
@@ -308,7 +329,7 @@ contain some other symbols or is too long.</p>
 				<field
 					id='optionsAllowed'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='21'
+					sortOrder='22'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
 				>
@@ -324,7 +345,7 @@ contain some other symbols or is too long.</p>
 				<field
 					id='min_order_total'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='22'
+					sortOrder='23'
 					translate='label'
 					type='text'
 				>
@@ -336,7 +357,7 @@ contain some other symbols or is too long.</p>
 				<field
 					id='max_order_total'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='23'
+					sortOrder='24'
 					translate='label'
 					type='text'
 				>
@@ -348,7 +369,7 @@ contain some other symbols or is too long.</p>
 				<field
 					id='country_restriction'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='24'
+					sortOrder='25'
 					translate='label'
 					type='select'
 				>
@@ -359,7 +380,7 @@ contain some other symbols or is too long.</p>
 				<field
 					id='countries'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='25'
+					sortOrder='26'
 					translate='label'
 					type='Df\Framework\Form\Element\Multiselect'
 				>
@@ -380,7 +401,7 @@ https://mage2.pro/t/329
 				<field
 					id='log'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='26'
+					sortOrder='27'
 					translate='label'
 					type='Df\Framework\Form\Element\Checkbox'
 				>
@@ -392,7 +413,7 @@ https://mage2.pro/t/329
 				<group
 					id='installment_sales'
 					showInDefault='1' showInStore='1' showInWebsite='1'
-					sortOrder='27'
+					sortOrder='28'
 					translate='label'
 				>
 					<label>Installment Sales</label>
