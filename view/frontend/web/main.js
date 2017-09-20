@@ -1,7 +1,7 @@
 // 2016-08-04
 define([
-	'df', 'df-lodash', 'Df_Payment/withOptions', 'Dfe_AllPay/plan', 'jquery'
-], function(df, _, parent, Plan, $) {'use strict';
+	'df', 'df-lodash', 'Df_Payment/withOptions', 'Dfe_AllPay/plan', 'jquery', 'ko'
+], function(df, _, parent, Plan, $, ko) {'use strict';
 /** 2017-09-06 @uses Class::extend() https://github.com/magento/magento2/blob/2.2.0-rc2.3/app/code/Magento/Ui/view/base/web/js/lib/core/class.js#L106-L140 */
 return parent.extend({
 	// 2016-08-06
@@ -39,6 +39,36 @@ return parent.extend({
 	 * @returns {Boolean}
 	 */
 	hasPlans: function() {return !!this.iPlans().length;},
+	/**
+	 * 2017-09-20
+	 * @override
+	 * @see Df_Payment/withOptions::initialize()
+	 * @used-by <...>
+	 * @returns {exports}
+	*/
+	initialize: function() {
+		this._super();
+		var canPlaceOrder = this.canPlaceOrder;
+		/**
+		 * 2017-09-20
+		 * @override
+		 * @see Df_Payment/withOptions::initialize()
+		 * @used-by Df_Payment/main.html:
+		 *		<button <...> data-bind="<...> enable: canPlaceOrder">
+		 *			<span data-bind="df_i18n: 'Place Order'"></span>
+		 *		</button>
+	 	 */
+		this.canPlaceOrder = ko.computed(function() {return canPlaceOrder.call(this) &&
+			/**
+			 * 2017-09-20
+			 * We should use option(), not optionFinal() here,
+			 * because the `undefined` value is a correct choice: it means
+			 * «one-off payment, the payment option will be selected on the allPay side».
+			 */
+			this.option()
+		;}, this);
+		return this;
+	},
 	/**
 	 * 2016-08-04
 	 * @returns {Object}
@@ -94,16 +124,5 @@ return parent.extend({
 		/** @type {String} */
 		var s = this.needShowOptions() ? 'withOptions' : (this.hasPlans() ? 'simple' : null);
 		return !s ? null : 'Dfe_AllPay/one-off/' + s;
-	}),
-	/**
-	 * 2017-03-05
-	 * @override
-	 * @see Df_Payment/withOptions::postProcessOption()
-	 * @used-by Df_Payment/withOptions::dfData()
-	 * Значение «undefined» задано в шаблоне Dfe_AllPay/one-off/simple.
-	 * @used-by dfData()
-	 * @param {String} option
-	 * @returns {?String}
-	 */
-	postProcessOption: function(option) {return 'undefined' === option ? null : option;}
+	})
 });});
