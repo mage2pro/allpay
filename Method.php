@@ -90,7 +90,7 @@ final class Method extends \Df\PaypalClone\Method {
 	const TIMEZONE = 'Asia/Taipei';
 
 	/**
-	 * 2016-08-15
+	 * 2016-08-15 https://github.com/mage2pro/core/blob/2.12.17/Payment/view/frontend/web/withOptions.js#L56-L72
 	 * @used-by iiaKeys()
 	 * @used-by plan()
 	 */
