@@ -21,7 +21,7 @@ final class Reader extends \Df\Payment\W\Reader {
 	 * @used-by \Df\Payment\W\Reader::tRaw()
 	 * @return string
 	 */
-	 protected function kt() {return 'PaymentType';}
+	protected function kt() {return 'PaymentType';}
 
 	/**
 	 * 2017-03-12 Converts an event type from the PSP format to our internal format.
