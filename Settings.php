@@ -28,6 +28,9 @@ final class Settings extends \Df\Payment\Settings {
 
 	/**
 	 * 2016-07-31
+	 * @used-by \Dfe\AllPay\ConfigProvider::config()
+	 * @used-by \Dfe\AllPay\Method::plan()
+	 * @used-by \Dfe\AllPay\Total\Quote::collect()
 	 * @return InstallmentSales\Settings
 	 */
 	function installmentSales() {return $this->child(InstallmentSales\Settings::class);}
