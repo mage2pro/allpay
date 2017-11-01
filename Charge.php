@@ -529,6 +529,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * а администратор решил разместить выбор единократных опций
 	 * на стороне allPay, а не на стороне Magento.
 	 * Значение «undefined» задано в шаблоне Dfe_AllPay/one-off/simple.
+	 * @used-by pChoosePayment()
+	 * @used-by pIgnorePayment()
 	 * @return bool
 	 */
 	private function isSingleOptionChosen() {return dfc($this, function() {return
