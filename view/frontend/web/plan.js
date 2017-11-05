@@ -28,10 +28,8 @@ define(['df', 'df-lodash', 'Df_Checkout/data'], function(df, _, dfc) {'use stric
 	 * @returns {Number}
 	 */
 	firstPayment: df.c(function() {
-		/** @type {Number} */
-		var remainder = this.amount() % plan.numPayments;
-		/** @type {Number} */
-		var singlePaymentAmount = Math.floor(this.amount() / plan.numPayments);
+		/** @type {Number} */ var remainder = this.amount() % plan.numPayments;
+		/** @type {Number} */ var singlePaymentAmount = Math.floor(this.amount() / plan.numPayments);
 		return remainder + singlePaymentAmount;
 	}),
 	/** @returns {String} */

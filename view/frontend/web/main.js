@@ -79,8 +79,7 @@ return parent.extend({
 	 * @returns {Object[]}
 	 */
 	iPlans: df.c(function() {
-		/** @type {Number} */
-		var rateToCurrent = this.config('currencyRateFromBaseToCurrent');
+		/** @type {Number} */ var rateToCurrent = this.config('currencyRateFromBaseToCurrent');
 		var option = this.option;
 		return $.map(this.installment().plans, function(p) {return Plan({
 			fee: parseFloat(p.fee)
