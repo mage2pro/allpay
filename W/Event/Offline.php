@@ -24,6 +24,7 @@ final class Offline extends \Dfe\AllPay\W\Event {
 	 * 2017-08-17 The type of the current transaction.
 	 * @override
 	 * @see \Df\PaypalClone\W\Event::ttCurrent()
+	 * @used-by statusExpected()
 	 * @used-by \Df\Payment\W\Strategy\ConfirmPending::_handle()
 	 * @used-by \Df\PaypalClone\W\Nav::id()
 	 */
