@@ -1,4 +1,4 @@
-The extension integrates your Magento 2 based webstore with the **[歐付寶 allPay](https://www.allpay.com.tw)** Taiwanese payment service.
+This extension integrates a Magento 2 based webstore with the **[歐付寶 allPay](https://www.allpay.com.tw)** Taiwanese payment service.
 
 ## Demo videos
 
