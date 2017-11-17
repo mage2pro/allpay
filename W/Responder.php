@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\AllPay\W;
-use Df\Framework\W\Response\Text;
+use Df\Framework\W\Result\Text;
 // 2017-09-13
 final class Responder extends \Df\Payment\W\Responder {
 	/**
