@@ -8,10 +8,10 @@ final class Responder extends \Df\Payment\W\Responder {
 	 * @override
 	 * @see \Df\Payment\W\Responder::error()
 	 * @used-by \Df\Payment\W\Responder::setError()
-	 * @param \Exception $e
+	 * @param \Exception|string $e
 	 * @return Text
 	 */
-	protected function error(\Exception $e) {return Text::i('0|' . df_lets($e));}
+	protected function error($e) {return Text::i('0|' . df_lets($e));}
 
 	/**
 	 * 2017-01-04
