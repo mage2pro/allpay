@@ -10,4 +10,7 @@
 			</argument>
 		</arguments>
 	</type>
+	<virtualType name='Dfe\AllPay\Controller\Confirm\Index' type='Df\Payment\W\Action'/>
+<!-- 2017-09-13 @see \Dfe\AllPay\Charge::OFFLINE -->
+	<virtualType name='Dfe\AllPay\Controller\Offline\Index' type='Df\Payment\W\Action'/>
 </config>

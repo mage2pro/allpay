@@ -1,9 +1,0 @@
-<?xml version='1.0'?>
-<config
-	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-	xsi:noNamespaceSchemaLocation='urn:magento:framework:ObjectManager/etc/config.xsd'
->
-	<virtualType name='Dfe\AllPay\Controller\Confirm\Index' type='Df\Payment\W\Action'/>
-<!-- 2017-09-13 @see \Dfe\AllPay\Charge::OFFLINE -->
-	<virtualType name='Dfe\AllPay\Controller\Offline\Index' type='Df\Payment\W\Action'/>
-</config>
