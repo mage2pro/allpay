@@ -66,7 +66,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * https://github.com/mage2pro/moip/blob/0.8.3/Block/Info.php#L26
 	 * @override
 	 * @see \Df\Payment\Block\Info::prepareUnconfirmed()
-	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
+	 * @used-by \Df\Payment\Block\Info::prepareToRendering()
 	 */
 	final protected function prepareUnconfirmed() {
 		if (/** @var Plan $p*/$p = $this->m()->plan()) {

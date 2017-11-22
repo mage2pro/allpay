@@ -28,7 +28,7 @@ class Info extends \Df\Payment\Block\Info {
 	 * 2016-07-13
 	 * @override
 	 * @see \Df\Payment\Block\Info::prepare()
-	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
+	 * @used-by \Df\Payment\Block\Info::prepareToRendering()
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::prepareUnconfirmed()
 	 */
 	final protected function prepare() {

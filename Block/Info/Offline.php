@@ -28,7 +28,7 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * 2016-07-25
 	 * @override
 	 * @see \Dfe\AllPay\Block\Info::custom()
-	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
+	 * @used-by \Df\Payment\Block\Info::prepareToRendering()
 	 * @return array(string => string)
 	 */
 	final protected function custom() {
@@ -64,7 +64,7 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * и, возможно, просто закрыл страницу оплаты и уже ничего не оплатит.
 	 * @override
 	 * @see \Df\Payment\Block\Info::prepareUnconfirmed()
-	 * @used-by \Df\Payment\Block\Info::_prepareSpecificInformation()
+	 * @used-by \Df\Payment\Block\Info::prepareToRendering()
 	 */
 	final protected function prepareUnconfirmed() {$this->prepare();}
 }
