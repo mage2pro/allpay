@@ -12,7 +12,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * 2016-07-28
 	 * @override
 	 * @see \Dfe\AllPay\Block\Info::custom()
-	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @used-by \Dfe\AllPay\Block\Info::prepare()
 	 * @return array(string => string)
 	 */
 	final protected function custom() {

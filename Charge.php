@@ -584,6 +584,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 
 	/**
 	 * 2016-08-08
+	 * @used-by pCharge()
+	 * @used-by pChoosePayment()
 	 * @return Plan|null
 	 */
 	private function plan() {return $this->m()->plan();}
@@ -604,15 +606,13 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * Could be empty.
 	 * @return string
 	 */
-	private function productUrls() {return df_ccc('+', $this->oiLeafs(function(OI $i) {return
-		df_oqi_url($i)
-	;}));}
+	private function productUrls() {return df_ccc('+', $this->oiLeafs(function(OI $i) {return df_oqi_url($i);}));}
 
 	/**
 	 * 2017-03-16
 	 * @used-by pCharge()
 	 * @used-by \Dfe\AllPay\W\Event\Offline::ttCurrent()
-	 * @see \Dfe\AllPay\Controller\Offline\Index
+	 * @see https://github.com/mage2pro/allpay/blob/1.10.4/etc/frontend/di.xml#L15
 	 */
 	const OFFLINE = 'offline';
 }

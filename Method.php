@@ -42,7 +42,7 @@ final class Method extends \Df\PaypalClone\Method {
 
 	/**
 	 * 2016-08-13
-	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @used-by \Dfe\AllPay\Block\Info\BankCard::prepareUnconfirmed()
 	 * @used-by \Dfe\AllPay\Charge::plan()
 	 * @used-by \Dfe\AllPay\Choice::title()
 	 * @return Plan|null

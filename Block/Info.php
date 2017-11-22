@@ -17,7 +17,7 @@ use Magento\Sales\Model\Order\Payment\Transaction as T;
 class Info extends \Df\Payment\Block\Info {
 	/**
 	 * 2016-07-20
-	 * @used-by \Dfe\AllPay\Block\Info::_prepareSpecificInformation()
+	 * @used-by prepare()
 	 * @see \Dfe\AllPay\Block\Info\BankCard::custom()
 	 * @see \Dfe\AllPay\Block\Info\Offline::custom()
 	 * @return array(string => string)
