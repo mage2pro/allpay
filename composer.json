@@ -1,7 +1,7 @@
 {
 	"name": "mage2pro/allpay"
-	,"version": "1.10.4"
-	,"description": "歐付寶 allPay integration with Magento 2"
+	,"version": "1.10.5"
+	,"description": "歐付寶 O'Pay (allPay) integration with Magento 2"
 	,"type": "magento2-module"
 	,"homepage": "https://mage2.pro/c/extensions/allpay"
 	,"license": "proprietary"
@@ -15,6 +15,7 @@
 	,"autoload": {"files": ["registration.php"], "psr-4": {"Dfe\\AllPay\\": ""}}
 	,"keywords": [
 		"allPay"
+		,"O'Pay"
 		,"歐付寶"
 		,"API"
 		,"Bank card"

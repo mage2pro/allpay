@@ -24,7 +24,7 @@
 						</merchant>
 					</locations>
 					<maxLength>
-						<title>[歐付寶 allPay] The maximum length of a payment description («TradeDesc») is 200 characters.</title>
+						<title>[歐付寶 O'Pay (allPay)] The maximum length of a payment description («TradeDesc») is 200 characters.</title>
 						<url>https://mage2.pro/t/4456</url>
 						<value>200</value>
 					</maxLength>
@@ -108,8 +108,8 @@ https://stackoverflow.com/a/13695722
 <!-- 2016-06-29 Note that we encrypt the live keys, but do not encrypt the test keys. -->
 				<testHashKey>5294y06JbISpM5x9</testHashKey>
 				<testMerchantID>2000132</testMerchantID>
-				<title>歐付寶 allPay</title>
-				<title_backend>歐付寶 allPay</title_backend>
+				<title>歐付寶 O'Pay (allPay)</title>
+				<title_backend>歐付寶 O'Pay (allPay)</title_backend>
 				<waitPeriodATM>3</waitPeriodATM>
 				<waitPeriodType>calendar_days</waitPeriodType>
 			</all_pay>

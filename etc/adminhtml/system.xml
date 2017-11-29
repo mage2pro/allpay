@@ -26,7 +26,7 @@ So the `sortOrder` value is 1920. -->
 				sortOrder='112'
 				translate='label'
 			>
-				<label>歐付寶 allPay</label>
+				<label>歐付寶 O'Pay (allPay)</label>
 				<dfExtension>Dfe_AllPay</dfExtension>
 				<frontend_model>Df\Config\Fieldset</frontend_model>
 				<field
@@ -46,7 +46,7 @@ So the `sortOrder` value is 1920. -->
 ведь в будущих версиях Magento перечень параметров предка может измениться.
 -->
 					<dfValidator>Dfe\AllPay\Validator\Currency</dfValidator>
-					<comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/allpay' target='_blank'>歐付寶 allPay</a>» payment extension?]]></comment>
+					<comment><![CDATA[Enable the «<a href='https://mage2.pro/c/extensions/allpay' target='_blank'>歐付寶 O'Pay (allPay)</a>» payment extension?]]></comment>
 				</field>
 				<field
 					id='title'
@@ -237,7 +237,7 @@ contain some other symbols or is too long.</p>
 					<label>Payment ID prefix</label>
 					<comment><![CDATA[<p class='df-note'>This option allows you to define a prefix for the payment identificators (values of the <a href='https://mage2.pro/t/2839' target='_blank' title='The allPay API documentation'><code>MerchantTradeNo</code></a> API parameter).</p>
 <p class='df-note'>In the most cases you do not need any prefix and can leave this option empty.</p>
-<p class='df-note'>But there are <a href='https://github.com/mage2pro/allpay/issues/1' target='_blank' title='The «歐付寶 allPay» payment extension issue tracker (GitHub-based)'>some (rare) cases</a> when your allPay payment identifiers can potentially overlap with the previous ones:</p>
+<p class='df-note'>But there are <a href='https://github.com/mage2pro/allpay/issues/1' target='_blank' title='The «歐付寶 O'Pay (allPay)» payment extension issue tracker (GitHub-based)'>some (rare) cases</a> when your allPay payment identifiers can potentially overlap with the previous ones:</p>
 <ul class='df-note'>
 <li>If you use a single allPay merchant account for multiple shops.</li>
 <li>If you have changed (e.g., reset) your Magento order numeration scheme.</li>
