@@ -439,7 +439,7 @@ https://mage2.pro/t/329
 					</field>
 					<field
 						dfEntity='Dfe\AllPay\InstallmentSales\Plan\Entity'
-						dfItemFormElement='Dfe\AllPay\InstallmentSales\Plan\FormElement'
+						dfItemFormElement='Dfe\AllPay\InstallmentSales\Plan\FE'
 						id='plans'
 						showInDefault='1' showInStore='1' showInWebsite='1'
 						sortOrder='2'

@@ -9,7 +9,7 @@ use Dfe\AllPay\InstallmentSales\Plan\Entity as O;
  * 		$element = $this->_factoryElement->create($type, ['data' => $config]);
  * https://github.com/magento/magento2/blob/2.2.0-RC1.8/lib/internal/Magento/Framework/Data/Form/AbstractForm.php#L137-L159
  */
-class FormElement extends \Df\Framework\Form\Element\Fieldset {
+class FE extends \Df\Framework\Form\Element\Fieldset {
 	/**
 	 * 2016-07-30
 	 * @override
