@@ -78,7 +78,10 @@ final class Entity extends \Df\Config\ArrayItem {
 	 */
 	private function rate() {return $this->f();}
 
+	/** 2018-04-19 @used-by \Dfe\AllPay\InstallmentSales\Plan\FE::onFormInitialized() */
 	const fee = 'fee';
+	/** 2018-04-19 @used-by \Dfe\AllPay\InstallmentSales\Plan\FE::onFormInitialized() */
 	const numPayments = 'numPayments';
+	/** 2018-04-19 @used-by \Dfe\AllPay\InstallmentSales\Plan\FE::onFormInitialized() */
 	const rate = 'rate';
 }
