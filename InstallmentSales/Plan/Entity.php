@@ -33,6 +33,7 @@ final class Entity extends \Df\Config\ArrayItem {
 
 	/**
 	 * 2016-08-08
+	 * @used-by id()
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::getId()
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::sortWeight()
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::validate()
