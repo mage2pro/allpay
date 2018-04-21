@@ -2,6 +2,7 @@
 namespace Dfe\AllPay\InstallmentSales;
 use Df\Config\A;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
+// 2016-07-31
 /** @method static Settings s() */
 final class Settings extends \Df\Config\Settings {
 	/**
@@ -11,9 +12,8 @@ final class Settings extends \Df\Config\Settings {
 	 * @return A|Plan|null
 	 */
 	function plans($numPayments = null) {
-		/** @var A $result */
-		$result = $this->_a(Plan::class);
-		return is_null($numPayments) ? $result : $result->get(intval($numPayments));
+		$r = $this->_a(Plan::class); /** @var A $r */
+		return is_null($numPayments) ? $r : $r->get(intval($numPayments));
 	}
 
 	/**
