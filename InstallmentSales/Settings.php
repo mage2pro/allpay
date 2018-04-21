@@ -6,8 +6,7 @@ use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 /** @method static Settings s() */
 final class Settings extends \Df\Config\Settings {
 	/**
-	 * 2016-07-31
-	 * «Mage2.PRO» → «Payment» → «歐付寶 O'Pay (allPay)»→ «Installment Sales» → «Plans»
+	 * 2016-07-31 «Mage2.PRO» → «Payment» → «歐付寶 O'Pay (allPay)»→ «Installment Sales» → «Plans»
 	 * @param int|null $numPayments [optional]
 	 * @return A|Plan|null
 	 */
