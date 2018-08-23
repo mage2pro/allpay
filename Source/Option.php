@@ -1,7 +1,10 @@
 <?php
 namespace Dfe\AllPay\Source;
-// 2016-07-02
-/** @method static Option s() */
+/**
+ * 2016-07-02
+ * @used-by \Dfe\AllPay\Settings::options()
+ * @method static Option s()
+ */
 final class Option extends \Df\Config\Source {
 	/**
 	 * @override
