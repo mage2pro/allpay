@@ -180,7 +180,7 @@ So the `sortOrder` value is 1920. -->
 					type='Df\Framework\Form\Element\Textarea'
 				>
 					<label>Description on a kiosk's screen</label>
-					<comment><![CDATA[It will be displayed to the customer <a href='https://mage2.pro/t/1828' target='_blank'>on a kiosk's screen</a>.
+					<comment><![CDATA[It is shown to customers <a href='https://mage2.pro/t/1828' target='_blank'>on a kiosk's screen</a>.
 <br/>Up to <b>4 lines</b> with up to <b>20 characters</b> on each line.
 <br/>You can use <a href='https://mage2.pro/t/1834' target='_blank'>the same variables</a> as for the «Description» parameter above.]]></comment>
 <!-- 2016-07-01
@@ -197,7 +197,7 @@ because the value can contain variables, so do not know the real length here. --
 					type='Df\Framework\Form\Element\Textarea'
 				>
 					<label>Failure Message</label>
-					<comment><![CDATA[The failure message will be displayed to the customer on the checkout screen when the customer returns from the allPay payment page to the store after an unsuccessful payment attempt.
+					<comment><![CDATA[It is shown to the customer on the checkout screen when the customer is redirected back from the allPay payment page to the store after an unsuccessful payment attempt.
 <br/>You can use HTML tags and the following variables in the template: <table class='df-note'><tbody>
 		<tr>
 			<td>{originalMessage}</td>
