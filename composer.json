@@ -1,6 +1,6 @@
 {
 	"name": "mage2pro/allpay"
-	,"version": "1.11.7"
+	,"version": "1.11.8"
 	,"description": "歐付寶 OPay (allPay) integration with Magento 2"
 	,"type": "magento2-module"
 	,"homepage": "https://mage2.pro/c/extensions/allpay"
@@ -11,7 +11,7 @@
 		"homepage": "https://mage2.pro/users/dmitry_fedyuk",
 		"role": "Developer"
 	}]
-	,"require": {"mage2pro/core": ">=3.6.29"}
+	,"require": {"mage2pro/core": ">=5.9.3"}
 	,"autoload": {"files": ["registration.php"], "psr-4": {"Dfe\\AllPay\\": ""}}
 	,"keywords": [
 		"allPay"

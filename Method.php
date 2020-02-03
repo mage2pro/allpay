@@ -48,7 +48,7 @@ final class Method extends \Df\PaypalClone\Method {
 	 * @return Plan|null
 	 */
 	function plan() {return dfc($this, function() {/** @var int|string|null $id */ return
-		!ctype_digit($id = $this->option()) ? null : $this->s()->installmentSales()->plans($id)
+		!df_is_nat($id = $this->option()) ? null : $this->s()->installmentSales()->plans($id)
 	;});}
 
 	/**
