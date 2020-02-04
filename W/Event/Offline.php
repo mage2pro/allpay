@@ -11,13 +11,13 @@ final class Offline extends \Dfe\AllPay\W\Event {
 	 * @return string
 	 */
 	function expirationS() {return dfc($this, function() {
-		/** @var ZD $exp */ /** @var string $result */
-		$result = df_dts($exp = new ZD($this->r('ExpireDate'), 'y/MM/dd'), ZD::DATE_LONG);
+		/** @var ZD $exp */ /** @var string $r */
+		$r = df_dts($exp = new ZD($this->r('ExpireDate'), 'y/MM/dd'), ZD::DATE_LONG);
 		/** @var int $d */ /** @var string $note */
 		$note = 0 > ($d = df_days_left($exp)) ? __('expired') : (
 			0 === $d ? __('today') : (1 === $d ? __('1 day left') : __('%1 days left', $d))
 		);
-		return "{$result} ({$note})";
+		return df_desc($r, $note);
 	});}
 
 	/**
