@@ -30,8 +30,7 @@ final class Option extends \Df\Config\Source {
 		// «[allPay] What is a «BARCODE» payment?» https://mage2.pro/t/BARCODE
 		// https://mage2.pro/t/1827/2
 		,self::BARCODE => 'Barcode'
-		// 2016-07-02
-		// http://global.tenpay.com
+		// 2016-07-02 http://global.tenpay.com
 		,'Tenpay' => 'Tenpay (WeChat)'
 		// 2016-07-02
 		,'TopUpUsed' => 'allPay Account'
