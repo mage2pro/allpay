@@ -92,7 +92,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @return string|null
 	 */
 	private function eci() {/** @var string|null $eci */return is_null($eci = $this->e('eci')) ? null :
-		sprintf("0{$eci} (%s)", dfa([
+		df_desc("0{$eci}", dfa([
 			0 => 'Card holder and issuing bank not registered as a 3D Secure'
 			,1 => 'One of card holder or issuing bank not registered as a 3D Secure'
 			,2 => 'Card holder and issuing bank are 3D Secure. 3dSecure authentication successful'
