@@ -337,7 +337,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * Looks like we need to use the Taiwanese time zone,
 		 * because the time format does not contain a time zone information,
 		 * and allPay uses the Taiwanese time zone in the payment response.
-		 * http://php.net/manual/en/function.timezone-offset-get.php#73995
+		 * https://php.net/manual/function.timezone-offset-get.php#73995
 		 */
 		,'MerchantTradeDate' => df_now('Y/m/d H:i:s', Method::TIMEZONE)
 		/**
