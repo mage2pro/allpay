@@ -11,8 +11,7 @@ class Barcode extends Offline {
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
 	 * @param Event $f
 	 * @return string
-	 * @see nl2br() для результата вызывать не надо,
-	 * потому что ядро вызовет эту функцию автоматически.
+	 * @see nl2br() для результата вызывать не надо, потому что ядро вызовет эту функцию автоматически.
 	 */
 	final protected function paymentId(Event $f) {return df_cc_n($f->r(['Barcode1', 'Barcode2', 'Barcode3']));}
 
