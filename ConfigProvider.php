@@ -26,6 +26,6 @@ final class ConfigProvider extends \Df\Payment\ConfigProvider  implements IOptio
 	 */
 	protected function config() {return [
 		'currencyRateFromBaseToCurrent' => df_currency_rate_to_current()
-		,'installment' => ['plans' => $this->s()->installmentSales()->plans()->a()]
+		,'installment' => ['plans' => $this->s()->installmentSales()->plans()->get()]
 	] + self::configOptions($this) + parent::config();}
 }
