@@ -3,7 +3,7 @@ namespace Dfe\AllPay\W\Event;
 use Dfe\AllPay\Charge;
 use Dfe\AllPay\Source\Option;
 use Zend_Date as ZD;
-// 2017-03-13
+# 2017-03-13
 final class Offline extends \Dfe\AllPay\W\Event {
 	/**
 	 * 2016-07-19

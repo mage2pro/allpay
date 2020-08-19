@@ -1,8 +1,8 @@
 <?php
 namespace Dfe\AllPay;
 use Df\Payment\ConfigProvider\IOptions;
-// 2016-08-04
-// @used-by https://github.com/mage2pro/allpay/blob/1.1.33/etc/frontend/di.xml?ts=4#L9
+# 2016-08-04
+# @used-by https://github.com/mage2pro/allpay/blob/1.1.33/etc/frontend/di.xml?ts=4#L9
 /** @method Settings s() */
 final class ConfigProvider extends \Df\Payment\ConfigProvider  implements IOptions {
 	/**

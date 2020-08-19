@@ -18,11 +18,11 @@ class FE extends \Df\Framework\Form\Element\Fieldset {
 	 */
 	final function onFormInitialized() {
 		parent::onFormInitialized();
-		// 2016-07-30 This CSS class will be applied to the <fieldset> DOM node.
+		# 2016-07-30 This CSS class will be applied to the <fieldset> DOM node.
 		$this->addClass('dfe-allpay-installment-plan');
-		// 2016-08-10
-		// Today I have found by an experiment,
-		// that allPay does not allow the installment options out of the range below.
+		# 2016-08-10
+		# Today I have found by an experiment,
+		# that allPay does not allow the installment options out of the range below.
 		$this->select2Number(O::numPayments, 'Payments', [3, 6, 12, 18, 24]);
 		$this->percent(O::rate, 'Interest Rate');
 		$this->money(O::fee, 'Fixed Monthly Fee');

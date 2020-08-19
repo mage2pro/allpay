@@ -1,6 +1,6 @@
 <?php
 namespace Dfe\AllPay\Init;
-// 2017-03-22
+# 2017-03-22
 /** @method \Dfe\AllPay\Method m() */
 final class Action extends \Df\PaypalClone\Init\Action {
 	/**

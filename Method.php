@@ -6,7 +6,7 @@ use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
 use Magento\Sales\Model\Order as O;
 use Magento\Sales\Model\Order\Address as OrderAddress;
 use Magento\Sales\Model\Order\Payment as OP;
-// 2016-07-20
+# 2016-07-20
 final class Method extends \Df\PaypalClone\Method {
 	/**
 	 * 2016-07-20

@@ -1,5 +1,5 @@
 <?php
-// 2016-06-29
+# 2016-06-29
 namespace Dfe\AllPay;
 use Df\Config\Source\WaitPeriodType;
 use Df\Payment\Settings\Options as O;

@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\Block;
 use Dfe\AllPay\Total\Quote as TQuote;
-// 2016-08-13
+# 2016-08-13
 /** @final Unable to use the PHP «final» keyword here because of the M2 code generation. */
 class Total extends \Df\Sales\Block\Order\Total {
 	/**

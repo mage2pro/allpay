@@ -2,7 +2,7 @@
 namespace Dfe\AllPay\InstallmentSales;
 use Df\Config\A;
 use Dfe\AllPay\InstallmentSales\Plan\Entity as Plan;
-// 2016-07-31
+# 2016-07-31
 /** @method static Settings s() */
 final class Settings extends \Df\Config\Settings {
 	/**

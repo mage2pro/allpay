@@ -14,25 +14,25 @@ final class Option extends \Df\Config\Source {
 	 */
 	protected function map() {return [
 		self::BANK_CARD => 'Bank Card'
-		// 2016-07-02
-		// Я так понял, что это чисто тайваньская штука:
-		// пользователь вставляет картридер в свой (!) компьютер,
-		// и проводит транзакцию своей физической банковской картой.
-		// https://webatm.post.gov.tw
-		// «[allPay] What is a «WebATM» payment?» https://mage2.pro/t/1838
+		# 2016-07-02
+		# Я так понял, что это чисто тайваньская штука:
+		# пользователь вставляет картридер в свой (!) компьютер,
+		# и проводит транзакцию своей физической банковской картой.
+		# https://webatm.post.gov.tw
+		# «[allPay] What is a «WebATM» payment?» https://mage2.pro/t/1838
 		,self::WEB_ATM => 'Web ATM'
 		,self::ATM => 'Physical ATM machine'
-		// 2016-07-02
-		// «[allPay] What is a «CVS» payment?» https://mage2.pro/t/1828
-		// https://mage2.pro/t/1827/2
+		# 2016-07-02
+		# «[allPay] What is a «CVS» payment?» https://mage2.pro/t/1828
+		# https://mage2.pro/t/1827/2
 		,'CVS' => 'CVS code'
-		// 2016-07-02
-		// «[allPay] What is a «BARCODE» payment?» https://mage2.pro/t/BARCODE
-		// https://mage2.pro/t/1827/2
+		# 2016-07-02
+		# «[allPay] What is a «BARCODE» payment?» https://mage2.pro/t/BARCODE
+		# https://mage2.pro/t/1827/2
 		,self::BARCODE => 'Barcode'
-		// 2016-07-02 http://global.tenpay.com
+		# 2016-07-02 http://global.tenpay.com
 		,'Tenpay' => 'Tenpay (WeChat)'
-		// 2016-07-02
+		# 2016-07-02
 		,'TopUpUsed' => 'allPay Account'
 	];}
 

@@ -115,9 +115,9 @@ class Quote extends AbstractTotal {
 	 */
 	private function iiAdd(QP $payment, $fee, $feeBase) {
 		/** @var int $id */
-		// 2016-08-15
-		// Адрес уже сохранён в БД и имеет идентификатор даже для анонимного покупателя:
-		// проверил собственноручно.
+		# 2016-08-15
+		# Адрес уже сохранён в БД и имеет идентификатор даже для анонимного покупателя:
+		# проверил собственноручно.
 		$id = df_assert(intval($this->_getAddress()->getId()));
 		/** @var array(int => array(string => float)) $values */
 		$values = df_eta($payment->getAdditionalInformation(self::$II_KEY));

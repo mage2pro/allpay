@@ -100,16 +100,16 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
 		 */
 		'ChoosePayment' => $this->pChoosePayment()
-		// 2016-07-02
-		// «Select the default setup for sub payment».
-		// Varchar(20)
-		// «If this is set up correctly, users are unable to see cash flow selection page.
-		// He could select payment type directly,
-		// but “Credit” and “TopUpUsed” would not include this function.
-		// For example: if set WebATM on ChoosePayment and set TAISHIN on ChooseSubPayment,
-		// then this trade would be made through Tai Shin Bank webATM.
-		// Please refer to Table of Payment Type.».
-		// Could be empty.
+		# 2016-07-02
+		# «Select the default setup for sub payment».
+		# Varchar(20)
+		# «If this is set up correctly, users are unable to see cash flow selection page.
+		# He could select payment type directly,
+		# but “Credit” and “TopUpUsed” would not include this function.
+		# For example: if set WebATM on ChoosePayment and set TAISHIN on ChooseSubPayment,
+		# then this trade would be made through Tai Shin Bank webATM.
+		# Please refer to Table of Payment Type.».
+		# Could be empty.
 		,'ChooseSubPayment' => ''
 		/**
 		 * 2016-07-02
@@ -195,29 +195,29 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * Could be empty.
 		 */
 		,'CreditInstallment' => !$this->plan() ? 0 : $this->plan()->numPayments()
-		// 2016-07-04
-		// «Device Source».
-		// Varchar(10)
-		// «This parameter would set different layout of payment type selection webpage
-		// according to the value it takes.».
-		// Could be empty.
+		# 2016-07-04
+		# «Device Source».
+		# Varchar(10)
+		# «This parameter would set different layout of payment type selection webpage
+		# according to the value it takes.».
+		# Could be empty.
 		//
-		// [allPay] What are the possible values for the «DeviceSource» parameter?
-		//  https://mage2.pro/t/1825
+		# [allPay] What are the possible values for the «DeviceSource» parameter?
+		#  https://mage2.pro/t/1825
 		,'DeviceSource' => ''
-		// 2016-07-04
-		// «CheckMacValue encryption type».
-		// Int
-		// 		0:	MD5 (default setting)
+		# 2016-07-04
+		# «CheckMacValue encryption type».
+		# Int
+		# 		0:	MD5 (default setting)
 		//		1:	SHA256
-		// Could be empty.
+		# Could be empty.
 		,'EncryptType' => 0
-		// 2016-07-04
-		// «Effective payment period».
-		// Int
-		// «At most 60 days; at least 1 day.
-		// Defaulted as 3 days if this is left as blank.».
-		// Could be empty.
+		# 2016-07-04
+		# «Effective payment period».
+		# Int
+		# «At most 60 days; at least 1 day.
+		# Defaulted as 3 days if this is left as blank.».
+		# Could be empty.
 		/**
 		 * 2016-07-04
 		 * «Effective payment period».
@@ -230,22 +230,22 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * Эта опция учитывается только для ATM.
 		 */
 		,'ExpireDate' => $this->s()->waitPeriodATM()
-		// 2016-07-04
-		// «Whether or not to hold the allocation».
-		// Int
-		// «Whether or not to hold the allocation.
-		// If no, take 0 (default value) as its value.
-		// If yes, take 1 as its value.
-		// Meaning of values listed below:
-		// 		0:	allPay according to the contract has allocated the payment to merchant
-		// 			after buyer made his payment (this is set as default value).
-		// 		1:	after buyer made his payment
-		// 			it needs to call “Merchant Allocation/Refund Request” API
-		// 			so that allPay could make the payment to merchant.
-		// 			If merchant does not request for allocation,
-		// 			this order would be kept in allPay until merchant apply for its allocation.
-		// This is not suitable for paying by “Credit Card” and “Tenpay.”».
-		// Could be empty.
+		# 2016-07-04
+		# «Whether or not to hold the allocation».
+		# Int
+		# «Whether or not to hold the allocation.
+		# If no, take 0 (default value) as its value.
+		# If yes, take 1 as its value.
+		# Meaning of values listed below:
+		# 		0:	allPay according to the contract has allocated the payment to merchant
+		# 			after buyer made his payment (this is set as default value).
+		# 		1:	after buyer made his payment
+		# 			it needs to call “Merchant Allocation/Refund Request” API
+		# 			so that allPay could make the payment to merchant.
+		# 			If merchant does not request for allocation,
+		# 			this order would be kept in allPay until merchant apply for its allocation.
+		# This is not suitable for paying by “Credit Card” and “Tenpay.”».
+		# Could be empty.
 		,'HoldTradeAMT' => 0
 		/**
 		 * 2016-07-04
@@ -288,20 +288,20 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * и администратор не модет её изменить.
 		 */
 		,'InstallmentAmount' => !$this->plan() ? 0 : $this->amountF()
-		// 2016-07-04
-		// «Electronic invoice remark».
-		// Varchar(1)
-		// «This parameter would help generating an invoice after payment is made.
-		// If would like to generated an invoice, set Y as its value.».
-		// Could be empty.
+		# 2016-07-04
+		# «Electronic invoice remark».
+		# Varchar(1)
+		# «This parameter would help generating an invoice after payment is made.
+		# If would like to generated an invoice, set Y as its value.».
+		# Could be empty.
 		,'InvoiceMark' => ''
-		// 2016-07-02
-		// «Item Name».
-		// Varchar(200)
-		// «If there are more than one item name
-		// and would like to show cash flow selection page line by line,
-		// separate the item name with symbol #.».
-		// Must be filled.
+		# 2016-07-02
+		# «Item Name».
+		# Varchar(200)
+		# «If there are more than one item name
+		# and would like to show cash flow selection page line by line,
+		# separate the item name with symbol #.».
+		# Must be filled.
 		,'ItemName' => df_oqi_s($this->o(), '#')
 		/**
 		 * 2016-07-02
@@ -440,27 +440,27 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 * когда покупатель уже оплатил заказ оффлайновым способом.
 		 */
 		,'PaymentInfoURL' => $this->callback(self::OFFLINE)
-		// 2016-07-02
-		// «Payment type».
-		// Varchar(20)
-		// «Please use aio as its value».
-		// Must be filled.
+		# 2016-07-02
+		# «Payment type».
+		# Varchar(20)
+		# «Please use aio as its value».
+		# Must be filled.
 		,'PaymentType' => 'aio'
-		// 2016-07-04
-		// «Merchant platform identification number(provided by allPay)».
-		// Varchar(10)
-		// «This parameter is for project based merchants.
-		// The others should leave this as blank.
-		// If it is working with a project based merchant,
-		// use the MerchantID which seller has appointed with.
-		// If there are values in both AllPayID and AccountID, PlatformID could not be left as blank.».
-		// Could be empty.
+		# 2016-07-04
+		# «Merchant platform identification number(provided by allPay)».
+		# Varchar(10)
+		# «This parameter is for project based merchants.
+		# The others should leave this as blank.
+		# If it is working with a project based merchant,
+		# use the MerchantID which seller has appointed with.
+		# If there are values in both AllPayID and AccountID, PlatformID could not be left as blank.».
+		# Could be empty.
 		,'PlatformID' => ''
-		// 2016-07-02
-		// «Remark».
-		// Varchar(100)
-		// «Leave it as blank for now.».
-		// Could be empty.
+		# 2016-07-02
+		# «Remark».
+		# Varchar(100)
+		# «Leave it as blank for now.».
+		# Could be empty.
 		,'Remark' => ''
 		/**
 		 * 2016-07-02
@@ -575,8 +575,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @return string
 	 */
 	private function pIgnorePayment() {/** @var O $o */ $o = $this->s()->options(); return df_ccc('#',
-		// 2016-08-17
-		// https://code.dmitry-fedyuk.com/m2e/allpay/issues/14
+		# 2016-08-17
+		# https://code.dmitry-fedyuk.com/m2e/allpay/issues/14
 		array_merge(['ALL' === $this->pChoosePayment() ? 'Alipay' : null],
 			!$o->isLimited() || $this->isSingleOptionChosen() ? [] : $o->denied()
 		)

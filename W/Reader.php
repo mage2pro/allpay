@@ -1,7 +1,7 @@
 <?php
 namespace Dfe\AllPay\W;
 use Dfe\AllPay\Source\Option;
-// 2017-03-10
+# 2017-03-10
 final class Reader extends \Df\Payment\W\Reader {
 	/**
 	 * 2017-03-13

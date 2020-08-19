@@ -46,10 +46,10 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 			? ['Paid' => $l->paidTime()->toString($ex ? ZD::DATETIME_LONG : ZD::DATE_LONG)]
 			: ['Expiration' => $l->expirationS()]
 		;
-		// 2017-04-14
-		// «About ATM payment information:
-		// It's lost BankCode(If don't have bankcode can't pay it) ,can you add it?»
-		// https://mage2.pro/t/3686/6
+		# 2017-04-14
+		# «About ATM payment information:
+		# It's lost BankCode(If don't have bankcode can't pay it) ,can you add it?»
+		# https://mage2.pro/t/3686/6
 		if ($bankCode = $f->r('BankCode')) {
 			$result += ['Bank Code' => $bankCode];
 		}
