@@ -44,8 +44,8 @@ final class Signer extends \Df\PaypalClone\Signer {
 		 * Вместо этого используем официальный алгоритм:
 		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L15-L18
 		 */
-		/** @var string $result */
-		$result = implode('&', df_map_k($p, function($k, $v) {return implode('=', [$k, $v]);}));
+		/** @var string $r */
+		$r = implode('&', df_map_k($p, function($k, $v) {return implode('=', [$k, $v]);}));
 		/**
 		 * 2016-07-04
 		 * Step 3
@@ -61,9 +61,9 @@ final class Signer extends \Df\PaypalClone\Signer {
 		 * Оказалось, что не ошибка, потому что после применения @uses urlencode()
 		 * результаты работы @uses strtolower и @see mb_strtolower() должны быть одинаковыми.
 		 */
-		$result = strtolower(urlencode($result));
-		$result = $this->encodeSpecialChars($result);
-		return strtoupper(md5($result));
+		$r = strtolower(urlencode($r));
+		$r = $this->encodeSpecialChars($r);
+		return strtoupper(md5($r));
 	}
 
 	/**
