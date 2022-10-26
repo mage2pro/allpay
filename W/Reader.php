@@ -37,8 +37,8 @@ final class Reader extends \Df\Payment\W\Reader {
 
 	/**
 	 * 2017-03-13
-	 * @used-by isOffline()
-	 * @used-by te2i()
+	 * @used-by self::isOffline()
+	 * @used-by self::te2i()
 	 * @var string
 	 */
 	const BANK_CARD = 'BankCard';

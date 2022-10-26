@@ -14,7 +14,7 @@ final class BankCard extends \Dfe\AllPay\W\Event {
 	/**
 	 * 2016-08-09
 	 * 2017-03-23 Если оплата произведена единоразово, то метод вернёт 0.
-	 * @used-by tlByCode()
+	 * @used-by self::tlByCode()
 	 * @used-by \Dfe\AllPay\Block\Info\BankCard::prepareDic()
 	 * @return int
 	 */

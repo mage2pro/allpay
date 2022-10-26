@@ -12,7 +12,7 @@ final class Option extends \Df\Config\Source {
 	 * @used-by \Df\Config\Source::toOptionArray()
 	 * @return array(string => string)
 	 */
-	protected function map() {return [
+	protected function map():array {return [
 		self::BANK_CARD => 'Bank Card'
 		# 2016-07-02
 		# Я так понял, что это чисто тайваньская штука:
@@ -38,29 +38,29 @@ final class Option extends \Df\Config\Source {
 
 	/**
 	 * 2017-03-19
-	 * @used-by \Dfe\AllPay\Source\Option::map()
+	 * @used-by self::map()
 	 * @used-by \Dfe\AllPay\W\Event\Offline::statusExpected()
 	 */
 	const ATM = 'ATM';
 
 	/**
 	 * 2016-08-08
+	 * @used-by self::map()
 	 * @used-by \Dfe\AllPay\Charge::pChoosePayment()
-	 * @used-by \Dfe\AllPay\Source\Option::map()
 	 * @used-by \Dfe\AllPay\W\Reader::te2i()
 	 */
 	const BANK_CARD = 'Credit';
 
 	/**
 	 * 2017-03-12
-	 * @used-by \Dfe\AllPay\Source\Option::map()
+	 * @used-by self::map()
 	 * @used-by \Dfe\AllPay\W\Reader::te2i()
 	 */
 	const BARCODE = 'BARCODE';
 
 	/**
 	 * 2017-03-16
-	 * @used-by \Dfe\AllPay\Source\Option::map()  
+	 * @used-by self::map()
 	 * @used-by \Dfe\AllPay\W\F::sufEvent()
 	 * @used-by \Dfe\AllPay\W\Reader::isOffline()
 	 */

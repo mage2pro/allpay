@@ -108,7 +108,7 @@ class Quote extends AbstractTotal {
 
 	/**
 	 * 2016-08-14
-	 * @used-by \Dfe\AllPay\Total\Quote::collect()
+	 * @used-by self::collect()
 	 * @param QP $payment
 	 * @param float $fee
 	 * @param float $feeBase
@@ -129,7 +129,7 @@ class Quote extends AbstractTotal {
 	/**
 	 * 2016-08-14
 	 * Этот метод удобно вызывать с оператором list: https://3v4l.org/ofTeZ
-	 * @used-by \Dfe\AllPay\Total\Quote::iiAdd()
+	 * @used-by self::iiAdd()
 	 * @param IPayment|QP|OP $payment
 	 * @return null|float[]
 	 */
@@ -150,21 +150,21 @@ class Quote extends AbstractTotal {
 
 	/**
 	 * 2016-08-14
-	 * @used-by \Dfe\AllPay\Total\Quote::iiSet()
+	 * @used-by self::iiSet()
 	 * @var string
 	 */
 	private static $II_KEY = 'dfe_allpay';
 
 	/**
 	 * 2016-08-14
-	 * @used-by \Dfe\AllPay\Total\Quote::iiSet()
+	 * @used-by self::iiSet()
 	 * @var string
 	 */
 	private static $II_FEE = 'fee';
 
 	/**
 	 * 2016-08-14
-	 * @used-by \Dfe\AllPay\Total\Quote::iiSet()
+	 * @used-by self::iiSet()
 	 * @var string
 	 */
 	private static $II_FEE_BASE = 'feeBase';

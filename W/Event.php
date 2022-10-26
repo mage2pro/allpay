@@ -75,7 +75,7 @@ class Event extends \Df\PaypalClone\W\Event {
 
 	/**
 	 * 2016-08-09
-	 * @used-by tl_()
+	 * @used-by self::tl_()
 	 * @see \Dfe\AllPay\W\Event\BankCard::tlByCode()
 	 * @param string $f
 	 * @param string $l

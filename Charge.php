@@ -497,31 +497,26 @@ final class Charge extends \Df\PaypalClone\Charge {
 
 	/**
 	 * 2016-08-17
-	 * @used-by \Dfe\AllPay\Charge::_requestI()
+	 * @used-by self::pCharge()
 	 * @return array(string => string)
 	 */
 	private function descriptionOnKiosk() {
-		/** @var string[] $lines */
-		$lines = df_explode_n($this->text($this->s()->descriptionOnKiosk()));
-		/** @var int $n */
-		$n = 1;
-		/** @var array(string => string) $result */
-		$result = [];
-		foreach ($lines as $line) {
-			/** @var string $line */
-			$result['Desc_' . $n++] = mb_substr($line, 0, 20);
+		$lines = df_explode_n($this->text($this->s()->descriptionOnKiosk())); /** @var string[] $lines */
+		$n = 1; /** @var int $n */
+		$r = []; /** @var array(string => string) $r */
+		foreach ($lines as $line) {/** @var string $line */
+			$r['Desc_' . $n++] = mb_substr($line, 0, 20);
 			if ($n > 4) {
 				break;
 			}
 		}
-		return $result;
+		return $r;
 	}
 
 	/**
 	 * 2016-07-05
 	 * 2016-08-15
-	 * В отличие от JavaScript, в PHP оператор || возвращает значение логического типа,
-	 * а не первый неложный аргумент.
+	 * В отличие от JavaScript, в PHP оператор || возвращает значение логического типа, а не первый неложный аргумент:
 	 * https://3v4l.org/fmTAA
 	 * 2017-03-05
 	 * Этот метод возвращает false, если покупатель ещё не определился со способом оплаты.
@@ -529,8 +524,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * а администратор решил разместить выбор единократных опций
 	 * на стороне allPay, а не на стороне Magento.
 	 * Значение «undefined» задано в шаблоне Dfe_AllPay/one-off/simple.
-	 * @used-by pChoosePayment()
-	 * @used-by pIgnorePayment()
+	 * @used-by self::pChoosePayment()
+	 * @used-by self::pIgnorePayment()
 	 * @return bool
 	 */
 	private function isSingleOptionChosen() {return dfc($this, function() {return
@@ -584,8 +579,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 
 	/**
 	 * 2016-08-08
-	 * @used-by pCharge()
-	 * @used-by pChoosePayment()
+	 * @used-by self::pCharge()
+	 * @used-by self::pChoosePayment()
 	 * @return Plan|null
 	 */
 	private function plan() {return $this->m()->plan();}
@@ -610,7 +605,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 
 	/**
 	 * 2017-03-16
-	 * @used-by pCharge()
+	 * @used-by self::pCharge()
 	 * @used-by \Dfe\AllPay\W\Event\Offline::ttCurrent()
 	 * @see https://github.com/mage2pro/allpay/blob/1.10.4/etc/frontend/di.xml#L15
 	 */

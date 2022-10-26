@@ -33,7 +33,7 @@ final class Method extends \Df\PaypalClone\Method {
 
 	/**
 	 * 2017-03-05
-	 * @used-by plan()
+	 * @used-by self::plan()
 	 * @used-by \Dfe\AllPay\Charge::isSingleOptionChosen()
 	 * @used-by \Dfe\AllPay\Charge::pChoosePayment()
 	 * @return string|null
@@ -91,8 +91,8 @@ final class Method extends \Df\PaypalClone\Method {
 
 	/**
 	 * 2016-08-15 https://github.com/mage2pro/core/blob/2.12.17/Payment/view/frontend/web/withOptions.js#L56-L72
-	 * @used-by iiaKeys()
-	 * @used-by plan()
+	 * @used-by self::iiaKeys()
+	 * @used-by self::plan()
 	 */
 	private static $II_OPTION = 'option';
 }

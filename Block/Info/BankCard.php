@@ -88,7 +88,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * 2016-07-28
 	 * https://support.veritrans.co.id/hc/en-us/articles/204161150-What-is-ECI-on-3D-Secure-
 	 * https://www.paydollar.com/b2c2/eng/merchant/help/f_onlinehelp_eci.htm
-	 * @used-by custom()
+	 * @used-by self::custom()
 	 * @return string|null
 	 */
 	private function eci() {/** @var string|null $eci */return is_null($eci = $this->e('eci')) ? null :

@@ -24,32 +24,34 @@ final class Entity extends \Df\Config\ArrayItem {
 
 	/**
 	 * 2016-07-31
+	 * 2022-10-23
+	 * (string) is the same as @see strval():
+	 * https://www.php.net/manual/en/language.types.string.php#language.types.string.casting
+	 * https://stackoverflow.com/a/7372007
 	 * @override
 	 * @see \Df\Config\ArrayItem::id()
 	 * @used-by \Df\Config\A::get()
-	 * @return int
 	 */
-	function id() {return $this->numPayments();}
+	function id():string {return (string)$this->numPayments();}
 
 	/**
 	 * 2016-08-08
-	 * @used-by id()
+	 * @used-by self::id()
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::getId()
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::sortWeight()
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::validate()
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
 	 * @return int
 	 */
-	function numPayments() {return $this->nat();}
+	function numPayments():int {return $this->nat();}
 
 	/**
 	 * 2016-08-07
 	 * @override
 	 * @see \Df\Config\ArrayItem::sortWeight()
 	 * @used-by \Df\Config\Backend\ArrayT::processI()
-	 * @return int
 	 */
-	function sortWeight() {return $this->numPayments();}
+	function sortWeight():int {return $this->numPayments();}
 
 	/**
 	 * 2016-08-02
@@ -58,26 +60,23 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Df\Config\Backend\Serialized::validate()
 	 * @throws DFE
 	 */
-	function validate() {df_assert($this->numPayments());}
+	function validate():void {df_assert($this->numPayments());}
 
 	/**
 	 * 2016-08-08
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amountTWD()
 	 * @param string|null $currencyCode [optional]
-	 * @return float
 	 */
-	private function fee($currencyCode = null) {
-		/** @var float $result */
-		$result = $this->f();
-		return !$currencyCode ? $result : df_currency_convert($result, null, $currencyCode);
+	private function fee($currencyCode = null):float {
+		$r = $this->f(); /** @var float $r */
+		return !$currencyCode ? $r : df_currency_convert($r, null, $currencyCode);
 	}
 
 	/**
 	 * 2016-08-08
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amountTWD()
-	 * @return float
 	 */
-	private function rate() {return $this->f();}
+	private function rate():float {return $this->f();}
 
 	/** 2018-04-19 @used-by \Dfe\AllPay\InstallmentSales\Plan\FE::onFormInitialized() */
 	const fee = 'fee';

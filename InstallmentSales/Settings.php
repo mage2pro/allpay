@@ -20,7 +20,6 @@ final class Settings extends \Df\Config\Settings {
 	 * @override
 	 * @see \Df\Config\Settings::prefix()
 	 * @used-by \Df\Config\Settings::v()
-	 * @return string
 	 */
-	protected function prefix() {return 'df_payment/all_pay/installment_sales';}
+	protected function prefix():string {return 'df_payment/all_pay/installment_sales';}
 }
