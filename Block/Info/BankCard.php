@@ -88,9 +88,8 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * https://support.veritrans.co.id/hc/en-us/articles/204161150-What-is-ECI-on-3D-Secure-
 	 * https://www.paydollar.com/b2c2/eng/merchant/help/f_onlinehelp_eci.htm
 	 * @used-by self::custom()
-	 * @return string|null
 	 */
-	private function eci() {/** @var string|null $eci */return is_null($eci = $this->e('eci')) ? null :
+	private function eci():string {/** @var string|null $eci */return is_null($eci = $this->e('eci')) ? '' :
 		df_desc("0{$eci}", dfa([
 			0 => 'Card holder and issuing bank not registered as a 3D Secure'
 			,1 => 'One of card holder or issuing bank not registered as a 3D Secure'
