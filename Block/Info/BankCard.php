@@ -47,7 +47,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @see \Dfe\AllPay\Block\Info::prepareDic()
 	 * @used-by \Df\Payment\Block\Info::getSpecificInformation()
 	 */
-	final protected function prepareDic() {
+	final protected function prepareDic():void {
 		parent::prepareDic();
 		/** @var Event $e */ /** @var int $n */
 		if (($e = $this->e()) && ($n = $e->numPayments())) {
@@ -68,7 +68,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @see \Df\Payment\Block\Info::prepareUnconfirmed()
 	 * @used-by \Df\Payment\Block\Info::prepareToRendering()
 	 */
-	final protected function prepareUnconfirmed() {
+	final protected function prepareUnconfirmed():void {
 		if (/** @var Plan $p*/$p = $this->m()->plan()) {
 			$this->si('Payments', $p->numPayments());
 		}

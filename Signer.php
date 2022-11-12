@@ -7,10 +7,9 @@ final class Signer extends \Df\PaypalClone\Signer {
 	 * 2016-07-10
 	 * @override
 	 * @see \Df\PaypalClone\Signer::sign()   
-	 * @used-by \Df\PaypalClone\Signer::_sign() 
-	 * @return string
+	 * @used-by \Df\PaypalClone\Signer::_sign()
 	 */
-	protected function sign() {
+	protected function sign():string {
 		$p = $this->v(); /** @var array(string => mixed) $p */
 		unset($p['CheckMacValue']); # 2016-07-11
 		/**

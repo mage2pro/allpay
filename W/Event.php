@@ -17,36 +17,32 @@ class Event extends \Df\PaypalClone\W\Event {
 	 * @override
 	 * @see \Df\PaypalClone\W\Event::k_idE()
 	 * @used-by \Df\PaypalClone\W\Event::idE()
-	 * @return string
 	 */
-	final protected function k_idE() {return 'TradeNo';}
+	final protected function k_idE():string {return 'TradeNo';}
 	
 	/**
 	 * 2017-03-16
 	 * @override
 	 * @see \Df\Payment\W\Event::k_pid()
 	 * @used-by \Df\Payment\W\Event::pid()
-	 * @return string
 	 */
-	final protected function k_pid() {return 'MerchantTradeNo';}
+	final protected function k_pid():string {return 'MerchantTradeNo';}
 
 	/**
 	 * 2017-03-18
 	 * @override
 	 * @see \Df\PaypalClone\W\Event::k_signature()
 	 * @used-by \Df\PaypalClone\W\Event::signatureProvided()
-	 * @return string
 	 */
-	final protected function k_signature() {return 'CheckMacValue';}
+	final protected function k_signature():string {return 'CheckMacValue';}
 
 	/**
 	 * 2017-03-18
 	 * @override
 	 * @see \Df\PaypalClone\W\Event::k_status()
 	 * @used-by \Df\PaypalClone\W\Event::status()
-	 * @return string
 	 */
-	final protected function k_status() {return 'RtnCode';}
+	final protected function k_status():string {return 'RtnCode';}
 
 	/**
 	 * 2016-08-27 «Value 1 means a payment is paid successfully. The other means failure.»
@@ -55,9 +51,8 @@ class Event extends \Df\PaypalClone\W\Event {
 	 * @see \Df\PaypalClone\W\Event::statusExpected()
 	 * @used-by \Df\PaypalClone\W\Event::isSuccessful() 
 	 * @see \Dfe\AllPay\W\Event\Offline::statusExpected()
-	 * @return int
 	 */
-	protected function statusExpected() {return 1;}
+	protected function statusExpected():int {return 1;}
 
 	/**
 	 * 2017-03-10
@@ -65,9 +60,8 @@ class Event extends \Df\PaypalClone\W\Event {
 	 * @see \Df\Payment\W\Event::tl_()
 	 * @used-by \Df\Payment\W\Event::tl()
 	 * @param string $t
-	 * @return string
 	 */
-	final protected function tl_($t) {return
+	final protected function tl_($t):string {return
 		/** @var string[] $a */ /** @var string|null $l */
 		2 > count($a = explode('_', df_param_sne($t, 0))) || !($l = $this->tlByCode($f = $a[0], $a[1]))
 		? $t : (!in_array($f, ['ATM', 'WebATM']) ? __($l) : df_cc_s(__($f), __($l)))
@@ -88,9 +82,8 @@ class Event extends \Df\PaypalClone\W\Event {
 	 * @override
 	 * @see \Df\Payment\W\Event::useRawTypeForLabel()
 	 * @used-by \Df\Payment\W\Event::tl()
-	 * @return bool
 	 */
-	final protected function useRawTypeForLabel() {return true;}
+	final protected function useRawTypeForLabel():bool {return true;}
 
 	/**
 	 * 2016-07-28

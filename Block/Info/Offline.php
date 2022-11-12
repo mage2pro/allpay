@@ -66,5 +66,5 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * @see \Df\Payment\Block\Info::prepareUnconfirmed()
 	 * @used-by \Df\Payment\Block\Info::prepareToRendering()
 	 */
-	final protected function prepareUnconfirmed() {$this->prepare();}
+	final protected function prepareUnconfirmed():void {$this->prepare();}
 }

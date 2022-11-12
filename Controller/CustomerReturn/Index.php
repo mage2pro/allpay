@@ -8,7 +8,6 @@ class Index extends \Df\Payment\CustomerReturn {
 	 * @override
 	 * @see \Df\Payment\CustomerReturn::message()
 	 * @used-by \Df\Payment\CustomerReturn::execute()
-	 * @return string
 	 */
-	final protected function message() {return df_request('RtnMsg');}
+	final protected function message():string {return df_request('RtnMsg');}
 }

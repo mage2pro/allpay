@@ -11,5 +11,5 @@ final class Url extends \Df\Payment\Url {
 	 * @used-by \Df\Payment\Url::url()
 	 * @return string[]
 	 */
-	protected function stageNames() {return ['-stage', ''];}
+	protected function stageNames():array {return ['-stage', ''];}
 }

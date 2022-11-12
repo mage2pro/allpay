@@ -31,11 +31,9 @@ class Info extends \Df\Payment\Block\Info {
 	 * @used-by \Df\Payment\Block\Info::prepareToRendering()
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::prepareUnconfirmed()
 	 */
-	final protected function prepare() {
+	final protected function prepare():void {
 		$this->si($this->custom());
-		$this->siEx([
-			'allPay Payment ID' => $this->e()->idE(), 'Magento Payment ID' => $this->e('MerchantTradeNo')
-		]);
+		$this->siEx(['allPay Payment ID' => $this->e()->idE(), 'Magento Payment ID' => $this->e('MerchantTradeNo')]);
 	}
 
 	/**
@@ -45,5 +43,5 @@ class Info extends \Df\Payment\Block\Info {
 	 * @used-by \Df\Payment\Block\Info::getSpecificInformation()
 	 * @see \Dfe\AllPay\Block\Info\BankCard::prepareDic()
 	 */
-	protected function prepareDic() {$this->dic()->add('Payment Option', $this->choiceT(), -10);}
+	protected function prepareDic():void {$this->dic()->add('Payment Option', $this->choiceT(), -10);}
 }

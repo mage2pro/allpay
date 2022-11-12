@@ -27,9 +27,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @override
 	 * @see \Df\PaypalClone\Charge::k_Amount()
 	 * @used-by \Df\PaypalClone\Charge::p()
-	 * @return string
 	 */
-	protected function k_Amount() {return 'TotalAmount';}
+	protected function k_Amount():string {return 'TotalAmount';}
 	
 	/**
 	 * 2017-08-19
@@ -37,18 +36,16 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @override
 	 * @see \Df\PaypalClone\Charge::k_MerchantId()
 	 * @used-by \Df\PaypalClone\Charge::p()
-	 * @return string
 	 */
-	protected function k_MerchantId() {return 'MerchantID';}
+	protected function k_MerchantId():string {return 'MerchantID';}
 
 	/**
 	 * 2016-08-29
 	 * @override
 	 * @see \Df\PaypalClone\Charge::k_RequestId()
 	 * @used-by \Df\PaypalClone\Charge::p()
-	 * @return string
 	 */
-	protected function k_RequestId() {return 'MerchantTradeNo';}
+	protected function k_RequestId():string {return 'MerchantTradeNo';}
 
 	/**
 	 * 2016-08-27
@@ -66,7 +63,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @used-by \Df\PaypalClone\Charge::p()
 	 * @return array(string => mixed)
 	 */
-	protected function pCharge() {return $this->descriptionOnKiosk() + [
+	protected function pCharge():array {return $this->descriptionOnKiosk() + [
 		/**
 		 * 2016-07-02
 		 * «Select default payment type».
@@ -551,8 +548,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @return string
 	 */
 	private function pChoosePayment() {return dfc($this, function() {
-		/** @var O $o */
-		$o = $this->s()->options();
+		$o = $this->s()->options(); /** @var O $o */
 		return $this->plan() ? Option::BANK_CARD : ($this->m()->option() ?: (
 			!$o->isLimited() || !$this->isSingleOptionChosen() ? 'ALL' : df_first($o->allowed())
 		));

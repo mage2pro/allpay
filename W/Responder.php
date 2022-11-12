@@ -9,9 +9,8 @@ final class Responder extends \Df\Payment\W\Responder {
 	 * @see \Df\Payment\W\Responder::error()
 	 * @used-by \Df\Payment\W\Responder::setError()
 	 * @param \Exception|string $e
-	 * @return Text
 	 */
-	protected function error($e) {return Text::i('0|' . df_lets($e));}
+	protected function error($e):Text {return Text::i('0|' . df_lxts($e));}
 
 	/**
 	 * 2017-01-04
@@ -19,9 +18,8 @@ final class Responder extends \Df\Payment\W\Responder {
 	 * @see \Df\Payment\W\Responder::notForUs()
 	 * @used-by \Df\Payment\W\Responder::setNotForUs()
 	 * @param string|null $message [optional]
-	 * @return Text
 	 */
-	protected function notForUs($message = null) {return $this->success();}
+	protected function notForUs($message = null):Text {return $this->success();}
 
 	/**
 	 * 2017-09-13
@@ -29,7 +27,6 @@ final class Responder extends \Df\Payment\W\Responder {
 	 * @see \Df\Payment\W\Responder::success()
 	 * @used-by self::notForUs()
 	 * @used-by \Df\Payment\W\Responder::get()
-	 * @return Text
 	 */
-	protected function success() {return Text::i('1|OK');}
+	protected function success():Text {return Text::i('1|OK');}
 }

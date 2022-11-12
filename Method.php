@@ -25,9 +25,8 @@ final class Method extends \Df\PaypalClone\Method {
 	 *			return $block;
 	 *		}
 	 * https://github.com/magento/magento2/blob/2.2.0-RC1.6/app/code/Magento/Payment/Helper/Data.php#L182-L196
-	 * @return string
 	 */
-	function getInfoBlockType() {/** @var Event $ev */ return df_cc_class(
+	function getInfoBlockType():string {/** @var Event $ev */ return df_cc_class(
 		df_cts(Info::class), ($ev = df_tmf($this)) ? $ev->t() : null
 	);}
 
@@ -57,9 +56,8 @@ final class Method extends \Df\PaypalClone\Method {
 	 * @see \Df\Payment\Method::amountFactor()
 	 * @used-by \Df\Payment\Method::amountFormat()
 	 * @used-by \Df\Payment\Method::amountParse()
-	 * @return int
 	 */
-	protected function amountFactor() {return 1;}
+	protected function amountFactor():int {return 1;}
 
 	/**
 	 * 2017-02-08
@@ -80,7 +78,7 @@ final class Method extends \Df\PaypalClone\Method {
 	 * @used-by \Df\Payment\Method::assignData()
 	 * @return string[]
 	 */
-	protected function iiaKeys() {return [self::$II_OPTION];}
+	protected function iiaKeys():array {return [self::$II_OPTION];}
 
 	/**
 	 * 2016-07-20
