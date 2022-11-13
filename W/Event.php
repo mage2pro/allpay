@@ -71,11 +71,9 @@ class Event extends \Df\PaypalClone\W\Event {
 	 * 2016-08-09
 	 * @used-by self::tl_()
 	 * @see \Dfe\AllPay\W\Event\BankCard::tlByCode()
-	 * @param string $f
-	 * @param string $l
 	 * @return string|null
 	 */
-	protected function tlByCode($f, $l) {return dfa_deep(df_module_json($this, 'labels'), [$f, $l]);}
+	protected function tlByCode(string $f, string $l) {return dfa_deep(df_module_json($this, 'labels'), [$f, $l]);}
 
 	/**
 	 * 2017-03-13

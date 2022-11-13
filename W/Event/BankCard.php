@@ -25,10 +25,8 @@ final class BankCard extends \Dfe\AllPay\W\Event {
 	 * @override
 	 * @see \Dfe\AllPay\W\Event::tlByCode()
 	 * @used-by \Dfe\AllPay\W\Event::tl_()
-	 * @param string $f
-	 * @param string $l
 	 */
-	protected function tlByCode($f, $l):string {return df_cc_s(
+	protected function tlByCode(string $f, string $l):string {return df_cc_s(
 		parent::tlByCode(df_assert_eq(Option::BANK_CARD, $f), $l)
 		,!$this->numPayments() ? '' : '(Installments)'
 	);}
