@@ -9,6 +9,7 @@ use Dfe\AllPay\Source\Option as OptionSource;
 final class Settings extends \Df\Payment\Settings {
 	/**
 	 * 2016-07-01 «Description on a kiosk's screen»
+	 * @used-by \Dfe\AllPay\Charge::descriptionOnKiosk()
 	 */
 	function descriptionOnKiosk():string {return $this->v();}
 
