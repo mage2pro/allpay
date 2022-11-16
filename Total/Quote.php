@@ -96,11 +96,8 @@ class Quote extends AbstractTotal {
 	 * 2016-08-13
 	 * @override
 	 * @see \Magento\Quote\Model\Quote\Address\Total\AbstractTotal::fetch()
-	 * @param Q $quote
-	 * @param Total $total
-	 * @return array
 	 */
-	function fetch(Q $quote, Total $total) {return [];}
+	function fetch(Q $quote, Total $total):array {return [];}
 
 	/**
 	 * 2016-08-14
