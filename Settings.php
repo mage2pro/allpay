@@ -20,8 +20,10 @@ final class Settings extends \Df\Payment\Settings {
 	function hashIV():string {return $this->testablePV();}
 
 	/**
-	 * 2016-06-29 «LL IN ONE 介接 HashKey»
-	 * Note that we encrypt the live keys, but do not encrypt the test keys.
+	 * 2016-06-29
+	 * 1) «LL IN ONE 介接 HashKey»
+	 * 2) We encrypt live keys, but do not encrypt test keys.
+	 * @used-by \Dfe\AllPay\Signer::sign()
 	 */
 	function hashKey():string {return $this->testablePV();}
 
