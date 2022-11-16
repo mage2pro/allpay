@@ -39,7 +39,6 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::sortWeight()
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::validate()
 	 * @used-by \Dfe\AllPay\Charge::_requestI()
-	 * @return int
 	 */
 	function numPayments():int {return $this->nat();}
 
