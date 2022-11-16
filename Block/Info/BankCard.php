@@ -15,7 +15,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @used-by \Dfe\AllPay\Block\Info::prepare()
 	 * @return array(string => string)
 	 */
-	final protected function custom() {
+	final protected function custom():array {
 		$result = []; /** @var array(strig => string) $result */
 		$result['Card Number'] = df_ccc('******', $this->e('card6no', 'card4no'));
 		if ($ex = $this->extended()) {  /** @var bool $ex */
