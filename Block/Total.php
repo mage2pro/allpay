@@ -24,7 +24,7 @@ class Total extends \Df\Sales\Block\Order\Total {
 	 *		}
 	 * https://github.com/magento/magento2/blob/2.2.0-RC1.8/app/code/Magento/Sales/Block/Order/Totals.php#L51-L65
 	 */
-	function initTotals() {
+	function initTotals():void {
 		list($v, $b) = TQuote::iiGet($this->op()); /** @var float|null $v */ /** @var float|null $b */
 		if ($v) {
 			$this->addBefore('dfe_allpay', 'Installment Fee', $v, $b, 'grand_total');
