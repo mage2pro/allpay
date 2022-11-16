@@ -523,9 +523,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * Значение «undefined» задано в шаблоне Dfe_AllPay/one-off/simple.
 	 * @used-by self::pChoosePayment()
 	 * @used-by self::pIgnorePayment()
-	 * @return bool
 	 */
-	private function isSingleOptionChosen() {return dfc($this, function() {return
+	private function isSingleOptionChosen():bool {return dfc($this, function() {return
 		$this->m()->option() || 1 === count($this->s()->options()->allowed())
 	;});}
 
