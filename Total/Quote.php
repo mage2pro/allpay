@@ -9,7 +9,7 @@ use Magento\Quote\Api\Data\ShippingAssignmentInterface as IShippingAssignment;
 use Magento\Quote\Model\Quote as Q;
 use Magento\Quote\Model\Quote\Address\Total;
 use Magento\Quote\Model\Quote\Address\Total\AbstractTotal;
-use Magento\Quote\Model\Quote\Address\Total\CollectorInterface;
+use Magento\Quote\Model\Quote\Address\Total\CollectorInterface as ICollector;
 use Magento\Quote\Model\Quote\Payment as QP;
 use Magento\Quote\Model\ShippingAssignment;
 use Magento\Sales\Model\Order\Payment as OP;
@@ -46,13 +46,9 @@ class Quote extends AbstractTotal {
 	 * https://github.com/magento/magento2/blob/200880/app/code/Magento/Quote/Model/Quote/TotalsCollector.php#L263-L266
 	 * How does \Magento\Quote\Model\Quote\TotalsCollector::collectAddressTotals() work?
 	 * https://mage2.pro/t/1950
-	 *
-	 * @param Q $quote
 	 * @param IShippingAssignment|ShippingAssignment $shippingAssignment
-	 * @param Total $total
-	 * @return CollectorInterface
 	 */
-	function collect(Q $quote, IShippingAssignment $shippingAssignment, Total $total) {
+	function collect(Q $quote, IShippingAssignment $shippingAssignment, Total $total):ICollector {
 		/**
 		 * 2016-08-15
 		 * Что интересно, при первых вызовах $payment->getMethod() возвращает null:
