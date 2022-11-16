@@ -26,9 +26,8 @@ final class Reader extends \Df\Payment\W\Reader {
 	 * @override
 	 * @see \Df\Payment\W\Reader::te2i()
 	 * @used-by \Df\Payment\W\Reader::t()
-	 * @param string $t
 	 */
-	protected function te2i($t):string {return dftr(df_first(explode('_', $t)), [
+	protected function te2i(string $t):string {return dftr(df_first(explode('_', $t)), [
 		Option::BANK_CARD => self::BANK_CARD, Option::BARCODE => 'Barcode'
 	]);}
 
