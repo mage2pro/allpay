@@ -544,9 +544,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 *
 	 * Поэтому, если администратор магазина выбрал только один способ оплаты,
 	 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
-	 * @return string
 	 */
-	private function pChoosePayment() {return dfc($this, function() {
+	private function pChoosePayment():string {return dfc($this, function() {
 		$o = $this->s()->options(); /** @var O $o */
 		return $this->plan() ? Option::BANK_CARD : ($this->m()->option() ?: (
 			!$o->isLimited() || !$this->isSingleOptionChosen() ? 'ALL' : df_first($o->allowed())
