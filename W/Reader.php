@@ -10,9 +10,8 @@ final class Reader extends \Df\Payment\W\Reader {
 	 * because the method is used by the factory (@see \Dfe\AllPay\W\F) to choose a concrete event class.
 	 * @used-by \Dfe\AllPay\W\F::sufEvent()
 	 * @used-by \Dfe\AllPay\W\F::sufNav()
-	 * @return bool
 	 */
-	function isOffline() {return !in_array($this->t(), [self::BANK_CARD, Option::WEB_ATM]);}
+	function isOffline():bool {return !in_array($this->t(), [self::BANK_CARD, Option::WEB_ATM]);}
 
 	/**
 	 * 2017-03-10
