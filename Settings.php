@@ -35,14 +35,12 @@ final class Settings extends \Df\Payment\Settings {
 	/**
 	 * 2017-03-03
 	 * @used-by \Dfe\AllPay\ConfigProvider::config()
-	 * @return O
 	 */
-	function options() {return $this->_options(OptionSource::class);}
+	function options():O {return $this->_options(OptionSource::class);}
 
 	/**
 	 * 2016-07-19 «Wait period for an ATM payment»
 	 * @used-by \Dfe\AllPay\Charge::pCharge()
-	 * @return int
 	 */
-	function waitPeriodATM() {return WaitPeriodType::calculate($this);}
+	function waitPeriodATM():int {return WaitPeriodType::calculate($this);}
 }
