@@ -12,10 +12,8 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	/**
 	 * 2016-07-25
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
-	 * @param Event $f
-	 * @return string
 	 */
-	abstract protected function paymentId(Event $f);
+	abstract protected function paymentId(Event $f):string;
 
 	/**
 	 * 2016-07-25
