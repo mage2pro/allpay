@@ -591,9 +591,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * «After further confirmation with AllPay,
 	 * so far the parameter is not really used in any scenario.».
 	 * Could be empty.
-	 * @return string
 	 */
-	private function productUrls() {return df_ccc('+', $this->oiLeafs(function(OI $i) {return df_oqi_url($i);}));}
+	private function productUrls():string {return df_ccc('+', $this->oiLeafs(function(OI $i) {return df_oqi_url($i);}));}
 
 	/**
 	 * 2017-03-16
