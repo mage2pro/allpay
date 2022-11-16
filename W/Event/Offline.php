@@ -8,9 +8,8 @@ final class Offline extends \Dfe\AllPay\W\Event {
 	/**
 	 * 2016-07-19
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
-	 * @return string
 	 */
-	function expirationS() {return dfc($this, function() {
+	function expirationS():string {return dfc($this, function() {
 		/** @var ZD $exp */ /** @var string $r */
 		$r = df_dts($exp = new ZD($this->r('ExpireDate'), 'y/MM/dd'), ZD::DATE_LONG);
 		/** @var int $d */ /** @var string $note */
