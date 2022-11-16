@@ -497,7 +497,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @used-by self::pCharge()
 	 * @return array(string => string)
 	 */
-	private function descriptionOnKiosk() {
+	private function descriptionOnKiosk():array {
 		$lines = df_explode_n($this->text($this->s()->descriptionOnKiosk())); /** @var string[] $lines */
 		$n = 1; /** @var int $n */
 		$r = []; /** @var array(string => string) $r */
