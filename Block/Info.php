@@ -22,7 +22,7 @@ class Info extends \Df\Payment\Block\Info {
 	 * @see \Dfe\AllPay\Block\Info\Offline::custom()
 	 * @return array(string => string)
 	 */
-	protected function custom() {return [];}
+	protected function custom():array {return [];}
 
 	/**
 	 * 2016-07-13
