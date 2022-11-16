@@ -31,7 +31,7 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * @used-by \Df\Payment\Block\Info::prepareToRendering()
 	 * @return array(string => string)
 	 */
-	final protected function custom() {
+	final protected function custom():array {
 		/** @var bool $ex */
 		$ex = $this->extended();
 		/** @var Event $f */
