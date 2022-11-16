@@ -69,10 +69,8 @@ final class Signer extends \Df\PaypalClone\Signer {
 	 * 2016-07-04
 	 * Сделал по аналогии с https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L3-L10
 	 * @used-by self::sign()
-	 * @param string $s
-	 * @return string
 	 */
-	private function encodeSpecialChars($s) {return strtr($s, [
+	private function encodeSpecialChars(string $s):string {return strtr($s, [
 		'%2d' => '-', '%5f' => '_', '%2e' => '.', '%21' => '!', '%2a' => '*', '%28' => '(', '%29'	=> ')'
 	]);}
 }
