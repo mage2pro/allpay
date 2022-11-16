@@ -17,7 +17,6 @@ class CVS extends Offline {
 	 * @override
 	 * @see \Dfe\AllPay\Block\Info\Offline::paymentIdLabel()
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
-	 * @return string
 	 */
-	final protected function paymentIdLabel() {return 'Payment Number';}
+	final protected function paymentIdLabel():string {return 'Payment Number';}
 }

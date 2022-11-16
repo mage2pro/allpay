@@ -21,9 +21,11 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	/**
 	 * 2016-07-25
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
-	 * @return string
+	 * @see \Dfe\AllPay\Block\Info\ATM::paymentIdLabel()
+	 * @see \Dfe\AllPay\Block\Info\Barcode::paymentIdLabel()
+	 * @see \Dfe\AllPay\Block\Info\CVS::paymentIdLabel()
 	 */
-	abstract protected function paymentIdLabel();
+	abstract protected function paymentIdLabel():string;
 
 	/**
 	 * 2016-07-25
