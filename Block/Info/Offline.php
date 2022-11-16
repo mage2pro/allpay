@@ -35,13 +35,9 @@ abstract class Offline extends \Dfe\AllPay\Block\Info {
 	 * @return array(string => string)
 	 */
 	final protected function custom():array {
-		/** @var bool $ex */
-		$ex = $this->extended();
-		/** @var Event $f */
-		/** @var Event $l */
-		/** @var bool $paid */
-		/** @var array(strig => string) $result */
-		$result = [];
+		$ex = $this->extended(); /** @var bool $ex */
+		$result = []; /** @var array(strig => string) $result */
+		/** @var Event $f */ /** @var Event $l */ /** @var bool $paid */
 		if (!($paid = ($f = $this->e()) != ($l = $this->tm()->responseL())) || $ex) {
 			$result[$this->paymentIdLabel()] = $this->paymentId($f);
 		}
