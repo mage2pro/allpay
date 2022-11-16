@@ -9,10 +9,8 @@ class CVS extends Offline {
 	 * @override
 	 * @see \Dfe\AllPay\Block\Info\Offline::paymentId()
 	 * @used-by \Dfe\AllPay\Block\Info\Offline::custom()
-	 * @param Event $f
-	 * @return string
 	 */
-	final protected function paymentId(Event $f) {return $f->r('PaymentNo');}
+	final protected function paymentId(Event $f):string {return $f->r('PaymentNo');}
 
 	/**
 	 * 2016-07-25
