@@ -561,9 +561,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 *
 	 * Поэтому, если администратор магазина выбрал только один способ оплаты,
 	 * то реализуем ограничение посредством «ChoosePayment», а не посредством «IgnorePayment».
-	 * @return string
 	 */
-	private function pIgnorePayment() {/** @var O $o */ $o = $this->s()->options(); return df_ccc('#',
+	private function pIgnorePayment():string {/** @var O $o */ $o = $this->s()->options(); return df_ccc('#',
 		# 2016-08-17
 		# https://code.dmitry-fedyuk.com/m2e/allpay/issues/14
 		array_merge(['ALL' === $this->pChoosePayment() ? 'Alipay' : null],
