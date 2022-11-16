@@ -102,11 +102,8 @@ class Quote extends AbstractTotal {
 	/**
 	 * 2016-08-14
 	 * @used-by self::collect()
-	 * @param QP $payment
-	 * @param float $fee
-	 * @param float $feeBase
 	 */
-	private function iiAdd(QP $payment, $fee, $feeBase) {
+	private function iiAdd(QP $payment, float $fee, float $feeBase):void {
 		/** @var int $id */
 		# 2016-08-15
 		# Адрес уже сохранён в БД и имеет идентификатор даже для анонимного покупателя:
