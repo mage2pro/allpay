@@ -123,10 +123,8 @@ class Quote extends AbstractTotal {
 	static function iiGet(IPayment $payment) {
 		/** @var array(int => array(string => float)) $values */
 		$values = df_eta($payment->getAdditionalInformation(self::$II_KEY));
-		/** @var float $fee */
-		$fee = 0;
-		/** @var float $fee */
-		$feeBase = 0;
+		$fee = 0; /** @var float $fee */
+		$feeBase = 0; /** @var float $feeBase */
 		foreach ($values as $valuesForAddress) {
 			/** @var array(string => float) $valuesForAddress */
 			$fee += $valuesForAddress[self::$II_FEE];
