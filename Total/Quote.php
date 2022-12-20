@@ -115,8 +115,7 @@ class Quote extends AbstractTotal {
 	}
 
 	/**
-	 * 2016-08-14
-	 * Этот метод удобно вызывать с оператором list: https://3v4l.org/ofTeZ
+	 * 2016-08-14 Этот метод удобно вызывать с оператором list: https://3v4l.org/ofTeZ
 	 * @used-by self::iiAdd()
 	 * @param IPayment|QP|OP $payment
 	 * @return null|float[]
