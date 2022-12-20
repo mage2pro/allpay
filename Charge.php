@@ -52,9 +52,8 @@ final class Charge extends \Df\PaypalClone\Charge {
 	 * @override
 	 * @see \Df\PaypalClone\Charge::k_Signature()
 	 * @used-by \Df\PaypalClone\Charge::p()
-	 * @return string
 	 */
-	protected function k_Signature() {return 'CheckMacValue';}
+	protected function k_Signature():string {return 'CheckMacValue';}
 
 	/**
 	 * 2016-07-04
@@ -281,8 +280,7 @@ final class Charge extends \Df\PaypalClone\Charge {
 		 *
 		 * 2016-09-06
 		 * Значение тут всегда в TWD,
-		 * потому что для модуля AllPay платёжная валюта зашита в etc/config.xml,
-		 * и администратор не модет её изменить.
+		 * потому что для модуля AllPay платёжная валюта зашита в etc/config.xml, и администратор не модет её изменить.
 		 */
 		,'InstallmentAmount' => !$this->plan() ? 0 : $this->amountF()
 		# 2016-07-04

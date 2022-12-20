@@ -52,7 +52,7 @@ class Event extends \Df\PaypalClone\W\Event {
 	 * @used-by \Df\PaypalClone\W\Event::isSuccessful() 
 	 * @see \Dfe\AllPay\W\Event\Offline::statusExpected()
 	 */
-	protected function statusExpected():int {return 1;}
+	protected function statusExpected():string {return '1';}
 
 	/**
 	 * 2017-03-10

@@ -27,7 +27,7 @@ final class Method extends \Df\PaypalClone\Method {
 	 * https://github.com/magento/magento2/blob/2.2.0-RC1.6/app/code/Magento/Payment/Helper/Data.php#L182-L196
 	 */
 	function getInfoBlockType():string {/** @var Event $ev */ return df_cc_class(
-		df_cts(Info::class), ($ev = df_tmf($this)) ? $ev->t() : null
+		df_cts(Info::class), ($ev = df_tmf($this)) ? $ev->t() : ''
 	);}
 
 	/**

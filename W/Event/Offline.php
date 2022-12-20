@@ -45,9 +45,7 @@ final class Offline extends \Dfe\AllPay\W\Event {
 	 * @see \Dfe\AllPay\W\Event::statusExpected()
 	 * @used-by \Df\PaypalClone\W\Event::isSuccessful()
 	 */
-	protected function statusExpected():int {return
-		(self::T_CAPTURE === $this->ttCurrent()) ? parent::statusExpected() : (
-			Option::ATM === $this->t() ? 2 : 10100073
-		)
+	protected function statusExpected():string {return
+		self::T_CAPTURE === $this->ttCurrent() ? parent::statusExpected() : (Option::ATM === $this->t() ? '2' : '10100073')
 	;}
 }
