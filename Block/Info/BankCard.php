@@ -25,14 +25,11 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 		if ($ex) {$result += [
 			'Authorization Time' => $this->e()->authTime()
 			# 2016-07-29
-			# [allPay] What does mean the «gwsr» response parameter?
-			# https://mage2.pro/t/1904
-			//
-			# [allPay] How to locate a bank card transaction in the «Merchant Back End Platform»
+			# 1) [allPay] What does mean the «gwsr» response parameter? https://mage2.pro/t/1904
+			# 2) [allPay] How to locate a bank card transaction in the «Merchant Back End Platform»
 			# using an «allPay Authorization Code» (the «gwsr» response parameter)?
 			# https://mage2.pro/t/1911
-			//
-			# http://creditvendor-stage.allpay.com.tw/DumpAuth/OrderView?TradeID=10547181
+			# 3) http://creditvendor-stage.allpay.com.tw/DumpAuth/OrderView?TradeID=10547181
 			,'allPay Authorization Code' => $this->allpayAuthCode()
 		];}
 		return df_clean($result);
