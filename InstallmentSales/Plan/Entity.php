@@ -12,7 +12,6 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * Если же $a равно 0, то мы не можем использовать наш обычный алгоритм,
 	 * потому что он добавит к 0 фиксированную наценку, а нам же надо просто вернуть 0.
 	 * @used-by \Dfe\AllPay\Total\Quote::collect()
-	 * @param string $cCode
 	 * @return float|int
 	 */
 	function amount(float $a, string $cCode) {return !$a ? 0 : TWD::round(
@@ -62,11 +61,10 @@ final class Entity extends \Df\Config\ArrayItem {
 	/**
 	 * 2016-08-08
 	 * @used-by \Dfe\AllPay\InstallmentSales\Plan\Entity::amountTWD()
-	 * @param string|null $currencyCode [optional]
 	 */
-	private function fee($currencyCode = null):float {
+	private function fee(string $currencyC = ''):float {
 		$r = $this->f(); /** @var float $r */
-		return !$currencyCode ? $r : df_currency_convert($r, null, $currencyCode);
+		return !$currencyC ? $r : df_currency_convert($r, null, $currencyC);
 	}
 
 	/**
