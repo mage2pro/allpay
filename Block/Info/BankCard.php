@@ -16,13 +16,12 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 	 * @return array(string => string)
 	 */
 	final protected function custom():array {
-		$result = []; /** @var array(strig => string) $result */
-		$result['Card Number'] = df_ccc('******', $this->e('card6no', 'card4no'));
+		$r = ['Card Number' => df_ccc('******', $this->e('card6no', 'card4no'))]; /** @var array(strig => string) $r */
 		if ($ex = $this->extended()) {  /** @var bool $ex */
-			$result['ECI'] = $this->eci();
+			$r['ECI'] = $this->eci();
 		}
-		$result['Authorization Code'] = $this->e('auth_code');
-		if ($ex) {$result += [
+		$r['Authorization Code'] = $this->e('auth_code');
+		if ($ex) {$r += [
 			'Authorization Time' => $this->e()->authTime()
 			# 2016-07-29
 			# 1) [allPay] What does mean the «gwsr» response parameter? https://mage2.pro/t/1904
@@ -32,7 +31,7 @@ class BankCard extends \Dfe\AllPay\Block\Info {
 			# 3) http://creditvendor-stage.allpay.com.tw/DumpAuth/OrderView?TradeID=10547181
 			,'allPay Authorization Code' => $this->allpayAuthCode()
 		];}
-		return df_clean($result);
+		return df_clean($r);
 	}
 
 	/**
