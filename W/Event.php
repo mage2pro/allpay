@@ -59,9 +59,8 @@ class Event extends \Df\PaypalClone\W\Event {
 	 * @override
 	 * @see \Df\Payment\W\Event::tl_()
 	 * @used-by \Df\Payment\W\Event::tl()
-	 * @param string $t
 	 */
-	final protected function tl_($t):string {return
+	final protected function tl_(string $t):string {return
 		/** @var string[] $a */ /** @var string|null $l */
 		2 > count($a = explode('_', df_param_sne($t, 0))) || !($l = $this->tlByCode($f = $a[0], $a[1]))
 		? $t : (!in_array($f, ['ATM', 'WebATM']) ? __($l) : df_cc_s(__($f), __($l)))
@@ -87,10 +86,9 @@ class Event extends \Df\PaypalClone\W\Event {
 	 * 2016-07-28
 	 * @used-by \Dfe\AllPay\W\Event\BankCard::authTime()
 	 * @used-by \Dfe\AllPay\W\Event\Offline::paidTime()
-	 * @param string|null $timeS
 	 * @return ZD|null
 	 */
-	final protected static function time($timeS) {return dfcf(function($timeS) {return
+	final protected static function time(string $timeS = '') {return dfcf(function(string $timeS) {return
 		!$timeS ? null : df_date_parse($timeS, true, 'y/MM/dd HH:mm:ss', Method::TIMEZONE)
 	;}, [$timeS]);}
 }
