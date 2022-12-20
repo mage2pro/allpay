@@ -11,7 +11,7 @@ final class Choice extends \Df\Payment\Choice {
 	 * @used-by \Df\Payment\Block\Info::choiceT()
 	 * @used-by \Df\Payment\Observer\DataProvider\SearchResult::execute()
 	 */
-	function title():string {return dfc($this, function() {return /** @var Event $ev */
+	function title():string {return dfc($this, function():string {return /** @var Event $ev */
 		($ev = $this->responseF()) ? __($ev->tl()) : (
 			# 2016-08-13
 			# Ситуация, когда покупатель в магазине выбрал оплату в рассрочку,

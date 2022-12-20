@@ -12,23 +12,21 @@ final class Signer extends \Df\PaypalClone\Signer {
 	protected function sign():string {
 		$p = $this->v(); /** @var array(string => mixed) $p */
 		unset($p['CheckMacValue']); # 2016-07-11
-		/**
-		 * 2016-07-04
-		 * Step 1
-		 * «Sort all parameter being sent alphabetically from A to Z
-		 * (if the first letters of some parameter are the same, sort them by the second letter and so on).»
-		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L78
-		 * https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L25-L28
-		 * 2016-07-13
-		 * Раньше тут стояло:
-		 * 		uksort($params, function($a, $b) {return strcasecmp($a, $b);});
-		 * Сегодня заметил, что модуль для Magento 1.x использует более короткую, идентичную по результату реализацию:
-		 * 		ksort($params);
-		 * 2016-07-26
-		 * На самом деле, в нашем случае использовать ksort($params) нельзя,
-		 * потому что эта функция помещает в конец списка ключи, начинающиеся с прописной буквы.
-		 * В модуле для для Magento 1.x это прокатывает, потому что там ключи предварительно приводятся к нижнему регистру.
-		 */
+		# 2016-07-04
+		# Step 1
+		# «Sort all parameter being sent alphabetically from A to Z
+		# (if the first letters of some parameter are the same, sort them by the second letter and so on).»
+		# https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L78
+		# https://github.com/allpay/PHP/blob/953764c/AioExample/Allpay_AIO_CreateOrder.php#L25-L28
+		# 2016-07-13
+		# Раньше тут стояло:
+		# 		uksort($params, function($a, $b) {return strcasecmp($a, $b);});
+		# Сегодня заметил, что модуль для Magento 1.x использует более короткую, идентичную по результату реализацию:
+		# 		ksort($params);
+		# 2016-07-26
+		# На самом деле, в нашем случае использовать ksort($params) нельзя,
+		# потому что эта функция помещает в конец списка ключи, начинающиеся с прописной буквы.
+		# В модуле для для Magento 1.x это прокатывает, потому что там ключи предварительно приводятся к нижнему регистру.
 		uksort($p, function($a, $b) {return strcasecmp($a, $b);});
 		$s = $this->s(); /** @var S $s */
 		# 2016-07-04 Step 2. «Add HashKey at the front of parameter and HashIV at the end of parameter.»
