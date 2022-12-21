@@ -11,7 +11,8 @@ final class F extends \Df\Payment\W\F {
 	 * @see \Dfe\AllPay\W\Event
 	 * @see \Dfe\AllPay\W\Event\BankCard
 	 * @see \Dfe\AllPay\W\Event\Offline
-	 * @param string|null $t
 	 */
-	protected function sufEvent($t):string {return Option::WEB_ATM === $t ? '' : ($this->r()->isOffline() ? 'Offline' : $t);}
+	protected function sufEvent(string $t):string {return
+		Option::WEB_ATM === $t ? '' : ($this->r()->isOffline() ? 'Offline' : $t)
+	;}
 }
