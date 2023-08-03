@@ -5,12 +5,13 @@ use Df\Framework\W\Result\Text;
 final class Responder extends \Df\Payment\W\Responder {
 	/**
 	 * 2017-01-04
+	 * 2023-08-03 "Treat `\Throwable` similar to `\Exception`": https://github.com/mage2pro/core/issues/311
 	 * @override
 	 * @see \Df\Payment\W\Responder::error()
 	 * @used-by \Df\Payment\W\Responder::setError()
-	 * @param \Exception|string $e
+	 * @param \Throwable|string $t
 	 */
-	protected function error($e):Text {return Text::i('0|' . df_lxts($e));}
+	protected function error($t):Text {return Text::i('0|' . df_lxts($t));}
 
 	/**
 	 * 2017-01-04
