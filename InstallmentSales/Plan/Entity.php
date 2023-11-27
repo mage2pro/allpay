@@ -23,7 +23,7 @@ final class Entity extends \Df\Config\ArrayItem {
 	 * 2016-07-31
 	 * 2022-10-23
 	 * (string) is the same as @see strval():
-	 * https://www.php.net/manual/en/language.types.string.php#language.types.string.casting
+	 * https://php.net/manual/en/language.types.string.php#language.types.string.casting
 	 * https://stackoverflow.com/a/7372007
 	 * @override
 	 * @see \Df\Config\ArrayItem::id()
